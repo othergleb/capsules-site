@@ -1,5 +1,6 @@
 import Nav from '@/components/Nav'
 import RegistrationForm from '@/components/RegistrationForm'
+import Image from 'next/image'
 import Link from 'next/link'
 
 export default function Home() {
@@ -8,40 +9,38 @@ export default function Home() {
       <Nav />
 
       {/* ── Hero ──────────────────────────────────────────────── */}
-      <section className="flex flex-col items-center justify-center px-6 pt-32 pb-24 text-center">
+      <section className="flex flex-col px-6 md:px-10 pt-36 pb-24 max-w-6xl mx-auto w-full">
 
-        {/* Animated logo — large, centrepiece */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full max-w-2xl mx-auto"
-        >
-          <source src="/logo-animated-v2.mp4" type="video/mp4" />
-        </video>
+        {/* OTHER logo — large hero version */}
+        <Image
+          src="/logo-other.svg"
+          alt="OTHER"
+          width={280}
+          height={45}
+          priority
+          className="mb-10"
+        />
 
-        {/* Capsule 01 wordmark — outlined red */}
+        {/* Capsule 01 wordmark */}
         <h1
-          className="capsules-wordmark-red mt-6"
-          style={{ fontSize: 'clamp(3.5rem, 13vw, 11rem)' }}
+          className="capsules-wordmark-red"
+          style={{ fontSize: 'clamp(4rem, 14vw, 12rem)' }}
         >
           Capsule 01
         </h1>
 
         {/* Headline */}
         <p
-          className="mt-10 max-w-xl text-2xl font-light leading-snug"
+          className="mt-10 max-w-2xl text-2xl font-light leading-snug"
           style={{ color: 'var(--blue)', letterSpacing: '-0.01em' }}
         >
           480 bottles of pale Moroccan rosé.
-          <br />
           Maximum one bottle per person.
         </p>
 
         {/* Subheading */}
         <div
-          className="mt-8 max-w-lg text-base font-light leading-relaxed text-left"
+          className="mt-8 max-w-xl text-base font-light leading-relaxed"
           style={{ color: 'rgba(0,0,106,0.6)' }}
         >
           <p>
@@ -60,7 +59,7 @@ export default function Home() {
         </div>
 
         {/* Register CTA */}
-        <div id="register" className="mt-12 w-full max-w-md">
+        <div id="register" className="mt-12 w-full max-w-lg">
           <RegistrationForm />
         </div>
 
@@ -70,21 +69,21 @@ export default function Home() {
       <div style={{ borderTop: '1px solid rgba(0,0,106,0.12)' }} />
 
       {/* ── How the ballot works ──────────────────────────────── */}
-      <section className="px-6 py-20 max-w-2xl mx-auto w-full">
+      <section className="px-6 md:px-10 py-20 max-w-6xl mx-auto w-full">
         <p className="text-xs tracking-widest uppercase mb-6" style={{ color: 'var(--red)', letterSpacing: '0.18em' }}>
           The allocation
         </p>
         <h2 className="text-3xl font-bold mb-6" style={{ color: 'var(--blue)' }}>
           Why a ballot?
         </h2>
-        <p className="text-base font-light leading-relaxed" style={{ color: 'rgba(0,0,106,0.65)' }}>
+        <p className="max-w-xl text-base font-light leading-relaxed" style={{ color: 'rgba(0,0,106,0.65)' }}>
           We&apos;re allocating the amphora rosé by ballot to give everyone an equal shot.
           Register above — and if you&apos;re drawn on the 9th of June, you&apos;ll get a checkout
           link and 48 hours to purchase your box.
         </p>
 
         {/* Steps */}
-        <ol className="mt-10 space-y-5">
+        <ol className="mt-10 space-y-5 max-w-lg">
           {[
             ['Register', 'Enter your email above. You get a member number and a personal link.'],
             ['Ballot runs on 9 June', "OTHER draws the allocation. You'll hear by email the same day."],
@@ -111,20 +110,20 @@ export default function Home() {
       <div style={{ borderTop: '1px solid rgba(0,0,106,0.12)' }} />
 
       {/* ── What's in the box ─────────────────────────────────── */}
-      <section className="px-6 py-20 max-w-2xl mx-auto w-full">
+      <section className="px-6 md:px-10 py-20 max-w-6xl mx-auto w-full">
         <p className="text-xs tracking-widest uppercase mb-6" style={{ color: 'var(--red)', letterSpacing: '0.18em' }}>
           What you get
         </p>
         <h2 className="text-3xl font-bold mb-6" style={{ color: 'var(--blue)' }}>
           The box
         </h2>
-        <p className="text-base font-light leading-relaxed" style={{ color: 'rgba(0,0,106,0.65)' }}>
+        <p className="max-w-xl text-base font-light leading-relaxed" style={{ color: 'rgba(0,0,106,0.65)' }}>
           Each box includes a bottle of amphora-aged Grenache, two bottles of Syrah rosé
           from the same vineyard, and a vial of olive oil made from olives grown on the estate.
         </p>
 
         {/* Fact strip */}
-        <div className="mt-10 flex flex-col sm:flex-row gap-6">
+        <div className="mt-10 flex flex-col sm:flex-row gap-6 max-w-lg">
           {[
             ['3 bottles', 'Amphora Grenache · Syrah Rosé × 2'],
             ['+ olive oil', 'Estate-grown, cold-pressed'],
@@ -154,7 +153,7 @@ export default function Home() {
 
       {/* ── Footer ────────────────────────────────────────────── */}
       <footer
-        className="px-6 py-6 text-center text-xs"
+        className="px-6 md:px-10 py-6 text-xs"
         style={{ borderTop: '1px solid rgba(0,0,106,0.12)', color: 'rgba(0,0,106,0.4)' }}
       >
         <p>
