@@ -14,7 +14,7 @@ export default function TheWinePage() {
         <Link
           href="/the-wine/the-fleur"
           className="group p-6 rounded-2xl border transition-colors hover:border-[var(--red)]"
-          style={{ borderColor: 'var(--blue)', borderOpacity: 0.2 }}
+          style={{ borderColor: 'var(--blue)' }}
         >
           <p className="text-xs tracking-widest uppercase opacity-50 mb-2" style={{ letterSpacing: '0.14em' }}>
             Provenance
@@ -28,7 +28,7 @@ export default function TheWinePage() {
         <Link
           href="/the-wine/box-and-price"
           className="group p-6 rounded-2xl border transition-colors hover:border-[var(--red)]"
-          style={{ borderColor: 'var(--blue)', borderOpacity: 0.2 }}
+          style={{ borderColor: 'var(--blue)' }}
         >
           <p className="text-xs tracking-widest uppercase opacity-50 mb-2" style={{ letterSpacing: '0.14em' }}>
             What you get
