@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Vulf Sans ─────────────────────────────────────────────── */
+@font-face {
+  font-family: 'Vulf Sans';
+  src: url('/fonts/Vulf_Sans-Light.woff2') format('woff2'),
+       url('/fonts/Vulf_Sans-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vulf Sans';
+  src: url('/fonts/Vulf_Sans-Light_Italic.woff2') format('woff2'),
+       url('/fonts/Vulf_Sans-Light_Italic.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vulf Sans';
+  src: url('/fonts/Vulf_Sans-Regular.woff2') format('woff2'),
+       url('/fonts/Vulf_Sans-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vulf Sans';
+  src: url('/fonts/Vulf_Sans-Italic.woff2') format('woff2'),
+       url('/fonts/Vulf_Sans-Italic.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vulf Sans';
+  src: url('/fonts/Vulf_Sans-Medium.woff2') format('woff2'),
+       url('/fonts/Vulf_Sans-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vulf Sans';
+  src: url('/fonts/Vulf_Sans-Medium_Italic.woff2') format('woff2'),
+       url('/fonts/Vulf_Sans-Medium_Italic.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vulf Sans';
+  src: url('/fonts/Vulf_Sans-Bold.woff2') format('woff2'),
+       url('/fonts/Vulf_Sans-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vulf Sans';
+  src: url('/fonts/Vulf_Sans-Bold_Italic.woff2') format('woff2'),
+       url('/fonts/Vulf_Sans-Bold_Italic.woff') format('woff');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vulf Sans';
+  src: url('/fonts/Vulf_Sans-Black.woff2') format('woff2'),
+       url('/fonts/Vulf_Sans-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vulf Sans';
+  src: url('/fonts/Vulf_Sans-Black_Italic.woff2') format('woff2'),
+       url('/fonts/Vulf_Sans-Black_Italic.woff') format('woff');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ── Base ───────────────────────────────────────────────────── */
+:root {
+  --red:    #FF3C00;
+  --blue:   #00006A;
+  --cream:  #F8F8F8;
+  --yellow: #EDFF00;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: 'Vulf Sans', sans-serif;
+  background-color: var(--cream);
+  color: var(--blue);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Capsules outlined wordmark ─────────────────────────────── */
+.capsules-wordmark {
+  font-weight: 700;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--blue);
+  text-stroke: 1.5px var(--blue);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* ── Button base ────────────────────────────────────────────── */
+.btn-primary {
+  background-color: var(--red);
+  color: var(--cream);
+  font-family: 'Vulf Sans', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+.btn-primary:hover {
+  opacity: 0.88;
+}
