@@ -1,7 +1,13 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
-export default function Nav() {
+interface NavProps {
+  dark?: boolean
+}
+
+export default function Nav({ dark = false }: NavProps) {
+  const linkColor = dark ? 'var(--cream)' : 'var(--blue)'
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-5 md:px-10">
       {/* OTHER logo — links to otherwine.co.uk */}
@@ -16,7 +22,7 @@ export default function Nav() {
       </a>
 
       {/* Right-side nav */}
-      <div className="flex items-center gap-6 text-sm font-medium tracking-wide" style={{ color: 'var(--blue)' }}>
+      <div className="flex items-center gap-6 text-sm font-medium tracking-wide" style={{ color: linkColor }}>
         <Link href="/the-wine" className="hover:opacity-60 transition-opacity hidden md:block">
           The Wine
         </Link>

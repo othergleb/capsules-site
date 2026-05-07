@@ -4,10 +4,17 @@ import { useState } from 'react'
 
 type State = 'idle' | 'loading' | 'success' | 'error'
 
-export default function RegistrationForm() {
+interface RegistrationFormProps {
+  dark?: boolean
+}
+
+export default function RegistrationForm({ dark = false }: RegistrationFormProps) {
   const [email, setEmail] = useState('')
   const [state, setState] = useState<State>('idle')
   const [errorMsg, setErrorMsg] = useState('')
+
+  const textColor = dark ? 'var(--cream)' : 'var(--blue)'
+  const borderColor = dark ? 'rgba(248,248,248,0.3)' : 'var(--blue)'
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -39,11 +46,11 @@ export default function RegistrationForm() {
   if (state === 'success') {
     return (
       <div className="text-center">
-        <p className="text-lg font-medium" style={{ color: 'var(--blue)' }}>
-          You're on the list.
+        <p className="text-lg font-medium" style={{ color: textColor }}>
+          You&apos;re on the list.
         </p>
-        <p className="mt-2 text-sm opacity-60" style={{ color: 'var(--blue)' }}>
-          Check your inbox — we've sent your member number and a link to your member page.
+        <p className="mt-2 text-sm opacity-60" style={{ color: textColor }}>
+          Check your inbox — we&apos;ve sent your member number and a link to your member page.
         </p>
       </div>
     )
@@ -61,8 +68,8 @@ export default function RegistrationForm() {
           disabled={state === 'loading'}
           className="flex-1 px-5 py-3 rounded-full border text-sm outline-none transition-all"
           style={{
-            borderColor: 'var(--blue)',
-            color: 'var(--blue)',
+            borderColor,
+            color: textColor,
             backgroundColor: 'transparent',
             fontFamily: 'Vulf Sans, sans-serif',
           }}
@@ -72,7 +79,7 @@ export default function RegistrationForm() {
           disabled={state === 'loading'}
           className="btn-primary px-7 py-3 rounded-full text-sm whitespace-nowrap"
         >
-          {state === 'loading' ? 'Registering…' : 'Join the ballot'}
+          {state === 'loading' ? 'Registering…' : 'Register for Capsule 01'}
         </button>
       </div>
 
@@ -82,7 +89,7 @@ export default function RegistrationForm() {
         </p>
       )}
 
-      <p className="mt-4 text-xs text-center opacity-50" style={{ color: 'var(--blue)' }}>
+      <p className="mt-4 text-xs text-center" style={{ color: dark ? 'rgba(248,248,248,0.4)' : 'rgba(0,0,106,0.45)' }}>
         By registering you agree to receive email updates about Capsule 01.
         No spam, ever.
       </p>
