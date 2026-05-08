@@ -1,115 +1,100 @@
 import Nav from '@/components/Nav'
 import RegistrationForm from '@/components/RegistrationForm'
 import CountdownTimer from '@/components/CountdownTimer'
+import BallotModal from '@/components/BallotModal'
 import Link from 'next/link'
 
-const BALLOT_DATE = '2026-06-09T10:00:00'
+const BALLOT_DATE = '2026-06-09T23:59:59'
 
 const STATS = [
-  { label: 'Ballot opens',       value: <CountdownTimer target={BALLOT_DATE} /> },
-  { label: 'Bottles available',  value: '480' },
-  { label: 'Vineyard',           value: 'Meknes, Morocco' },
+  { label: 'Ballot closes',    value: <CountdownTimer target={BALLOT_DATE} /> },
+  { label: 'Bottles',          value: '480' },
+  { label: 'Vineyard',         value: 'Meknes, Morocco' },
 ]
 
 export default function Home() {
   return (
     <div style={{ backgroundColor: 'var(--cream)', color: 'var(--blue)' }}>
 
-      {/* Mobile-only nav */}
-      <div className="lg:hidden">
-        <Nav />
-      </div>
+      {/* ── MENU — fixed top-right, all screen sizes ─────────── */}
+      <Nav />
 
       <div className="lg:flex">
 
-        {/* ── LEFT: fixed sidebar ─────────────────────────────────── */}
+        {/* ── LEFT: fixed sidebar ─────────────────────────────── */}
         <aside
           className="hidden lg:flex flex-col fixed top-0 left-0 h-screen z-20 overflow-y-auto"
           style={{
             width: '33.333vw',
-            padding: '2.5rem 2.5rem',
+            padding: '2.5rem 2rem',
             borderRight: '1px solid rgba(0,0,106,0.1)',
             backgroundColor: 'var(--cream)',
           }}
         >
-          {/* Logo */}
-          <div>
+          {/* Logo — centred, fills sidebar width */}
+          <div className="flex flex-col items-center">
             <video
               autoPlay loop muted playsInline
-              style={{ width: '200px', height: 'auto', display: 'block' }}
+              style={{ width: 'calc(100% - 2rem)', height: 'auto', display: 'block' }}
             >
               <source src="/logo-animated-v3.mp4" type="video/mp4" />
             </video>
-            <div className="mt-1">
-              <span className="capsules-wordmark-red" style={{ fontSize: '2.2rem' }}>
-                Capsule 01
-              </span>
-            </div>
-          </div>
-
-          {/* Stats */}
-          <div className="mt-8" style={{ borderTop: '1px solid rgba(0,0,106,0.1)' }}>
-            {STATS.map(({ label, value }) => (
-              <div
-                key={label}
-                className="flex items-baseline justify-between py-3"
-                style={{ borderBottom: '1px solid rgba(0,0,106,0.1)' }}
-              >
-                <span className="text-xs font-light" style={{ color: 'rgba(0,0,106,0.5)' }}>
-                  {label}
-                </span>
-                <span
-                  className="text-xs font-medium tracking-wider uppercase"
-                  style={{ color: 'var(--blue)', letterSpacing: '0.08em' }}
-                >
-                  {value}
-                </span>
-              </div>
-            ))}
-          </div>
-
-          {/* Registration form */}
-          <div className="mt-6">
-            <RegistrationForm minimal />
-          </div>
-
-          {/* Nav links at bottom */}
-          <div className="mt-auto pt-8 flex flex-col gap-3">
-            {[['The Wine', '/the-wine'], ['How it works', '/how-it-works'], ['FAQ', '/faq']].map(([label, href]) => (
-              <Link
-                key={href}
-                href={href}
-                className="text-xs tracking-widest uppercase hover:opacity-50 transition-opacity"
-                style={{ color: 'rgba(0,0,106,0.4)', letterSpacing: '0.14em' }}
-              >
-                {label}
-              </Link>
-            ))}
-            <a
-              href="https://otherwine.co.uk"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs hover:opacity-50 transition-opacity mt-2"
-              style={{ color: 'rgba(0,0,106,0.3)' }}
+            <span
+              className="capsules-wordmark-red mt-2 text-center"
+              style={{ fontSize: 'clamp(2rem, 3.5vw, 4.5rem)', display: 'block' }}
             >
-              otherwine.co.uk
-            </a>
+              Capsule 01
+            </span>
+          </div>
+
+          {/* Stats + form pushed to bottom */}
+          <div className="mt-auto">
+            {/* Stats */}
+            <div style={{ borderTop: '1px solid rgba(0,0,106,0.1)' }}>
+              {STATS.map(({ label, value }) => (
+                <div
+                  key={label}
+                  className="flex items-baseline justify-between py-3"
+                  style={{ borderBottom: '1px solid rgba(0,0,106,0.1)' }}
+                >
+                  <span className="text-xs font-light" style={{ color: 'rgba(0,0,106,0.5)' }}>
+                    {label}
+                  </span>
+                  <span
+                    className="text-xs font-medium tracking-wider uppercase"
+                    style={{ color: 'var(--blue)', letterSpacing: '0.08em' }}
+                  >
+                    {value}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* Registration + "+" trigger */}
+            <div className="mt-5">
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-xs font-light" style={{ color: 'rgba(0,0,106,0.5)' }}>
+                  Join the ballot
+                </p>
+                <BallotModal />
+              </div>
+              <RegistrationForm minimal />
+            </div>
           </div>
         </aside>
 
-        {/* ── RIGHT: scrollable content ──────────────────────────── */}
+        {/* ── RIGHT: scrollable content ────────────────────────── */}
         <main className="lg:ml-[33.333vw] flex-1">
 
-          {/* Mobile: logo + form above content */}
+          {/* Mobile: full layout stacked */}
           <div className="lg:hidden px-6 pt-28 pb-10">
-            <video autoPlay loop muted playsInline style={{ width: '180px' }}>
-              <source src="/logo-animated-v3.mp4" type="video/mp4" />
-            </video>
-            <div className="mt-1 mb-6">
-              <span className="capsules-wordmark-red" style={{ fontSize: '2rem' }}>Capsule 01</span>
+            <div className="flex flex-col items-center mb-8">
+              <video autoPlay loop muted playsInline style={{ width: '75%' }}>
+                <source src="/logo-animated-v3.mp4" type="video/mp4" />
+              </video>
+              <span className="capsules-wordmark-red mt-2" style={{ fontSize: '2.5rem' }}>Capsule 01</span>
             </div>
-
-            <div className="mb-6" style={{ borderTop: '1px solid rgba(0,0,106,0.1)' }}>
+            <div style={{ borderTop: '1px solid rgba(0,0,106,0.1)' }}>
               {STATS.map(({ label, value }) => (
                 <div key={label} className="flex justify-between py-3" style={{ borderBottom: '1px solid rgba(0,0,106,0.1)' }}>
                   <span className="text-xs" style={{ color: 'rgba(0,0,106,0.5)' }}>{label}</span>
@@ -117,7 +102,7 @@ export default function Home() {
                 </div>
               ))}
             </div>
-            <RegistrationForm minimal />
+            <div className="mt-6"><RegistrationForm minimal /></div>
           </div>
 
           {/* ── Section 1: Hook — video background ──────────────── */}
@@ -125,17 +110,16 @@ export default function Home() {
             className="relative flex items-end min-h-screen px-10 py-16"
             style={{ backgroundColor: '#1a1208' }}
           >
-            {/* Placeholder: replace with <video> of vineyard footage */}
             <div
-              className="absolute inset-0 flex items-center justify-center"
-              style={{ background: 'linear-gradient(160deg, #2c1a0e 0%, #0d1a0a 100%)', opacity: 0.95 }}
-            >
-              <p className="text-xs tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.2)', letterSpacing: '0.2em' }}>
+              className="absolute inset-0"
+              style={{ background: 'linear-gradient(160deg, #2c1a0e 0%, #0d1a0a 100%)' }}
+            />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <p className="text-xs tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.15)', letterSpacing: '0.2em' }}>
                 [ Video: Vineyard footage — to be replaced ]
               </p>
             </div>
-
-            <div className="relative z-10">
+            <div className="relative z-10 w-full">
               <p className="text-2xl font-light leading-relaxed" style={{ color: 'rgba(255,255,248,0.9)' }}>
                 In 2023 a Berber tribe in Meknes, Morocco took the finest Grenache
                 grapes from their harvest, and worked with French winemakers to make
@@ -147,28 +131,21 @@ export default function Home() {
             </div>
           </section>
 
-          {/* ── Section 2: What you get — image led ─────────────── */}
+          {/* ── Section 2: What you get ──────────────────────────── */}
           <section className="px-10 py-20" style={{ borderTop: '1px solid rgba(0,0,106,0.1)' }}>
             <p className="text-xs tracking-widest uppercase mb-10" style={{ color: 'var(--red)', letterSpacing: '0.16em' }}>
               What you get
             </p>
-
-            {/* Image grid */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
               {[
                 { label: 'Amphora-aged Grenache', sub: '1 bottle · the red' },
-                { label: 'Pale gris rosé', sub: '2 bottles · from the same estate' },
+                { label: 'Pale gris rosé', sub: '2 bottles · same estate' },
                 { label: 'Estate olive oil', sub: '1 vial · cold-pressed' },
               ].map(({ label, sub }) => (
                 <div key={label}>
-                  {/* Image placeholder — swap in product photography */}
                   <div
                     className="w-full mb-3 flex items-center justify-center"
-                    style={{
-                      aspectRatio: '3/4',
-                      backgroundColor: 'rgba(0,0,106,0.05)',
-                      border: '1px dashed rgba(0,0,106,0.15)',
-                    }}
+                    style={{ aspectRatio: '3/4', backgroundColor: 'rgba(0,0,106,0.05)', border: '1px dashed rgba(0,0,106,0.15)' }}
                   >
                     <p className="text-xs text-center px-4" style={{ color: 'rgba(0,0,106,0.3)' }}>
                       [ Photo: {label} ]
@@ -179,13 +156,10 @@ export default function Home() {
                 </div>
               ))}
             </div>
-
-            <p className="text-base font-medium" style={{ color: 'var(--blue)' }}>
-              £89 including delivery.
-            </p>
+            <p className="text-base font-medium" style={{ color: 'var(--blue)' }}>£89 including delivery.</p>
             <p className="mt-2 text-sm font-light" style={{ color: 'rgba(0,0,106,0.6)' }}>
               Two bottles of pale gris rosé, one bottle of the amphora-aged red,
-              and a small vial of their olive oil. That&apos;s it.
+              and a small vial of their olive oil.
             </p>
             <p className="mt-4 text-sm" style={{ color: 'rgba(0,0,106,0.45)' }}>
               <Link href="/the-wine" className="underline underline-offset-4 hover:opacity-70 transition-opacity">
@@ -197,22 +171,15 @@ export default function Home() {
           {/* ── Section 3: The ballot ────────────────────────────── */}
           <section
             className="relative px-10 py-20 min-h-[50vh] flex flex-col justify-center"
-            style={{ backgroundColor: '#0e1a12', borderTop: '1px solid rgba(0,0,106,0.1)' }}
+            style={{ backgroundColor: '#0e1a12' }}
           >
-            {/* Placeholder: second vineyard video */}
-            <div
-              className="absolute inset-0"
-              style={{ background: 'linear-gradient(135deg, #0e1a12 0%, #1a0e08 100%)', opacity: 0.98 }}
-            />
-            <div
-              className="absolute inset-0 flex items-center justify-center"
-            >
-              <p className="text-xs tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.1)', letterSpacing: '0.2em' }}>
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, #0e1a12 0%, #1a0e08 100%)' }} />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <p className="text-xs tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.08)', letterSpacing: '0.2em' }}>
                 [ Video: Winemaker footage — to be replaced ]
               </p>
             </div>
-
-            <div className="relative z-10">
+            <div className="relative z-10 w-full">
               <p className="text-xs tracking-widest uppercase mb-6" style={{ color: 'var(--red)', letterSpacing: '0.16em' }}>
                 The ballot
               </p>
@@ -237,12 +204,9 @@ export default function Home() {
             <div className="flex justify-between items-center">
               <p>One entry per person. Ballot closes 8 June.</p>
               <a href="https://otherwine.co.uk" target="_blank" rel="noopener noreferrer"
-                className="underline underline-offset-2 hover:opacity-70">
-                otherwine.co.uk
-              </a>
+                className="underline underline-offset-2 hover:opacity-70">otherwine.co.uk</a>
             </div>
           </footer>
-
         </main>
       </div>
     </div>
