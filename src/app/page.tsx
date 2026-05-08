@@ -1,6 +1,5 @@
 import Nav from '@/components/Nav'
 import RegistrationForm from '@/components/RegistrationForm'
-import Image from 'next/image'
 import Link from 'next/link'
 
 export default function Home() {
@@ -8,16 +7,18 @@ export default function Home() {
     <main className="min-h-screen flex flex-col" style={{ backgroundColor: 'var(--cream)', color: 'var(--blue)' }}>
       <Nav />
 
-      {/* ── Logo + Capsule 01 — centred ────────────────────────── */}
+      {/* ── Animated logo + Capsule 01 — centred ──────────────── */}
       <section className="flex flex-col items-center pt-28 pb-12 px-6">
-        <Image
-          src="/logo-other.svg"
-          alt="OTHER"
-          width={320}
-          height={52}
-          priority
-        />
-        <div className="mt-4">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{ width: 'clamp(280px, 40vw, 560px)', height: 'auto' }}
+        >
+          <source src="/logo-animated-v3.mp4" type="video/mp4" />
+        </video>
+        <div className="mt-2">
           <span
             className="capsules-wordmark-red"
             style={{ fontSize: 'clamp(1.8rem, 5vw, 4rem)' }}
