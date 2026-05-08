@@ -7,7 +7,7 @@ export default function BallotModal() {
 
   return (
     <>
-      {/* Trigger — "+" button sits at the right edge of the left sidebar */}
+      {/* Trigger */}
       <button
         onClick={() => setOpen(true)}
         aria-label="How the ballot works"
@@ -48,7 +48,7 @@ export default function BallotModal() {
               className="absolute top-5 right-5 hover:opacity-50 transition-opacity text-lg"
               style={{ color: 'var(--blue)', fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300 }}
             >
-              ×
+              &times;
             </button>
 
             <p
@@ -59,16 +59,16 @@ export default function BallotModal() {
             </p>
 
             <p className="text-base font-light leading-relaxed mb-6" style={{ color: 'var(--blue)' }}>
-              The ballot is open to anyone. Register with your email — one entry per person.
+              The ballot is open to anyone. Register with your email &mdash; one entry per person.
               On 9 June we draw the allocation at random and notify everyone by email.
             </p>
 
             <ol className="space-y-4 mb-8">
               {[
-                ['Register', 'Enter your email in the left panel. You'll receive a member number immediately.'],
+                ['Register', 'Enter your email in the left panel. You will receive a member number immediately.'],
                 ['Ballot runs — 9 June', 'We draw at random. Everyone hears the same day.'],
-                ['48-hour window', 'If you're drawn, you get a checkout link. 48 hours to purchase.'],
-                ['Box ships', 'Your amphora rosé is on its way.'],
+                ['48-hour window', 'If you are drawn, you get a checkout link. 48 hours to purchase.'],
+                ['Box ships', 'Your amphora wine is on its way.'],
               ].map(([step, desc], i) => (
                 <li key={i} className="flex gap-4">
                   <span
@@ -86,7 +86,7 @@ export default function BallotModal() {
             </ol>
 
             <p className="text-xs font-light" style={{ color: 'rgba(0,0,106,0.4)' }}>
-              Ballot closes 8 June. One entry per person. £89 including delivery.
+              Ballot closes 8 June. One entry per person. &pound;89 including delivery.
             </p>
           </div>
         </div>
