@@ -1,44 +1,89 @@
+'use client'
+
+import { useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 
-interface NavProps {
-  dark?: boolean
-}
-
-export default function Nav({ dark = false }: NavProps) {
-  const linkColor = dark ? 'var(--cream)' : 'var(--blue)'
+export default function Nav({ dark = false }: { dark?: boolean }) {
+  const [open, setOpen] = useState(false)
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-5 md:px-10">
-      {/* OTHER logo — links to otherwine.co.uk */}
-      <a href="https://otherwine.co.uk" target="_blank" rel="noopener noreferrer">
-        <Image
-          src="/logo-other.svg"
-          alt="OTHER"
-          width={80}
-          height={13}
-          priority
-        />
-      </a>
-
-      {/* Right-side nav */}
-      <div className="flex items-center gap-6 text-sm font-medium tracking-wide" style={{ color: linkColor }}>
-        <Link href="/the-wine" className="hover:opacity-60 transition-opacity hidden md:block">
-          The Wine
-        </Link>
-        <Link href="/how-it-works" className="hover:opacity-60 transition-opacity hidden md:block">
-          How it works
-        </Link>
-        <Link href="/faq" className="hover:opacity-60 transition-opacity hidden md:block">
-          FAQ
-        </Link>
-        <Link
-          href="#register"
-          className="btn-primary px-5 py-2 rounded-full text-sm"
+    <>
+      {/* ── Minimal nav bar — just the menu icon ── */}
+      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-end px-6 py-5 md:px-10">
+        <button
+          onClick={() => setOpen(true)}
+          className="text-sm tracking-widest uppercase hover:opacity-60 transition-opacity"
+          style={{
+            color: dark ? 'var(--cream)' : 'var(--blue)',
+            fontFamily: 'Vulf Sans, sans-serif',
+            letterSpacing: '0.14em',
+          }}
+          aria-label="Open menu"
         >
-          Register
-        </Link>
+          Menu
+        </button>
+      </nav>
+
+      {/* ── Full-screen overlay ── */}
+      <div
+        className="fixed inset-0 z-[100] flex flex-col"
+        style={{
+          backgroundColor: 'var(--blue)',
+          opacity: open ? 1 : 0,
+          pointerEvents: open ? 'all' : 'none',
+          transition: 'opacity 0.35s ease',
+        }}
+      >
+        {/* Close button */}
+        <div className="flex justify-end px-6 py-5 md:px-10">
+          <button
+            onClick={() => setOpen(false)}
+            className="text-sm tracking-widest uppercase hover:opacity-60 transition-opacity"
+            style={{
+              color: 'var(--cream)',
+              fontFamily: 'Vulf Sans, sans-serif',
+              letterSpacing: '0.14em',
+            }}
+            aria-label="Close menu"
+          >
+            Close
+          </button>
+        </div>
+
+        {/* Nav links */}
+        <div className="flex-1 flex flex-col justify-center px-10 md:px-16 gap-6">
+          {[
+            ['THE WINE', '/the-wine'],
+            ['HOW IT WORKS', '/how-it-works'],
+            ['FAQ', '/faq'],
+          ].map(([label, href]) => (
+            <Link
+              key={href}
+              href={href}
+              onClick={() => setOpen(false)}
+              className="capsules-wordmark hover:opacity-60 transition-opacity"
+              style={{
+                fontSize: 'clamp(2.5rem, 8vw, 7rem)',
+                WebkitTextStrokeColor: 'var(--cream)',
+              }}
+            >
+              {label}
+            </Link>
+          ))}
+        </div>
+
+        {/* Register CTA */}
+        <div className="px-10 md:px-16 pb-12">
+          <Link
+            href="/#register"
+            onClick={() => setOpen(false)}
+            className="btn-primary inline-block px-8 py-3 rounded-full text-sm tracking-widest uppercase"
+            style={{ letterSpacing: '0.1em' }}
+          >
+            Register for Capsule 01
+          </Link>
+        </div>
       </div>
-    </nav>
+    </>
   )
 }
