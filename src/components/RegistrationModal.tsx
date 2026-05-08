@@ -1,33 +1,62 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
-type State = 'idle' | 'loading' | 'success' | 'error'
+type FormState = 'idle' | 'loading' | 'success' | 'error'
 
+// Animation phases:
+//   closed    — not mounted
+//   ready     — mounted at trigger rect, no transition yet (1 paint)
+//   expanding — transitioning to full screen
+//   open      — fully expanded, form visible
 interface Props {
   open: boolean
   onClose: () => void
+  startRect?: DOMRect | null
 }
 
-export default function RegistrationModal({ open, onClose }: Props) {
+export default function RegistrationModal({ open, onClose, startRect }: Props) {
+  // 'closed' means the whole thing is unmounted
+  const [mounted, setMounted] = useState(false)
+  const [expanded, setExpanded] = useState(false)
+  const [formVisible, setFormVisible] = useState(false)
+  const storedRect = useRef<DOMRect | null>(null)
+
   const [email, setEmail] = useState('')
-  const [state, setState] = useState<State>('idle')
+  const [formState, setFormState] = useState<FormState>('idle')
   const [errorMsg, setErrorMsg] = useState('')
 
-  // Auto-focus input when modal opens
   useEffect(() => {
-    if (!open) return
-    const t = setTimeout(() => {
-      const input = document.getElementById('modal-email-input')
-      if (input) (input as HTMLInputElement).focus()
-    }, 50)
-    return () => clearTimeout(t)
-  }, [open])
+    if (open) {
+      // Capture the trigger rect at the moment of opening
+      storedRect.current = startRect ?? null
+      setExpanded(false)
+      setFormVisible(false)
+      setMounted(true)
+
+      // Double rAF: ensures the browser paints the "small" initial state
+      // before we start the transition to full screen
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setExpanded(true)
+          // Form fades in slightly after the background lands
+          const t = setTimeout(() => setFormVisible(true), 380)
+          return () => clearTimeout(t)
+        })
+      })
+    } else {
+      // Collapse: fade form out, shrink back, unmount
+      setFormVisible(false)
+      const t1 = setTimeout(() => setExpanded(false), 120)
+      const t2 = setTimeout(() => setMounted(false), 560)
+      return () => { clearTimeout(t1); clearTimeout(t2) }
+    }
+  }, [open]) // eslint-disable-line react-hooks/exhaustive-deps
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!email) return
-    setState('loading')
+    setFormState('loading')
     setErrorMsg('')
     try {
       const res = await fetch('/api/register', {
@@ -36,103 +65,192 @@ export default function RegistrationModal({ open, onClose }: Props) {
         body: JSON.stringify({ email }),
       })
       if (res.ok) {
-        setState('success')
+        setFormState('success')
       } else {
         const data = await res.json()
         setErrorMsg(data.error || 'Something went wrong.')
-        setState('error')
+        setFormState('error')
       }
     } catch {
       setErrorMsg('Network error. Please try again.')
-      setState('error')
+      setFormState('error')
     }
   }
 
-  if (!open) return null
+  if (!mounted) return null
+
+  // Compute starting transform so the full-screen div appears at the trigger rect
+  const buildInitialTransform = () => {
+    const rect = storedRect.current
+    if (!rect || typeof window === 'undefined') return 'none'
+    const vw = window.innerWidth
+    const vh = window.innerHeight
+    const scaleX = rect.width / vw
+    const scaleY = rect.height / vh
+    const tx = rect.left + rect.width / 2 - vw / 2
+    const ty = rect.top + rect.height / 2 - vh / 2
+    return `translate(${tx}px, ${ty}px) scale(${scaleX}, ${scaleY})`
+  }
 
   return (
     <div
-      className="fixed inset-0 z-[200] flex items-center justify-center"
-      style={{ backgroundColor: 'rgba(0,0,106,0.4)', backdropFilter: 'blur(6px)' }}
-      onClick={onClose}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 200,
+        backgroundColor: 'var(--red)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+        // Start at trigger rect; after double-rAF, transition to full screen
+        transform: expanded ? 'none' : buildInitialTransform(),
+        transformOrigin: 'center center',
+        transition: expanded
+          ? 'transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)'
+          : 'none',
+      }}
     >
-      <div
-        className="relative w-full max-w-md mx-6 p-8"
-        style={{ backgroundColor: 'var(--cream)', borderRadius: '2px' }}
-        onClick={e => e.stopPropagation()}
+      {/* Close — fades in with the form */}
+      <button
+        onClick={onClose}
+        aria-label="Close"
+        style={{
+          position: 'absolute',
+          top: '1.25rem',
+          right: '1.5rem',
+          background: 'none',
+          border: 'none',
+          color: 'rgba(255,255,255,0.7)',
+          fontSize: '1.6rem',
+          fontWeight: 300,
+          lineHeight: 1,
+          cursor: 'pointer',
+          fontFamily: 'Vulf Sans, sans-serif',
+          opacity: formVisible ? 1 : 0,
+          transition: 'opacity 0.2s ease',
+        }}
       >
-        <button
-          onClick={onClose}
-          className="absolute top-5 right-5 hover:opacity-50 transition-opacity"
-          style={{
-            color: 'var(--blue)',
-            fontFamily: 'Vulf Sans, sans-serif',
-            fontWeight: 300,
-            fontSize: '1.4rem',
-            lineHeight: 1,
-          }}
-          aria-label="Close"
-        >
-          &times;
-        </button>
+        &times;
+      </button>
 
-        {state === 'success' ? (
-          <div>
-            <p
-              className="text-xs tracking-widest uppercase mb-5"
-              style={{ color: 'var(--red)', letterSpacing: '0.16em' }}
-            >
+      {/* Form content */}
+      <div
+        style={{
+          width: '100%',
+          maxWidth: '440px',
+          padding: '2.5rem 2rem',
+          opacity: formVisible ? 1 : 0,
+          transform: formVisible ? 'translateY(0)' : 'translateY(14px)',
+          transition: 'opacity 0.3s ease, transform 0.3s ease',
+        }}
+      >
+        {formState === 'success' ? (
+          <>
+            <p style={{
+              color: 'rgba(255,255,255,0.55)',
+              fontSize: '0.68rem',
+              letterSpacing: '0.16em',
+              textTransform: 'uppercase',
+              marginBottom: '1.25rem',
+              fontFamily: 'Vulf Sans, sans-serif',
+            }}>
               You are on the list
             </p>
-            <p className="text-base font-light leading-relaxed" style={{ color: 'var(--blue)' }}>
+            <p style={{
+              color: 'white',
+              fontSize: '1rem',
+              fontWeight: 300,
+              lineHeight: 1.65,
+              fontFamily: 'Vulf Sans, sans-serif',
+            }}>
               Check your inbox. If you are drawn on 9 June, you will have 48 hours to complete your purchase.
             </p>
-          </div>
+          </>
         ) : (
           <>
-            <p
-              className="text-xs tracking-widest uppercase mb-5"
-              style={{ color: 'var(--red)', letterSpacing: '0.16em' }}
-            >
+            <p style={{
+              color: 'rgba(255,255,255,0.55)',
+              fontSize: '0.68rem',
+              letterSpacing: '0.16em',
+              textTransform: 'uppercase',
+              marginBottom: '1.25rem',
+              fontFamily: 'Vulf Sans, sans-serif',
+            }}>
               Join the ballot
             </p>
-            <p className="text-base font-light leading-relaxed mb-6" style={{ color: 'var(--blue)' }}>
+            <p style={{
+              color: 'white',
+              fontSize: '1rem',
+              fontWeight: 300,
+              lineHeight: 1.65,
+              marginBottom: '2rem',
+              fontFamily: 'Vulf Sans, sans-serif',
+            }}>
               480 bottles remain. One per person. Register your email for a chance to receive Capsule 01.
             </p>
             <form onSubmit={handleSubmit}>
-              <div
-                className="flex items-center gap-2 px-4 py-2"
-                style={{ border: '1.5px solid var(--red)' }}
-              >
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.75rem',
+                borderBottom: '1px solid rgba(255,255,255,0.35)',
+                paddingBottom: '0.6rem',
+                marginBottom: '0.75rem',
+              }}>
                 <input
-                  id="modal-email-input"
+                  className="modal-input"
                   type="email"
                   required
                   placeholder="your email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
-                  disabled={state === 'loading'}
-                  className="flex-1 bg-transparent text-sm font-light outline-none placeholder:opacity-40"
-                  style={{ color: 'var(--blue)', fontFamily: 'Vulf Sans, sans-serif' }}
+                  disabled={formState === 'loading'}
+                  autoFocus
+                  style={{
+                    flex: 1,
+                    background: 'transparent',
+                    border: 'none',
+                    outline: 'none',
+                    color: 'white',
+                    fontSize: '0.9rem',
+                    fontFamily: 'Vulf Sans, sans-serif',
+                    fontWeight: 300,
+                  }}
                 />
                 <button
                   type="submit"
-                  disabled={state === 'loading'}
-                  className="text-xs font-medium tracking-widest uppercase px-4 py-2 whitespace-nowrap hover:opacity-80 transition-opacity"
+                  disabled={formState === 'loading'}
                   style={{
-                    backgroundColor: 'var(--red)',
+                    background: 'none',
+                    border: 'none',
                     color: 'white',
+                    fontSize: '0.68rem',
+                    letterSpacing: '0.14em',
+                    textTransform: 'uppercase',
+                    cursor: 'pointer',
                     fontFamily: 'Vulf Sans, sans-serif',
-                    letterSpacing: '0.1em',
+                    fontWeight: 500,
+                    opacity: formState === 'loading' ? 0.5 : 1,
+                    whiteSpace: 'nowrap',
+                    padding: '0.25rem 0',
                   }}
                 >
-                  {state === 'loading' ? '...' : 'Register'}
+                  {formState === 'loading' ? '...' : 'Register'}
                 </button>
               </div>
-              {state === 'error' && (
-                <p className="mt-2 text-xs" style={{ color: 'var(--red)' }}>{errorMsg}</p>
+              {formState === 'error' && (
+                <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.75rem', marginBottom: '0.5rem', fontFamily: 'Vulf Sans, sans-serif' }}>
+                  {errorMsg}
+                </p>
               )}
-              <p className="mt-3 text-xs font-light" style={{ color: 'rgba(0,0,106,0.4)' }}>
+              <p style={{
+                color: 'rgba(255,255,255,0.35)',
+                fontSize: '0.68rem',
+                fontWeight: 300,
+                fontFamily: 'Vulf Sans, sans-serif',
+                marginTop: '0.5rem',
+              }}>
                 One entry per person. Ballot closes 8 June. No spam, ever.
               </p>
             </form>

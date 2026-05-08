@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Nav from '@/components/Nav'
 import CountdownTimer from '@/components/CountdownTimer'
 import RegistrationModal from '@/components/RegistrationModal'
@@ -14,32 +14,48 @@ const STATS = [
   { label: 'Vineyard',      value: 'Meknes, Morocco' },
 ]
 
-function EmailTrigger({ onClick }: { onClick: () => void }) {
+// Red tile that expands to fill the screen on click.
+// Passes its bounding rect so the modal can animate from exactly here.
+function EmailTrigger({ onOpen }: { onOpen: (rect: DOMRect) => void }) {
+  const ref = useRef<HTMLDivElement>(null)
   return (
     <div className="w-full">
       <div
+        ref={ref}
         role="button"
-        onClick={onClick}
-        className="flex items-center gap-2 px-4 py-2 w-full cursor-text select-none"
-        style={{ border: '1.5px solid var(--red)' }}
+        tabIndex={0}
+        onClick={() => ref.current && onOpen(ref.current.getBoundingClientRect())}
+        onKeyDown={e => e.key === 'Enter' && ref.current && onOpen(ref.current.getBoundingClientRect())}
+        className="cursor-pointer select-none"
+        style={{
+          backgroundColor: 'var(--red)',
+          padding: '1.2rem 1.25rem 1rem',
+        }}
       >
-        <span
-          className="flex-1 text-sm font-light"
-          style={{ color: 'rgba(0,0,106,0.35)', fontFamily: 'Vulf Sans, sans-serif' }}
-        >
+        <p style={{
+          color: 'rgba(255,255,255,0.45)',
+          fontSize: '0.875rem',
+          fontFamily: 'Vulf Sans, sans-serif',
+          fontWeight: 300,
+          marginBottom: '0.7rem',
+        }}>
           your email
-        </span>
-        <span
-          className="text-xs font-medium tracking-widest uppercase px-4 py-2 whitespace-nowrap"
-          style={{
-            backgroundColor: 'var(--red)',
+        </p>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span style={{
             color: 'white',
+            fontSize: '0.68rem',
+            letterSpacing: '0.14em',
+            textTransform: 'uppercase',
             fontFamily: 'Vulf Sans, sans-serif',
-            letterSpacing: '0.1em',
-          }}
-        >
-          Register
-        </span>
+            fontWeight: 500,
+          }}>
+            Register
+          </span>
+          <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem' }}>
+            &rarr;
+          </span>
+        </div>
       </div>
       <p className="mt-2 text-xs font-light" style={{ color: 'rgba(0,0,106,0.4)' }}>
         One entry per person. No spam, ever.
@@ -50,13 +66,24 @@ function EmailTrigger({ onClick }: { onClick: () => void }) {
 
 export default function Home() {
   const [modalOpen, setModalOpen] = useState(false)
+  const [triggerRect, setTriggerRect] = useState<DOMRect | null>(null)
+  const hookCtaRef = useRef<HTMLButtonElement>(null)
+
+  function openModal(rect?: DOMRect) {
+    setTriggerRect(rect ?? null)
+    setModalOpen(true)
+  }
 
   return (
     <div style={{ backgroundColor: 'var(--cream)', color: 'var(--blue)' }}>
 
       <Nav initialDark={true} />
 
-      <RegistrationModal open={modalOpen} onClose={() => setModalOpen(false)} />
+      <RegistrationModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        startRect={triggerRect}
+      />
 
       <div className="lg:flex">
 
@@ -107,7 +134,7 @@ export default function Home() {
             </div>
 
             <div className="mt-5">
-              <EmailTrigger onClick={() => setModalOpen(true)} />
+              <EmailTrigger onOpen={rect => openModal(rect)} />
             </div>
           </div>
         </aside>
@@ -132,7 +159,7 @@ export default function Home() {
               ))}
             </div>
             <div className="mt-6">
-              <EmailTrigger onClick={() => setModalOpen(true)} />
+              <EmailTrigger onOpen={rect => openModal(rect)} />
             </div>
           </div>
 
@@ -164,7 +191,8 @@ export default function Home() {
                 One per person.
               </p>
               <button
-                onClick={() => setModalOpen(true)}
+                ref={hookCtaRef}
+                onClick={() => openModal(hookCtaRef.current?.getBoundingClientRect())}
                 className="mt-10 px-8 py-3 text-xs tracking-widest uppercase hover:opacity-80 transition-opacity"
                 style={{
                   border: '1px solid rgba(255,255,248,0.35)',
