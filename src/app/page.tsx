@@ -26,8 +26,8 @@ export default function Home() {
         <aside
           className="hidden lg:flex flex-col fixed top-0 left-0 h-screen z-20 overflow-y-auto"
           style={{
-            width: '360px',
-            padding: '2.5rem 2rem',
+            width: '33.333vw',
+            padding: '2.5rem 2.5rem',
             borderRight: '1px solid rgba(0,0,106,0.1)',
             backgroundColor: 'var(--cream)',
           }}
@@ -98,7 +98,7 @@ export default function Home() {
         </aside>
 
         {/* ── RIGHT: scrollable content ──────────────────────────── */}
-        <main className="lg:ml-[360px] flex-1">
+        <main className="lg:ml-[33.333vw] flex-1">
 
           {/* Mobile: logo + form above content */}
           <div className="lg:hidden px-6 pt-28 pb-10">
@@ -135,7 +135,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="relative z-10 max-w-lg">
+            <div className="relative z-10">
               <p className="text-2xl font-light leading-relaxed" style={{ color: 'rgba(255,255,248,0.9)' }}>
                 In 2023 a Berber tribe in Meknes, Morocco took the finest Grenache
                 grapes from their harvest, and worked with French winemakers to make
@@ -212,7 +212,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="relative z-10 max-w-lg">
+            <div className="relative z-10">
               <p className="text-xs tracking-widest uppercase mb-6" style={{ color: 'var(--red)', letterSpacing: '0.16em' }}>
                 The ballot
               </p>
