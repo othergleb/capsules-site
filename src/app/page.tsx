@@ -1,5 +1,6 @@
 import Nav from '@/components/Nav'
 import RegistrationForm from '@/components/RegistrationForm'
+import Image from 'next/image'
 import Link from 'next/link'
 
 export default function Home() {
@@ -7,42 +8,47 @@ export default function Home() {
     <main className="min-h-screen flex flex-col" style={{ backgroundColor: 'var(--cream)', color: 'var(--blue)' }}>
       <Nav />
 
-      {/* ── Animated logo — full width, no padding ─────────────── */}
-      <div className="w-full pt-20">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full block"
-        >
-          <source src="/logo-animated-v2.mp4" type="video/mp4" />
-        </video>
-      </div>
+      {/* ── Logo + Capsule 01 — centred ────────────────────────── */}
+      <section className="flex flex-col items-center pt-28 pb-12 px-6">
+        <Image
+          src="/logo-other.svg"
+          alt="OTHER"
+          width={320}
+          height={52}
+          priority
+        />
+        <div className="mt-4">
+          <span
+            className="capsules-wordmark-red"
+            style={{ fontSize: 'clamp(1.8rem, 5vw, 4rem)' }}
+          >
+            Capsule 01
+          </span>
+        </div>
+      </section>
 
-      {/* ── Capsule 01 wordmark — centred below logo ───────────── */}
-      <div className="text-center px-6 mt-2 mb-16">
-        <span
-          className="capsules-wordmark-red"
-          style={{ fontSize: 'clamp(2rem, 6vw, 5rem)' }}
-        >
-          Capsule 01
-        </span>
-      </div>
+      {/* ── Divider ───────────────────────────────────────────── */}
+      <div style={{ borderTop: '1px solid rgba(0,0,106,0.1)' }} />
 
-      {/* ── Hook + form — centred ──────────────────────────────── */}
-      <section className="px-6 md:px-16 pb-24 mx-auto w-full max-w-3xl text-center">
-        <p className="text-xl font-light leading-relaxed" style={{ color: 'var(--blue)' }}>
-          In 2023 a Berber tribe in Meknes, Morocco took the finest Grenache
-          grapes from their harvest, and worked with French winemakers to make
-          a one of a kind amphora aged wine.
-        </p>
-        <p className="mt-5 text-xl font-light" style={{ color: 'var(--blue)' }}>
-          480 bottles remain. One per person.
-        </p>
-
-        <div id="register" className="mt-12">
-          <RegistrationForm minimal />
+      {/* ── Hook + form ───────────────────────────────────────── */}
+      <section className="flex flex-col sm:flex-row gap-6 sm:gap-16 px-6 md:px-16 py-16 w-full">
+        <div className="sm:w-40 flex-shrink-0 pt-1">
+          <p className="text-xs tracking-widest uppercase" style={{ color: 'var(--red)', letterSpacing: '0.16em' }}>
+            Capsule 01
+          </p>
+        </div>
+        <div className="flex-1 max-w-2xl">
+          <p className="text-xl font-light leading-relaxed" style={{ color: 'var(--blue)' }}>
+            In 2023 a Berber tribe in Meknes, Morocco took the finest Grenache
+            grapes from their harvest, and worked with French winemakers to make
+            a one of a kind amphora aged wine.
+          </p>
+          <p className="mt-5 text-xl font-light" style={{ color: 'var(--blue)' }}>
+            480 bottles remain. One per person.
+          </p>
+          <div id="register" className="mt-10">
+            <RegistrationForm minimal />
+          </div>
         </div>
       </section>
 
@@ -50,13 +56,13 @@ export default function Home() {
       <div style={{ borderTop: '1px solid rgba(0,0,106,0.1)' }} />
 
       {/* ── The ballot ────────────────────────────────────────── */}
-      <section className="flex flex-col sm:flex-row gap-6 sm:gap-16 px-6 md:px-16 py-20 w-full">
+      <section className="flex flex-col sm:flex-row gap-6 sm:gap-16 px-6 md:px-16 py-16 w-full">
         <div className="sm:w-40 flex-shrink-0 pt-1">
           <p className="text-xs tracking-widest uppercase" style={{ color: 'var(--red)', letterSpacing: '0.16em' }}>
             The ballot
           </p>
         </div>
-        <div className="flex-1 max-w-xl">
+        <div className="flex-1 max-w-2xl">
           <p className="text-base font-light leading-relaxed" style={{ color: 'rgba(0,0,106,0.7)' }}>
             We&apos;re allocating by ballot to give everyone an equal shot. Register above
             and if you&apos;re drawn on 9 June, you&apos;ll get a checkout link and 48 hours
@@ -74,13 +80,13 @@ export default function Home() {
       <div style={{ borderTop: '1px solid rgba(0,0,106,0.1)' }} />
 
       {/* ── What's in the box ─────────────────────────────────── */}
-      <section className="flex flex-col sm:flex-row gap-6 sm:gap-16 px-6 md:px-16 py-20 w-full">
+      <section className="flex flex-col sm:flex-row gap-6 sm:gap-16 px-6 md:px-16 py-16 w-full">
         <div className="sm:w-40 flex-shrink-0 pt-1">
           <p className="text-xs tracking-widest uppercase" style={{ color: 'var(--red)', letterSpacing: '0.16em' }}>
             What you get
           </p>
         </div>
-        <div className="flex-1 max-w-xl">
+        <div className="flex-1 max-w-2xl">
           <p className="text-base font-light leading-relaxed" style={{ color: 'rgba(0,0,106,0.7)' }}>
             Two bottles of pale gris rosé, one bottle of the amphora-aged red from
             the same estate, and a small vial of their olive oil. That&apos;s it.
