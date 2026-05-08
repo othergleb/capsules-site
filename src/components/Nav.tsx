@@ -1,20 +1,43 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
-export default function Nav({ dark = false }: { dark?: boolean }) {
+export default function Nav({ initialDark = false }: { initialDark?: boolean }) {
   const [open, setOpen] = useState(false)
+  const [overDark, setOverDark] = useState(initialDark)
+
+  useEffect(() => {
+    const darkEls = document.querySelectorAll('[data-nav-dark]')
+    if (!darkEls.length) return
+
+    const visible = new Set<Element>()
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) visible.add(e.target)
+          else visible.delete(e.target)
+        })
+        setOverDark(visible.size > 0)
+      },
+      { rootMargin: '0px 0px -95% 0px' }
+    )
+
+    darkEls.forEach(el => observer.observe(el))
+    return () => observer.disconnect()
+  }, [])
+
+  // When overlay is open, hide the underlying menu button visually
+  const menuColor = open ? 'transparent' : overDark ? 'var(--cream)' : 'var(--red)'
 
   return (
     <>
-      {/* ── Minimal nav bar — just the menu icon ── */}
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-end px-6 py-5 md:px-10">
         <button
           onClick={() => setOpen(true)}
-          className="text-sm tracking-widest uppercase hover:opacity-60 transition-opacity"
+          className="text-sm tracking-widest uppercase hover:opacity-60 transition-colors duration-300"
           style={{
-            color: dark ? 'var(--cream)' : 'var(--blue)',
+            color: menuColor,
             fontFamily: 'Vulf Sans, sans-serif',
             letterSpacing: '0.14em',
           }}
@@ -24,7 +47,7 @@ export default function Nav({ dark = false }: { dark?: boolean }) {
         </button>
       </nav>
 
-      {/* ── Full-screen overlay ── */}
+      {/* Full-screen overlay */}
       <div
         className="fixed inset-0 z-[100] flex flex-col"
         style={{
@@ -34,7 +57,6 @@ export default function Nav({ dark = false }: { dark?: boolean }) {
           transition: 'opacity 0.35s ease',
         }}
       >
-        {/* Close button */}
         <div className="flex justify-end px-6 py-5 md:px-10">
           <button
             onClick={() => setOpen(false)}
@@ -50,7 +72,6 @@ export default function Nav({ dark = false }: { dark?: boolean }) {
           </button>
         </div>
 
-        {/* Nav links */}
         <div className="flex-1 flex flex-col justify-center px-10 md:px-16 gap-6">
           {[
             ['THE WINE', '/the-wine'],
@@ -72,7 +93,6 @@ export default function Nav({ dark = false }: { dark?: boolean }) {
           ))}
         </div>
 
-        {/* Register CTA */}
         <div className="px-10 md:px-16 pb-12">
           <Link
             href="/#register"

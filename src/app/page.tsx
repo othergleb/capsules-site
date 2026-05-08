@@ -1,23 +1,62 @@
+'use client'
+
+import { useState } from 'react'
 import Nav from '@/components/Nav'
-import RegistrationForm from '@/components/RegistrationForm'
 import CountdownTimer from '@/components/CountdownTimer'
-import BallotModal from '@/components/BallotModal'
+import RegistrationModal from '@/components/RegistrationModal'
 import Link from 'next/link'
 
 const BALLOT_DATE = '2026-06-09T23:59:59'
 
 const STATS = [
-  { label: 'Ballot closes',    value: <CountdownTimer target={BALLOT_DATE} /> },
-  { label: 'Bottles',          value: '480' },
-  { label: 'Vineyard',         value: 'Meknes, Morocco' },
+  { label: 'Ballot closes', value: <CountdownTimer target={BALLOT_DATE} /> },
+  { label: 'Bottles',       value: '480' },
+  { label: 'Vineyard',      value: 'Meknes, Morocco' },
 ]
 
+function EmailTrigger({ onClick }: { onClick: () => void }) {
+  return (
+    <div className="w-full">
+      <div
+        role="button"
+        onClick={onClick}
+        className="flex items-center gap-2 px-4 py-2 w-full cursor-text select-none"
+        style={{ border: '1.5px solid var(--red)' }}
+      >
+        <span
+          className="flex-1 text-sm font-light"
+          style={{ color: 'rgba(0,0,106,0.35)', fontFamily: 'Vulf Sans, sans-serif' }}
+        >
+          your email
+        </span>
+        <span
+          className="text-xs font-medium tracking-widest uppercase px-4 py-2 whitespace-nowrap"
+          style={{
+            backgroundColor: 'var(--red)',
+            color: 'white',
+            fontFamily: 'Vulf Sans, sans-serif',
+            letterSpacing: '0.1em',
+          }}
+        >
+          Register
+        </span>
+      </div>
+      <p className="mt-2 text-xs font-light" style={{ color: 'rgba(0,0,106,0.4)' }}>
+        One entry per person. No spam, ever.
+      </p>
+    </div>
+  )
+}
+
 export default function Home() {
+  const [modalOpen, setModalOpen] = useState(false)
+
   return (
     <div style={{ backgroundColor: 'var(--cream)', color: 'var(--blue)' }}>
 
-      {/* ── MENU — fixed top-right, all screen sizes ─────────── */}
-      <Nav />
+      <Nav initialDark={true} />
+
+      <RegistrationModal open={modalOpen} onClose={() => setModalOpen(false)} />
 
       <div className="lg:flex">
 
@@ -31,7 +70,6 @@ export default function Home() {
             backgroundColor: 'var(--cream)',
           }}
         >
-          {/* Logo — centred, fills sidebar width */}
           <div className="flex flex-col items-center">
             <video
               autoPlay loop muted playsInline
@@ -47,9 +85,7 @@ export default function Home() {
             </span>
           </div>
 
-          {/* Stats + form pushed to bottom */}
           <div className="mt-auto">
-            {/* Stats */}
             <div style={{ borderTop: '1px solid rgba(0,0,106,0.1)' }}>
               {STATS.map(({ label, value }) => (
                 <div
@@ -70,15 +106,8 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Registration + "+" trigger */}
             <div className="mt-5">
-              <div className="flex items-center justify-between mb-3">
-                <p className="text-xs font-light" style={{ color: 'rgba(0,0,106,0.5)' }}>
-                  Join the ballot
-                </p>
-                <BallotModal />
-              </div>
-              <RegistrationForm minimal />
+              <EmailTrigger onClick={() => setModalOpen(true)} />
             </div>
           </div>
         </aside>
@@ -86,7 +115,7 @@ export default function Home() {
         {/* ── RIGHT: scrollable content ────────────────────────── */}
         <main className="lg:ml-[33.333vw] flex-1">
 
-          {/* Mobile: full layout stacked */}
+          {/* Mobile header */}
           <div className="lg:hidden px-6 pt-28 pb-10">
             <div className="flex flex-col items-center mb-8">
               <video autoPlay loop muted playsInline style={{ width: '75%' }}>
@@ -102,11 +131,14 @@ export default function Home() {
                 </div>
               ))}
             </div>
-            <div className="mt-6"><RegistrationForm minimal /></div>
+            <div className="mt-6">
+              <EmailTrigger onClick={() => setModalOpen(true)} />
+            </div>
           </div>
 
-          {/* ── Section 1: Hook — video background ──────────────── */}
+          {/* ── Section 1: Hook ──────────────────────────────────── */}
           <section
+            data-nav-dark=""
             className="relative flex items-end min-h-screen px-10 py-16"
             style={{ backgroundColor: '#1a1208' }}
           >
@@ -116,31 +148,75 @@ export default function Home() {
             />
             <div className="absolute inset-0 flex items-center justify-center">
               <p className="text-xs tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.15)', letterSpacing: '0.2em' }}>
-                [ Video: Vineyard footage — to be replaced ]
+                [ Video: Vineyard footage ]
               </p>
             </div>
             <div className="relative z-10 w-full">
-              <p className="text-2xl font-light leading-relaxed" style={{ color: 'rgba(255,255,248,0.9)' }}>
-                In 2023 a Berber tribe in Meknes, Morocco took the finest Grenache
-                grapes from their harvest, and worked with French winemakers to make
-                a one of a kind amphora aged wine.
+              <p className="text-xl font-light leading-relaxed" style={{ color: 'rgba(255,255,248,0.9)' }}>
+                In 2023 a Berber tribe in Meknes, Morocco, took the finest Grenache
+                grapes from their harvest, and worked alongside French winemakers
+                to create a one of a kind amphora aged wine.
               </p>
-              <p className="mt-6 text-2xl font-light" style={{ color: 'var(--cream)' }}>
-                480 bottles remain. One per person.
+              <p className="mt-8 text-xl font-light" style={{ color: 'rgba(255,255,248,0.9)' }}>
+                480 bottles remain.
+              </p>
+              <p className="mt-2 text-xl font-light" style={{ color: 'rgba(255,255,248,0.9)' }}>
+                One per person.
+              </p>
+              <button
+                onClick={() => setModalOpen(true)}
+                className="mt-10 px-8 py-3 text-xs tracking-widest uppercase hover:opacity-80 transition-opacity"
+                style={{
+                  border: '1px solid rgba(255,255,248,0.35)',
+                  color: 'rgba(255,255,248,0.8)',
+                  fontFamily: 'Vulf Sans, sans-serif',
+                  letterSpacing: '0.14em',
+                }}
+              >
+                Register for Capsule 01
+              </button>
+            </div>
+          </section>
+
+          {/* ── Section 2: The ballot ─────────────────────────────── */}
+          <section
+            data-nav-dark=""
+            className="relative px-10 py-20 min-h-[50vh] flex flex-col justify-center"
+            style={{ backgroundColor: '#0e1a12' }}
+          >
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, #0e1a12 0%, #1a0e08 100%)' }} />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <p className="text-xs tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.08)', letterSpacing: '0.2em' }}>
+                [ Video: Winemaker footage ]
+              </p>
+            </div>
+            <div className="relative z-10 w-full">
+              <p className="text-xs tracking-widest uppercase mb-6" style={{ color: 'var(--red)', letterSpacing: '0.16em' }}>
+                The ballot
+              </p>
+              <p className="text-lg font-light leading-relaxed" style={{ color: 'rgba(255,255,248,0.8)' }}>
+                We are allocating by ballot to give everyone an equal shot. Register
+                and if you are drawn on 9 June, you will get a checkout link and
+                48 hours to complete your purchase. Ballot closes 8 June.
+              </p>
+              <p className="mt-6 text-sm" style={{ color: 'rgba(255,255,248,0.4)' }}>
+                <Link href="/how-it-works" className="underline underline-offset-4 hover:opacity-70 transition-opacity">
+                  How it works &rarr;
+                </Link>
               </p>
             </div>
           </section>
 
-          {/* ── Section 2: What you get ──────────────────────────── */}
+          {/* ── Section 3: Inside the Capsule ────────────────────── */}
           <section className="px-10 py-20" style={{ borderTop: '1px solid rgba(0,0,106,0.1)' }}>
             <p className="text-xs tracking-widest uppercase mb-10" style={{ color: 'var(--red)', letterSpacing: '0.16em' }}>
-              What you get
+              Inside the Capsule
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
               {[
-                { label: 'Amphora-aged Grenache', sub: '1 bottle · the red' },
-                { label: 'Pale gris rosé', sub: '2 bottles · same estate' },
-                { label: 'Estate olive oil', sub: '1 vial · cold-pressed' },
+                { label: 'Amphora Aged Grenache', sub: '1 bottle · gris de grenache' },
+                { label: 'Estate Rosé', sub: '2 bottles · same estate' },
+                { label: 'Estate Olive Oil', sub: '1 vial · cold-pressed' },
               ].map(({ label, sub }) => (
                 <div key={label}>
                   <div
@@ -156,44 +232,17 @@ export default function Home() {
                 </div>
               ))}
             </div>
-            <p className="text-base font-medium" style={{ color: 'var(--blue)' }}>£89 including delivery.</p>
+            <p className="text-base font-medium" style={{ color: 'var(--blue)' }}>
+              &pound;89 including delivery.
+            </p>
             <p className="mt-2 text-sm font-light" style={{ color: 'rgba(0,0,106,0.6)' }}>
-              Two bottles of pale gris rosé, one bottle of the amphora-aged red,
-              and a small vial of their olive oil.
+              One bottle of amphora-aged Grenache gris, two bottles of estate ros&eacute;, and a small vial of their olive oil.
             </p>
             <p className="mt-4 text-sm" style={{ color: 'rgba(0,0,106,0.45)' }}>
               <Link href="/the-wine" className="underline underline-offset-4 hover:opacity-70 transition-opacity">
-                About the wine →
+                About the wine &rarr;
               </Link>
             </p>
-          </section>
-
-          {/* ── Section 3: The ballot ────────────────────────────── */}
-          <section
-            className="relative px-10 py-20 min-h-[50vh] flex flex-col justify-center"
-            style={{ backgroundColor: '#0e1a12' }}
-          >
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, #0e1a12 0%, #1a0e08 100%)' }} />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <p className="text-xs tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.08)', letterSpacing: '0.2em' }}>
-                [ Video: Winemaker footage — to be replaced ]
-              </p>
-            </div>
-            <div className="relative z-10 w-full">
-              <p className="text-xs tracking-widest uppercase mb-6" style={{ color: 'var(--red)', letterSpacing: '0.16em' }}>
-                The ballot
-              </p>
-              <p className="text-lg font-light leading-relaxed" style={{ color: 'rgba(255,255,248,0.8)' }}>
-                We&apos;re allocating by ballot to give everyone an equal shot. Register
-                and if you&apos;re drawn on 9 June, you&apos;ll get a checkout link and
-                48 hours to complete your purchase. Ballot closes 8 June.
-              </p>
-              <p className="mt-6 text-sm" style={{ color: 'rgba(255,255,248,0.4)' }}>
-                <Link href="/how-it-works" className="underline underline-offset-4 hover:opacity-70 transition-opacity">
-                  How it works →
-                </Link>
-              </p>
-            </div>
           </section>
 
           {/* ── Footer ──────────────────────────────────────────── */}
