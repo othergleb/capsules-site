@@ -8,10 +8,10 @@ export default function Home() {
       <Nav />
 
       {/* ── Hero ──────────────────────────────────────────────── */}
-      <section className="flex flex-col px-6 md:px-16 pt-32 pb-24 max-w-5xl mx-auto w-full">
+      <section className="flex flex-col px-6 md:px-16 pt-32 pb-24 w-full">
 
         {/* Animated logo — centred */}
-        <div className="flex justify-center mb-12">
+        <div className="flex justify-center mb-16">
           <video
             autoPlay
             loop
@@ -60,7 +60,7 @@ export default function Home() {
       <div style={{ borderTop: '1px solid rgba(0,0,106,0.1)' }} />
 
       {/* ── The allocation ────────────────────────────────────── */}
-      <section className="flex flex-col sm:flex-row gap-6 sm:gap-16 px-6 md:px-16 py-20 max-w-5xl mx-auto w-full">
+      <section className="flex flex-col sm:flex-row gap-6 sm:gap-16 px-6 md:px-16 py-20 w-full">
 
         <div className="sm:w-40 flex-shrink-0 pt-1">
           <p className="text-xs tracking-widest uppercase" style={{ color: 'var(--red)', letterSpacing: '0.16em' }}>
@@ -87,7 +87,7 @@ export default function Home() {
       <div style={{ borderTop: '1px solid rgba(0,0,106,0.1)' }} />
 
       {/* ── The box ───────────────────────────────────────────── */}
-      <section className="flex flex-col sm:flex-row gap-6 sm:gap-16 px-6 md:px-16 py-20 max-w-5xl mx-auto w-full">
+      <section className="flex flex-col sm:flex-row gap-6 sm:gap-16 px-6 md:px-16 py-20 w-full">
 
         <div className="sm:w-40 flex-shrink-0 pt-1">
           <p className="text-xs tracking-widest uppercase" style={{ color: 'var(--red)', letterSpacing: '0.16em' }}>
