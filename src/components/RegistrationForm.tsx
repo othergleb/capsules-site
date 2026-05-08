@@ -52,8 +52,8 @@ export default function RegistrationForm({ dark = false, minimal = false }: Regi
     return (
       <form onSubmit={handleSubmit} className="w-full">
         <div
-          className="flex items-center gap-4 pb-2"
-          style={{ borderBottom: '1px solid rgba(0,0,106,0.3)' }}
+          className="flex items-center gap-2 px-4 py-2 rounded-sm"
+          style={{ border: '1.5px solid var(--red)' }}
         >
           <input
             type="email"
@@ -62,7 +62,7 @@ export default function RegistrationForm({ dark = false, minimal = false }: Regi
             value={email}
             onChange={e => setEmail(e.target.value)}
             disabled={state === 'loading'}
-            className="flex-1 bg-transparent text-base font-light outline-none placeholder:opacity-40"
+            className="flex-1 bg-transparent text-sm font-light outline-none placeholder:opacity-40"
             style={{
               color: 'var(--blue)',
               fontFamily: 'Vulf Sans, sans-serif',
@@ -71,16 +71,21 @@ export default function RegistrationForm({ dark = false, minimal = false }: Regi
           <button
             type="submit"
             disabled={state === 'loading'}
-            className="text-sm font-light hover:opacity-60 transition-opacity whitespace-nowrap"
-            style={{ color: 'var(--blue)', fontFamily: 'Vulf Sans, sans-serif' }}
+            className="text-xs font-medium tracking-widest uppercase px-4 py-2 whitespace-nowrap hover:opacity-80 transition-opacity"
+            style={{
+              backgroundColor: 'var(--red)',
+              color: 'white',
+              fontFamily: 'Vulf Sans, sans-serif',
+              letterSpacing: '0.1em',
+            }}
           >
-            {state === 'loading' ? 'registering…' : 'register for Capsule 01'}
+            {state === 'loading' ? '…' : 'Register'}
           </button>
         </div>
         {state === 'error' && (
           <p className="mt-2 text-xs" style={{ color: 'var(--red)' }}>{errorMsg}</p>
         )}
-        <p className="mt-3 text-xs font-light" style={{ color: 'rgba(0,0,106,0.4)' }}>
+        <p className="mt-2 text-xs font-light" style={{ color: 'rgba(0,0,106,0.4)' }}>
           One entry per person. No spam, ever.
         </p>
       </form>
