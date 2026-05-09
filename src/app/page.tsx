@@ -1,21 +1,16 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Nav from '@/components/Nav'
-import CountdownTimer from '@/components/CountdownTimer'
 import RegistrationModal from '@/components/RegistrationModal'
 import Link from 'next/link'
 
-const BALLOT_DATE = '2026-06-09T23:59:59'
-
 const STATS = [
-  { label: 'Ballot closes', value: <CountdownTimer target={BALLOT_DATE} /> },
+  { label: 'Ballot closes', value: '9 June 2026' },
   { label: 'Bottles',       value: '480' },
   { label: 'Vineyard',      value: 'Meknes, Morocco' },
 ]
 
-// Red tile that expands to fill the screen on click.
-// Passes its bounding rect so the modal can animate from exactly here.
 function EmailTrigger({ onOpen }: { onOpen: (rect: DOMRect) => void }) {
   const ref = useRef<HTMLDivElement>(null)
   return (
@@ -68,6 +63,25 @@ export default function Home() {
   const [modalOpen, setModalOpen] = useState(false)
   const [triggerRect, setTriggerRect] = useState<DOMRect | null>(null)
   const hookCtaRef = useRef<HTMLButtonElement>(null)
+  const desktopVideoRef = useRef<HTMLVideoElement>(null)
+  const mobileVideoRef = useRef<HTMLVideoElement>(null)
+  const ballotVideoRef = useRef<HTMLVideoElement>(null)
+
+  // iOS sometimes needs a programmatic push to start autoplay
+  useEffect(() => {
+    desktopVideoRef.current?.play().catch(() => {})
+    mobileVideoRef.current?.play().catch(() => {})
+    ballotVideoRef.current?.play().catch(() => {})
+  }, [])
+
+  // Listen for Nav's "Register" button
+  useEffect(() => {
+    function handleOpenModal() {
+      openModal()
+    }
+    window.addEventListener('open-register-modal', handleOpenModal)
+    return () => window.removeEventListener('open-register-modal', handleOpenModal)
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   function openModal(rect?: DOMRect) {
     setTriggerRect(rect ?? null)
@@ -99,6 +113,7 @@ export default function Home() {
         >
           <div className="flex flex-col items-center">
             <video
+              ref={desktopVideoRef}
               autoPlay loop muted playsInline
               style={{ width: 'calc(100% - 2rem)', height: 'auto', display: 'block' }}
             >
@@ -145,7 +160,11 @@ export default function Home() {
           {/* Mobile header */}
           <div className="lg:hidden px-6 pt-28 pb-10">
             <div className="flex flex-col items-center mb-8">
-              <video autoPlay loop muted playsInline style={{ width: '75%' }}>
+              <video
+                ref={mobileVideoRef}
+                autoPlay loop muted playsInline
+                style={{ width: '75%' }}
+              >
                 <source src="/logo-animated-v3.mp4" type="video/mp4" />
               </video>
               <span className="capsules-wordmark-red mt-2" style={{ fontSize: '2.5rem' }}>Capsule 01</span>
@@ -169,15 +188,25 @@ export default function Home() {
             className="relative flex items-end min-h-screen px-10 py-16"
             style={{ backgroundColor: '#1a1208' }}
           >
+            {/* Background video */}
+            <video
+              autoPlay loop muted playsInline
+              style={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                opacity: 0.45,
+              }}
+            >
+              <source src="https://videos.pexels.com/video-files/1003933/1003933-hd_1920_1080_25fps.mp4" type="video/mp4" />
+            </video>
+            {/* Gradient overlay */}
             <div
               className="absolute inset-0"
-              style={{ background: 'linear-gradient(160deg, #2c1a0e 0%, #0d1a0a 100%)' }}
+              style={{ background: 'linear-gradient(to top, rgba(10,8,4,0.9) 0%, rgba(10,8,4,0.3) 60%, transparent 100%)' }}
             />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <p className="text-xs tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.15)', letterSpacing: '0.2em' }}>
-                [ Video: Vineyard footage ]
-              </p>
-            </div>
             <div className="relative z-10 w-full">
               <p className="text-xl font-light leading-relaxed" style={{ color: 'rgba(255,255,248,0.9)' }}>
                 In 2023 a Berber tribe in Meknes, Morocco, took the finest Grenache
@@ -199,6 +228,8 @@ export default function Home() {
                   color: 'rgba(255,255,248,0.8)',
                   fontFamily: 'Vulf Sans, sans-serif',
                   letterSpacing: '0.14em',
+                  background: 'none',
+                  cursor: 'pointer',
                 }}
               >
                 Register for Capsule 01
@@ -212,12 +243,22 @@ export default function Home() {
             className="relative px-10 py-20 min-h-[50vh] flex flex-col justify-center"
             style={{ backgroundColor: '#0e1a12' }}
           >
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, #0e1a12 0%, #1a0e08 100%)' }} />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <p className="text-xs tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.08)', letterSpacing: '0.2em' }}>
-                [ Video: Winemaker footage ]
-              </p>
-            </div>
+            {/* Background video */}
+            <video
+              ref={ballotVideoRef}
+              autoPlay loop muted playsInline
+              style={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                opacity: 0.25,
+              }}
+            >
+              <source src="https://videos.pexels.com/video-files/1003934/1003934-hd_1920_1080_25fps.mp4" type="video/mp4" />
+            </video>
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(14,26,18,0.8) 0%, rgba(26,14,8,0.8) 100%)' }} />
             <div className="relative z-10 w-full">
               <p className="text-xs tracking-widest uppercase mb-6" style={{ color: 'var(--red)', letterSpacing: '0.16em' }}>
                 The ballot
@@ -242,18 +283,35 @@ export default function Home() {
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
               {[
-                { label: 'Amphora Aged Grenache', sub: '1 bottle · gris de grenache' },
-                { label: 'Estate Rosé', sub: '2 bottles · same estate' },
-                { label: 'Estate Olive Oil', sub: '1 vial · cold-pressed' },
-              ].map(({ label, sub }) => (
+                {
+                  label: 'Amphora Aged Grenache',
+                  sub: '1 bottle · gris de grenache',
+                  img: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&q=80',
+                  alt: 'Wine bottle',
+                },
+                {
+                  label: 'Estate Rosé',
+                  sub: '2 bottles · same estate',
+                  img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
+                  alt: 'Rose wine',
+                },
+                {
+                  label: 'Estate Olive Oil',
+                  sub: '1 vial · cold-pressed',
+                  img: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=600&q=80',
+                  alt: 'Olive oil',
+                },
+              ].map(({ label, sub, img, alt }) => (
                 <div key={label}>
                   <div
-                    className="w-full mb-3 flex items-center justify-center"
-                    style={{ aspectRatio: '3/4', backgroundColor: 'rgba(0,0,106,0.05)', border: '1px dashed rgba(0,0,106,0.15)' }}
+                    className="w-full mb-3 overflow-hidden"
+                    style={{ aspectRatio: '3/4' }}
                   >
-                    <p className="text-xs text-center px-4" style={{ color: 'rgba(0,0,106,0.3)' }}>
-                      [ Photo: {label} ]
-                    </p>
+                    <img
+                      src={img}
+                      alt={alt}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
                   </div>
                   <p className="text-sm font-medium" style={{ color: 'var(--blue)' }}>{label}</p>
                   <p className="text-xs mt-0.5 font-light" style={{ color: 'rgba(0,0,106,0.5)' }}>{sub}</p>
