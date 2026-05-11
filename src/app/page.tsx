@@ -208,11 +208,11 @@ export default function Home() {
               style={{ background: 'linear-gradient(to top, rgba(10,8,4,0.9) 0%, rgba(10,8,4,0.3) 60%, transparent 100%)' }}
             />
             <div className="relative z-10 w-full">
-              <p className="text-xl font-light leading-relaxed max-w-xl" style={{ color: 'rgba(255,255,248,0.9)' }}>
+              <p className="text-xl font-light leading-relaxed" style={{ color: 'rgba(255,255,248,0.9)' }}>
                 The last 480 bottles of an amphora aged grenache, grown by Berber farmers
                 in the foothills of the Atlas mountains. Available only by ballot &mdash; one capsule per person.
               </p>
-              <div className="mt-8 max-w-lg">
+              <div className="mt-8">
                 <p className="text-sm font-light leading-relaxed" style={{ color: 'rgba(255,255,248,0.6)' }}>
                   In 2023, a Berber tribe in Meknes, Morocco collaborated with world class French winemakers
                   to create a beautiful, one of a kind wine.
