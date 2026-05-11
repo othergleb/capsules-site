@@ -6,12 +6,12 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ·—×#@!%&0123456789'
 
 function useScramble(target: string) {
-  const [output, setOutput] = useState(target)
+  const [output, setOutput] = useState('')
   const rafRef = useRef<number | null>(null)
 
   const play = useCallback(() => {
     let frame = 0
-    const SPEED = 3 // frames before each character settles
+    const SPEED = 3
 
     function tick() {
       frame++
@@ -34,10 +34,7 @@ function useScramble(target: string) {
     tick()
   }, [target])
 
-  useEffect(() => {
-    return () => { if (rafRef.current !== null) cancelAnimationFrame(rafRef.current) }
-  }, [])
-
+  useEffect(() => () => { if (rafRef.current !== null) cancelAnimationFrame(rafRef.current) }, [])
   return { output, play }
 }
 
@@ -45,30 +42,32 @@ function useScramble(target: string) {
 function useCursor(containerRef: React.RefObject<HTMLDivElement | null>) {
   const ringRef = useRef<HTMLDivElement>(null)
   const dotRef  = useRef<HTMLDivElement>(null)
+  // Expose raw mouse pos for the floating image
+  const mousePos = useRef({ x: -300, y: -300 })
 
   useEffect(() => {
     const el = containerRef.current
     if (!el) return
-    const target = el  // capture for closures
+    const target = el
 
-    let mx = -200, my = -200
-    let rx = -200, ry = -200
+    let rx = -300, ry = -300
     let rafId: number
 
     function onMove(e: MouseEvent) {
       const rect = target.getBoundingClientRect()
-      mx = e.clientX - rect.left
-      my = e.clientY - rect.top
+      mousePos.current.x = e.clientX - rect.left
+      mousePos.current.y = e.clientY - rect.top
       if (dotRef.current) {
-        dotRef.current.style.transform = `translate(${mx - 4}px, ${my - 4}px)`
+        dotRef.current.style.transform =
+          `translate(${mousePos.current.x - 4}px, ${mousePos.current.y - 4}px)`
       }
     }
 
     function lerp(a: number, b: number, t: number) { return a + (b - a) * t }
 
     function animate() {
-      rx = lerp(rx, mx, 0.1)
-      ry = lerp(ry, my, 0.1)
+      rx = lerp(rx, mousePos.current.x, 0.1)
+      ry = lerp(ry, mousePos.current.y, 0.1)
       if (ringRef.current) {
         ringRef.current.style.transform = `translate(${rx - 20}px, ${ry - 20}px)`
       }
@@ -80,18 +79,33 @@ function useCursor(containerRef: React.RefObject<HTMLDivElement | null>) {
     return () => { target.removeEventListener('mousemove', onMove); cancelAnimationFrame(rafId) }
   }, [containerRef])
 
-  return { ringRef, dotRef }
+  return { ringRef, dotRef, mousePos }
 }
 
-// ── Scramble link (hover triggers scramble + image reveal) ────
+// ── Items ─────────────────────────────────────────────────────
+const ITEMS = [
+  { label: 'THE WINE',   img: 'https://images.unsplash.com/photo-1569613946657-4c3f3ff490bb?w=900&q=80' },
+  { label: 'THE ORIGIN', img: 'https://images.unsplash.com/photo-1506377295352-e3154d43ea9e?w=900&q=80' },
+  { label: 'THE METHOD', img: 'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=900&q=80' },
+  { label: 'REGISTER',   img: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=900&q=80' },
+]
+
+// ── Scramble link ─────────────────────────────────────────────
 function ScrambleLink({
-  label, onEnter, onLeave,
+  label, delay, linksVisible, onEnter, onLeave,
 }: {
   label: string
+  delay: number
+  linksVisible: boolean
   onEnter: () => void
   onLeave: () => void
 }) {
   const { output, play } = useScramble(label)
+  // Initialise display to label (not empty) once visible
+  const [shown, setShown] = useState(false)
+  useEffect(() => {
+    if (linksVisible && !shown) setShown(true)
+  }, [linksVisible, shown])
 
   return (
     <span
@@ -99,45 +113,74 @@ function ScrambleLink({
       onMouseLeave={onLeave}
       style={{
         display: 'block',
-        fontSize: 'clamp(2.2rem, 5.5vw, 5rem)',
+        fontSize: 'clamp(2.4rem, 5.5vw, 5.5rem)',
         fontWeight: 700,
         letterSpacing: '-0.02em',
         lineHeight: 1.05,
-        color: 'rgba(255,255,248,0.85)',
+        color: 'rgba(255,255,248,0.82)',
         cursor: 'none',
         userSelect: 'none',
         fontFamily: 'Vulf Sans, sans-serif',
-        paddingBlock: '0.2rem',
+        paddingBlock: '0.15rem',
+        opacity: linksVisible ? 1 : 0,
+        transform: linksVisible ? 'translateY(0)' : 'translateY(14px)',
+        transition: `opacity 0.55s ease ${delay}ms, transform 0.55s ease ${delay}ms`,
       }}
     >
-      {output}
+      {shown ? (output || label) : label}
     </span>
   )
 }
 
-// ── Items ────────────────────────────────────────────────────
-const ITEMS = [
-  { label: 'THE WINE',   img: 'https://images.unsplash.com/photo-1569613946657-4c3f3ff490bb?w=1400&q=80' },
-  { label: 'THE ORIGIN', img: 'https://images.unsplash.com/photo-1506377295352-e3154d43ea9e?w=1400&q=80' },
-  { label: 'THE METHOD', img: 'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=1400&q=80' },
-  { label: 'REGISTER',   img: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=1400&q=80' },
-]
-
 // ── Main component ────────────────────────────────────────────
 export default function AnimationShowcase() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const { ringRef, dotRef } = useCursor(containerRef)
-  const [activeImg, setActiveImg] = useState<string | null>(null)
+  const { ringRef, dotRef, mousePos } = useCursor(containerRef)
+  const floatRef = useRef<HTMLDivElement>(null)
+
+  const [headlineVisible, setHeadlineVisible] = useState(false)
+  const [linksVisible, setLinksVisible]       = useState(false)
+  const [hoverImg, setHoverImg]               = useState<string | null>(null)
+
   const { output: headline, play: playHeadline } = useScramble('CAPSULE 01')
 
+  // Intro sequence
   useEffect(() => {
-    const t = setTimeout(playHeadline, 500)
-    return () => clearTimeout(t)
+    const t1 = setTimeout(() => { setHeadlineVisible(true) }, 120)
+    const t2 = setTimeout(() => { playHeadline() }, 180)
+    const t3 = setTimeout(() => { setLinksVisible(true) }, 820)
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3) }
   }, [playHeadline])
+
+  // Floating image: update position directly via DOM (no React re-render lag)
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+    const target = el
+    let rafId: number
+    let fx = -400, fy = -400
+
+    function lerp(a: number, b: number, t: number) { return a + (b - a) * t }
+
+    function animate() {
+      fx = lerp(fx, mousePos.current.x, 0.1)
+      fy = lerp(fy, mousePos.current.y, 0.1)
+      if (floatRef.current) {
+        floatRef.current.style.left = `${fx + 28}px`
+        floatRef.current.style.top  = `${fy - 180}px`
+      }
+      rafId = requestAnimationFrame(animate)
+    }
+
+    target.addEventListener('mousemove', () => {}) // ensure RAF stays alive while in section
+    rafId = requestAnimationFrame(animate)
+    return () => cancelAnimationFrame(rafId)
+  }, [mousePos])
 
   return (
     <div
       ref={containerRef}
+      data-nav-dark=""
       style={{
         position: 'relative',
         minHeight: '100vh',
@@ -147,91 +190,107 @@ export default function AnimationShowcase() {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        padding: 'clamp(5rem, 8vw, 7rem) clamp(2rem, 5vw, 4rem) clamp(2.5rem, 4vw, 3.5rem)',
+        padding: 'clamp(5.5rem, 9vw, 8rem) clamp(2rem, 6vw, 5rem) clamp(2.5rem, 4vw, 3.5rem)',
       }}
     >
-      {/* Background images — revealed on link hover */}
-      {ITEMS.map(({ label, img }) => (
-        <div
-          key={label}
-          style={{
-            position: 'absolute',
-            inset: 0,
-            backgroundImage: `url(${img})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            opacity: activeImg === img ? 0.28 : 0,
-            transition: 'opacity 0.55s ease',
-            zIndex: 0,
-          }}
-        />
-      ))}
-      {/* Persistent dark overlay so text always reads */}
-      <div style={{ position: 'absolute', inset: 0, background: 'rgba(6,5,3,0.6)', zIndex: 0 }} />
 
       {/* ── Top label ── */}
-      <div style={{ position: 'relative', zIndex: 1 }}>
-        <p style={{
-          fontSize: '0.65rem',
-          letterSpacing: '0.18em',
-          textTransform: 'uppercase',
-          color: 'var(--red)',
-          fontFamily: 'Vulf Sans, sans-serif',
-        }}>
-          Animation capabilities — hover to explore
-        </p>
-      </div>
+      <p style={{
+        fontSize: '0.65rem',
+        letterSpacing: '0.18em',
+        textTransform: 'uppercase',
+        color: 'var(--red)',
+        fontFamily: 'Vulf Sans, sans-serif',
+        opacity: headlineVisible ? 1 : 0,
+        transition: 'opacity 0.6s ease 400ms',
+      }}>
+        Capsule 01 &nbsp;·&nbsp; Animation demo
+      </p>
 
       {/* ── Centre content ── */}
-      <div style={{ position: 'relative', zIndex: 1 }}>
-        {/* Scramble headline — fires on page load */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingBlock: '3rem' }}>
+
+        {/* Headline — scrambles in on load */}
         <h2
           className="capsules-wordmark"
           style={{
-            fontSize: 'clamp(4rem, 13vw, 11rem)',
+            fontSize: 'clamp(4.5rem, 14vw, 13rem)',
             marginBottom: 'clamp(2rem, 4vw, 3.5rem)',
             color: 'transparent',
-            WebkitTextStrokeColor: 'rgba(255,255,248,0.85)',
+            WebkitTextStrokeColor: 'rgba(255,255,248,0.88)',
+            opacity: headlineVisible ? 1 : 0,
+            transform: headlineVisible ? 'translateY(0)' : 'translateY(24px)',
+            transition: 'opacity 0.5s ease, transform 0.5s ease',
           }}
         >
-          {headline}
+          {headline || 'CAPSULE 01'}
         </h2>
 
-        {/* Links — hover to scramble + reveal image */}
+        {/* Links — hover to scramble + reveal floating image */}
         <nav style={{ display: 'flex', flexDirection: 'column' }}>
-          {ITEMS.map(({ label, img }) => (
+          {ITEMS.map(({ label, img }, i) => (
             <ScrambleLink
               key={label}
               label={label}
-              onEnter={() => setActiveImg(img)}
-              onLeave={() => setActiveImg(null)}
+              delay={i * 90}
+              linksVisible={linksVisible}
+              onEnter={() => setHoverImg(img)}
+              onLeave={() => setHoverImg(null)}
             />
           ))}
         </nav>
       </div>
 
-      {/* ── Bottom label ── */}
-      <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-        <p style={{ fontSize: '0.65rem', color: 'rgba(255,255,248,0.2)', fontFamily: 'Vulf Sans, sans-serif', letterSpacing: '0.12em' }}>
-          Scramble on load &nbsp;·&nbsp; Scramble on hover &nbsp;·&nbsp; Custom cursor &nbsp;·&nbsp; Image reveal
-        </p>
+      {/* ── Bottom caption ── */}
+      <p style={{
+        fontSize: '0.65rem',
+        color: 'rgba(255,255,248,0.18)',
+        fontFamily: 'Vulf Sans, sans-serif',
+        letterSpacing: '0.12em',
+        opacity: linksVisible ? 1 : 0,
+        transition: 'opacity 0.6s ease 600ms',
+      }}>
+        Scramble on load &nbsp;·&nbsp; Scramble on hover &nbsp;·&nbsp; Custom cursor &nbsp;·&nbsp; Image on hover
+      </p>
+
+      {/* ── Floating image (follows cursor on link hover) ── */}
+      <div
+        ref={floatRef}
+        style={{
+          position: 'absolute',
+          width: 260,
+          height: 360,
+          pointerEvents: 'none',
+          zIndex: 10,
+          overflow: 'hidden',
+          opacity: hoverImg ? 1 : 0,
+          transform: hoverImg ? 'scale(1)' : 'scale(0.88)',
+          transition: 'opacity 0.3s ease, transform 0.35s cubic-bezier(0.34,1.2,0.64,1)',
+        }}
+      >
+        {hoverImg && (
+          <img
+            src={hoverImg}
+            alt=""
+            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+          />
+        )}
       </div>
 
-      {/* ── Custom cursor ── */}
-      {/* Lagged ring */}
+      {/* ── Custom cursor ring (lagged) ── */}
       <div
         ref={ringRef}
         style={{
           position: 'absolute',
           top: 0, left: 0,
           width: 40, height: 40,
-          border: '1px solid rgba(255,255,248,0.45)',
+          border: '1px solid rgba(255,255,248,0.4)',
           borderRadius: '50%',
           pointerEvents: 'none',
           zIndex: 200,
         }}
       />
-      {/* Instant dot */}
+      {/* ── Custom cursor dot (instant) ── */}
       <div
         ref={dotRef}
         style={{
