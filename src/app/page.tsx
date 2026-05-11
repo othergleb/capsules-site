@@ -6,7 +6,7 @@ import RegistrationModal from '@/components/RegistrationModal'
 import Link from 'next/link'
 
 const STATS = [
-  { label: 'Ballot closes', value: '9 June 2026' },
+  { label: 'Ballot closes', value: '14 June 2026' },
   { label: 'Bottles',       value: '480' },
   { label: 'Vineyard',      value: 'Meknes, Morocco' },
 ]
@@ -208,17 +208,28 @@ export default function Home() {
               style={{ background: 'linear-gradient(to top, rgba(10,8,4,0.9) 0%, rgba(10,8,4,0.3) 60%, transparent 100%)' }}
             />
             <div className="relative z-10 w-full">
-              <p className="text-xl font-light leading-relaxed" style={{ color: 'rgba(255,255,248,0.9)' }}>
-                In 2023 a Berber tribe in Meknes, Morocco, took the finest Grenache
-                grapes from their harvest, and worked alongside French winemakers
-                to create a one of a kind amphora aged wine.
+              <p className="text-xl font-light leading-relaxed max-w-xl" style={{ color: 'rgba(255,255,248,0.9)' }}>
+                The last 480 bottles of an amphora aged grenache, grown by Berber farmers
+                in the foothills of the Atlas mountains. Available only by ballot &mdash; one capsule per person.
               </p>
-              <p className="mt-8 text-xl font-light" style={{ color: 'rgba(255,255,248,0.9)' }}>
-                480 bottles remain.
-              </p>
-              <p className="mt-2 text-xl font-light" style={{ color: 'rgba(255,255,248,0.9)' }}>
-                One per person.
-              </p>
+              <div className="mt-8 max-w-lg">
+                <p className="text-sm font-light leading-relaxed" style={{ color: 'rgba(255,255,248,0.6)' }}>
+                  In 2023, a Berber tribe in Meknes, Morocco collaborated with world class French winemakers
+                  to create a beautiful, one of a kind wine.
+                </p>
+                <p className="mt-4 text-sm font-light leading-relaxed" style={{ color: 'rgba(255,255,248,0.6)' }}>
+                  Taking carefully selected Grenache grapes from their harvest and ageing them in clay
+                  amphora, together they produced what&rsquo;s known as a gris &mdash; a ros&eacute; so pale
+                  it enters a new classification.
+                </p>
+                <p className="mt-4 text-sm font-light leading-relaxed" style={{ color: 'rgba(255,255,248,0.6)' }}>
+                  Only 480 bottles remain, and they&rsquo;re all for sale via an allocation ballot on
+                  the 14th June. One bottle per customer.
+                </p>
+                <p className="mt-4 text-sm font-light leading-relaxed" style={{ color: 'rgba(255,255,248,0.6)' }}>
+                  Join Capsule 01 below to enter the allocation.
+                </p>
+              </div>
               <button
                 ref={hookCtaRef}
                 onClick={() => openModal(hookCtaRef.current?.getBoundingClientRect())}
@@ -265,8 +276,8 @@ export default function Home() {
               </p>
               <p className="text-lg font-light leading-relaxed" style={{ color: 'rgba(255,255,248,0.8)' }}>
                 We are allocating by ballot to give everyone an equal shot. Register
-                and if you are drawn on 9 June, you will get a checkout link and
-                48 hours to complete your purchase. Ballot closes 8 June.
+                and if you are drawn on 14 June, you will get a checkout link and
+                48 hours to complete your purchase. Ballot closes 13 June.
               </p>
               <p className="mt-6 text-sm" style={{ color: 'rgba(255,255,248,0.4)' }}>
                 <Link href="/how-it-works" className="underline underline-offset-4 hover:opacity-70 transition-opacity">
@@ -337,7 +348,7 @@ export default function Home() {
             style={{ borderTop: '1px solid rgba(0,0,106,0.1)', color: 'rgba(0,0,106,0.35)' }}
           >
             <div className="flex justify-between items-center">
-              <p>One entry per person. Ballot closes 8 June.</p>
+              <p>One entry per person. Ballot closes 13 June.</p>
               <a href="https://otherwine.co.uk" target="_blank" rel="noopener noreferrer"
                 className="underline underline-offset-2 hover:opacity-70">otherwine.co.uk</a>
             </div>

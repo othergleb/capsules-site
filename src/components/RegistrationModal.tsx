@@ -178,7 +178,7 @@ export default function RegistrationModal({ open, onClose, startRect }: Props) {
                 lineHeight: 1.65,
                 fontFamily: 'Vulf Sans, sans-serif',
               }}>
-                Check your inbox. If you are drawn on 9 June, you will have 48 hours to complete your purchase.
+                Check your inbox. If you are drawn on 14 June, you will have 48 hours to complete your purchase.
               </p>
             </>
           ) : (
@@ -264,7 +264,7 @@ export default function RegistrationModal({ open, onClose, startRect }: Props) {
                   fontWeight: 300,
                   fontFamily: 'Vulf Sans, sans-serif',
                 }}>
-                  One entry per person. Ballot closes 8 June. No spam, ever.
+                  One entry per person. Ballot closes 13 June. No spam, ever.
                 </p>
               </form>
             </>

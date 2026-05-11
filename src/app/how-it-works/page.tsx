@@ -14,7 +14,7 @@ const STEPS = [
   {
     num: '02',
     title: 'The Ballot',
-    body: 'On 9 June, we run the ballot. Every registered email has an equal chance. There are 480 bottles and one per person. The draw is final.',
+    body: 'On 14 June, we run the ballot. Every registered email has an equal chance. There are 480 bottles and one per person. The draw is final.',
     img: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=900&q=80',
     alt: 'Wine bottles lined up',
   },
@@ -95,7 +95,7 @@ export default function HowItWorksPage() {
       <section style={{ padding: 'clamp(2.5rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem)', maxWidth: '700px' }}>
         <p style={{ fontSize: '1.1rem', fontWeight: 300, lineHeight: 1.75, color: 'var(--blue)' }}>
           We allocate by ballot to give everyone an equal shot. Register once,
-          and if you are drawn on 9 June you will receive a checkout link with
+          and if you are drawn on 14 June you will receive a checkout link with
           48 hours to complete your purchase.
         </p>
       </section>
