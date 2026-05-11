@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import Nav from '@/components/Nav'
 import RegistrationModal from '@/components/RegistrationModal'
+import AnimationShowcase from '@/components/AnimationShowcase'
 import Link from 'next/link'
 
 const STATS = [
@@ -98,6 +99,8 @@ export default function Home() {
         onClose={() => setModalOpen(false)}
         startRect={triggerRect}
       />
+
+      <AnimationShowcase />
 
       <div className="lg:flex">
 
