@@ -100,8 +100,6 @@ export default function Home() {
         startRect={triggerRect}
       />
 
-      <AnimationShowcase />
-
       <div className="lg:flex">
 
         {/* ── LEFT: fixed sidebar ─────────────────────────────── */}
@@ -159,6 +157,8 @@ export default function Home() {
 
         {/* ── RIGHT: scrollable content ────────────────────────── */}
         <main className="lg:ml-[33.333vw] flex-1">
+
+          <AnimationShowcase />
 
           {/* Mobile header */}
           <div className="lg:hidden px-6 pt-28 pb-10">
