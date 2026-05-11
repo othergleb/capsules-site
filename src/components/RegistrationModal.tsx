@@ -108,6 +108,32 @@ export default function RegistrationModal({ open, onClose, startRect }: Props) {
         }}
       />
 
+      {/* Close button — outside the card so overflow:hidden doesn't clip its hit area */}
+      <button
+        onClick={onClose}
+        aria-label="Close"
+        style={{
+          position: 'fixed',
+          top: `max(1.5rem, calc(50% - ${CARD_H / 2}px + 1rem))`,
+          right: `max(1.75rem, calc(50% - ${CARD_W / 2}px + 1.25rem))`,
+          zIndex: 210,
+          background: 'none',
+          border: 'none',
+          color: 'rgba(255,255,255,0.75)',
+          fontSize: '1.6rem',
+          fontWeight: 300,
+          lineHeight: 1,
+          cursor: 'pointer',
+          fontFamily: 'Vulf Sans, sans-serif',
+          padding: '0.5rem',
+          opacity: formVisible ? 1 : 0,
+          pointerEvents: formVisible ? 'auto' : 'none',
+          transition: 'opacity 0.2s ease',
+        }}
+      >
+        &times;
+      </button>
+
       {/* Card */}
       <div
         style={{
@@ -127,28 +153,6 @@ export default function RegistrationModal({ open, onClose, startRect }: Props) {
             : 'none',
         }}
       >
-        {/* Close */}
-        <button
-          onClick={onClose}
-          aria-label="Close"
-          style={{
-            position: 'absolute',
-            top: '1.25rem',
-            right: '1.5rem',
-            background: 'none',
-            border: 'none',
-            color: 'rgba(255,255,255,0.65)',
-            fontSize: '1.6rem',
-            fontWeight: 300,
-            lineHeight: 1,
-            cursor: 'pointer',
-            fontFamily: 'Vulf Sans, sans-serif',
-            opacity: formVisible ? 1 : 0,
-            transition: 'opacity 0.2s ease',
-          }}
-        >
-          &times;
-        </button>
 
         {/* Content */}
         <div

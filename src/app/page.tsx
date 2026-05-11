@@ -210,26 +210,11 @@ export default function Home() {
             <div className="relative z-10 w-full">
               <p className="text-xl font-light leading-relaxed" style={{ color: 'rgba(255,255,248,0.9)' }}>
                 The last 480 bottles of an amphora aged grenache, grown by Berber farmers
-                in the foothills of the Atlas mountains. Available only by ballot &mdash; one capsule per person.
+                in the foothills of the Atlas mountains.
               </p>
-              <div className="mt-8">
-                <p className="text-sm font-light leading-relaxed" style={{ color: 'rgba(255,255,248,0.6)' }}>
-                  In 2023, a Berber tribe in Meknes, Morocco collaborated with world class French winemakers
-                  to create a beautiful, one of a kind wine.
-                </p>
-                <p className="mt-4 text-sm font-light leading-relaxed" style={{ color: 'rgba(255,255,248,0.6)' }}>
-                  Taking carefully selected Grenache grapes from their harvest and ageing them in clay
-                  amphora, together they produced what&rsquo;s known as a gris &mdash; a ros&eacute; so pale
-                  it enters a new classification.
-                </p>
-                <p className="mt-4 text-sm font-light leading-relaxed" style={{ color: 'rgba(255,255,248,0.6)' }}>
-                  Only 480 bottles remain, and they&rsquo;re all for sale via an allocation ballot on
-                  the 14th June. One bottle per customer.
-                </p>
-                <p className="mt-4 text-sm font-light leading-relaxed" style={{ color: 'rgba(255,255,248,0.6)' }}>
-                  Join Capsule 01 below to enter the allocation.
-                </p>
-              </div>
+              <p className="mt-4 text-xl font-light" style={{ color: 'rgba(255,255,248,0.9)' }}>
+                Available only by ballot &mdash; one capsule per person.
+              </p>
               <button
                 ref={hookCtaRef}
                 onClick={() => openModal(hookCtaRef.current?.getBoundingClientRect())}
@@ -246,6 +231,26 @@ export default function Home() {
                 Register for Capsule 01
               </button>
             </div>
+          </section>
+
+          {/* ── Section 1b: Subtext ──────────────────────────────── */}
+          <section className="px-10 py-16" style={{ borderTop: '1px solid rgba(0,0,106,0.1)' }}>
+            <p className="text-base font-light leading-relaxed mb-5" style={{ color: 'var(--blue)' }}>
+              In 2023, Berber farmers in Meknes, Morocco collaborated with world class French winemakers
+              to create a beautiful, one of a kind wine.
+            </p>
+            <p className="text-base font-light leading-relaxed mb-5" style={{ color: 'var(--blue)' }}>
+              Taking carefully selected Grenache grapes from their harvest and ageing them in clay
+              amphora, together they produced what&rsquo;s known as a gris &mdash; a ros&eacute; so pale
+              it enters a new classification.
+            </p>
+            <p className="text-base font-light leading-relaxed mb-5" style={{ color: 'var(--blue)' }}>
+              Only 480 bottles remain, and they&rsquo;re all for sale via an allocation ballot on
+              the 14th June. One bottle per customer.
+            </p>
+            <p className="text-base font-light leading-relaxed" style={{ color: 'var(--blue)' }}>
+              Join Capsule 01 below to enter the allocation.
+            </p>
           </section>
 
           {/* ── Section 2: The ballot ─────────────────────────────── */}
