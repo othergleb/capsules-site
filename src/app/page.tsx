@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Nav from '@/components/Nav'
 import RegistrationModal from '@/components/RegistrationModal'
 
@@ -28,47 +28,43 @@ function Sunflower({ size = 44 }: { size?: number }) {
   )
 }
 
-// ── OTHER blob wordmark ────────────────────────────────────────
-function OtherWordmark() {
-  return (
-    <div style={{ position: 'relative', width: '100%', overflow: 'visible' }}>
-      {/* SVG filter definition — must be in the DOM */}
-      <svg width="0" height="0" style={{ position: 'absolute', pointerEvents: 'none' }}>
-        <defs>
-          <filter id="blob-merge" x="-5%" y="-40%" width="110%" height="180%">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="blur" />
-            <feColorMatrix
-              in="blur" type="matrix"
-              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 28 -11"
-              result="blob"
-            />
-          </filter>
-        </defs>
-      </svg>
+// ── OTHER animated logo video ─────────────────────────────────
+function OtherLogoVideo() {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  useEffect(() => { videoRef.current?.play().catch(() => {}) }, [])
 
-      <div
+  return (
+    /*
+      The video is 2000×2000 (square), red bg #FF3C00 matching the page.
+      We display it full-width and crop vertically to show just the logo area.
+      The logo sits at roughly 40–60% of the video height.
+      Container height ~36vw lets us show that window centred.
+    */
+    <div
+      style={{
+        width: '100%',
+        /* ~36vw shows the logo at full width with a bit of breathing room */
+        height: 'clamp(180px, 36vw, 620px)',
+        overflow: 'hidden',
+        position: 'relative',
+        lineHeight: 0,
+      }}
+    >
+      <video
+        ref={videoRef}
+        autoPlay loop muted playsInline
         style={{
-          filter: 'url(#blob-merge)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
+          width: '100%',
+          height: 'auto',
+          position: 'absolute',
+          top: '50%',
+          left: 0,
+          transform: 'translateY(-50%)',
+          display: 'block',
         }}
       >
-        <span
-          style={{
-            fontFamily: 'Vulf Sans, sans-serif',
-            fontWeight: 900,
-            fontSize: 'clamp(7rem, 23vw, 18rem)',
-            letterSpacing: '-0.07em',
-            color: '#EDFF00',
-            lineHeight: 0.88,
-            display: 'block',
-            userSelect: 'none',
-          }}
-        >
-          OTHER
-        </span>
-      </div>
+        <source src="/other-logo.mp4" type="video/mp4" />
+      </video>
     </div>
   )
 }
@@ -172,22 +168,14 @@ export default function Home() {
         style={{
           position: 'relative',
           minHeight: '100vh',
-          backgroundColor: '#F03D00',
+          backgroundColor: '#FF3C00',
           display: 'flex',
           flexDirection: 'column',
           overflow: 'hidden',
         }}
       >
-        {/* OTHER blob wordmark */}
-        <div
-          style={{
-            paddingTop: 'clamp(4rem, 8vw, 6rem)',
-            paddingLeft: 'clamp(0.5rem, 2vw, 1.5rem)',
-            paddingRight: 'clamp(0.5rem, 2vw, 1.5rem)',
-          }}
-        >
-          <OtherWordmark />
-        </div>
+        {/* OTHER animated logo — full bleed, no padding */}
+        <OtherLogoVideo />
 
         {/* Two circular photos */}
         <div
@@ -258,7 +246,7 @@ export default function Home() {
                 fontFamily: 'Vulf Sans, sans-serif',
                 fontSize: 'clamp(0.55rem, 1.3vw, 0.7rem)',
                 letterSpacing: '0.2em',
-                color: '#F03D00',
+                color: '#FF3C00',
                 textTransform: 'uppercase',
                 fontWeight: 600,
                 background: '#EDFF00',
@@ -341,7 +329,7 @@ export default function Home() {
             fontFamily: "'Fraunces', Georgia, serif",
             fontWeight: 900,
             fontSize: 'clamp(3.5rem, 10vw, 8rem)',
-            color: '#F03D00',
+            color: '#FF3C00',
             textAlign: 'center',
             lineHeight: 1,
             marginBottom: 'clamp(1.75rem, 4vw, 3rem)',
@@ -397,7 +385,7 @@ export default function Home() {
             maxWidth: '400px',
             margin: 'clamp(1.5rem, 3.5vw, 2.5rem) auto 0',
             width: '100%',
-            borderTop: '1.5px solid #F03D00',
+            borderTop: '1.5px solid #FF3C00',
           }}
         >
           {[
@@ -411,7 +399,7 @@ export default function Home() {
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 padding: '0.65rem 0',
-                borderBottom: '1.5px solid #F03D00',
+                borderBottom: '1.5px solid #FF3C00',
                 fontFamily: 'Vulf Sans, sans-serif',
                 fontSize: '0.65rem',
                 letterSpacing: '0.12em',
@@ -453,7 +441,7 @@ export default function Home() {
                 disabled={formState === 'loading'}
               />
               {formState === 'error' && (
-                <p style={{ color: '#F03D00', fontSize: '0.75rem', marginTop: '0.4rem', fontFamily: 'Vulf Sans, sans-serif' }}>
+                <p style={{ color: '#FF3C00', fontSize: '0.75rem', marginTop: '0.4rem', fontFamily: 'Vulf Sans, sans-serif' }}>
                   {errorMsg}
                 </p>
               )}
@@ -465,7 +453,7 @@ export default function Home() {
                   width: '100%',
                   marginTop: '0.7rem',
                   padding: '0.85rem',
-                  backgroundColor: '#F03D00',
+                  backgroundColor: '#FF3C00',
                   color: '#EDFF00',
                   border: 'none',
                   borderRadius: '999px',

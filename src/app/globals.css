@@ -89,7 +89,7 @@
 /* ── Base ───────────────────────────────────────────────────── */
 :root {
   --red:    #FF3C00;
-  --orange: #F03D00;
+  --orange: #FF3C00;
   --blue:   #00006A;
   --cream:  #fffff5;
   --yellow: #EDFF00;
@@ -127,7 +127,7 @@
   color: var(--red);
   outline: none;
 }
-.yellow-input::placeholder { color: rgba(240,61,0,0.4); }
+.yellow-input::placeholder { color: rgba(255,60,0,0.4); }
 .yellow-input:focus { border-color: var(--red); }
 
 * {
