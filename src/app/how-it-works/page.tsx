@@ -38,7 +38,7 @@ export default function HowItWorksPage() {
   return (
     <div style={{ backgroundColor: 'var(--cream)', color: 'var(--blue)' }}>
 
-      <Nav initialDark={true} backHref="/" />
+      <Nav backHref="/" color="rgba(255,255,248,0.85)" />
 
       {/* Hero */}
       <section
