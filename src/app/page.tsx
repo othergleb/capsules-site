@@ -182,11 +182,10 @@ export default function Home() {
           <FarmerVideo src={FARMER_RIGHT} label="Berber farmers working in the Atlas mountains" muted={!soundOn} />
         </div>
 
-        {/* FIX 4: Sunflower at bottom-left corner of logo
-            Logo bottom ≈ 0.58vw + 16vw; sunflower half-height ≈ 2.75vw → top = 13.83vw */}
+        {/* Sunflower overlapping lower-left of logo — Figma y:264 / 1728 = 15.3vw */}
         <div style={{
           position: 'absolute',
-          top: 'calc(0.58vw + 20.6vw - 2.75vw)',
+          top: '15.3vw',
           left: '0',
           pointerEvents: 'none',
         }}>
