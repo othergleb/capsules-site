@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from 'react'
 import Nav from '@/components/Nav'
 
-// ── Asset paths ────────────────────────────────────────────────
 const MAROC_SVG      = '/figma/maroc.svg'
 const ARABIC_SVG     = '/figma/arabic.svg'
 const SUNFLOWER_SVG  = '/figma/sunflower.svg'
@@ -14,8 +13,8 @@ const FARMER_LEFT    = '/farmer-left.mp4'
 const FARMER_RIGHT   = '/farmer-right.mp4'
 
 // ── Animated OTHER logo ────────────────────────────────────────
-// In Figma: 1799px wide on 1728px frame, starts at left -50px → bleeds ~3% each side
-// Height: 395px on 1728px = 22.9vw
+// Figma: 1799px wide on 1728px frame (104%), left -50px, top 10px, height 395px
+// → bleeds 3% off each side, height = 22.9vw
 function OtherLogoVideo() {
   const videoRef = useRef<HTMLVideoElement>(null)
   useEffect(() => { videoRef.current?.play().catch(() => {}) }, [])
@@ -23,7 +22,8 @@ function OtherLogoVideo() {
     <div style={{
       width: '106%',
       marginLeft: '-3%',
-      height: 'clamp(140px, 22.9vw, 395px)',
+      // Figma: 395px on 1728px = 22.9vw. Clamp so it stays tight on smaller screens.
+      height: 'clamp(110px, 22.9vw, 395px)',
       overflow: 'hidden',
       position: 'relative',
       lineHeight: 0,
@@ -47,12 +47,21 @@ function OtherLogoVideo() {
 }
 
 // ── Oval farmer video ──────────────────────────────────────────
-function FarmerVideo({ src, label }: { src: string; label: string }) {
+// Accepts muted as a controlled prop so Sound Off can toggle it
+function FarmerVideo({ src, label, muted }: { src: string; label: string; muted: boolean }) {
   const videoRef = useRef<HTMLVideoElement>(null)
+
   useEffect(() => { videoRef.current?.play().catch(() => {}) }, [])
+
+  // Sync muted state when parent toggles sound
+  useEffect(() => {
+    if (videoRef.current) videoRef.current.muted = muted
+  }, [muted])
+
   return (
     <div style={{
-      borderRadius: 'clamp(100px, 13.85vw, 239px)',
+      // Figma border-radius: 239px on 1728px = 13.83vw
+      borderRadius: 'clamp(80px, 13.83vw, 239px)',
       overflow: 'hidden',
       aspectRatio: '843 / 474',
       border: '2px solid #EDFF00',
@@ -63,12 +72,7 @@ function FarmerVideo({ src, label }: { src: string; label: string }) {
         ref={videoRef}
         autoPlay loop muted playsInline
         aria-label={label}
-        style={{
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          display: 'block',
-        }}
+        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
       >
         <source src={src} type="video/mp4" />
       </video>
@@ -81,6 +85,7 @@ export default function Home() {
   const [email, setEmail]         = useState('')
   const [formState, setFormState] = useState<'idle'|'loading'|'success'|'error'>('idle')
   const [errorMsg, setErrorMsg]   = useState('')
+  const [soundOn, setSoundOn]     = useState(false)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -109,41 +114,47 @@ export default function Home() {
   return (
     <div style={{ backgroundColor: '#FF3C00', overflow: 'hidden' }}>
 
-      <Nav color="#00006A" showSound />
+      <Nav
+        color="#00006A"
+        showSound
+        soundOn={soundOn}
+        onSoundToggle={() => setSoundOn(s => !s)}
+      />
 
       {/* ══════════════════════════════════════════════════════
-          HERO — red background
+          HERO
       ══════════════════════════════════════════════════════ */}
       <section style={{
         backgroundColor: '#FF3C00',
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden',
+        // Figma top padding for logo: 10px on 1728px = 0.58vw
+        paddingTop: '0.58vw',
       }}>
 
-        {/* OTHER logo — bleeds ~3% off each side, top: ~10px in Figma */}
-        <div style={{ paddingTop: '0.6vw' }}>
-          <OtherLogoVideo />
-        </div>
+        <OtherLogoVideo />
 
-        {/* Two oval farmer videos — nearly touching, ~1.5% outer padding each side */}
-        {/* Figma: left oval at ~26px, right at ~871px, gap ~1.6px, on 1728px frame */}
+        {/* Ovals — Figma: ovals start at top 377px, logo ends at ~405px → 28px overlap
+            Negative margin recreates this overlap responsively */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
-          gap: '0.1%',
+          // Figma gap between ovals: ~1.6px on 1728px = 0.09vw ≈ touching
+          gap: '0.09vw',
+          // Figma: left oval starts at ~26px = 1.5% of 1728px
           padding: '0 1.5%',
-          marginTop: 'clamp(0.5rem, 1.2vw, 1.25rem)',
+          // Figma: ovals overlap logo by ~28px on 1728px = 1.62vw
+          marginTop: 'clamp(-10px, -1.62vw, -5px)',
         }}>
-          <FarmerVideo src={FARMER_LEFT}  label="Moroccan farmers in the vineyard" />
-          <FarmerVideo src={FARMER_RIGHT} label="Berber farmers working in the Atlas mountains" />
+          <FarmerVideo src={FARMER_LEFT}  label="Moroccan farmers in the vineyard" muted={!soundOn} />
+          <FarmerVideo src={FARMER_RIGHT} label="Berber farmers working in the Atlas mountains" muted={!soundOn} />
         </div>
 
-        {/* Bottom strip — Arabic + sunflower + caption + MAROC */}
-        {/* Figma: arabic at left 27px & 1494px (top 901), MAROC at left 26px & 1272px (top 984) */}
-        <div style={{ marginTop: 'clamp(0.4rem, 1vw, 0.9rem)' }}>
+        {/* Bottom strip: arabic · sunflower + caption · arabic, then MAROC row */}
+        {/* Figma: strip starts at top 901px, ovals end at ~851px → 50px gap = 2.89vw */}
+        <div style={{ marginTop: 'clamp(0.5rem, 2.89vw, 50px)' }}>
 
-          {/* Row: arabic left · sunflower + caption · arabic right */}
           <div style={{
             display: 'flex',
             justifyContent: 'space-between',
@@ -151,31 +162,34 @@ export default function Home() {
             padding: '0 1.5%',
             marginBottom: '0.1rem',
           }}>
+            {/* Figma: arabic height 67px on 1728px = 3.88vw */}
             <img src={ARABIC_SVG} alt="المغرب"
-              style={{ height: 'clamp(18px, 3.9vw, 68px)', width: 'auto' }} />
+              style={{ height: 'clamp(16px, 3.88vw, 67px)', width: 'auto' }} />
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(0.4rem, 1vw, 0.75rem)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(0.3rem, 0.8vw, 0.6rem)' }}>
+              {/* Figma: sunflower (Group16) height ~97px but visually smaller, ~67px in context */}
               <img src={SUNFLOWER_SVG} alt=""
-                style={{ height: 'clamp(28px, 5.5vw, 95px)', width: 'auto' }} />
+                style={{ height: 'clamp(20px, 3.88vw, 67px)', width: 'auto' }} />
+              {/* Figma: "Limited Edition Capsules" 30px on 1728px = 1.74vw, #EDFF00 */}
               <span style={{
                 fontFamily: 'Vulf Sans, sans-serif',
                 fontWeight: 400,
-                fontSize: 'clamp(0.6rem, 1.74vw, 30px)',
-                letterSpacing: '0.03em',
+                fontSize: 'clamp(0.5rem, 1.74vw, 30px)',
+                letterSpacing: '0.052em',
                 color: '#EDFF00',
                 whiteSpace: 'nowrap',
               }}>
                 Limited Edition Capsules
               </span>
               <img src={SUNFLOWER_SVG} alt=""
-                style={{ height: 'clamp(28px, 5.5vw, 95px)', width: 'auto' }} />
+                style={{ height: 'clamp(20px, 3.88vw, 67px)', width: 'auto' }} />
             </div>
 
             <img src={ARABIC_SVG} alt="المغرب"
-              style={{ height: 'clamp(18px, 3.9vw, 68px)', width: 'auto' }} />
+              style={{ height: 'clamp(16px, 3.88vw, 67px)', width: 'auto' }} />
           </div>
 
-          {/* MAROC row — one each side, flush to edges */}
+          {/* MAROC — Figma: height 97px on 1728px = 5.61vw, flush to edges */}
           <div style={{
             display: 'flex',
             justifyContent: 'space-between',
@@ -183,18 +197,18 @@ export default function Home() {
             lineHeight: 0,
           }}>
             <img src={MAROC_SVG} alt="MAROC"
-              style={{ height: 'clamp(50px, 10.5vw, 182px)', width: 'auto', display: 'block' }} />
+              style={{ height: 'clamp(40px, 5.61vw, 97px)', width: 'auto', display: 'block' }} />
             <img src={MAROC_SVG} alt="MAROC"
-              style={{ height: 'clamp(50px, 10.5vw, 182px)', width: 'auto', display: 'block' }} />
+              style={{ height: 'clamp(40px, 5.61vw, 97px)', width: 'auto', display: 'block' }} />
           </div>
         </div>
 
         {/* Yellow transition band */}
-        <div style={{ height: 'clamp(0.75rem, 1.5vw, 1.5rem)', backgroundColor: '#EDFF00' }} />
+        <div style={{ height: 'clamp(0.5rem, 1.2vw, 1.25rem)', backgroundColor: '#EDFF00' }} />
       </section>
 
       {/* ══════════════════════════════════════════════════════
-          CONTENT — yellow background
+          CONTENT — yellow
       ══════════════════════════════════════════════════════ */}
       <section style={{
         backgroundColor: '#EDFF00',
@@ -204,7 +218,7 @@ export default function Home() {
         padding: 'clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem) 0',
       }}>
 
-        {/* "Capsule 01" — Vulf Sans Black, outlined, exact from Figma: 95.5px, tracking 1.91px */}
+        {/* Capsule 01 — Figma: 95.484px Vulf Sans Black, transparent + stroke */}
         <h1
           className="capsules-wordmark"
           style={{
@@ -218,7 +232,7 @@ export default function Home() {
           Capsule 01
         </h1>
 
-        {/* Body copy — exact from Figma: 17.525px, centered, 484px wide */}
+        {/* Body copy — Figma: 17.525px, max-width 484px, centered */}
         <div style={{ maxWidth: '484px', width: '100%', textAlign: 'center' }}>
           <p style={{
             fontFamily: 'Vulf Sans, sans-serif',
@@ -254,17 +268,13 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Stats table — exact from Figma: 20px, Light/Regular, uppercase, 519px wide */}
-        <div style={{
-          maxWidth: '519px',
-          width: '100%',
-          marginTop: 'clamp(1.5rem, 3.5vw, 2.5rem)',
-        }}>
+        {/* Stats table — Figma: 519px wide, 20px Vulf Sans Light/Regular, uppercase */}
+        <div style={{ maxWidth: '519px', width: '100%', marginTop: 'clamp(1.5rem, 3.5vw, 2.5rem)' }}>
           <img src="/figma/stats-lines.svg" alt="" style={{ width: '100%', display: 'block' }} />
           {[
             { label: 'Ballot closes', value: '14 June 2026' },
             { label: 'Vineyard',      value: 'Mknes, Morocco' },
-          ].map(({ label, value }, i) => (
+          ].map(({ label, value }) => (
             <div key={label}>
               <div style={{
                 display: 'flex',
@@ -285,7 +295,7 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Registration form — exact from Figma: input 64px tall, button 70px, both 519px wide */}
+        {/* Registration form — Figma: input 64px tall, button 70px, both 519px wide */}
         <div style={{ maxWidth: '519px', width: '100%', marginTop: 'clamp(1rem, 2.5vw, 1.75rem)' }}>
           {formState === 'success' ? (
             <p style={{
@@ -337,7 +347,6 @@ export default function Home() {
                   {errorMsg}
                 </p>
               )}
-              {/* REGISTER NOW — exact Figma: 70px tall, red bg, navy text, 25px Vulf Sans Light */}
               <button
                 type="submit"
                 disabled={formState === 'loading'}
@@ -368,7 +377,7 @@ export default function Home() {
           )}
         </div>
 
-        {/* Footer — OTHER logo left (69px), Villa Volubilia right (125px) */}
+        {/* Footer — Figma: OTHER logo 69px left, Villa Volubilia 125px right */}
         <div style={{
           width: '100%',
           display: 'flex',

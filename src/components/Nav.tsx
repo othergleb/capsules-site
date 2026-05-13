@@ -1,19 +1,16 @@
 'use client'
 
-import { useState } from 'react'
 import Link from 'next/link'
 
 interface NavProps {
-  /** Override text colour */
   color?: string
   backHref?: string
-  /** Show Sound toggle (home page only) */
   showSound?: boolean
+  soundOn?: boolean
+  onSoundToggle?: () => void
 }
 
-export default function Nav({ color = '#1A1A0A', backHref, showSound = false }: NavProps) {
-  const [soundOn, setSoundOn] = useState(false)
-
+export default function Nav({ color = '#1A1A0A', backHref, showSound = false, soundOn = false, onSoundToggle }: NavProps) {
   return (
     <nav
       style={{
@@ -30,7 +27,6 @@ export default function Nav({ color = '#1A1A0A', backHref, showSound = false }: 
         color,
       }}
     >
-      {/* Left pills */}
       <div style={{ display: 'flex', gap: '0.5rem', pointerEvents: 'all' }}>
         {backHref ? (
           <Link href={backHref} className="pill-btn">← Capsules</Link>
@@ -42,11 +38,10 @@ export default function Nav({ color = '#1A1A0A', backHref, showSound = false }: 
         )}
       </div>
 
-      {/* Right pills */}
       <div style={{ display: 'flex', gap: '0.5rem', pointerEvents: 'all' }}>
         <Link href="/faq" className="pill-btn">FAQ</Link>
         {showSound && (
-          <button className="pill-btn" onClick={() => setSoundOn(s => !s)}>
+          <button className="pill-btn" onClick={onSoundToggle}>
             {soundOn ? 'Sound On' : 'Sound Off'}
           </button>
         )}
