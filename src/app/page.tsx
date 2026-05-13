@@ -37,9 +37,9 @@ function OtherLogoVideo() {
       if (v.readyState >= 2) {
         const vw = v.videoWidth  || 2000
         const vh = v.videoHeight || 2000
-        // Source crop: letters at x:20–88%, y:36–66%
-        const sx = Math.round(0.20 * vw)
-        const sw = Math.round(0.68 * vw)
+        // Source crop: letters at x:18–92%, y:36–66%
+        const sx = Math.round(0.18 * vw)
+        const sw = Math.round(0.74 * vw)
         // Vertical: fit letter-band centre into canvas height
         const cropH = Math.round(sw * c.height / c.width)
         const sy    = Math.round(0.51 * vh - cropH / 2)
