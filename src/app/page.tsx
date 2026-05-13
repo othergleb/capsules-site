@@ -275,7 +275,7 @@ export default function Home() {
             letterSpacing: '0.02em',
             WebkitTextStrokeColor: '#00006A',
             textAlign: 'center',
-            marginBottom: 'clamp(1.5rem, 4vw, 3rem)',
+            marginBottom: 'clamp(2rem, 11vw, 12rem)',
           }}
         >
           Capsule 01
@@ -289,10 +289,10 @@ export default function Home() {
             fontSize: 'clamp(0.8rem, 1.014vw, 17.5px)',
             lineHeight: 1.29,
             color: '#00006A',
-            marginBottom: '1rem',
+            marginBottom: '1.29em',
           }}>
-            The last 480 bottles of an amphora aged grenache,<br />
-            grown by Berber farmers in the foothills of<br />
+            The last 480 bottles of an amphora aged grenache,
+            grown by Berber farmers in the foothills of
             the Atlas mountains.
           </p>
           <p style={{
@@ -301,7 +301,7 @@ export default function Home() {
             fontSize: 'clamp(0.8rem, 1.014vw, 17.5px)',
             lineHeight: 1.29,
             color: '#00006A',
-            marginBottom: '0.3rem',
+            marginBottom: 0,
           }}>
             £89 including delivery.
           </p>
