@@ -53,9 +53,9 @@ function OtherLogoVideo() {
 
   return (
     <div style={{
-      width: '106%',
-      marginLeft: '-3%',
-      height: 'clamp(89px, 18.5vw, 320px)',
+      width: '104.1vw',
+      marginLeft: '-2.92vw',
+      aspectRatio: '469 / 103',
       overflow: 'hidden',
       position: 'relative',
       lineHeight: 0,
@@ -73,7 +73,7 @@ function OtherLogoVideo() {
       <canvas
         ref={canvasRef}
         width={2000}
-        height={349}
+        height={440}
         style={{ width: '100%', height: '100%', display: 'block' }}
       />
     </div>
