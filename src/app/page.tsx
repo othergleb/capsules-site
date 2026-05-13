@@ -20,7 +20,7 @@ function OtherLogoVideo() {
     <div style={{
       width: '106%',
       marginLeft: '-3%',
-      height: 'clamp(120px, 26vw, 440px)',
+      height: 'clamp(110px, 22.9vw, 395px)',
       overflow: 'hidden',
       lineHeight: 0,
       flexShrink: 0,
@@ -34,6 +34,8 @@ function OtherLogoVideo() {
           display: 'block',
           objectFit: 'cover',
           objectPosition: 'center center',
+          // Letters are centred in the 2000×2000 canvas; scale zooms in to clip the red padding
+          transform: 'scale(1.22)',
         }}
       >
         <source src={OTHER_VIDEO} type="video/mp4" />
@@ -137,7 +139,7 @@ export default function Home() {
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
           gap: '0.09vw',
-          padding: '0 6%',
+          padding: '0 1.5%',
           marginTop: 'clamp(-10px, -1.62vw, -5px)',
         }}>
           <FarmerVideo src={FARMER_LEFT}  label="Moroccan farmers in the vineyard" muted={!soundOn} />
@@ -148,7 +150,7 @@ export default function Home() {
             Logo bottom ≈ 0.58vw + 16vw; sunflower half-height ≈ 2.75vw → top = 13.83vw */}
         <div style={{
           position: 'absolute',
-          top: 'calc(0.58vw + 26vw - 2.75vw)',
+          top: 'calc(0.58vw + 22.9vw - 2.75vw)',
           left: '0',
           pointerEvents: 'none',
         }}>
@@ -157,7 +159,7 @@ export default function Home() {
         </div>
 
         {/* FIX 3: tightened top margin */}
-        <div style={{ marginTop: 'clamp(4px, 0.8vw, 14px)' }}>
+        <div style={{ marginTop: 'clamp(0.5rem, 2.89vw, 50px)' }}>
 
           {/* Row 1: Arabic left and right */}
           <div style={{
