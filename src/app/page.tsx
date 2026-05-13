@@ -13,9 +13,44 @@ const FARMER_LEFT    = '/farmer-left.mp4'
 const FARMER_RIGHT   = '/farmer-right.mp4'
 
 // ── Animated OTHER logo ────────────────────────────────────────
+// Canvas-based crop: plays the 2000×2000 video off-screen and draws only the
+// letter band (approx x:8–88%, y:36–66%) onto a visible canvas each frame.
+// This works in all browsers (object-view-box is Chrome/FF only, not Safari).
 function OtherLogoVideo() {
-  const videoRef = useRef<HTMLVideoElement>(null)
-  useEffect(() => { videoRef.current?.play().catch(() => {}) }, [])
+  const videoRef  = useRef<HTMLVideoElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const rafRef    = useRef<number>(0)
+
+  useEffect(() => {
+    const video  = videoRef.current
+    const canvas = canvasRef.current
+    if (!video || !canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    video.play().catch(() => {})
+
+    const v = video
+    const c = canvas
+    const x = ctx
+    function draw() {
+      if (v.readyState >= 2) {
+        const vw = v.videoWidth  || 2000
+        const vh = v.videoHeight || 2000
+        // Source crop: letters at x:8–88%, y:36–66%
+        const sx = Math.round(0.08 * vw)
+        const sw = Math.round(0.80 * vw)
+        // Vertical: fit letter-band centre into canvas height
+        const cropH = Math.round(sw * c.height / c.width)
+        const sy    = Math.round(0.51 * vh - cropH / 2)
+        x.drawImage(v, sx, sy, sw, cropH, 0, 0, c.width, c.height)
+      }
+      rafRef.current = requestAnimationFrame(draw)
+    }
+    rafRef.current = requestAnimationFrame(draw)
+    return () => cancelAnimationFrame(rafRef.current)
+  }, [])
+
   return (
     <div style={{
       width: '106%',
@@ -26,13 +61,21 @@ function OtherLogoVideo() {
       lineHeight: 0,
       flexShrink: 0,
     }}>
+      {/* Hidden video source */}
       <video
         ref={videoRef}
         autoPlay loop muted playsInline
-        className="logo-video"
+        style={{ display: 'none' }}
       >
         <source src={OTHER_VIDEO} type="video/mp4" />
       </video>
+      {/* Canvas shows cropped letter region — 4.63:1 matches container ratio */}
+      <canvas
+        ref={canvasRef}
+        width={2000}
+        height={432}
+        style={{ width: '100%', height: '100%', display: 'block' }}
+      />
     </div>
   )
 }
