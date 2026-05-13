@@ -3,38 +3,40 @@
 import { useState, useRef, useEffect } from 'react'
 import Nav from '@/components/Nav'
 
-// ── Figma asset paths ──────────────────────────────────────────
-const MAROC_SVG        = '/figma/maroc.svg'
-const ARABIC_SVG       = '/figma/arabic.svg'
-const SUNFLOWER_SVG    = '/figma/sunflower.svg'
-const VILLA_SVG        = '/figma/villa-volubilia.svg'
-const OTHER_LOGO_PNG   = '/figma/other-logo-yellow.png'
-const OTHER_VIDEO      = '/other-logo.mp4'
-const FARMER_LEFT      = '/farmer-left.mp4'
-const FARMER_RIGHT     = '/farmer-right.mp4'
+// ── Asset paths ────────────────────────────────────────────────
+const MAROC_SVG      = '/figma/maroc.svg'
+const ARABIC_SVG     = '/figma/arabic.svg'
+const SUNFLOWER_SVG  = '/figma/sunflower.svg'
+const VILLA_SVG      = '/figma/villa-volubilia.svg'
+const OTHER_LOGO_PNG = '/figma/other-logo-yellow.png'
+const OTHER_VIDEO    = '/other-logo.mp4'
+const FARMER_LEFT    = '/farmer-left.mp4'
+const FARMER_RIGHT   = '/farmer-right.mp4'
 
-// ── Animated OTHER logo (video, full-bleed) ────────────────────
+// ── Animated OTHER logo ────────────────────────────────────────
+// In Figma: 1799px wide on 1728px frame, starts at left -50px → bleeds ~3% each side
+// Height: 395px on 1728px = 22.9vw
 function OtherLogoVideo() {
   const videoRef = useRef<HTMLVideoElement>(null)
   useEffect(() => { videoRef.current?.play().catch(() => {}) }, [])
   return (
     <div style={{
-      width: '100%',
-      height: 'clamp(100px, 14vw, 220px)',
+      width: '106%',
+      marginLeft: '-3%',
+      height: 'clamp(140px, 22.9vw, 395px)',
       overflow: 'hidden',
       position: 'relative',
       lineHeight: 0,
+      flexShrink: 0,
     }}>
       <video
         ref={videoRef}
         autoPlay loop muted playsInline
         style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
           width: '100%',
-          height: 'auto',
+          height: '100%',
+          objectFit: 'cover',
+          objectPosition: 'center 50%',
           display: 'block',
         }}
       >
@@ -50,7 +52,7 @@ function FarmerVideo({ src, label }: { src: string; label: string }) {
   useEffect(() => { videoRef.current?.play().catch(() => {}) }, [])
   return (
     <div style={{
-      borderRadius: 'clamp(120px, 28vw, 240px)',
+      borderRadius: 'clamp(100px, 13.85vw, 239px)',
       overflow: 'hidden',
       aspectRatio: '843 / 474',
       border: '2px solid #EDFF00',
@@ -105,86 +107,90 @@ export default function Home() {
   }
 
   return (
-    <div style={{ backgroundColor: '#FF3C00' }}>
+    <div style={{ backgroundColor: '#FF3C00', overflow: 'hidden' }}>
 
-      {/* Nav — dark navy pill buttons */}
       <Nav color="#00006A" showSound />
 
       {/* ══════════════════════════════════════════════════════
-          HERO — red/orange background
+          HERO — red background
       ══════════════════════════════════════════════════════ */}
       <section style={{
-        position: 'relative',
         backgroundColor: '#FF3C00',
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden',
       }}>
 
-        {/* OTHER animated logo — full bleed, no padding */}
-        <OtherLogoVideo />
+        {/* OTHER logo — bleeds ~3% off each side, top: ~10px in Figma */}
+        <div style={{ paddingTop: '0.6vw' }}>
+          <OtherLogoVideo />
+        </div>
 
-        {/* Two oval farmer videos with yellow border */}
+        {/* Two oval farmer videos — nearly touching, ~1.5% outer padding each side */}
+        {/* Figma: left oval at ~26px, right at ~871px, gap ~1.6px, on 1728px frame */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
-          gap: 'clamp(0.5rem, 1.5vw, 1.25rem)',
-          padding: '0 clamp(0.5rem, 1.5vw, 1.25rem)',
-          marginTop: 'clamp(0.75rem, 2vw, 1.5rem)',
+          gap: '0.1%',
+          padding: '0 1.5%',
+          marginTop: 'clamp(0.5rem, 1.2vw, 1.25rem)',
         }}>
           <FarmerVideo src={FARMER_LEFT}  label="Moroccan farmers in the vineyard" />
           <FarmerVideo src={FARMER_RIGHT} label="Berber farmers working in the Atlas mountains" />
         </div>
 
-        {/* Bottom strip — Arabic + MAROC + sunflower + caption */}
-        <div style={{ marginTop: 'clamp(0.5rem, 1.5vw, 1rem)' }}>
+        {/* Bottom strip — Arabic + sunflower + caption + MAROC */}
+        {/* Figma: arabic at left 27px & 1494px (top 901), MAROC at left 26px & 1272px (top 984) */}
+        <div style={{ marginTop: 'clamp(0.4rem, 1vw, 0.9rem)' }}>
 
-          {/* Arabic text row */}
+          {/* Row: arabic left · sunflower + caption · arabic right */}
           <div style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            padding: '0 clamp(0.5rem, 1.5vw, 1.25rem)',
-            marginBottom: '0.15rem',
+            padding: '0 1.5%',
+            marginBottom: '0.1rem',
           }}>
-            {/* Left arabic */}
-            <img src={ARABIC_SVG} alt="المغرب" style={{ height: 'clamp(18px, 3.9vw, 68px)', width: 'auto' }} />
+            <img src={ARABIC_SVG} alt="المغرب"
+              style={{ height: 'clamp(18px, 3.9vw, 68px)', width: 'auto' }} />
 
-            {/* Centre: sunflower + caption */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(0.4rem, 1vw, 0.75rem)' }}>
-              <img src={SUNFLOWER_SVG} alt="" style={{ height: 'clamp(28px, 5.5vw, 112px)', width: 'auto' }} />
+              <img src={SUNFLOWER_SVG} alt=""
+                style={{ height: 'clamp(28px, 5.5vw, 95px)', width: 'auto' }} />
               <span style={{
                 fontFamily: 'Vulf Sans, sans-serif',
                 fontWeight: 400,
-                fontSize: 'clamp(0.55rem, 1.7vw, 1.73rem)',
+                fontSize: 'clamp(0.6rem, 1.74vw, 30px)',
                 letterSpacing: '0.03em',
                 color: '#EDFF00',
                 whiteSpace: 'nowrap',
               }}>
                 Limited Edition Capsules
               </span>
-              <img src={SUNFLOWER_SVG} alt="" style={{ height: 'clamp(28px, 5.5vw, 112px)', width: 'auto' }} />
+              <img src={SUNFLOWER_SVG} alt=""
+                style={{ height: 'clamp(28px, 5.5vw, 95px)', width: 'auto' }} />
             </div>
 
-            {/* Right arabic */}
-            <img src={ARABIC_SVG} alt="المغرب" style={{ height: 'clamp(18px, 3.9vw, 68px)', width: 'auto' }} />
+            <img src={ARABIC_SVG} alt="المغرب"
+              style={{ height: 'clamp(18px, 3.9vw, 68px)', width: 'auto' }} />
           </div>
 
-          {/* MAROC row */}
+          {/* MAROC row — one each side, flush to edges */}
           <div style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'flex-end',
             lineHeight: 0,
-            overflow: 'hidden',
           }}>
-            <img src={MAROC_SVG} alt="MAROC" style={{ height: 'clamp(50px, 10.5vw, 182px)', width: 'auto', display: 'block' }} />
-            <img src={MAROC_SVG} alt="MAROC" style={{ height: 'clamp(50px, 10.5vw, 182px)', width: 'auto', display: 'block' }} />
+            <img src={MAROC_SVG} alt="MAROC"
+              style={{ height: 'clamp(50px, 10.5vw, 182px)', width: 'auto', display: 'block' }} />
+            <img src={MAROC_SVG} alt="MAROC"
+              style={{ height: 'clamp(50px, 10.5vw, 182px)', width: 'auto', display: 'block' }} />
           </div>
         </div>
 
         {/* Yellow transition band */}
-        <div style={{ height: 'clamp(1rem, 2.5vw, 2rem)', backgroundColor: '#EDFF00' }} />
+        <div style={{ height: 'clamp(0.75rem, 1.5vw, 1.5rem)', backgroundColor: '#EDFF00' }} />
       </section>
 
       {/* ══════════════════════════════════════════════════════
@@ -192,18 +198,17 @@ export default function Home() {
       ══════════════════════════════════════════════════════ */}
       <section style={{
         backgroundColor: '#EDFF00',
-        minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         padding: 'clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem) 0',
       }}>
 
-        {/* Capsule 01 — outlined Vulf Sans Black, matching design exactly */}
+        {/* "Capsule 01" — Vulf Sans Black, outlined, exact from Figma: 95.5px, tracking 1.91px */}
         <h1
           className="capsules-wordmark"
           style={{
-            fontSize: 'clamp(3rem, 8.5vw, 9.5rem)',
+            fontSize: 'clamp(3rem, 5.52vw, 95.5px)',
             letterSpacing: '0.02em',
             WebkitTextStrokeColor: '#00006A',
             textAlign: 'center',
@@ -213,12 +218,12 @@ export default function Home() {
           Capsule 01
         </h1>
 
-        {/* Body copy — Vulf Sans Bold, #00006A, centered */}
-        <div style={{ maxWidth: '520px', width: '100%', textAlign: 'center' }}>
+        {/* Body copy — exact from Figma: 17.525px, centered, 484px wide */}
+        <div style={{ maxWidth: '484px', width: '100%', textAlign: 'center' }}>
           <p style={{
             fontFamily: 'Vulf Sans, sans-serif',
             fontWeight: 700,
-            fontSize: 'clamp(0.8rem, 1.75vw, 1.09rem)',
+            fontSize: 'clamp(0.8rem, 1.014vw, 17.5px)',
             lineHeight: 1.29,
             color: '#00006A',
             marginBottom: '1rem',
@@ -230,7 +235,7 @@ export default function Home() {
           <p style={{
             fontFamily: 'Vulf Sans, sans-serif',
             fontWeight: 400,
-            fontSize: 'clamp(0.8rem, 1.75vw, 1.09rem)',
+            fontSize: 'clamp(0.8rem, 1.014vw, 17.5px)',
             lineHeight: 1.29,
             color: '#00006A',
             marginBottom: '0.3rem',
@@ -240,7 +245,7 @@ export default function Home() {
           <p style={{
             fontFamily: 'Vulf Sans, sans-serif',
             fontWeight: 400,
-            fontSize: 'clamp(0.8rem, 1.75vw, 1.09rem)',
+            fontSize: 'clamp(0.8rem, 1.014vw, 17.5px)',
             lineHeight: 1.29,
             color: '#00006A',
           }}>
@@ -249,37 +254,39 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Stats table — Vulf Sans Light/Regular, #00006A, uppercase */}
+        {/* Stats table — exact from Figma: 20px, Light/Regular, uppercase, 519px wide */}
         <div style={{
-          maxWidth: '520px',
+          maxWidth: '519px',
           width: '100%',
           marginTop: 'clamp(1.5rem, 3.5vw, 2.5rem)',
-          borderTop: '1.5px solid #00006A',
         }}>
+          <img src="/figma/stats-lines.svg" alt="" style={{ width: '100%', display: 'block' }} />
           {[
             { label: 'Ballot closes', value: '14 June 2026' },
             { label: 'Vineyard',      value: 'Mknes, Morocco' },
-          ].map(({ label, value }) => (
-            <div key={label} style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              padding: '0.7rem 0',
-              borderBottom: '1.5px solid #00006A',
-              fontFamily: 'Vulf Sans, sans-serif',
-              fontSize: 'clamp(0.7rem, 1.6vw, 1.25rem)',
-              letterSpacing: '-0.01em',
-              color: '#00006A',
-              textTransform: 'uppercase',
-            }}>
-              <span style={{ fontWeight: 300 }}>{label}</span>
-              <span style={{ fontWeight: 400 }}>{value}</span>
+          ].map(({ label, value }, i) => (
+            <div key={label}>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: '0.7rem 0',
+                fontFamily: 'Vulf Sans, sans-serif',
+                fontSize: 'clamp(0.75rem, 1.16vw, 20px)',
+                letterSpacing: '-0.01em',
+                color: '#00006A',
+                textTransform: 'uppercase',
+              }}>
+                <span style={{ fontWeight: 300 }}>{label}</span>
+                <span style={{ fontWeight: 400 }}>{value}</span>
+              </div>
+              <img src="/figma/stats-lines.svg" alt="" style={{ width: '100%', display: 'block' }} />
             </div>
           ))}
         </div>
 
-        {/* Registration form */}
-        <div style={{ maxWidth: '520px', width: '100%', marginTop: 'clamp(1rem, 2.5vw, 1.75rem)' }}>
+        {/* Registration form — exact from Figma: input 64px tall, button 70px, both 519px wide */}
+        <div style={{ maxWidth: '519px', width: '100%', marginTop: 'clamp(1rem, 2.5vw, 1.75rem)' }}>
           {formState === 'success' ? (
             <p style={{
               fontFamily: 'Vulf Sans, sans-serif',
@@ -295,11 +302,10 @@ export default function Home() {
             </p>
           ) : (
             <form onSubmit={handleSubmit}>
-              {/* Email input — red border, navy placeholder */}
               <div style={{
                 border: '2px solid #FF3C00',
                 borderRadius: '6px',
-                height: 'clamp(48px, 6.5vw, 64px)',
+                height: 'clamp(48px, 3.7vw, 64px)',
                 display: 'flex',
                 alignItems: 'center',
                 marginBottom: '0.65rem',
@@ -320,7 +326,7 @@ export default function Home() {
                     padding: '0 1rem',
                     fontFamily: 'Vulf Sans, sans-serif',
                     fontWeight: 300,
-                    fontSize: 'clamp(0.8rem, 1.75vw, 1.31rem)',
+                    fontSize: 'clamp(0.8rem, 1.2vw, 21px)',
                     letterSpacing: '-0.01em',
                     color: '#00006A',
                   }}
@@ -331,21 +337,21 @@ export default function Home() {
                   {errorMsg}
                 </p>
               )}
-              {/* REGISTER NOW — red bg, navy text */}
+              {/* REGISTER NOW — exact Figma: 70px tall, red bg, navy text, 25px Vulf Sans Light */}
               <button
                 type="submit"
                 disabled={formState === 'loading'}
                 style={{
                   display: 'block',
                   width: '100%',
-                  height: 'clamp(52px, 7vw, 70px)',
+                  height: 'clamp(52px, 4.05vw, 70px)',
                   backgroundColor: '#FF3C00',
                   color: '#00006A',
                   border: 'none',
                   borderRadius: '999px',
                   fontFamily: 'Vulf Sans, sans-serif',
                   fontWeight: 300,
-                  fontSize: 'clamp(0.8rem, 1.75vw, 1.56rem)',
+                  fontSize: 'clamp(0.9rem, 1.45vw, 25px)',
                   letterSpacing: '-0.03em',
                   textTransform: 'uppercase',
                   cursor: formState === 'loading' ? 'wait' : 'pointer',
@@ -362,7 +368,7 @@ export default function Home() {
           )}
         </div>
 
-        {/* Footer — OTHER logo left, Villa Volubilia right */}
+        {/* Footer — OTHER logo left (69px), Villa Volubilia right (125px) */}
         <div style={{
           width: '100%',
           display: 'flex',
@@ -371,16 +377,10 @@ export default function Home() {
           paddingTop: 'clamp(3rem, 6vw, 6rem)',
           paddingBottom: 'clamp(0.75rem, 2vw, 1.5rem)',
         }}>
-          <img
-            src={OTHER_LOGO_PNG}
-            alt="OTHER"
-            style={{ height: 'clamp(32px, 4.5vw, 69px)', width: 'auto' }}
-          />
-          <img
-            src={VILLA_SVG}
-            alt="Villa Volubilia"
-            style={{ height: 'clamp(60px, 8vw, 125px)', width: 'auto' }}
-          />
+          <img src={OTHER_LOGO_PNG} alt="OTHER"
+            style={{ height: 'clamp(32px, 4vw, 69px)', width: 'auto' }} />
+          <img src={VILLA_SVG} alt="Villa Volubilia"
+            style={{ height: 'clamp(60px, 7.2vw, 125px)', width: 'auto' }} />
         </div>
       </section>
 
