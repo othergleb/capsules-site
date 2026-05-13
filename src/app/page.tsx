@@ -8,13 +8,13 @@ const ARABIC_SVG     = '/figma/arabic.svg'
 const SUNFLOWER_SVG  = '/figma/sunflower.svg'
 const VILLA_SVG      = '/figma/villa-volubilia.svg'
 const OTHER_LOGO_PNG = '/figma/other-logo-yellow.png'
-const OTHER_VIDEO    = '/other-logo.mp4'
+const OTHER_VIDEO    = '/logo-animated-v3.mp4'  // 1440×600 pre-cropped widescreen
 const FARMER_LEFT    = '/farmer-left.mp4'
 const FARMER_RIGHT   = '/farmer-right.mp4'
 
 // ── Animated OTHER logo ────────────────────────────────────────
-// Figma: 1799px wide on 1728px frame (104%), left -50px, top 10px, height 395px
-// → bleeds 3% off each side, height = 22.9vw
+// Using logo-animated-v3.mp4 which is 1440×600 (pre-cropped widescreen, 2.4:1)
+// Bleeds ~3% off each side to match Figma (video slightly wider than frame)
 function OtherLogoVideo() {
   const videoRef = useRef<HTMLVideoElement>(null)
   useEffect(() => { videoRef.current?.play().catch(() => {}) }, [])
@@ -22,10 +22,6 @@ function OtherLogoVideo() {
     <div style={{
       width: '106%',
       marginLeft: '-3%',
-      // Figma: 395px on 1728px = 22.9vw. Clamp so it stays tight on smaller screens.
-      height: 'clamp(110px, 22.9vw, 395px)',
-      overflow: 'hidden',
-      position: 'relative',
       lineHeight: 0,
       flexShrink: 0,
     }}>
@@ -34,9 +30,7 @@ function OtherLogoVideo() {
         autoPlay loop muted playsInline
         style={{
           width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          objectPosition: 'center 50%',
+          height: 'auto',
           display: 'block',
         }}
       >
@@ -85,7 +79,8 @@ export default function Home() {
   const [email, setEmail]         = useState('')
   const [formState, setFormState] = useState<'idle'|'loading'|'success'|'error'>('idle')
   const [errorMsg, setErrorMsg]   = useState('')
-  const [soundOn, setSoundOn]     = useState(false)
+  // Default sound ON — browser will allow after first interaction
+  const [soundOn, setSoundOn]     = useState(true)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -162,15 +157,14 @@ export default function Home() {
             padding: '0 1.5%',
             marginBottom: '0.1rem',
           }}>
-            {/* Figma: arabic height 67px on 1728px = 3.88vw */}
+            {/* Arabic SVG: viewBox 210×68, no intrinsic size → must set aspectRatio */}
             <img src={ARABIC_SVG} alt="المغرب"
-              style={{ height: 'clamp(16px, 3.88vw, 67px)', width: 'auto' }} />
+              style={{ height: 'clamp(16px, 3.88vw, 67px)', width: 'auto', aspectRatio: '210 / 68' }} />
 
             <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(0.3rem, 0.8vw, 0.6rem)' }}>
-              {/* Figma: sunflower (Group16) height ~97px but visually smaller, ~67px in context */}
+              {/* Sunflower SVG: viewBox 114×113, roughly square */}
               <img src={SUNFLOWER_SVG} alt=""
-                style={{ height: 'clamp(20px, 3.88vw, 67px)', width: 'auto' }} />
-              {/* Figma: "Limited Edition Capsules" 30px on 1728px = 1.74vw, #EDFF00 */}
+                style={{ height: 'clamp(20px, 3.88vw, 67px)', width: 'auto', aspectRatio: '114 / 113' }} />
               <span style={{
                 fontFamily: 'Vulf Sans, sans-serif',
                 fontWeight: 400,
@@ -182,14 +176,14 @@ export default function Home() {
                 Limited Edition Capsules
               </span>
               <img src={SUNFLOWER_SVG} alt=""
-                style={{ height: 'clamp(20px, 3.88vw, 67px)', width: 'auto' }} />
+                style={{ height: 'clamp(20px, 3.88vw, 67px)', width: 'auto', aspectRatio: '114 / 113' }} />
             </div>
 
             <img src={ARABIC_SVG} alt="المغرب"
-              style={{ height: 'clamp(16px, 3.88vw, 67px)', width: 'auto' }} />
+              style={{ height: 'clamp(16px, 3.88vw, 67px)', width: 'auto', aspectRatio: '210 / 68' }} />
           </div>
 
-          {/* MAROC — Figma: height 97px on 1728px = 5.61vw, flush to edges */}
+          {/* MAROC — viewBox 431×99, height 97px on 1728px = 5.61vw, flush to edges */}
           <div style={{
             display: 'flex',
             justifyContent: 'space-between',
@@ -197,9 +191,9 @@ export default function Home() {
             lineHeight: 0,
           }}>
             <img src={MAROC_SVG} alt="MAROC"
-              style={{ height: 'clamp(40px, 5.61vw, 97px)', width: 'auto', display: 'block' }} />
+              style={{ height: 'clamp(40px, 5.61vw, 97px)', width: 'auto', aspectRatio: '431 / 99', display: 'block' }} />
             <img src={MAROC_SVG} alt="MAROC"
-              style={{ height: 'clamp(40px, 5.61vw, 97px)', width: 'auto', display: 'block' }} />
+              style={{ height: 'clamp(40px, 5.61vw, 97px)', width: 'auto', aspectRatio: '431 / 99', display: 'block' }} />
           </div>
         </div>
 
