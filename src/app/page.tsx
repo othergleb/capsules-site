@@ -164,8 +164,8 @@ export default function Home() {
         height: '100vh',
         overflow: 'hidden',
         position: 'relative',
-        paddingTop: '10px',
-        paddingBottom: '10px',
+        paddingTop: '40px',
+        paddingBottom: '40px',
       }}>
 
         <OtherLogoVideo />
