@@ -55,7 +55,7 @@ function OtherLogoVideo() {
     <div style={{
       width: '106%',
       marginLeft: '-3%',
-      height: 'clamp(99px, 20.6vw, 356px)',
+      height: 'clamp(89px, 18.5vw, 320px)',
       overflow: 'hidden',
       position: 'relative',
       lineHeight: 0,
@@ -69,11 +69,11 @@ function OtherLogoVideo() {
       >
         <source src={OTHER_VIDEO} type="video/mp4" />
       </video>
-      {/* Canvas shows cropped letter region — 5.15:1 matches container ratio */}
+      {/* Canvas shows cropped letter region — ratio matches 106vw × 18.5vw container */}
       <canvas
         ref={canvasRef}
         width={2000}
-        height={388}
+        height={349}
         style={{ width: '100%', height: '100%', display: 'block' }}
       />
     </div>
@@ -96,7 +96,8 @@ function FarmerVideo({ src, label, muted }: { src: string; label: string; muted:
     <div style={{
       borderRadius: 'clamp(80px, 13.83vw, 239px)',
       overflow: 'hidden',
-      flex: 1,
+      aspectRatio: '843 / 474',
+      width: '100%',
       border: '2px solid #EDFF00',
       position: 'relative',
     }}>
@@ -161,8 +162,7 @@ export default function Home() {
         backgroundColor: '#FF3C00',
         display: 'flex',
         flexDirection: 'column',
-        height: '100vh',
-        overflow: 'hidden',
+        minHeight: '100vh',
         position: 'relative',
         paddingTop: '30px',
         paddingBottom: '40px',
@@ -170,14 +170,13 @@ export default function Home() {
 
         <OtherLogoVideo />
 
-        {/* Ovals — flex:1 so they fill remaining hero height at any viewport size */}
+        {/* Ovals — natural aspect ratio, section grows to fit */}
         <div style={{
-          display: 'flex',
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
           gap: '0.09vw',
           padding: '0 1.5%',
           marginTop: 'clamp(-10px, -1.62vw, -5px)',
-          flex: 1,
-          minHeight: 0,
         }}>
           <FarmerVideo src={FARMER_LEFT}  label="Moroccan farmers in the vineyard" muted={!soundOn} />
           <FarmerVideo src={FARMER_RIGHT} label="Berber farmers working in the Atlas mountains" muted={!soundOn} />
