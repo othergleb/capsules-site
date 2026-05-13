@@ -8,7 +8,7 @@ const ARABIC_SVG     = '/figma/arabic.svg'
 const SUNFLOWER_SVG  = '/figma/sunflower.svg'
 const VILLA_SVG      = '/figma/villa-volubilia.svg'
 const OTHER_LOGO_PNG = '/figma/other-logo-yellow.png'
-const OTHER_VIDEO    = '/logo-animated-v3.mp4'  // 1440×600 pre-cropped, works in all browsers
+const OTHER_VIDEO    = '/Other_alt3_yellow_red.mp4'  // H.264, yellow letters on red
 const FARMER_LEFT    = '/farmer-left.mp4'
 const FARMER_RIGHT   = '/farmer-right.mp4'
 
@@ -20,7 +20,7 @@ function OtherLogoVideo() {
     <div style={{
       width: '106%',
       marginLeft: '-3%',
-      height: 'clamp(120px, 21vw, 360px)',
+      height: 'clamp(120px, 26vw, 440px)',
       overflow: 'hidden',
       lineHeight: 0,
       flexShrink: 0,
@@ -148,7 +148,7 @@ export default function Home() {
             Logo bottom ≈ 0.58vw + 16vw; sunflower half-height ≈ 2.75vw → top = 13.83vw */}
         <div style={{
           position: 'absolute',
-          top: 'calc(0.58vw + 21vw - 2.75vw)',
+          top: 'calc(0.58vw + 26vw - 2.75vw)',
           left: '0',
           pointerEvents: 'none',
         }}>
