@@ -254,7 +254,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div style={{ height: 'clamp(0.5rem, 1.2vw, 1.25rem)', backgroundColor: '#EDFF00', flexShrink: 0 }} />
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 'clamp(0.5rem, 1.2vw, 1.25rem)', backgroundColor: '#EDFF00' }} />
       </section>
 
       {/* ══════════════════════════════════════════════════════
