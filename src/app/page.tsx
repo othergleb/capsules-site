@@ -55,7 +55,7 @@ function OtherLogoVideo() {
     <div style={{
       width: '106%',
       marginLeft: '-3%',
-      height: 'clamp(80px, 16.65vw, 288px)',
+      height: 'clamp(89px, 18.5vw, 320px)',
       overflow: 'hidden',
       position: 'relative',
       lineHeight: 0,
@@ -73,7 +73,7 @@ function OtherLogoVideo() {
       <canvas
         ref={canvasRef}
         width={2000}
-        height={314}
+        height={349}
         style={{ width: '100%', height: '100%', display: 'block' }}
       />
     </div>
@@ -185,7 +185,7 @@ export default function Home() {
         {/* Sunflower overlapping lower-left of logo — Figma y:264 / 1728 = 15.3vw */}
         <div style={{
           position: 'absolute',
-          top: 'calc(16.65vw + 20px)',
+          top: 'calc(15.3vw - 20px)',
           left: '20px',
           pointerEvents: 'none',
         }}>
