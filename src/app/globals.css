@@ -96,22 +96,25 @@
   --black:  #0A0A0A;
 }
 
-/* ── Pill nav button ────────────────────────────────────────── */
+/* ── Pill nav button (matches Figma exactly) ────────────────── */
 .pill-btn {
-  border: 1.5px solid currentColor;
-  border-radius: 999px;
-  padding: 0.3rem 0.85rem;
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  border: 2px solid currentColor;
+  border-radius: 100px;
+  padding: clamp(0.35rem, 1.56vw, 1.69rem) clamp(0.65rem, 1.85vw, 2rem);
   font-family: 'Vulf Sans', sans-serif;
+  font-weight: 300;
+  font-size: clamp(0.6rem, 1.1vw, 1.56rem);
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
   background: none;
   cursor: pointer;
   color: inherit;
   text-decoration: none;
   display: inline-block;
-  line-height: 1.6;
+  line-height: 1;
   transition: opacity 0.15s ease;
+  white-space: nowrap;
+  font-feature-settings: 'cv10', 'ss03', 'ss05', 'case', 'ordn', 'dlig';
 }
 .pill-btn:hover { opacity: 0.6; }
 

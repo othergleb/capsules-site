@@ -2,54 +2,27 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Nav from '@/components/Nav'
-import RegistrationModal from '@/components/RegistrationModal'
 
-// ── Sunflower SVG ──────────────────────────────────────────────
-function Sunflower({ size = 44 }: { size?: number }) {
-  const petals = Array.from({ length: 12 }, (_, i) => i * 30)
-  return (
-    <svg width={size} height={size} viewBox="0 0 50 50" fill="none">
-      <g transform="translate(25,25)">
-        {petals.map(angle => (
-          <ellipse
-            key={angle}
-            cx="0" cy="-16"
-            rx="5.5" ry="8.5"
-            fill="#EDFF00"
-            stroke="#1A1A0A"
-            strokeWidth="1.2"
-            transform={`rotate(${angle})`}
-          />
-        ))}
-      </g>
-      <circle cx="25" cy="25" r="9.5" fill="#FF3C00" stroke="#1A1A0A" strokeWidth="1.5" />
-      <circle cx="25" cy="25" r="3.5" fill="#1A1A0A" />
-    </svg>
-  )
-}
+// ── Figma asset paths ──────────────────────────────────────────
+const MAROC_SVG        = '/figma/maroc.svg'
+const ARABIC_SVG       = '/figma/arabic.svg'
+const SUNFLOWER_SVG    = '/figma/sunflower.svg'
+const VILLA_SVG        = '/figma/villa-volubilia.svg'
+const OTHER_LOGO_PNG   = '/figma/other-logo-yellow.png'
+const OTHER_VIDEO      = '/other-logo.mp4'
 
-// ── OTHER animated logo video ─────────────────────────────────
+// ── Animated OTHER logo (video, full-bleed) ────────────────────
 function OtherLogoVideo() {
   const videoRef = useRef<HTMLVideoElement>(null)
   useEffect(() => { videoRef.current?.play().catch(() => {}) }, [])
-
   return (
-    /*
-      The video is 2000×2000 (square), red bg #FF3C00 matching the page.
-      We display it full-width and crop vertically to show just the logo area.
-      The logo sits at roughly 40–60% of the video height.
-      Container height ~36vw lets us show that window centred.
-    */
-    <div
-      style={{
-        width: '100%',
-        /* ~36vw shows the logo at full width with a bit of breathing room */
-        height: 'clamp(180px, 36vw, 620px)',
-        overflow: 'hidden',
-        position: 'relative',
-        lineHeight: 0,
-      }}
-    >
+    <div style={{
+      width: '100%',
+      height: 'clamp(140px, 23vw, 400px)',
+      overflow: 'hidden',
+      position: 'relative',
+      lineHeight: 0,
+    }}>
       <video
         ref={videoRef}
         autoPlay loop muted playsInline
@@ -63,68 +36,17 @@ function OtherLogoVideo() {
           display: 'block',
         }}
       >
-        <source src="/other-logo.mp4" type="video/mp4" />
+        <source src={OTHER_VIDEO} type="video/mp4" />
       </video>
-    </div>
-  )
-}
-
-// ── OTHER footer logo (small) ──────────────────────────────────
-function OtherLogo() {
-  return (
-    <svg viewBox="0 0 300 70" width="140" height="40" fill="none">
-      <text
-        x="2" y="58"
-        fontFamily="'Vulf Sans', sans-serif"
-        fontWeight="900"
-        fontSize="66"
-        letterSpacing="-2"
-        fill="#FF3C00"
-      >
-        OTHER
-      </text>
-    </svg>
-  )
-}
-
-// ── Villa Volubilia script ─────────────────────────────────────
-function VillaVolubilia() {
-  return (
-    <div style={{ transform: 'rotate(-6deg)', transformOrigin: 'bottom right' }}>
-      <svg viewBox="0 0 280 90" width="210" height="72" fill="none">
-        <text x="8" y="36"
-          fontFamily="Georgia, 'Times New Roman', serif"
-          fontStyle="italic"
-          fontWeight="700"
-          fontSize="33"
-          fill="#FF3C00"
-          letterSpacing="0.5"
-        >
-          Villa
-        </text>
-        <text x="8" y="76"
-          fontFamily="Georgia, 'Times New Roman', serif"
-          fontStyle="italic"
-          fontWeight="700"
-          fontSize="33"
-          fill="#FF3C00"
-          letterSpacing="0.5"
-        >
-          Volubilia
-        </text>
-        <path d="M8 83 Q140 93 272 80" stroke="#FF3C00" strokeWidth="1.5" fill="none" />
-      </svg>
     </div>
   )
 }
 
 // ── Main page ──────────────────────────────────────────────────
 export default function Home() {
-  const [modalOpen, setModalOpen] = useState(false)
-  const [triggerRect, setTriggerRect] = useState<DOMRect | null>(null)
-  const [email, setEmail] = useState('')
-  const [formState, setFormState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
-  const [errorMsg, setErrorMsg] = useState('')
+  const [email, setEmail]         = useState('')
+  const [formState, setFormState] = useState<'idle'|'loading'|'success'|'error'>('idle')
+  const [errorMsg, setErrorMsg]   = useState('')
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -151,320 +73,269 @@ export default function Home() {
   }
 
   return (
-    <div>
+    <div style={{ backgroundColor: '#FF3C00' }}>
 
-      <Nav color="#1A1A0A" />
-
-      <RegistrationModal
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        startRect={triggerRect}
-      />
+      {/* Nav — dark navy pill buttons */}
+      <Nav color="#00006A" />
 
       {/* ══════════════════════════════════════════════════════
-          SECTION 1 — HERO (orange-red)
+          HERO — red/orange background
       ══════════════════════════════════════════════════════ */}
-      <section
-        style={{
-          position: 'relative',
-          minHeight: '100vh',
-          backgroundColor: '#FF3C00',
-          display: 'flex',
-          flexDirection: 'column',
-          overflow: 'hidden',
-        }}
-      >
+      <section style={{
+        position: 'relative',
+        backgroundColor: '#FF3C00',
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden',
+      }}>
+
         {/* OTHER animated logo — full bleed, no padding */}
         <OtherLogoVideo />
 
-        {/* Two circular photos */}
-        <div
-          style={{
-            flex: 1,
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: 'clamp(0.75rem, 2vw, 1.5rem)',
-            padding: '0 clamp(0.75rem, 2vw, 1.5rem)',
-            alignItems: 'center',
-            minHeight: '35vh',
-          }}
-        >
-          <div
-            style={{
-              borderRadius: '50%',
+        {/* Two oval photos with yellow border */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: 'clamp(0.5rem, 1.5vw, 1.25rem)',
+          padding: '0 clamp(0.5rem, 1.5vw, 1.25rem)',
+          marginTop: 'clamp(0.75rem, 2vw, 1.5rem)',
+        }}>
+          {[
+            'https://images.unsplash.com/photo-1504151932400-72d4384f04b3?w=900&q=85',
+            'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=900&q=85',
+          ].map((src, i) => (
+            <div key={i} style={{
+              borderRadius: 'clamp(120px, 28vw, 240px)',
               overflow: 'hidden',
-              aspectRatio: '1',
+              aspectRatio: '843 / 474',
+              border: '2px solid #EDFF00',
               width: '100%',
-            }}
-          >
-            <img
-              src="https://images.unsplash.com/photo-1504151932400-72d4384f04b3?w=900&q=85"
-              alt="Moroccan farmers"
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
-          </div>
-          <div
-            style={{
-              borderRadius: '50%',
-              overflow: 'hidden',
-              aspectRatio: '1',
-              width: '100%',
-            }}
-          >
-            <img
-              src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=900&q=85"
-              alt="Atlas mountains vineyard"
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
-          </div>
+            }}>
+              <img
+                src={src}
+                alt={i === 0 ? 'Moroccan farmers' : 'Atlas mountains vineyard'}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            </div>
+          ))}
         </div>
 
-        {/* Bottom strip — Arabic labels */}
-        <div
-          style={{
+        {/* Bottom strip — Arabic + MAROC + sunflower + caption */}
+        <div style={{ marginTop: 'clamp(0.5rem, 1.5vw, 1rem)' }}>
+
+          {/* Arabic text row */}
+          <div style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            padding: '0.4rem clamp(0.75rem, 3vw, 2rem) 0',
-          }}
-        >
-          <span
-            style={{
-              fontFamily: 'Arial, sans-serif',
-              fontSize: 'clamp(0.85rem, 2vw, 1.1rem)',
-              color: '#EDFF00',
-              fontWeight: 700,
-            }}
-          >
-            المغرب!
-          </span>
+            padding: '0 clamp(0.5rem, 1.5vw, 1.25rem)',
+            marginBottom: '0.15rem',
+          }}>
+            {/* Left arabic */}
+            <img src={ARABIC_SVG} alt="المغرب" style={{ height: 'clamp(18px, 3.9vw, 68px)', width: 'auto' }} />
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-            <Sunflower size={32} />
-            <span
-              style={{
+            {/* Centre: sunflower + caption */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(0.4rem, 1vw, 0.75rem)' }}>
+              <img src={SUNFLOWER_SVG} alt="" style={{ height: 'clamp(28px, 5.5vw, 112px)', width: 'auto' }} />
+              <span style={{
                 fontFamily: 'Vulf Sans, sans-serif',
-                fontSize: 'clamp(0.55rem, 1.3vw, 0.7rem)',
-                letterSpacing: '0.2em',
-                color: '#FF3C00',
-                textTransform: 'uppercase',
-                fontWeight: 600,
-                background: '#EDFF00',
-                padding: '0.18rem 0.65rem',
-                borderRadius: '2px',
+                fontWeight: 400,
+                fontSize: 'clamp(0.55rem, 1.7vw, 1.73rem)',
+                letterSpacing: '0.03em',
+                color: '#EDFF00',
                 whiteSpace: 'nowrap',
-              }}
-            >
-              Limited Edition Capsules
-            </span>
-            <Sunflower size={32} />
+              }}>
+                Limited Edition Capsules
+              </span>
+              <img src={SUNFLOWER_SVG} alt="" style={{ height: 'clamp(28px, 5.5vw, 112px)', width: 'auto' }} />
+            </div>
+
+            {/* Right arabic */}
+            <img src={ARABIC_SVG} alt="المغرب" style={{ height: 'clamp(18px, 3.9vw, 68px)', width: 'auto' }} />
           </div>
 
-          <span
-            style={{
-              fontFamily: 'Arial, sans-serif',
-              fontSize: 'clamp(0.85rem, 2vw, 1.1rem)',
-              color: '#EDFF00',
-              fontWeight: 700,
-            }}
-          >
-            المغرب!
-          </span>
-        </div>
-
-        {/* MAROC display text */}
-        <div
-          style={{
+          {/* MAROC row */}
+          <div style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'flex-end',
-            lineHeight: 0.82,
+            lineHeight: 0,
             overflow: 'hidden',
-            padding: '0 0',
-          }}
-        >
-          <span
-            style={{
-              fontFamily: "'Bebas Neue', 'Impact', 'Arial Narrow', sans-serif",
-              fontSize: 'clamp(4rem, 17vw, 14rem)',
-              color: '#EDFF00',
-              letterSpacing: '0.01em',
-              display: 'block',
-            }}
-          >
-            MAROC
-          </span>
-          <span
-            style={{
-              fontFamily: "'Bebas Neue', 'Impact', 'Arial Narrow', sans-serif",
-              fontSize: 'clamp(4rem, 17vw, 14rem)',
-              color: '#EDFF00',
-              letterSpacing: '0.01em',
-              display: 'block',
-            }}
-          >
-            MAROC
-          </span>
+          }}>
+            <img src={MAROC_SVG} alt="MAROC" style={{ height: 'clamp(50px, 10.5vw, 182px)', width: 'auto', display: 'block' }} />
+            <img src={MAROC_SVG} alt="MAROC" style={{ height: 'clamp(50px, 10.5vw, 182px)', width: 'auto', display: 'block' }} />
+          </div>
         </div>
 
         {/* Yellow transition band */}
-        <div style={{ height: 'clamp(1.25rem, 3vw, 2rem)', backgroundColor: '#EDFF00' }} />
+        <div style={{ height: 'clamp(1rem, 2.5vw, 2rem)', backgroundColor: '#EDFF00' }} />
       </section>
 
       {/* ══════════════════════════════════════════════════════
-          SECTION 2 — CONTENT (yellow)
+          CONTENT — yellow background
       ══════════════════════════════════════════════════════ */}
-      <section
-        style={{
-          backgroundColor: '#EDFF00',
-          minHeight: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          padding: 'clamp(3rem, 7vw, 5rem) clamp(1.5rem, 5vw, 4rem) 0',
-        }}
-      >
-        {/* Capsule 01 heading */}
+      <section style={{
+        backgroundColor: '#EDFF00',
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: 'clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem) 0',
+      }}>
+
+        {/* Capsule 01 — outlined Vulf Sans Black, matching design exactly */}
         <h1
+          className="capsules-wordmark"
           style={{
-            fontFamily: "'Fraunces', Georgia, serif",
-            fontWeight: 900,
-            fontSize: 'clamp(3.5rem, 10vw, 8rem)',
-            color: '#FF3C00',
+            fontSize: 'clamp(3rem, 8.5vw, 9.5rem)',
+            letterSpacing: '0.02em',
+            WebkitTextStrokeColor: '#00006A',
             textAlign: 'center',
-            lineHeight: 1,
-            marginBottom: 'clamp(1.75rem, 4vw, 3rem)',
+            marginBottom: 'clamp(1.5rem, 4vw, 3rem)',
           }}
         >
           Capsule 01
         </h1>
 
-        {/* Body copy */}
-        <div style={{ maxWidth: '500px', margin: '0 auto', textAlign: 'center' }}>
-          <p
-            style={{
-              fontFamily: 'Vulf Sans, sans-serif',
-              fontWeight: 400,
-              fontSize: 'clamp(0.8rem, 1.8vw, 0.92rem)',
-              lineHeight: 1.8,
-              color: '#1A1A0A',
-              marginBottom: '0.75rem',
-            }}
-          >
+        {/* Body copy — Vulf Sans Bold, #00006A, centered */}
+        <div style={{ maxWidth: '520px', width: '100%', textAlign: 'center' }}>
+          <p style={{
+            fontFamily: 'Vulf Sans, sans-serif',
+            fontWeight: 700,
+            fontSize: 'clamp(0.8rem, 1.75vw, 1.09rem)',
+            lineHeight: 1.29,
+            color: '#00006A',
+            marginBottom: '1rem',
+          }}>
             The last 480 bottles of an amphora aged grenache,<br />
             grown by Berber farmers in the foothills of<br />
             the Atlas mountains.
           </p>
-          <p
-            style={{
-              fontFamily: 'Vulf Sans, sans-serif',
-              fontWeight: 500,
-              fontSize: 'clamp(0.8rem, 1.8vw, 0.92rem)',
-              color: '#1A1A0A',
-              marginBottom: '0.4rem',
-            }}
-          >
+          <p style={{
+            fontFamily: 'Vulf Sans, sans-serif',
+            fontWeight: 400,
+            fontSize: 'clamp(0.8rem, 1.75vw, 1.09rem)',
+            lineHeight: 1.29,
+            color: '#00006A',
+            marginBottom: '0.3rem',
+          }}>
             £89 including delivery.
           </p>
-          <p
-            style={{
-              fontFamily: 'Vulf Sans, sans-serif',
-              fontWeight: 300,
-              fontSize: 'clamp(0.76rem, 1.6vw, 0.86rem)',
-              color: 'rgba(26,26,10,0.65)',
-              lineHeight: 1.7,
-            }}
-          >
+          <p style={{
+            fontFamily: 'Vulf Sans, sans-serif',
+            fontWeight: 400,
+            fontSize: 'clamp(0.8rem, 1.75vw, 1.09rem)',
+            lineHeight: 1.29,
+            color: '#00006A',
+          }}>
             One bottle of amphora-aged Grenache gris, two bottles of estate rosé,
             and a small vial of their olive oil.
           </p>
         </div>
 
-        {/* Stats */}
-        <div
-          style={{
-            maxWidth: '400px',
-            margin: 'clamp(1.5rem, 3.5vw, 2.5rem) auto 0',
-            width: '100%',
-            borderTop: '1.5px solid #FF3C00',
-          }}
-        >
+        {/* Stats table — Vulf Sans Light/Regular, #00006A, uppercase */}
+        <div style={{
+          maxWidth: '520px',
+          width: '100%',
+          marginTop: 'clamp(1.5rem, 3.5vw, 2.5rem)',
+          borderTop: '1.5px solid #00006A',
+        }}>
           {[
-            { label: 'BALLOT CLOSES', value: '14 JUNE 2026' },
-            { label: 'VINEYARD',      value: 'MEKNES, MOROCCO' },
+            { label: 'Ballot closes', value: '14 June 2026' },
+            { label: 'Vineyard',      value: 'Mknes, Morocco' },
           ].map(({ label, value }) => (
-            <div
-              key={label}
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                padding: '0.65rem 0',
-                borderBottom: '1.5px solid #FF3C00',
-                fontFamily: 'Vulf Sans, sans-serif',
-                fontSize: '0.65rem',
-                letterSpacing: '0.12em',
-                color: '#1A1A0A',
-              }}
-            >
-              <span style={{ fontWeight: 400, opacity: 0.55 }}>{label}</span>
-              <span style={{ fontWeight: 600 }}>{value}</span>
+            <div key={label} style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              padding: '0.7rem 0',
+              borderBottom: '1.5px solid #00006A',
+              fontFamily: 'Vulf Sans, sans-serif',
+              fontSize: 'clamp(0.7rem, 1.6vw, 1.25rem)',
+              letterSpacing: '-0.01em',
+              color: '#00006A',
+              textTransform: 'uppercase',
+            }}>
+              <span style={{ fontWeight: 300 }}>{label}</span>
+              <span style={{ fontWeight: 400 }}>{value}</span>
             </div>
           ))}
         </div>
 
         {/* Registration form */}
-        <div style={{ maxWidth: '400px', margin: 'clamp(1.25rem, 3vw, 2rem) auto 0', width: '100%' }}>
+        <div style={{ maxWidth: '520px', width: '100%', marginTop: 'clamp(1rem, 2.5vw, 1.75rem)' }}>
           {formState === 'success' ? (
-            <div style={{ textAlign: 'center', padding: '1.5rem 0' }}>
-              <p
-                style={{
-                  fontFamily: 'Vulf Sans, sans-serif',
-                  fontSize: '0.95rem',
-                  fontWeight: 400,
-                  color: '#1A1A0A',
-                  lineHeight: 1.7,
-                }}
-              >
-                You&apos;re on the list. If drawn on 14 June you&apos;ll get
-                a checkout link with 48 hours to complete your purchase.
-              </p>
-            </div>
+            <p style={{
+              fontFamily: 'Vulf Sans, sans-serif',
+              fontWeight: 300,
+              fontSize: '1rem',
+              color: '#00006A',
+              lineHeight: 1.65,
+              textAlign: 'center',
+              padding: '1.5rem 0',
+            }}>
+              You&apos;re on the list. If drawn on 14 June you&apos;ll receive
+              a checkout link with 48 hours to complete your purchase.
+            </p>
           ) : (
             <form onSubmit={handleSubmit}>
-              <input
-                className="yellow-input"
-                type="email"
-                required
-                placeholder="Your Email Here..."
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                disabled={formState === 'loading'}
-              />
+              {/* Email input — red border, navy placeholder */}
+              <div style={{
+                border: '2px solid #FF3C00',
+                borderRadius: '6px',
+                height: 'clamp(48px, 6.5vw, 64px)',
+                display: 'flex',
+                alignItems: 'center',
+                marginBottom: '0.65rem',
+              }}>
+                <input
+                  type="email"
+                  required
+                  placeholder="Your Email Here"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  disabled={formState === 'loading'}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    background: 'transparent',
+                    border: 'none',
+                    outline: 'none',
+                    padding: '0 1rem',
+                    fontFamily: 'Vulf Sans, sans-serif',
+                    fontWeight: 300,
+                    fontSize: 'clamp(0.8rem, 1.75vw, 1.31rem)',
+                    letterSpacing: '-0.01em',
+                    color: '#00006A',
+                  }}
+                />
+              </div>
               {formState === 'error' && (
-                <p style={{ color: '#FF3C00', fontSize: '0.75rem', marginTop: '0.4rem', fontFamily: 'Vulf Sans, sans-serif' }}>
+                <p style={{ color: '#FF3C00', fontSize: '0.75rem', marginBottom: '0.5rem', fontFamily: 'Vulf Sans, sans-serif' }}>
                   {errorMsg}
                 </p>
               )}
+              {/* REGISTER NOW — red bg, navy text */}
               <button
                 type="submit"
                 disabled={formState === 'loading'}
                 style={{
                   display: 'block',
                   width: '100%',
-                  marginTop: '0.7rem',
-                  padding: '0.85rem',
+                  height: 'clamp(52px, 7vw, 70px)',
                   backgroundColor: '#FF3C00',
-                  color: '#EDFF00',
+                  color: '#00006A',
                   border: 'none',
                   borderRadius: '999px',
                   fontFamily: 'Vulf Sans, sans-serif',
-                  fontWeight: 700,
-                  fontSize: '0.72rem',
-                  letterSpacing: '0.16em',
+                  fontWeight: 300,
+                  fontSize: 'clamp(0.8rem, 1.75vw, 1.56rem)',
+                  letterSpacing: '-0.03em',
                   textTransform: 'uppercase',
                   cursor: formState === 'loading' ? 'wait' : 'pointer',
                   opacity: formState === 'loading' ? 0.6 : 1,
                   transition: 'opacity 0.15s ease',
+                  fontFeatureSettings: "'cv10', 'ss03', 'ss05', 'case', 'ordn', 'dlig'",
                 }}
                 onMouseOver={e => { if (formState !== 'loading') e.currentTarget.style.opacity = '0.8' }}
                 onMouseOut={e => { if (formState !== 'loading') e.currentTarget.style.opacity = '1' }}
@@ -475,19 +346,25 @@ export default function Home() {
           )}
         </div>
 
-        {/* Footer */}
-        <div
-          style={{
-            flex: 1,
-            display: 'flex',
-            alignItems: 'flex-end',
-            justifyContent: 'space-between',
-            paddingTop: 'clamp(3rem, 6vw, 5rem)',
-            paddingBottom: 'clamp(1rem, 2.5vw, 1.75rem)',
-          }}
-        >
-          <OtherLogo />
-          <VillaVolubilia />
+        {/* Footer — OTHER logo left, Villa Volubilia right */}
+        <div style={{
+          width: '100%',
+          display: 'flex',
+          alignItems: 'flex-end',
+          justifyContent: 'space-between',
+          paddingTop: 'clamp(3rem, 6vw, 6rem)',
+          paddingBottom: 'clamp(0.75rem, 2vw, 1.5rem)',
+        }}>
+          <img
+            src={OTHER_LOGO_PNG}
+            alt="OTHER"
+            style={{ height: 'clamp(32px, 4.5vw, 69px)', width: 'auto' }}
+          />
+          <img
+            src={VILLA_SVG}
+            alt="Villa Volubilia"
+            style={{ height: 'clamp(60px, 8vw, 125px)', width: 'auto' }}
+          />
         </div>
       </section>
 
