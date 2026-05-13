@@ -145,6 +145,18 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ── Animated OTHER logo ────────────────────────────────────── */
+/* object-view-box crops the 2000×2000 canvas to the letter band
+   (~x:8–88%, y:36–66%) so letters fill the full container width */
+.logo-video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center center;
+  object-view-box: inset(36% 12% 34% 8%);
+}
+
 /* ── Capsules outlined wordmark ─────────────────────────────── */
 .capsules-wordmark {
   font-weight: 700;

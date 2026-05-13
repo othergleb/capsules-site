@@ -22,21 +22,14 @@ function OtherLogoVideo() {
       marginLeft: '-3%',
       height: 'clamp(110px, 22.9vw, 395px)',
       overflow: 'hidden',
+      position: 'relative',
       lineHeight: 0,
       flexShrink: 0,
     }}>
       <video
         ref={videoRef}
         autoPlay loop muted playsInline
-        style={{
-          width: '100%',
-          height: '100%',
-          display: 'block',
-          objectFit: 'cover',
-          objectPosition: 'center center',
-          // Letters are centred in the 2000×2000 canvas; scale zooms in to clip the red padding
-          transform: 'scale(1.22)',
-        }}
+        className="logo-video"
       >
         <source src={OTHER_VIDEO} type="video/mp4" />
       </video>
