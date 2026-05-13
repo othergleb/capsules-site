@@ -42,7 +42,7 @@ export default function Nav({ color = '#1A1A0A', backHref, showSound = false, so
         <Link href="/faq" className="pill-btn">FAQ</Link>
         {showSound && (
           <button className="pill-btn" onClick={onSoundToggle}>
-            {soundOn ? 'Sound On' : 'Sound Off'}
+            {soundOn ? 'Sound Off' : 'Sound On'}
           </button>
         )}
       </div>
