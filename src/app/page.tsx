@@ -20,7 +20,7 @@ function OtherLogoVideo() {
   return (
     <div style={{
       width: '100%',
-      aspectRatio: '16 / 5',
+      height: 'clamp(100px, 14vw, 220px)',
       overflow: 'hidden',
       position: 'relative',
       lineHeight: 0,
@@ -29,10 +29,12 @@ function OtherLogoVideo() {
         ref={videoRef}
         autoPlay loop muted playsInline
         style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
           width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          objectPosition: 'center center',
+          height: 'auto',
           display: 'block',
         }}
       >
@@ -106,7 +108,7 @@ export default function Home() {
     <div style={{ backgroundColor: '#FF3C00' }}>
 
       {/* Nav — dark navy pill buttons */}
-      <Nav color="#00006A" />
+      <Nav color="#00006A" showSound />
 
       {/* ══════════════════════════════════════════════════════
           HERO — red/orange background
