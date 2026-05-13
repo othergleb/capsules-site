@@ -185,7 +185,7 @@ export default function Home() {
         {/* Sunflower overlapping lower-left of logo — Figma y:264 / 1728 = 15.3vw */}
         <div style={{
           position: 'absolute',
-          top: 'calc(15.3vw - 20px)',
+          top: 'calc(16.65vw + 20px)',
           left: '20px',
           pointerEvents: 'none',
         }}>
