@@ -96,9 +96,8 @@ function FarmerVideo({ src, label, muted }: { src: string; label: string; muted:
     <div style={{
       borderRadius: 'clamp(80px, 13.83vw, 239px)',
       overflow: 'hidden',
-      aspectRatio: '843 / 474',
+      flex: 1,
       border: '2px solid #EDFF00',
-      width: '100%',
       position: 'relative',
     }}>
       <video
@@ -170,13 +169,14 @@ export default function Home() {
 
         <OtherLogoVideo />
 
-        {/* Ovals — FIX 3: increased horizontal padding to shrink oval height */}
+        {/* Ovals — flex:1 so they fill remaining hero height at any viewport size */}
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
+          display: 'flex',
           gap: '0.09vw',
           padding: '0 1.5%',
           marginTop: 'clamp(-10px, -1.62vw, -5px)',
+          flex: 1,
+          minHeight: 0,
         }}>
           <FarmerVideo src={FARMER_LEFT}  label="Moroccan farmers in the vineyard" muted={!soundOn} />
           <FarmerVideo src={FARMER_RIGHT} label="Berber farmers working in the Atlas mountains" muted={!soundOn} />
@@ -193,8 +193,7 @@ export default function Home() {
             style={{ height: 'clamp(28px, 5.5vw, 95px)', width: 'auto', aspectRatio: '114 / 113', display: 'block' }} />
         </div>
 
-        {/* FIX 3: tightened top margin */}
-        <div style={{ marginTop: 'clamp(0.5rem, 2.89vw, 50px)' }}>
+        <div style={{ marginTop: 'clamp(0.5rem, 2.89vw, 50px)', flexShrink: 0 }}>
 
           {/* Row 1: Arabic left and right */}
           <div style={{
@@ -254,9 +253,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* FIX 6: red sliver visible before yellow band — flexGrow fills remaining hero space */}
-        <div style={{ flexGrow: 1 }} />
-        <div style={{ height: 'clamp(0.5rem, 1.2vw, 1.25rem)', backgroundColor: '#EDFF00' }} />
+        <div style={{ height: 'clamp(0.5rem, 1.2vw, 1.25rem)', backgroundColor: '#EDFF00', flexShrink: 0 }} />
       </section>
 
       {/* ══════════════════════════════════════════════════════
