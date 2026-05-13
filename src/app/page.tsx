@@ -10,6 +10,8 @@ const SUNFLOWER_SVG    = '/figma/sunflower.svg'
 const VILLA_SVG        = '/figma/villa-volubilia.svg'
 const OTHER_LOGO_PNG   = '/figma/other-logo-yellow.png'
 const OTHER_VIDEO      = '/other-logo.mp4'
+const FARMER_LEFT      = '/farmer-left.mp4'
+const FARMER_RIGHT     = '/farmer-right.mp4'
 
 // ── Animated OTHER logo (video, full-bleed) ────────────────────
 function OtherLogoVideo() {
@@ -18,7 +20,7 @@ function OtherLogoVideo() {
   return (
     <div style={{
       width: '100%',
-      height: 'clamp(140px, 23vw, 400px)',
+      aspectRatio: '16 / 5',
       overflow: 'hidden',
       position: 'relative',
       lineHeight: 0,
@@ -28,15 +30,43 @@ function OtherLogoVideo() {
         autoPlay loop muted playsInline
         style={{
           width: '100%',
-          height: 'auto',
-          position: 'absolute',
-          top: '50%',
-          left: 0,
-          transform: 'translateY(-50%)',
+          height: '100%',
+          objectFit: 'cover',
+          objectPosition: 'center center',
           display: 'block',
         }}
       >
         <source src={OTHER_VIDEO} type="video/mp4" />
+      </video>
+    </div>
+  )
+}
+
+// ── Oval farmer video ──────────────────────────────────────────
+function FarmerVideo({ src, label }: { src: string; label: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  useEffect(() => { videoRef.current?.play().catch(() => {}) }, [])
+  return (
+    <div style={{
+      borderRadius: 'clamp(120px, 28vw, 240px)',
+      overflow: 'hidden',
+      aspectRatio: '843 / 474',
+      border: '2px solid #EDFF00',
+      width: '100%',
+      position: 'relative',
+    }}>
+      <video
+        ref={videoRef}
+        autoPlay loop muted playsInline
+        aria-label={label}
+        style={{
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          display: 'block',
+        }}
+      >
+        <source src={src} type="video/mp4" />
       </video>
     </div>
   )
@@ -92,7 +122,7 @@ export default function Home() {
         {/* OTHER animated logo — full bleed, no padding */}
         <OtherLogoVideo />
 
-        {/* Two oval photos with yellow border */}
+        {/* Two oval farmer videos with yellow border */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
@@ -100,24 +130,8 @@ export default function Home() {
           padding: '0 clamp(0.5rem, 1.5vw, 1.25rem)',
           marginTop: 'clamp(0.75rem, 2vw, 1.5rem)',
         }}>
-          {[
-            'https://images.unsplash.com/photo-1504151932400-72d4384f04b3?w=900&q=85',
-            'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=900&q=85',
-          ].map((src, i) => (
-            <div key={i} style={{
-              borderRadius: 'clamp(120px, 28vw, 240px)',
-              overflow: 'hidden',
-              aspectRatio: '843 / 474',
-              border: '2px solid #EDFF00',
-              width: '100%',
-            }}>
-              <img
-                src={src}
-                alt={i === 0 ? 'Moroccan farmers' : 'Atlas mountains vineyard'}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-            </div>
-          ))}
+          <FarmerVideo src={FARMER_LEFT}  label="Moroccan farmers in the vineyard" />
+          <FarmerVideo src={FARMER_RIGHT} label="Berber farmers working in the Atlas mountains" />
         </div>
 
         {/* Bottom strip — Arabic + MAROC + sunflower + caption */}
