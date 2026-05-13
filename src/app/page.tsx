@@ -55,7 +55,7 @@ function OtherLogoVideo() {
     <div style={{
       width: '106%',
       marginLeft: '-3%',
-      height: 'clamp(110px, 22.9vw, 395px)',
+      height: 'clamp(99px, 20.6vw, 356px)',
       overflow: 'hidden',
       position: 'relative',
       lineHeight: 0,
@@ -69,11 +69,11 @@ function OtherLogoVideo() {
       >
         <source src={OTHER_VIDEO} type="video/mp4" />
       </video>
-      {/* Canvas shows cropped letter region — 4.63:1 matches container ratio */}
+      {/* Canvas shows cropped letter region — 5.15:1 matches container ratio */}
       <canvas
         ref={canvasRef}
         width={2000}
-        height={432}
+        height={388}
         style={{ width: '100%', height: '100%', display: 'block' }}
       />
     </div>
@@ -186,7 +186,7 @@ export default function Home() {
             Logo bottom ≈ 0.58vw + 16vw; sunflower half-height ≈ 2.75vw → top = 13.83vw */}
         <div style={{
           position: 'absolute',
-          top: 'calc(0.58vw + 22.9vw - 2.75vw)',
+          top: 'calc(0.58vw + 20.6vw - 2.75vw)',
           left: '0',
           pointerEvents: 'none',
         }}>
