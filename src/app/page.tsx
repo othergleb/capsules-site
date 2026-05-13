@@ -8,13 +8,13 @@ const ARABIC_SVG     = '/figma/arabic.svg'
 const SUNFLOWER_SVG  = '/figma/sunflower.svg'
 const VILLA_SVG      = '/figma/villa-volubilia.svg'
 const OTHER_LOGO_PNG = '/figma/other-logo-yellow.png'
-const OTHER_VIDEO    = '/logo-animated-v3.mp4'  // 1440×600 pre-cropped widescreen
+const OTHER_VIDEO    = '/other-logo.mp4'  // 2000×2000, yellow on red — correct colours
 const FARMER_LEFT    = '/farmer-left.mp4'
 const FARMER_RIGHT   = '/farmer-right.mp4'
 
 // ── Animated OTHER logo ────────────────────────────────────────
-// Using logo-animated-v3.mp4 which is 1440×600 (pre-cropped widescreen, 2.4:1)
-// Bleeds ~3% off each side to match Figma (video slightly wider than frame)
+// other-logo.mp4 is 2000×2000. Figma shows top 22% of the video (letters live there).
+// Container bleeds 3% off each side. objectPosition 'top' crops from the top.
 function OtherLogoVideo() {
   const videoRef = useRef<HTMLVideoElement>(null)
   useEffect(() => { videoRef.current?.play().catch(() => {}) }, [])
@@ -22,6 +22,8 @@ function OtherLogoVideo() {
     <div style={{
       width: '106%',
       marginLeft: '-3%',
+      height: 'clamp(110px, 22.9vw, 395px)',
+      overflow: 'hidden',
       lineHeight: 0,
       flexShrink: 0,
     }}>
@@ -32,6 +34,9 @@ function OtherLogoVideo() {
           width: '100%',
           height: 'auto',
           display: 'block',
+          // Show the top of the video where the letters are
+          objectFit: 'cover',
+          objectPosition: 'center top',
         }}
       >
         <source src={OTHER_VIDEO} type="video/mp4" />
@@ -124,7 +129,7 @@ export default function Home() {
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden',
-        // Figma top padding for logo: 10px on 1728px = 0.58vw
+        position: 'relative',
         paddingTop: '0.58vw',
       }}>
 
@@ -146,25 +151,52 @@ export default function Home() {
           <FarmerVideo src={FARMER_RIGHT} label="Berber farmers working in the Atlas mountains" muted={!soundOn} />
         </div>
 
-        {/* Bottom strip: arabic · sunflower + caption · arabic, then MAROC row */}
-        {/* Figma: strip starts at top 901px, ovals end at ~851px → 50px gap = 2.89vw */}
+        {/* ── Bottom strip ─────────────────────────────────────────
+            Figma layout (from screenshot):
+            Row 1: [Arabic L] ·············· [Arabic R]
+            Row 2: [MAROC L] [Limited Ed · Sunflower] [MAROC R]
+            + one sunflower absolutely positioned upper-left of hero (over logo area)
+        ────────────────────────────────────────────────────── */}
+
+        {/* Upper-left sunflower — overlaid on hero, above ovals (Figma: ~26% down, left edge) */}
+        <div style={{
+          position: 'absolute',
+          top: 'clamp(100px, 26%, 270px)',
+          left: '1.5%',
+          pointerEvents: 'none',
+        }}>
+          <img src={SUNFLOWER_SVG} alt=""
+            style={{ height: 'clamp(28px, 5.5vw, 95px)', width: 'auto', aspectRatio: '114 / 113', display: 'block' }} />
+        </div>
+
         <div style={{ marginTop: 'clamp(0.5rem, 2.89vw, 50px)' }}>
 
+          {/* Row 1: Arabic left and right only */}
           <div style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
             padding: '0 1.5%',
-            marginBottom: '0.1rem',
+            marginBottom: '0.25rem',
           }}>
-            {/* Arabic SVG: viewBox 210×68, no intrinsic size → must set aspectRatio */}
             <img src={ARABIC_SVG} alt="المغرب"
               style={{ height: 'clamp(16px, 3.88vw, 67px)', width: 'auto', aspectRatio: '210 / 68' }} />
+            <img src={ARABIC_SVG} alt="المغرب"
+              style={{ height: 'clamp(16px, 3.88vw, 67px)', width: 'auto', aspectRatio: '210 / 68' }} />
+          </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(0.3rem, 0.8vw, 0.6rem)' }}>
-              {/* Sunflower SVG: viewBox 114×113, roughly square */}
-              <img src={SUNFLOWER_SVG} alt=""
-                style={{ height: 'clamp(20px, 3.88vw, 67px)', width: 'auto', aspectRatio: '114 / 113' }} />
+          {/* Row 2: MAROC left · "Limited Edition Capsules" + sunflower · MAROC right */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            lineHeight: 0,
+          }}>
+            <img src={MAROC_SVG} alt="MAROC"
+              style={{ height: 'clamp(40px, 5.61vw, 97px)', width: 'auto', aspectRatio: '431 / 99', display: 'block' }} />
+
+            {/* Centre: caption + sunflower to the right of it */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(0.4rem, 1vw, 0.75rem)' }}>
               <span style={{
                 fontFamily: 'Vulf Sans, sans-serif',
                 fontWeight: 400,
@@ -172,26 +204,14 @@ export default function Home() {
                 letterSpacing: '0.052em',
                 color: '#EDFF00',
                 whiteSpace: 'nowrap',
+                lineHeight: 1,
               }}>
                 Limited Edition Capsules
               </span>
               <img src={SUNFLOWER_SVG} alt=""
-                style={{ height: 'clamp(20px, 3.88vw, 67px)', width: 'auto', aspectRatio: '114 / 113' }} />
+                style={{ height: 'clamp(24px, 4.6vw, 80px)', width: 'auto', aspectRatio: '114 / 113', display: 'block' }} />
             </div>
 
-            <img src={ARABIC_SVG} alt="المغرب"
-              style={{ height: 'clamp(16px, 3.88vw, 67px)', width: 'auto', aspectRatio: '210 / 68' }} />
-          </div>
-
-          {/* MAROC — viewBox 431×99, height 97px on 1728px = 5.61vw, flush to edges */}
-          <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'flex-end',
-            lineHeight: 0,
-          }}>
-            <img src={MAROC_SVG} alt="MAROC"
-              style={{ height: 'clamp(40px, 5.61vw, 97px)', width: 'auto', aspectRatio: '431 / 99', display: 'block' }} />
             <img src={MAROC_SVG} alt="MAROC"
               style={{ height: 'clamp(40px, 5.61vw, 97px)', width: 'auto', aspectRatio: '431 / 99', display: 'block' }} />
           </div>
