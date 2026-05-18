@@ -80,6 +80,56 @@ function OtherLogoVideo() {
   )
 }
 
+// ── Bottom-left OTHER logo (animated GIF, same canvas-crop technique as OtherLogoVideo) ──
+function OtherLogoGif() {
+  const imgRef    = useRef<HTMLImageElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const rafRef    = useRef<number>(0)
+
+  useEffect(() => {
+    const img    = imgRef.current
+    const canvas = canvasRef.current
+    if (!img || !canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    const i = img, c = canvas, x = ctx
+    function draw() {
+      if (i.complete && i.naturalWidth > 0) {
+        const iw = i.naturalWidth  || 2000
+        const ih = i.naturalHeight || 2000
+        const sx = Math.round(0.15 * iw)
+        const sw = Math.round(0.70 * iw)
+        const cropH = Math.round(sw * c.height / c.width)
+        const sy    = Math.round(0.51 * ih - cropH / 2)
+        x.drawImage(i, sx, sy, sw, cropH, 0, 0, c.width, c.height)
+      }
+      rafRef.current = requestAnimationFrame(draw)
+    }
+    rafRef.current = requestAnimationFrame(draw)
+    return () => cancelAnimationFrame(rafRef.current)
+  }, [])
+
+  return (
+    <div style={{
+      position: 'absolute',
+      left: '0.98vw',
+      bottom: '3.99vw',
+      width: '21.18vw',
+      aspectRatio: '366 / 69',
+      lineHeight: 0,
+    }}>
+      <img ref={imgRef} src={OTHER_LOGO_PNG} alt="" style={{ display: 'none' }} />
+      <canvas
+        ref={canvasRef}
+        width={366}
+        height={69}
+        style={{ width: '100%', height: '100%', display: 'block' }}
+      />
+    </div>
+  )
+}
+
 // ── Oval farmer video ──────────────────────────────────────────
 function FarmerVideo({ src, label, muted }: { src: string; label: string; muted: boolean }) {
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -116,21 +166,41 @@ function FarmerVideo({ src, label, muted }: { src: string; label: string; muted:
 // ── Main page ──────────────────────────────────────────────────
 export default function Home() {
   const [email, setEmail]         = useState('')
+  const [name, setName]           = useState('')
+  const [formStep, setFormStep]   = useState<'email' | 'name'>('email')
+  const [stepIn, setStepIn]       = useState(true)
   const [formState, setFormState] = useState<'idle'|'loading'|'success'|'error'>('idle')
   const [errorMsg, setErrorMsg]   = useState('')
+  const nameInputRef              = useRef<HTMLInputElement>(null)
   // FIX 2: start muted so browsers allow autoplay; user can toggle sound on
   const [soundOn, setSoundOn]     = useState(false)
 
-  async function handleSubmit(e: React.FormEvent) {
+  function advanceToName(e: React.FormEvent) {
     e.preventDefault()
     if (!email) return
+    setStepIn(false)
+    setTimeout(() => {
+      setFormStep('name')
+      setStepIn(true)
+    }, 320)
+  }
+
+  useEffect(() => {
+    if (formStep === 'name') {
+      setTimeout(() => nameInputRef.current?.focus(), 360)
+    }
+  }, [formStep])
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    if (!name) return
     setFormState('loading')
     setErrorMsg('')
     try {
       const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, name }),
       })
       if (res.ok) {
         setFormState('success')
@@ -264,10 +334,14 @@ export default function Home() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: 'clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem) 0',
+        minHeight: '69.21vw',
+        paddingTop: 'clamp(2rem, 10.24vw, 177px)',
+        paddingLeft: 'clamp(1.5rem, 5vw, 4rem)',
+        paddingRight: 'clamp(1.5rem, 5vw, 4rem)',
+        paddingBottom: 'clamp(3rem, 6vw, 5rem)',
+        position: 'relative',
       }}>
 
-        {/* Capsule 01 */}
         <h1
           className="capsules-wordmark"
           style={{
@@ -275,7 +349,7 @@ export default function Home() {
             letterSpacing: '0.02em',
             WebkitTextStrokeColor: '#00006A',
             textAlign: 'center',
-            marginBottom: 'clamp(2rem, 11vw, 12rem)',
+            marginBottom: 'clamp(2rem, 7.64vw, 132px)',
           }}
         >
           Capsule 01
@@ -311,6 +385,7 @@ export default function Home() {
             fontSize: 'clamp(0.8rem, 1.014vw, 17.5px)',
             lineHeight: 1.29,
             color: '#00006A',
+            marginBottom: 0,
           }}>
             One bottle of amphora-aged Grenache gris, two bottles of estate rosé,
             and a small vial of their olive oil.
@@ -319,7 +394,7 @@ export default function Home() {
 
         {/* Stats table */}
         <div style={{ maxWidth: '519px', width: '100%', marginTop: 'clamp(1.5rem, 3.5vw, 2.5rem)' }}>
-          <img src="/figma/stats-lines.svg" alt="" style={{ width: '100%', display: 'block' }} />
+          <div style={{ width: '100%', height: '1px', backgroundColor: '#00006A' }} />
           {[
             { label: 'Ballot closes', value: '14 June 2026' },
             { label: 'Vineyard',      value: 'Mknes, Morocco' },
@@ -339,7 +414,7 @@ export default function Home() {
                 <span style={{ fontWeight: 300 }}>{label}</span>
                 <span style={{ fontWeight: 400 }}>{value}</span>
               </div>
-              <img src="/figma/stats-lines.svg" alt="" style={{ width: '100%', display: 'block' }} />
+              <div style={{ width: '100%', height: '1px', backgroundColor: '#00006A' }} />
             </div>
           ))}
         </div>
@@ -360,86 +435,166 @@ export default function Home() {
               a checkout link with 48 hours to complete your purchase.
             </p>
           ) : (
-            <form onSubmit={handleSubmit}>
-              <div style={{
-                border: '2px solid #FF3C00',
-                borderRadius: '6px',
-                height: 'clamp(48px, 3.7vw, 64px)',
-                display: 'flex',
-                alignItems: 'center',
-                marginBottom: '0.65rem',
-              }}>
-                <input
-                  type="email"
-                  required
-                  placeholder="Your Email Here"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  disabled={formState === 'loading'}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    background: 'transparent',
-                    border: 'none',
-                    outline: 'none',
-                    padding: '0 1rem',
-                    fontFamily: 'Vulf Sans, sans-serif',
-                    fontWeight: 300,
-                    fontSize: 'clamp(0.8rem, 1.2vw, 21px)',
-                    letterSpacing: '-0.01em',
-                    color: '#00006A',
-                  }}
-                />
-              </div>
-              {formState === 'error' && (
-                <p style={{ color: '#FF3C00', fontSize: '0.75rem', marginBottom: '0.5rem', fontFamily: 'Vulf Sans, sans-serif' }}>
-                  {errorMsg}
-                </p>
+            <div style={{
+              transition: 'opacity 0.32s ease, transform 0.32s ease',
+              opacity: stepIn ? 1 : 0,
+              transform: stepIn ? 'translateY(0)' : 'translateY(10px)',
+            }}>
+              {formStep === 'email' ? (
+                <form onSubmit={advanceToName}>
+                  <div style={{
+                    border: '2px solid #FF3C00',
+                    borderRadius: '6px',
+                    height: 'clamp(48px, 3.7vw, 64px)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginBottom: '0.65rem',
+                  }}>
+                    <input
+                      type="email"
+                      required
+                      placeholder="Your Email Here"
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        background: 'transparent',
+                        border: 'none',
+                        outline: 'none',
+                        padding: '0 1rem',
+                        fontFamily: 'Vulf Sans, sans-serif',
+                        fontWeight: 300,
+                        fontSize: 'clamp(0.8rem, 1.2vw, 21px)',
+                        letterSpacing: '-0.01em',
+                        color: '#00006A',
+                      }}
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    style={{
+                      display: 'block',
+                      width: '100%',
+                      height: 'clamp(52px, 4.05vw, 70px)',
+                      backgroundColor: '#FF3C00',
+                      color: '#00006A',
+                      border: 'none',
+                      borderRadius: '999px',
+                      fontFamily: 'Vulf Sans, sans-serif',
+                      fontWeight: 300,
+                      fontSize: 'clamp(0.9rem, 1.45vw, 25px)',
+                      letterSpacing: '-0.03em',
+                      textTransform: 'uppercase',
+                      cursor: 'pointer',
+                      transition: 'opacity 0.15s ease',
+                      fontFeatureSettings: "'cv10', 'ss03', 'ss05', 'case', 'ordn', 'dlig'",
+                    }}
+                    onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
+                    onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
+                  >
+                    Register Now
+                  </button>
+                </form>
+              ) : (
+                <form onSubmit={handleSubmit}>
+                  <div style={{
+                    border: '2px solid #FF3C00',
+                    borderRadius: '6px',
+                    height: 'clamp(48px, 3.7vw, 64px)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginBottom: '0.65rem',
+                  }}>
+                    <input
+                      ref={nameInputRef}
+                      type="text"
+                      required
+                      placeholder="Your Name Here"
+                      value={name}
+                      onChange={e => setName(e.target.value)}
+                      disabled={formState === 'loading'}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        background: 'transparent',
+                        border: 'none',
+                        outline: 'none',
+                        padding: '0 1rem',
+                        fontFamily: 'Vulf Sans, sans-serif',
+                        fontWeight: 300,
+                        fontSize: 'clamp(0.8rem, 1.2vw, 21px)',
+                        letterSpacing: '-0.01em',
+                        color: '#00006A',
+                      }}
+                    />
+                  </div>
+                  {formState === 'error' && (
+                    <p style={{ color: '#FF3C00', fontSize: '0.75rem', marginBottom: '0.5rem', fontFamily: 'Vulf Sans, sans-serif' }}>
+                      {errorMsg}
+                    </p>
+                  )}
+                  <button
+                    type="submit"
+                    disabled={formState === 'loading'}
+                    style={{
+                      display: 'block',
+                      width: '100%',
+                      height: 'clamp(52px, 4.05vw, 70px)',
+                      backgroundColor: '#FF3C00',
+                      color: '#00006A',
+                      border: 'none',
+                      borderRadius: '999px',
+                      fontFamily: 'Vulf Sans, sans-serif',
+                      fontWeight: 300,
+                      fontSize: 'clamp(0.9rem, 1.45vw, 25px)',
+                      letterSpacing: '-0.03em',
+                      textTransform: 'uppercase',
+                      cursor: formState === 'loading' ? 'wait' : 'pointer',
+                      opacity: formState === 'loading' ? 0.6 : 1,
+                      transition: 'opacity 0.15s ease',
+                      fontFeatureSettings: "'cv10', 'ss03', 'ss05', 'case', 'ordn', 'dlig'",
+                    }}
+                    onMouseOver={e => { if (formState !== 'loading') e.currentTarget.style.opacity = '0.8' }}
+                    onMouseOut={e => { if (formState !== 'loading') e.currentTarget.style.opacity = '1' }}
+                  >
+                    {formState === 'loading' ? '...' : 'Enter Ballot'}
+                  </button>
+                </form>
               )}
-              <button
-                type="submit"
-                disabled={formState === 'loading'}
-                style={{
-                  display: 'block',
-                  width: '100%',
-                  height: 'clamp(52px, 4.05vw, 70px)',
-                  backgroundColor: '#FF3C00',
-                  color: '#00006A',
-                  border: 'none',
-                  borderRadius: '999px',
-                  fontFamily: 'Vulf Sans, sans-serif',
-                  fontWeight: 300,
-                  fontSize: 'clamp(0.9rem, 1.45vw, 25px)',
-                  letterSpacing: '-0.03em',
-                  textTransform: 'uppercase',
-                  cursor: formState === 'loading' ? 'wait' : 'pointer',
-                  opacity: formState === 'loading' ? 0.6 : 1,
-                  transition: 'opacity 0.15s ease',
-                  fontFeatureSettings: "'cv10', 'ss03', 'ss05', 'case', 'ordn', 'dlig'",
-                }}
-                onMouseOver={e => { if (formState !== 'loading') e.currentTarget.style.opacity = '0.8' }}
-                onMouseOut={e => { if (formState !== 'loading') e.currentTarget.style.opacity = '1' }}
-              >
-                {formState === 'loading' ? '...' : 'Register Now'}
-              </button>
-            </form>
+            </div>
           )}
         </div>
 
-        {/* Footer */}
-        <div style={{
-          width: '100%',
-          display: 'flex',
-          alignItems: 'flex-end',
-          justifyContent: 'space-between',
-          paddingTop: 'clamp(3rem, 6vw, 6rem)',
-          paddingBottom: 'clamp(0.75rem, 2vw, 1.5rem)',
-        }}>
-          <img src={OTHER_LOGO_PNG} alt="OTHER"
-            style={{ height: 'clamp(32px, 4vw, 69px)', width: 'auto' }} />
-          <img src={VILLA_SVG} alt="Villa Volubilia"
-            style={{ height: 'clamp(60px, 7.2vw, 125px)', width: 'auto' }} />
-        </div>
+        <OtherLogoGif />
+
+        {/* Bottom-right: circles/zigzag (Group 18) — Figma x:1363, y:1942 */}
+        <img src={VILLA_SVG} alt="" style={{
+          position: 'absolute',
+          right: '1.04vw',
+          bottom: '7.93vw',
+          width: '20.09vw',
+          height: 'auto',
+        }} />
+
+        {/* "Villa" cursive text (node 1:85) — Figma x:1205, y:2052, w:241, h:110 */}
+        <img src="/figma/villa-text.svg" alt="" style={{
+          position: 'absolute',
+          right: '16.32vw',
+          bottom: '7.99vw',
+          width: '13.95vw',
+          height: 'auto',
+        }} />
+
+        {/* "Volubilia" cursive text (node 1:84) — Figma x:1292, y:2069, w:412, h:151 */}
+        <img src="/figma/villa-volubilia-text.svg" alt="Villa Volubilia" style={{
+          position: 'absolute',
+          right: '1.39vw',
+          bottom: '4.63vw',
+          width: '23.84vw',
+          height: 'auto',
+        }} />
+
       </section>
 
     </div>

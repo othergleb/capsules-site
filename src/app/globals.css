@@ -196,3 +196,16 @@ html, body {
 .modal-input::placeholder {
   color: rgba(255, 255, 255, 0.35);
 }
+
+/* ── FAQ accordion icon ─────────────────────────────────────── */
+.faq-toggle {
+  display: inline-block;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+  margin-left: 1rem;
+}
+details[open] > summary .faq-toggle {
+  transform: rotate(45deg);
+}
+details > summary { list-style: none; }
+details > summary::-webkit-details-marker { display: none; }

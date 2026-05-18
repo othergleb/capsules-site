@@ -12,7 +12,7 @@ interface PageShellProps {
 export default function PageShell({ label, title, subtitle, children }: PageShellProps) {
   return (
     <main className="min-h-screen flex flex-col" style={{ backgroundColor: 'var(--cream)', color: 'var(--blue)' }}>
-      <Nav backHref="/" />
+      <Nav />
 
       <section className="flex-1 flex flex-col px-6 pt-36 pb-20 max-w-4xl mx-auto w-full">
         {label && (

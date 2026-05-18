@@ -1,52 +1,134 @@
-import PageShell from '@/components/PageShell'
-import Link from 'next/link'
+import Nav from '@/components/Nav'
 
 export const metadata = { title: 'FAQ — Capsules by OTHER' }
 
-const generalFAQs = [
+const GENERAL: [string, string][] = [
   ['What is Capsules?', 'Capsules is a limited edition wine series by OTHER. Each Capsule is a single wine, sold in small quantities through a members-only ballot.'],
-  ['How do I register?', 'Enter your email on the home page. You\'ll receive a member number and a personal link to your member page.'],
+  ['How do I register?', 'Enter your email on the home page. You\'ll receive a confirmation and your name enters the ballot.'],
   ['Is there a cost to register?', 'No. Registration is free. You only pay if you\'re allocated wine in the ballot.'],
-  ['Can I register more than once?', 'No — one email, one membership.'],
-  ['When does Capsule 01 launch?', 'TBC. Registered members will be notified by email.'],
+  ['Can I register more than once?', 'No — one email, one entry.'],
+  ['When does Capsule 01 launch?', 'The ballot runs on 14 June 2026. Registered members will be notified by email.'],
   ['Will there be future Capsules?', 'Yes. Members who purchase Capsule 01 get priority access to Capsule 02 and beyond.'],
   ['Who is OTHER?', 'OTHER is a wine company focused on distinctive, low-intervention wines. Learn more at otherwine.co.uk.'],
   ['How do I contact you?', 'Email capsules@otherwine.co.uk for anything not covered here.'],
 ]
 
-const ballotFAQs = [
-  ['How does the ballot work?', 'Once the ballot runs, a random allocation determines which members can purchase. You\'ll receive an email with a Shopify checkout link if you\'re selected.'],
-  ['How long do I have to purchase?', 'You have 48 hours from the moment your allocation email is sent. After that, your spot passes to the waitlist.'],
-  ['What if I\'m not allocated?', 'You\'ll be placed on the waitlist. If any allocated members don\'t purchase within their 48-hour window, the offer passes down the list.'],
+const BALLOT: [string, string][] = [
+  ['How does the ballot work?', 'Once the ballot runs on 14 June, a random draw determines which members can purchase. You\'ll receive a personal checkout link by email if selected.'],
+  ['How long do I have to purchase?', 'You have 48 hours from the moment your allocation email is sent. After that, your spot passes to the next person.'],
+  ['What if I am not allocated?', 'You\'ll be on the waitlist. If any allocated members don\'t purchase within 48 hours, the offer passes down the list.'],
   ['Does inviting a Companion affect my chances?', 'Yes — companions are linked. If you\'re allocated, your companion is too.'],
 ]
 
-function FAQItem({ q, a }: { q: string; a: string }) {
+function AccordionSection({ label, items }: { label: string; items: [string, string][] }) {
   return (
-    <details className="py-4 group cursor-pointer" style={{ borderBottom: '1px solid rgba(0,0,106,0.15)' }}>
-      <summary className="font-medium list-none flex items-center justify-between select-none">
-        {q}
-        <span className="text-lg opacity-40 ml-4 group-open:rotate-45 transition-transform">+</span>
-      </summary>
-      <p className="mt-3 text-sm opacity-60 leading-relaxed max-w-lg">{a}</p>
-    </details>
+    <div style={{ marginBottom: '2.5rem' }}>
+      <p style={{
+        fontFamily: 'Vulf Sans, sans-serif',
+        fontWeight: 300,
+        fontSize: 'clamp(0.6rem, 0.75vw, 13px)',
+        letterSpacing: '0.1em',
+        textTransform: 'uppercase',
+        color: 'var(--blue)',
+        marginBottom: '0.5rem',
+      }}>
+        {label}
+      </p>
+      <div style={{ borderTop: '1.5px solid var(--blue)' }}>
+        {items.map(([q, a]) => (
+          <details key={q} style={{ borderBottom: '1.5px solid var(--blue)' }}>
+            <summary style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              padding: '0.85rem 0',
+              cursor: 'pointer',
+              fontFamily: 'Vulf Sans, sans-serif',
+              fontWeight: 400,
+              fontSize: 'clamp(0.8rem, 0.95vw, 16px)',
+              color: 'var(--blue)',
+              userSelect: 'none',
+            }}>
+              <span>{q}</span>
+              <span className="faq-toggle" style={{ fontSize: '1.3rem', fontWeight: 300 }}>+</span>
+            </summary>
+            <p style={{
+              fontFamily: 'Vulf Sans, sans-serif',
+              fontWeight: 300,
+              fontSize: 'clamp(0.75rem, 0.9vw, 15px)',
+              color: 'var(--blue)',
+              lineHeight: 1.65,
+              padding: '0.25rem 0 1rem',
+              maxWidth: '520px',
+            }}>
+              {a}
+            </p>
+          </details>
+        ))}
+      </div>
+    </div>
   )
 }
 
 export default function FAQPage() {
   return (
-    <PageShell
-      label="Capsule 01"
-      title="FAQ"
-      subtitle="Everything we've been asked. If something's missing, email capsules@otherwine.co.uk."
-    >
-      <div className="max-w-2xl">
-        <h2 className="font-bold text-lg mb-2 mt-8">General</h2>
-        {generalFAQs.map(([q, a]) => <FAQItem key={q} q={q} a={a} />)}
+    <div style={{
+      backgroundColor: 'var(--cream)',
+      color: 'var(--blue)',
+      minHeight: '100dvh',
+      position: 'relative',
+      overflow: 'hidden',
+    }}>
+      <Nav />
 
-        <h2 className="font-bold text-lg mb-2 mt-10">The Ballot</h2>
-        {ballotFAQs.map(([q, a]) => <FAQItem key={q} q={q} a={a} />)}
+      {/* Header */}
+      <div style={{
+        paddingTop: 'clamp(5rem, 9vw, 10rem)',
+        paddingBottom: 'clamp(1.5rem, 3vw, 52px)',
+        textAlign: 'center',
+        paddingLeft: '2rem',
+        paddingRight: '2rem',
+      }}>
+        <p style={{
+          fontFamily: 'Vulf Sans, sans-serif',
+          fontWeight: 700,
+          fontSize: 'clamp(1rem, 1.4vw, 24px)',
+          color: 'var(--blue)',
+          lineHeight: 1.4,
+          maxWidth: '580px',
+          margin: '0 auto',
+        }}>
+          Everything we&apos;ve been asked. If something&apos;s missing,{' '}
+          email capsules@otherwine.co.uk.
+        </p>
       </div>
-    </PageShell>
+
+      {/* Yellow accordion box */}
+      <div style={{
+        backgroundColor: 'var(--yellow)',
+        maxWidth: '820px',
+        marginLeft: 'clamp(2rem, 16.4vw, 284px)',
+        marginRight: 'clamp(2rem, 5vw, 4rem)',
+        marginBottom: 'clamp(5rem, 12vw, 13rem)',
+        padding: 'clamp(1.5rem, 3vw, 52px) clamp(1.5rem, 3.5vw, 60px)',
+      }}>
+        <AccordionSection label="General" items={GENERAL} />
+        <AccordionSection label="The Ballot" items={BALLOT} />
+      </div>
+
+      {/* Sunflower decoration */}
+      <img
+        src="/figma/sunflower.svg"
+        alt=""
+        style={{
+          position: 'absolute',
+          right: 'clamp(-1rem, -1.5vw, -1.5rem)',
+          bottom: 'clamp(5rem, 15vw, 15rem)',
+          width: 'clamp(80px, 8vw, 138px)',
+          height: 'auto',
+          pointerEvents: 'none',
+        }}
+      />
+    </div>
   )
 }

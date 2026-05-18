@@ -1,255 +1,309 @@
 import Nav from '@/components/Nav'
-import Link from 'next/link'
 
 export const metadata = { title: 'The Wine — Capsules by OTHER' }
 
+const DETAILS = [
+  ['Producer', 'Domaine de la Zouina'],
+  ['Region', 'Meknes, Morocco'],
+  ['Grape', 'Grenache Gris'],
+  ['Vintage', '2023'],
+  ['Method', 'Amphora aged'],
+  ['Format', '75cl · natural cork'],
+  ['Price', '£89 incl. delivery'],
+]
+
+const divider = (color: string) => (
+  <div style={{ width: '100%', height: 'clamp(2rem, 2.6vw, 45px)', backgroundColor: color }} />
+)
+
 export default function TheWinePage() {
   return (
-    <div style={{ backgroundColor: 'var(--cream)', color: 'var(--blue)' }}>
+    <div style={{ backgroundColor: 'var(--red)' }}>
+      <Nav color="#00006A" />
 
-      <Nav backHref="/" />
-
-      {/* ── Hero: portrait image + product details ───────────── */}
-      <section style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', minHeight: '100vh' }} className="grid-cols-1 md:grid-cols-[1fr_1fr]">
-
-        {/* Portrait image */}
-        <div
-          className="order-1"
-          style={{
-            position: 'relative',
-            minHeight: '60vw',
-            overflow: 'hidden',
-            backgroundColor: '#1a1208',
-          }}
-        >
-          <img
-            src="https://images.unsplash.com/photo-1569613946657-4c3f3ff490bb?w=1000&q=80"
-            alt="Amphora wine vessel"
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              opacity: 0.9,
-            }}
-          />
-          <div style={{
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: '40%',
-            background: 'linear-gradient(to top, rgba(10,8,4,0.7) 0%, transparent 100%)',
-          }} />
+      {/* ── Cream top: bottles + yellow info card ───────────────── */}
+      <section style={{
+        backgroundColor: 'var(--cream)',
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        minHeight: 'clamp(500px, 63.6vw, 1100px)',
+      }}>
+        {/* Left — two wine bottles */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'flex-end',
+          justifyContent: 'center',
+          padding: 'clamp(5rem, 7.5vw, 130px) clamp(2rem, 4vw, 4rem) 0',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+            <img
+              src="/bottle-1.png"
+              alt="Capsule 01 wine bottle"
+              style={{
+                width: 'clamp(100px, 16.7vw, 289px)',
+                height: 'auto',
+                display: 'block',
+              }}
+            />
+            <img
+              src="/bottle-2.png"
+              alt="Capsule 01 wine bottle"
+              style={{
+                width: 'clamp(100px, 16.7vw, 289px)',
+                height: 'auto',
+                display: 'block',
+                marginLeft: 'clamp(-2rem, -2.8vw, -3rem)',
+              }}
+            />
+          </div>
         </div>
 
-        {/* Product details */}
-        <div
-          className="order-2"
-          style={{
-            padding: 'clamp(7rem, 12vw, 10rem) clamp(1.5rem, 5vw, 4rem) clamp(3rem, 6vw, 5rem)',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            borderLeft: '1px solid rgba(0,0,106,0.08)',
-          }}
-        >
+        {/* Right — yellow info card */}
+        <div style={{
+          backgroundColor: 'var(--yellow)',
+          padding: 'clamp(5rem, 7.5vw, 130px) clamp(2rem, 3.5vw, 60px) clamp(2rem, 3.5vw, 60px)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        }}>
           <p style={{
-            fontSize: '0.68rem',
-            letterSpacing: '0.18em',
-            textTransform: 'uppercase',
-            color: 'var(--red)',
-            marginBottom: '1rem',
             fontFamily: 'Vulf Sans, sans-serif',
+            fontWeight: 300,
+            fontSize: 'clamp(0.6rem, 0.75vw, 13px)',
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+            color: 'var(--blue)',
+            marginBottom: '1rem',
           }}>
             Capsule 01
           </p>
-          <h1
-            className="capsules-wordmark"
-            style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', marginBottom: '2rem' }}
-          >
-            The Wine
-          </h1>
-
-          {/* Details table */}
-          <div style={{ borderTop: '1px solid rgba(0,0,106,0.1)', marginBottom: '2rem' }}>
-            {[
-              ['Producer', 'Domaine de la Zouina'],
-              ['Region', 'Meknes, Morocco'],
-              ['Grape', 'Grenache Gris'],
-              ['Vintage', '2023'],
-              ['Method', 'Amphora aged'],
-              ['Format', '75cl · natural cork'],
-            ].map(([label, val]) => (
-              <div
-                key={label}
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'baseline',
-                  padding: '0.85rem 0',
-                  borderBottom: '1px solid rgba(0,0,106,0.1)',
-                  gap: '1rem',
-                }}
-              >
-                <span style={{ fontSize: '0.75rem', color: 'rgba(0,0,106,0.45)', fontWeight: 300 }}>{label}</span>
-                <span style={{ fontSize: '0.8rem', fontWeight: 500, color: 'var(--blue)', textAlign: 'right' }}>{val}</span>
+          <div style={{ borderTop: '1.5px solid var(--blue)' }}>
+            {DETAILS.map(([label, val]) => (
+              <div key={label} style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'baseline',
+                padding: '0.65rem 0',
+                borderBottom: '1.5px solid var(--blue)',
+                gap: '1rem',
+              }}>
+                <span style={{
+                  fontFamily: 'Vulf Sans, sans-serif',
+                  fontWeight: 300,
+                  fontSize: 'clamp(0.7rem, 0.85vw, 14px)',
+                  color: 'var(--blue)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.04em',
+                }}>
+                  {label}
+                </span>
+                <span style={{
+                  fontFamily: 'Vulf Sans, sans-serif',
+                  fontWeight: 400,
+                  fontSize: 'clamp(0.7rem, 0.85vw, 14px)',
+                  color: 'var(--blue)',
+                  textAlign: 'right',
+                }}>
+                  {val}
+                </span>
               </div>
             ))}
           </div>
-
-          <p style={{ fontSize: '1.1rem', fontWeight: 500, color: 'var(--blue)', marginBottom: '0.5rem' }}>
-            &pound;89 including delivery
-          </p>
-          <p style={{ fontSize: '0.85rem', fontWeight: 300, color: 'rgba(0,0,106,0.55)', lineHeight: 1.6 }}>
-            One amphora-aged Grenache gris, two bottles of estate ros&eacute;, and a cold-pressed olive oil vial.
-          </p>
         </div>
       </section>
 
-      {/* ── Story: The Origin ────────────────────────────────── */}
-      <section style={{ borderTop: '1px solid rgba(0,0,106,0.1)' }}>
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          <div style={{ padding: 'clamp(3rem, 7vw, 6rem) clamp(1.5rem, 5vw, 4rem)' }}>
-            <p style={{ fontSize: '0.68rem', letterSpacing: '0.16em', color: 'var(--red)', textTransform: 'uppercase', marginBottom: '1.5rem', fontFamily: 'Vulf Sans, sans-serif' }}>
-              The Origin
-            </p>
-            <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 3.25rem)', fontWeight: 700, lineHeight: 1.15, marginBottom: '1.5rem', color: 'var(--blue)' }}>
-              Meknes, Morocco
-            </h2>
-            <p style={{ fontSize: '0.95rem', fontWeight: 300, lineHeight: 1.8, color: 'rgba(0,0,106,0.7)', maxWidth: '480px' }}>
-              Nestled at the foot of the Middle Atlas mountains, Meknes is one of
-              the oldest wine-producing regions in the world. The high altitude and
-              dramatic temperature swings between day and night preserve natural
-              acidity, giving the wine a freshness that is rare in this latitude.
-            </p>
-            <p style={{ fontSize: '0.95rem', fontWeight: 300, lineHeight: 1.8, color: 'rgba(0,0,106,0.7)', maxWidth: '480px', marginTop: '1rem' }}>
-              In 2023, a Berber tribe and a team of French winemakers set out to
-              make something new from something ancient. Grenache Gris — a pale,
-              copper-skinned grape — fermented and aged in clay amphorae, the
-              same vessels used across the Mediterranean for thousands of years.
-            </p>
-          </div>
-          <div style={{ aspectRatio: '4/3', overflow: 'hidden' }}>
-            <img
-              src="https://images.unsplash.com/photo-1506377295352-e3154d43ea9e?w=900&q=80"
-              alt="Wine cellar in Morocco"
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
-          </div>
+      {/* ── Meknes, Morocco ─────────────────────────────────────── */}
+      <section style={{
+        backgroundColor: 'var(--red)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: 'clamp(2rem, 3vw, 52px) 0 clamp(3rem, 5vw, 86px)',
+      }}>
+        <div style={{
+          width: 'clamp(320px, 89vw, 1540px)',
+          aspectRatio: '1325 / 973',
+          borderRadius: '50%',
+          overflow: 'hidden',
+          marginBottom: 'clamp(2rem, 3.5vw, 60px)',
+        }}>
+          <video
+            src="/farmer-right.mp4"
+            autoPlay muted loop playsInline
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        </div>
+        <h2 className="capsules-wordmark" style={{
+          fontSize: 'clamp(2.5rem, 5.5vw, 95px)',
+          WebkitTextStrokeColor: 'var(--cream)',
+          fontStyle: 'italic',
+          marginBottom: 'clamp(1.5rem, 2.5vw, 43px)',
+          textAlign: 'center',
+        }}>
+          Meknes, Morocco
+        </h2>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: 'clamp(1.5rem, 3vw, 52px)',
+          maxWidth: 'clamp(600px, 75vw, 1300px)',
+          padding: '0 clamp(1.5rem, 4vw, 4rem)',
+        }}>
+          {[
+            'Nestled at the foot of the Middle Atlas mountains, Meknes is one of the oldest wine-producing regions in the world. The high altitude and dramatic temperature swings between day and night preserve natural acidity, giving the wine a freshness that is rare at this latitude.',
+            'In 2023, a Berber tribe and a team of French winemakers set out to make something new from something ancient. Grenache Gris — a pale, copper-skinned grape — fermented and aged in clay amphorae, the same vessels used across the Mediterranean for thousands of years.',
+          ].map((t, i) => (
+            <p key={i} style={{
+              fontFamily: 'Vulf Sans, sans-serif',
+              fontWeight: 300,
+              fontSize: 'clamp(0.8rem, 1vw, 17px)',
+              color: 'var(--cream)',
+              lineHeight: 1.65,
+            }}>{t}</p>
+          ))}
         </div>
       </section>
 
-      {/* ── Story: The Method ────────────────────────────────── */}
-      <section style={{ borderTop: '1px solid rgba(0,0,106,0.1)' }}>
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          <div style={{ aspectRatio: '4/3', overflow: 'hidden' }} className="order-1 md:order-1">
-            <img
-              src="https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=900&q=80"
-              alt="Amphora wine vessel"
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
-          </div>
-          <div
-            className="order-2"
-            style={{ padding: 'clamp(3rem, 7vw, 6rem) clamp(1.5rem, 5vw, 4rem)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
-          >
-            <p style={{ fontSize: '0.68rem', letterSpacing: '0.16em', color: 'var(--red)', textTransform: 'uppercase', marginBottom: '1.5rem', fontFamily: 'Vulf Sans, sans-serif' }}>
-              The Method
-            </p>
-            <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 3.25rem)', fontWeight: 700, lineHeight: 1.15, marginBottom: '1.5rem', color: 'var(--blue)' }}>
-              Amphora aged
-            </h2>
-            <p style={{ fontSize: '0.95rem', fontWeight: 300, lineHeight: 1.8, color: 'rgba(0,0,106,0.7)', maxWidth: '480px' }}>
-              The wine rests in unlined clay vessels — qvevri-style amphorae —
-              buried in the cellar floor. Clay is porous enough to allow a slow
-              micro-oxidation but neutral enough to leave the fruit unmasked.
-              The result has a texture and minerality that glass and steel cannot replicate.
-            </p>
-            <p style={{ fontSize: '0.95rem', fontWeight: 300, lineHeight: 1.8, color: 'rgba(0,0,106,0.7)', maxWidth: '480px', marginTop: '1rem' }}>
-              No fining. No filtration. 480 bottles filled by hand.
-            </p>
-          </div>
+      {/* ── Navy divider ────────────────────────────────────────── */}
+      {divider('var(--blue)')}
+
+      {/* ── Amphora aged ────────────────────────────────────────── */}
+      <section style={{
+        backgroundColor: 'var(--red)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: 'clamp(2rem, 3vw, 52px) 0 clamp(3rem, 5vw, 86px)',
+      }}>
+        <div style={{
+          width: 'clamp(320px, 89vw, 1540px)',
+          aspectRatio: '1325 / 973',
+          borderRadius: '50%',
+          overflow: 'hidden',
+          marginBottom: 'clamp(2rem, 3.5vw, 60px)',
+        }}>
+          <video
+            src="/farmer-left.mp4"
+            autoPlay muted loop playsInline
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        </div>
+        <h2 className="capsules-wordmark" style={{
+          fontSize: 'clamp(2.5rem, 5.5vw, 95px)',
+          WebkitTextStrokeColor: 'var(--cream)',
+          fontStyle: 'italic',
+          marginBottom: 'clamp(1.5rem, 2.5vw, 43px)',
+          textAlign: 'center',
+        }}>
+          Amphora aged
+        </h2>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: 'clamp(1.5rem, 3vw, 52px)',
+          maxWidth: 'clamp(600px, 75vw, 1300px)',
+          padding: '0 clamp(1.5rem, 4vw, 4rem)',
+        }}>
+          {[
+            'The wine rests in unlined clay vessels — qvevri-style amphorae — buried in the cellar floor. Clay is porous enough to allow a slow micro-oxidation, but neutral enough to leave the fruit unmasked. The result has a texture and minerality that glass and steel cannot replicate.',
+            'No fining. No filtration. 480 bottles filled by hand.',
+          ].map((t, i) => (
+            <p key={i} style={{
+              fontFamily: 'Vulf Sans, sans-serif',
+              fontWeight: 300,
+              fontSize: 'clamp(0.8rem, 1vw, 17px)',
+              color: 'var(--cream)',
+              lineHeight: 1.65,
+            }}>{t}</p>
+          ))}
         </div>
       </section>
 
-      {/* ── The Box ──────────────────────────────────────────── */}
-      <section
-        style={{
-          borderTop: '1px solid rgba(0,0,106,0.1)',
-          padding: 'clamp(3rem, 7vw, 6rem) clamp(1.5rem, 5vw, 4rem)',
-        }}
-      >
-        <p style={{ fontSize: '0.68rem', letterSpacing: '0.16em', color: 'var(--red)', textTransform: 'uppercase', marginBottom: '2.5rem', fontFamily: 'Vulf Sans, sans-serif' }}>
-          What is in the box
+      {/* ── Navy divider ────────────────────────────────────────── */}
+      {divider('var(--blue)')}
+
+      {/* ── In The Box ──────────────────────────────────────────── */}
+      <section style={{
+        backgroundColor: 'var(--red)',
+        padding: 'clamp(3rem, 5vw, 86px) clamp(2rem, 5.5vw, 95px) clamp(4rem, 7vw, 120px)',
+      }}>
+        <p style={{
+          fontFamily: 'Vulf Sans, sans-serif',
+          fontWeight: 300,
+          fontSize: 'clamp(0.6rem, 0.75vw, 13px)',
+          letterSpacing: '0.1em',
+          textTransform: 'uppercase',
+          color: 'var(--cream)',
+          marginBottom: 'clamp(2rem, 3.5vw, 60px)',
+        }}>
+          In The Box
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-10">
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: 'clamp(1rem, 2vw, 34px)',
+        }}>
           {[
             {
-              label: 'Amphora Aged Grenache',
-              desc: 'The centrepiece. Gris de grenache, 2023 vintage. Copper-coloured, textured, alive.',
-              sub: '1 bottle · 75cl',
-              img: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&q=80',
-              alt: 'Wine bottle',
+              img: '/bottle-box-1.png',
+              name: 'Amphora Aged Grenache Gris',
+              qty: '1 bottle · 75cl',
+              desc: 'The centrepiece. Copper-coloured, textured, and alive with minerality from the Atlas foothills.',
             },
             {
-              label: 'Estate Rosé',
+              img: '/bottle-box-2.png',
+              name: 'Estate Rosé',
+              qty: '2 bottles · 75cl each',
               desc: 'Made from the same vines, same harvest. A paler, more delicate expression of the same fruit.',
-              sub: '2 bottles · 75cl each',
-              img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
-              alt: 'Rosé wine',
             },
             {
-              label: 'Estate Olive Oil',
-              desc: 'Cold-pressed from olive trees that share the same soil as the vines. A companion to the wine.',
-              sub: '1 vial · 100ml',
-              img: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=600&q=80',
-              alt: 'Olive oil',
+              img: '/bottle-box-3.png',
+              name: 'Estate Olive Oil',
+              qty: '1 vial · 100ml',
+              desc: 'Cold-pressed from olive trees sharing the same soil as the vines.',
             },
-          ].map(({ label, desc, sub, img, alt }) => (
-            <div key={label}>
-              <div style={{ aspectRatio: '3/4', overflow: 'hidden', marginBottom: '1rem' }}>
-                <img src={img} alt={alt} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          ].map(item => (
+            <div key={item.name} style={{ backgroundColor: 'var(--yellow)', display: 'flex', flexDirection: 'column' }}>
+              <img
+                src={item.img}
+                alt={item.name}
+                style={{ width: '100%', height: 'auto', display: 'block' }}
+              />
+              <div style={{ padding: 'clamp(1rem, 1.5vw, 26px)' }}>
+                <p style={{
+                  fontFamily: 'Vulf Sans, sans-serif',
+                  fontWeight: 700,
+                  fontSize: 'clamp(0.75rem, 0.9vw, 15px)',
+                  color: 'var(--blue)',
+                  marginBottom: '0.4rem',
+                }}>
+                  {item.name}
+                </p>
+                <p style={{
+                  fontFamily: 'Vulf Sans, sans-serif',
+                  fontWeight: 300,
+                  fontSize: 'clamp(0.7rem, 0.85vw, 14px)',
+                  color: 'var(--blue)',
+                  lineHeight: 1.6,
+                  marginBottom: '0.5rem',
+                }}>
+                  {item.desc}
+                </p>
+                <p style={{
+                  fontFamily: 'Vulf Sans, sans-serif',
+                  fontWeight: 300,
+                  fontSize: 'clamp(0.65rem, 0.8vw, 13px)',
+                  color: 'rgba(0,0,106,0.55)',
+                  letterSpacing: '0.04em',
+                }}>
+                  {item.qty}
+                </p>
               </div>
-              <p style={{ fontSize: '0.85rem', fontWeight: 500, color: 'var(--blue)', marginBottom: '0.35rem' }}>{label}</p>
-              <p style={{ fontSize: '0.8rem', fontWeight: 300, color: 'rgba(0,0,106,0.6)', lineHeight: 1.6, marginBottom: '0.5rem' }}>{desc}</p>
-              <p style={{ fontSize: '0.72rem', color: 'rgba(0,0,106,0.4)', letterSpacing: '0.06em' }}>{sub}</p>
             </div>
           ))}
         </div>
-        <div style={{ borderTop: '1px solid rgba(0,0,106,0.1)', paddingTop: '1.5rem' }}>
-          <p style={{ fontSize: '1.1rem', fontWeight: 500 }}>&pound;89 including delivery.</p>
-        </div>
       </section>
-
-      {/* Footer */}
-      <footer
-        style={{
-          padding: '2.5rem clamp(1.5rem, 5vw, 4rem)',
-          borderTop: '1px solid rgba(0,0,106,0.1)',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: '1rem',
-        }}
-      >
-        <Link
-          href="/"
-          style={{ fontSize: '0.8rem', color: 'rgba(0,0,106,0.5)', textDecoration: 'underline', textUnderlineOffset: '3px' }}
-        >
-          &larr; Back to Capsules
-        </Link>
-        <a
-          href="https://otherwine.co.uk"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ fontSize: '0.8rem', color: 'rgba(0,0,106,0.35)', textDecoration: 'underline', textUnderlineOffset: '2px' }}
-        >
-          otherwine.co.uk
-        </a>
-      </footer>
     </div>
   )
 }
