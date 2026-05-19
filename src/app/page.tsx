@@ -15,13 +15,37 @@ const FARMER_LEFT    = '/farmer-left.mp4'
 const FARMER_RIGHT   = '/farmer-right.mp4'
 
 // ── Animated OTHER logo ────────────────────────────────────────
-// Crop the 2000×2000 video to the letter band by oversizing the <video> element
-// and offsetting it with vw units — no canvas needed, works in all browsers.
-// Crop: x=300, y=866, w=1400, h=308 (of 2000×2000 source)
-// Scale: container=104.1vw wide → full video width = 2000×(104.1/1400) = 148.71vw
+// Canvas-based crop: draws the letter band (x:15–85%, y centred at 51%)
+// from the hidden video onto a visible canvas each frame.
 function OtherLogoVideo() {
-  const videoRef = useRef<HTMLVideoElement>(null)
-  useEffect(() => { videoRef.current?.play().catch(() => {}) }, [])
+  const videoRef  = useRef<HTMLVideoElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const rafRef    = useRef<number>(0)
+
+  useEffect(() => {
+    const video  = videoRef.current
+    const canvas = canvasRef.current
+    if (!video || !canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    video.play().catch(() => {})
+
+    function draw() {
+      if (video.readyState >= 2) {
+        const vw = video.videoWidth  || 2000
+        const vh = video.videoHeight || 2000
+        const sx    = Math.round(0.15 * vw)
+        const sw    = Math.round(0.70 * vw)
+        const cropH = Math.round(sw * canvas.height / canvas.width)
+        const sy    = Math.round(0.51 * vh - cropH / 2)
+        ctx.drawImage(video, sx, sy, sw, cropH, 0, 0, canvas.width, canvas.height)
+      }
+      rafRef.current = requestAnimationFrame(draw)
+    }
+    rafRef.current = requestAnimationFrame(draw)
+    return () => { cancelAnimationFrame(rafRef.current); video.pause() }
+  }, [])
 
   return (
     <div style={{
@@ -36,16 +60,17 @@ function OtherLogoVideo() {
       <video
         ref={videoRef}
         autoPlay loop muted playsInline
-        style={{
-          position: 'absolute',
-          width: '148.71vw',
-          height: '148.71vw',
-          transform: 'translate(-22.31vw, -64.38vw)',
-          display: 'block',
-        }}
+        preload="auto"
+        style={{ display: 'none' }}
       >
         <source src={OTHER_VIDEO} type="video/mp4" />
       </video>
+      <canvas
+        ref={canvasRef}
+        width={2000}
+        height={440}
+        style={{ width: '100%', height: '100%', display: 'block' }}
+      />
     </div>
   )
 }
@@ -85,11 +110,9 @@ function FarmerVideo({ src, label, muted }: { src: string; label: string; muted:
       overflow: 'hidden',
       aspectRatio: '843 / 474',
       width: '100%',
-      border: '2px solid #EDFF00',
+      border: '2.22px solid #EDFF00',
       position: 'relative',
       transform: 'translateZ(0)',
-      isolation: 'isolate',
-      boxShadow: 'inset 15px 4px 15px rgba(0, 0, 0, 0.42)',
     }}>
       <video
         ref={videoRef}
@@ -99,6 +122,14 @@ function FarmerVideo({ src, label, muted }: { src: string; label: string; muted:
       >
         <source src={src} type="video/mp4" />
       </video>
+      {/* Shadow overlay above the video — inset box-shadow is painted below children so must live here */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        boxShadow: '15px 4px 15px 0 rgba(0, 0, 0, 0.42) inset',
+        borderRadius: 'inherit',
+        pointerEvents: 'none',
+      }} />
     </div>
   )
 }
