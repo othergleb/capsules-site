@@ -197,6 +197,11 @@ html, body {
   color: rgba(255, 255, 255, 0.35);
 }
 
+/* ── Homepage form inputs on red background ─────────────────── */
+.form-input-cream::placeholder {
+  color: rgba(255, 255, 245, 0.4);
+}
+
 /* ── FAQ accordion icon ─────────────────────────────────────── */
 .faq-toggle {
   display: inline-block;
