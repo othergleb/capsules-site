@@ -5,6 +5,7 @@ import Nav from '@/components/Nav'
 
 const MAROC_SVG      = '/figma/maroc.svg'
 const ARABIC_SVG     = '/figma/arabic.svg'
+const TIFINAGH_SVG   = '/figma/tifinagh.svg'
 const SUNFLOWER_SVG  = '/figma/sunflower.svg'
 const STAR_SVG       = '/figma/star.svg'
 const DIAMONDS_SVG   = '/figma/polygon-diamonds.svg'
@@ -266,17 +267,17 @@ export default function Home() {
 
         <div style={{ marginTop: 'clamp(0.5rem, 2.89vw, 50px)', flexShrink: 0 }}>
 
-          {/* Row 1: Arabic left and right */}
+          {/* Row 1: Tifinagh left, Arabic right */}
           <div style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
             padding: '0 1.5%',
           }}>
+            <img src={TIFINAGH_SVG} alt="ⵍⵎⵖⵔⵉⴱ"
+              style={{ height: 'clamp(10px, 1.97vw, 34px)', width: 'auto', aspectRatio: '171 / 34' }} />
             <img src={ARABIC_SVG} alt="المغرب"
-              style={{ height: 'clamp(16px, 3.88vw, 67px)', width: 'auto', aspectRatio: '210 / 68' }} />
-            <img src={ARABIC_SVG} alt="المغرب"
-              style={{ height: 'clamp(16px, 3.88vw, 67px)', width: 'auto', aspectRatio: '210 / 68' }} />
+              style={{ height: 'clamp(16px, 3.18vw, 55px)', width: 'auto', aspectRatio: '161 / 55' }} />
           </div>
 
           {/* Row 2: MAROC L · "Limited Edition Capsules" · MAROC R
