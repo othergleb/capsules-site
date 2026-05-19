@@ -15,43 +15,13 @@ const FARMER_LEFT    = '/farmer-left.mp4'
 const FARMER_RIGHT   = '/farmer-right.mp4'
 
 // ── Animated OTHER logo ────────────────────────────────────────
-// Canvas-based crop: plays the 2000×2000 video off-screen and draws only the
-// letter band (approx x:8–88%, y:36–66%) onto a visible canvas each frame.
-// This works in all browsers (object-view-box is Chrome/FF only, not Safari).
+// Crop the 2000×2000 video to the letter band by oversizing the <video> element
+// and offsetting it with vw units — no canvas needed, works in all browsers.
+// Crop: x=300, y=866, w=1400, h=308 (of 2000×2000 source)
+// Scale: container=104.1vw wide → full video width = 2000×(104.1/1400) = 148.71vw
 function OtherLogoVideo() {
-  const videoRef  = useRef<HTMLVideoElement>(null)
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const rafRef    = useRef<number>(0)
-
-  useEffect(() => {
-    const video  = videoRef.current
-    const canvas = canvasRef.current
-    if (!video || !canvas) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
-    video.play().catch(() => {})
-
-    const v = video
-    const c = canvas
-    const x = ctx
-    function draw() {
-      if (v.readyState >= 2) {
-        const vw = v.videoWidth  || 2000
-        const vh = v.videoHeight || 2000
-        // Source crop: letters at x:15–85%, y:36–66%
-        const sx = Math.round(0.15 * vw)
-        const sw = Math.round(0.70 * vw)
-        // Vertical: fit letter-band centre into canvas height
-        const cropH = Math.round(sw * c.height / c.width)
-        const sy    = Math.round(0.51 * vh - cropH / 2)
-        x.drawImage(v, sx, sy, sw, cropH, 0, 0, c.width, c.height)
-      }
-      rafRef.current = requestAnimationFrame(draw)
-    }
-    rafRef.current = requestAnimationFrame(draw)
-    return () => cancelAnimationFrame(rafRef.current)
-  }, [])
+  const videoRef = useRef<HTMLVideoElement>(null)
+  useEffect(() => { videoRef.current?.play().catch(() => {}) }, [])
 
   return (
     <div style={{
@@ -63,57 +33,25 @@ function OtherLogoVideo() {
       lineHeight: 0,
       flexShrink: 0,
     }}>
-      {/* Hidden video source */}
       <video
         ref={videoRef}
         autoPlay loop muted playsInline
-        style={{ display: 'none' }}
+        style={{
+          position: 'absolute',
+          width: '148.71vw',
+          height: '148.71vw',
+          transform: 'translate(-22.31vw, -64.38vw)',
+          display: 'block',
+        }}
       >
         <source src={OTHER_VIDEO} type="video/mp4" />
       </video>
-      {/* Canvas shows cropped letter region — ratio matches 106vw × 18.5vw container */}
-      <canvas
-        ref={canvasRef}
-        width={2000}
-        height={440}
-        style={{ width: '100%', height: '100%', display: 'block' }}
-      />
     </div>
   )
 }
 
-// ── Bottom-left OTHER logo (video, same canvas-crop technique as OtherLogoVideo) ──
+// ── Bottom-left OTHER logo (animated GIF, cropped via Figma background offsets) ──
 function OtherLogoGif() {
-  const videoRef  = useRef<HTMLVideoElement>(null)
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const rafRef    = useRef<number>(0)
-
-  useEffect(() => {
-    const video  = videoRef.current
-    const canvas = canvasRef.current
-    if (!video || !canvas) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
-    video.play().catch(() => {})
-
-    const v = video, c = canvas, x = ctx
-    function draw() {
-      if (v.readyState >= 2) {
-        const vw = v.videoWidth  || 2000
-        const vh = v.videoHeight || 2000
-        const sx = Math.round(0.15 * vw)
-        const sw = Math.round(0.70 * vw)
-        const cropH = Math.round(sw * c.height / c.width)
-        const sy    = Math.round(0.51 * vh - cropH / 2)
-        x.drawImage(v, sx, sy, sw, cropH, 0, 0, c.width, c.height)
-      }
-      rafRef.current = requestAnimationFrame(draw)
-    }
-    rafRef.current = requestAnimationFrame(draw)
-    return () => cancelAnimationFrame(rafRef.current)
-  }, [])
-
   return (
     <div style={{
       position: 'absolute',
@@ -121,18 +59,11 @@ function OtherLogoGif() {
       bottom: '3.99vw',
       width: '21.18vw',
       aspectRatio: '366 / 69',
-      lineHeight: 0,
-    }}>
-      <video ref={videoRef} autoPlay loop muted playsInline style={{ display: 'none' }}>
-        <source src={OTHER_VIDEO} type="video/mp4" />
-      </video>
-      <canvas
-        ref={canvasRef}
-        width={366}
-        height={69}
-        style={{ width: '100%', height: '100%', display: 'block' }}
-      />
-    </div>
+      backgroundImage: 'url(/d1b1a4182a1186e24123228dd59891419b9ccdd3.gif)',
+      backgroundPosition: '50.1% 49.6%',
+      backgroundSize: '148.368% 784.314%',
+      backgroundRepeat: 'no-repeat',
+    }} />
   )
 }
 
@@ -156,6 +87,9 @@ function FarmerVideo({ src, label, muted }: { src: string; label: string; muted:
       width: '100%',
       border: '2px solid #EDFF00',
       position: 'relative',
+      transform: 'translateZ(0)',
+      isolation: 'isolate',
+      boxShadow: 'inset 15px 4px 15px rgba(0, 0, 0, 0.42)',
     }}>
       <video
         ref={videoRef}
@@ -187,13 +121,16 @@ export default function Home() {
     setStepIn(false)
     setTimeout(() => {
       setFormStep('name')
-      setStepIn(true)
+      // stepIn stays false — name form mounts invisible, then fades in next tick
     }, 320)
   }
 
   useEffect(() => {
     if (formStep === 'name') {
-      setTimeout(() => nameInputRef.current?.focus(), 360)
+      // One frame delay so name form paints at opacity:0 before transitioning in
+      const fadeIn = setTimeout(() => setStepIn(true), 20)
+      const focus  = setTimeout(() => nameInputRef.current?.focus(), 380)
+      return () => { clearTimeout(fadeIn); clearTimeout(focus) }
     }
   }, [formStep])
 
@@ -365,8 +302,19 @@ export default function Home() {
           backgroundColor: '#FF3C00',
           maxWidth: 'clamp(300px, 30.15vw, 521px)',
           width: '100%',
-          padding: 'clamp(1rem, 1.5vw, 26px)',
+          padding: formStep === 'name'
+            ? 'clamp(0.75rem, 1.2vw, 20px)'
+            : 'clamp(1rem, 1.5vw, 26px)',
+          transition: 'padding 0.45s cubic-bezier(0.4, 0, 0.2, 1)',
         }}>
+
+          {/* Collapsible: body copy + stats — grid-template-rows animates actual height smoothly */}
+          <div style={{
+            display: 'grid',
+            gridTemplateRows: formStep === 'name' ? '0fr' : '1fr',
+            transition: 'grid-template-rows 0.45s cubic-bezier(0.4, 0, 0.2, 1)',
+          }}>
+          <div style={{ overflow: 'hidden', minHeight: 0 }}>
 
           {/* Body copy — cream text on red */}
           <div style={{ textAlign: 'center', marginBottom: 'clamp(0.75rem, 1.2vw, 21px)' }}>
@@ -432,8 +380,15 @@ export default function Home() {
             ))}
           </div>
 
+          </div>{/* end grid inner */}
+          </div>{/* end collapsible */}
+
           {/* Registration form */}
-          <div style={{ width: '100%', marginTop: 'clamp(0.75rem, 1.2vw, 21px)' }}>
+          <div style={{
+            width: '100%',
+            marginTop: formStep === 'name' ? 0 : 'clamp(0.75rem, 1.2vw, 21px)',
+            transition: 'margin-top 0.45s cubic-bezier(0.4, 0, 0.2, 1)',
+          }}>
             {formState === 'success' ? (
               <p style={{
                 fontFamily: 'Vulf Sans, sans-serif',
