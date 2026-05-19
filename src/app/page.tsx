@@ -82,29 +82,31 @@ function OtherLogoVideo() {
   )
 }
 
-// ── Bottom-left OTHER logo (animated GIF, same canvas-crop technique as OtherLogoVideo) ──
+// ── Bottom-left OTHER logo (video, same canvas-crop technique as OtherLogoVideo) ──
 function OtherLogoGif() {
-  const imgRef    = useRef<HTMLImageElement>(null)
+  const videoRef  = useRef<HTMLVideoElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const rafRef    = useRef<number>(0)
 
   useEffect(() => {
-    const img    = imgRef.current
+    const video  = videoRef.current
     const canvas = canvasRef.current
-    if (!img || !canvas) return
+    if (!video || !canvas) return
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    const i = img, c = canvas, x = ctx
+    video.play().catch(() => {})
+
+    const v = video, c = canvas, x = ctx
     function draw() {
-      if (i.complete && i.naturalWidth > 0) {
-        const iw = i.naturalWidth  || 2000
-        const ih = i.naturalHeight || 2000
-        const sx = Math.round(0.15 * iw)
-        const sw = Math.round(0.70 * iw)
+      if (v.readyState >= 2) {
+        const vw = v.videoWidth  || 2000
+        const vh = v.videoHeight || 2000
+        const sx = Math.round(0.15 * vw)
+        const sw = Math.round(0.70 * vw)
         const cropH = Math.round(sw * c.height / c.width)
-        const sy    = Math.round(0.51 * ih - cropH / 2)
-        x.drawImage(i, sx, sy, sw, cropH, 0, 0, c.width, c.height)
+        const sy    = Math.round(0.51 * vh - cropH / 2)
+        x.drawImage(v, sx, sy, sw, cropH, 0, 0, c.width, c.height)
       }
       rafRef.current = requestAnimationFrame(draw)
     }
@@ -121,7 +123,9 @@ function OtherLogoGif() {
       aspectRatio: '366 / 69',
       lineHeight: 0,
     }}>
-      <img ref={imgRef} src={OTHER_LOGO_PNG} alt="" style={{ display: 'none' }} />
+      <video ref={videoRef} autoPlay loop muted playsInline style={{ display: 'none' }}>
+        <source src={OTHER_VIDEO} type="video/mp4" />
+      </video>
       <canvas
         ref={canvasRef}
         width={366}
@@ -280,14 +284,13 @@ export default function Home() {
               style={{ height: 'clamp(16px, 3.18vw, 55px)', width: 'auto', aspectRatio: '161 / 55' }} />
           </div>
 
-          {/* Row 2: MAROC L · "Limited Edition Capsules" · MAROC R
-              FIX 5: "Limited Edition Capsules" centred between both MAROs
-              FIX 4: sunflower now overlaps top-left corner of right MAROC */}
+          {/* Row 2: MAROC L · "Limited Edition Capsules" · MAROC R */}
           <div style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
             lineHeight: 0,
+            padding: '0 1.5%',
           }}>
             <img src={MAROC_SVG} alt="MAROC"
               style={{ height: 'clamp(40px, 5.61vw, 97px)', width: 'auto', aspectRatio: '431 / 99', display: 'block' }} />
@@ -351,7 +354,7 @@ export default function Home() {
             letterSpacing: '0.02em',
             WebkitTextStrokeColor: '#00006A',
             textAlign: 'center',
-            marginBottom: 'clamp(0.5rem, 1.2vw, 21px)',
+            marginBottom: 'clamp(1.5rem, 3vw, 52px)',
           }}
         >
           Capsule 01
@@ -360,7 +363,7 @@ export default function Home() {
         {/* Red content box — Rectangle 10 in Figma: body copy + stats + form */}
         <div style={{
           backgroundColor: '#FF3C00',
-          maxWidth: '519px',
+          maxWidth: 'clamp(300px, 30.15vw, 521px)',
           width: '100%',
           padding: 'clamp(1rem, 1.5vw, 26px)',
         }}>
@@ -372,7 +375,7 @@ export default function Home() {
               fontWeight: 700,
               fontSize: 'clamp(0.8rem, 1.014vw, 17.5px)',
               lineHeight: 1.29,
-              color: '#fffff5',
+              color: '#EDFF00',
               marginBottom: '1.29em',
             }}>
               The last 480 bottles of an amphora aged grenache,
@@ -384,7 +387,7 @@ export default function Home() {
               fontWeight: 400,
               fontSize: 'clamp(0.8rem, 1.014vw, 17.5px)',
               lineHeight: 1.29,
-              color: '#fffff5',
+              color: '#EDFF00',
               marginBottom: 0,
             }}>
               £89 including delivery.
@@ -394,7 +397,7 @@ export default function Home() {
               fontWeight: 400,
               fontSize: 'clamp(0.8rem, 1.014vw, 17.5px)',
               lineHeight: 1.29,
-              color: '#fffff5',
+              color: '#EDFF00',
               marginBottom: 0,
             }}>
               One bottle of amphora-aged Grenache gris, two bottles of estate rosé,
@@ -418,7 +421,7 @@ export default function Home() {
                   fontFamily: 'Vulf Sans, sans-serif',
                   fontSize: 'clamp(0.75rem, 1.16vw, 20px)',
                   letterSpacing: '-0.01em',
-                  color: '#fffff5',
+                  color: '#EDFF00',
                   textTransform: 'uppercase',
                 }}>
                   <span style={{ fontWeight: 300 }}>{label}</span>
@@ -436,7 +439,7 @@ export default function Home() {
                 fontFamily: 'Vulf Sans, sans-serif',
                 fontWeight: 300,
                 fontSize: '1rem',
-                color: '#fffff5',
+                color: '#EDFF00',
                 lineHeight: 1.65,
                 textAlign: 'center',
                 padding: '1.5rem 0',
@@ -478,7 +481,7 @@ export default function Home() {
                           fontWeight: 300,
                           fontSize: 'clamp(0.8rem, 1.2vw, 21px)',
                           letterSpacing: '-0.01em',
-                          color: '#fffff5',
+                          color: '#EDFF00',
                         }}
                       />
                     </div>
@@ -537,7 +540,7 @@ export default function Home() {
                           fontWeight: 300,
                           fontSize: 'clamp(0.8rem, 1.2vw, 21px)',
                           letterSpacing: '-0.01em',
-                          color: '#fffff5',
+                          color: '#EDFF00',
                         }}
                       />
                     </div>
