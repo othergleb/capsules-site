@@ -35,8 +35,8 @@ function OtherLogoVideo() {
       if (video.readyState >= 2) {
         const vw = video.videoWidth  || 2000
         const vh = video.videoHeight || 2000
-        const sx    = Math.round(0.15 * vw)
-        const sw    = Math.round(0.70 * vw)
+        const sx    = Math.round(0.08 * vw)
+        const sw    = Math.round(0.80 * vw)
         const cropH = Math.round(sw * canvas.height / canvas.width)
         const sy    = Math.round(0.51 * vh - cropH / 2)
         ctx.drawImage(video, sx, sy, sw, cropH, 0, 0, canvas.width, canvas.height)
