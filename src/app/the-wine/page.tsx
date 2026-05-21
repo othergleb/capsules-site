@@ -27,6 +27,7 @@ const marqueeStrip = (bg: string, word: keyof typeof MARQUEE_TEXT) => (
     overflow: 'hidden',
     display: 'flex',
     alignItems: 'center',
+    border: '2.22px solid #EDFF00',
   }}>
     <span style={{
       fontFamily: 'Vulf Sans, sans-serif',
@@ -297,7 +298,7 @@ export default function TheWinePage() {
               desc: 'Cold-pressed from olive trees that share the same soil as the vines. A companion to the wine.',
             },
           ].map(item => (
-            <div key={item.name} style={{ backgroundColor: 'var(--yellow)', display: 'flex', flexDirection: 'column' }}>
+            <div key={item.name} style={{ backgroundColor: 'var(--yellow)', display: 'flex', flexDirection: 'column', border: '2.22px solid #00006A' }}>
               <img
                 src={item.img}
                 alt={item.name}
