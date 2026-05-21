@@ -11,37 +11,33 @@ const DETAILS = [
   ['Format', '75cl · natural cork'],
 ]
 
-const repeat = (word: string, sep = '          ', n = 12) =>
-  Array.from({ length: n }, () => word).join(sep)
-
-const MARQUEE_TEXT = {
-  ORIGIN: repeat('ORIGIN'),
-  METHOD: repeat('METHOD'),
-  BOX:    repeat('BOX'),
-}
-
-const marqueeStrip = (bg: string, word: keyof typeof MARQUEE_TEXT) => (
+const marqueeStrip = (bg: string, word: string) => (
   <div style={{
     backgroundColor: bg,
     height: 'clamp(28px, 2.6vw, 45px)',
     overflow: 'hidden',
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-evenly',
     borderTop: '2.22px solid #EDFF00',
     borderBottom: '2.22px solid #EDFF00',
   }}>
-    <span style={{
-      fontFamily: 'Vulf Sans, sans-serif',
-      fontWeight: 300,
-      fontSize: 'clamp(12px, 1.45vw, 25px)',
-      color: 'var(--yellow)',
-      textTransform: 'uppercase',
-      letterSpacing: '-0.03em',
-      whiteSpace: 'nowrap',
-      lineHeight: 1,
-    }}>
-      {MARQUEE_TEXT[word]}
-    </span>
+    {Array.from({ length: 12 }, (_, i) => (
+      <span key={i} style={{
+        fontFamily: 'Vulf Sans, sans-serif',
+        fontWeight: 300,
+        fontSize: 'clamp(12px, 1.45vw, 25px)',
+        color: '#EDFF00',
+        textTransform: 'uppercase',
+        letterSpacing: '-0.75px',
+        fontFeatureSettings: "'case' on, 'dlig' on, 'ss03' on, 'ss05' on, 'cv10' on",
+        lineHeight: 1,
+        whiteSpace: 'nowrap',
+        flexShrink: 0,
+      }}>
+        {word}
+      </span>
+    ))}
   </div>
 )
 
