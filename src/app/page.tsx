@@ -137,25 +137,67 @@ function FarmerVideo({ src, label, muted }: { src: string; label: string; muted:
 
 // ── Main page ──────────────────────────────────────────────────
 export default function Home() {
-  const [email, setEmail]         = useState('')
-  const [name, setName]           = useState('')
-  const [formStep, setFormStep]   = useState<'email' | 'name'>('email')
-  const [stepIn, setStepIn]       = useState(true)
-  const [morphing, setMorphing]   = useState(false)
-  const [formState, setFormState] = useState<'idle'|'loading'|'success'|'error'>('idle')
-  const [errorMsg, setErrorMsg]   = useState('')
-  const nameInputRef              = useRef<HTMLInputElement>(null)
-  const boxRef                    = useRef<HTMLDivElement>(null)
-  const morphCanvasRef            = useRef<HTMLCanvasElement>(null)
-  const morphRafRef               = useRef<number>(0)
-  const [soundOn, setSoundOn]     = useState(false)
+  const [email, setEmail]             = useState('')
+  const [name, setName]               = useState('')
+  const [inviteEmail, setInviteEmail] = useState('')
+  const [formStep, setFormStep]       = useState<'email' | 'name' | 'invite'>('email')
+  const [stepIn, setStepIn]           = useState(true)
+  const [morphing, setMorphing]       = useState(false)
+  const [formState, setFormState]     = useState<'idle'|'loading'|'error'>('idle')
+  const [inviteState, setInviteState] = useState<'idle'|'loading'|'sent'|'error'>('idle')
+  const [errorMsg, setErrorMsg]       = useState('')
+  const nameInputRef                  = useRef<HTMLInputElement>(null)
+  const boxRef                        = useRef<HTMLDivElement>(null)
+  const sunflowerRef                  = useRef<HTMLImageElement>(null)
+  const sunRafRef                     = useRef<number>(0)
+  const [soundOn, setSoundOn]         = useState(false)
+
+  // Sunflower travels: right along bottom → rises to centre → spins → returns
+  function animateSunflower() {
+    const sf  = sunflowerRef.current
+    const box = boxRef.current
+    if (!sf || !box) return
+    const boxR = box.getBoundingClientRect()
+    const sfR  = sf.getBoundingClientRect()
+    const sfCX = sfR.left - boxR.left + sfR.width  / 2
+    const sfCY = sfR.top  - boxR.top  + sfR.height / 2
+    const odx  = boxR.width  / 2 - sfCX
+    const ody  = boxR.height / 2 - sfCY
+    const t0   = performance.now()
+    const DUR  = 1800
+    const s    = sf  // capture for closure — TypeScript can't narrow ref.current inside nested fn
+    function eio(t: number) { return t < 0.5 ? 2*t*t : -1 + (4-2*t)*t }
+    cancelAnimationFrame(sunRafRef.current)
+    function frame(now: number) {
+      const p = Math.min((now - t0) / DUR, 1)
+      let tx: number, ty: number, rot: number
+      if (p < 0.28) {
+        const t = eio(p / 0.28)
+        tx = odx * t; ty = 0; rot = 0
+      } else if (p < 0.52) {
+        const t = eio((p - 0.28) / 0.24)
+        tx = odx; ty = ody * t; rot = t * 30
+      } else if (p < 0.72) {
+        const t = eio((p - 0.52) / 0.20)
+        tx = odx; ty = ody; rot = 30 + 720 * t
+      } else {
+        const t = eio((p - 0.72) / 0.28)
+        tx = odx * (1 - t); ty = ody * (1 - t); rot = (30 + 720) * (1 - t)
+      }
+      s.style.transform = `translate(${tx}px, ${ty}px) rotate(${rot}deg)`
+      if (p < 1) { sunRafRef.current = requestAnimationFrame(frame) }
+      else        { s.style.transform = '' }
+    }
+    sunRafRef.current = requestAnimationFrame(frame)
+  }
 
   function advanceToName(e: React.FormEvent) {
     e.preventDefault()
-    if (!email) return
+    if (!email || morphing) return
     setMorphing(true)
-    setTimeout(() => { setStepIn(false); setFormStep('name') }, 600)  // mid-swarm
-    setTimeout(() => { setMorphing(false) }, 1300)
+    animateSunflower()
+    setTimeout(() => { setStepIn(false); setFormStep('name') }, 900)
+    setTimeout(() => { setMorphing(false) }, 1800)
   }
 
   useEffect(() => {
@@ -164,162 +206,12 @@ export default function Home() {
       const focus  = setTimeout(() => nameInputRef.current?.focus(), 480)
       return () => { clearTimeout(fadeIn); clearTimeout(focus) }
     }
+    if (formStep === 'invite') {
+      const fadeIn = setTimeout(() => setStepIn(true), 20)
+      return () => clearTimeout(fadeIn)
+    }
   }, [formStep])
 
-  // ── Butterfly particle animation ──────────────────────────────
-  useEffect(() => {
-    if (!morphing) return
-    const canvas = morphCanvasRef.current
-    const box    = boxRef.current
-    if (!canvas || !box) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-    const x = ctx
-
-    const { width, height } = box.getBoundingClientRect()
-    const W = Math.round(width)
-    const H = Math.round(height)
-    canvas.width  = W
-    canvas.height = H
-    const cx = W / 2, cy = H / 2
-
-    type P = {
-      px: number; py: number       // position
-      vx: number; vy: number       // velocity
-      rot: number; vr: number      // rotation
-      sz: number                   // font size
-      wp: number                   // wing flap phase offset
-      op: number                   // orbit phase offset
-      tx: number; ty: number       // swarm target
-    }
-
-    const pts: P[] = []
-    const t0 = performance.now()
-    const DUR = 1300
-    // phases: fly-in 0–0.30 | swarm 0.30–0.65 | fly-out 0.65–1.0
-    let lastBatch = -99
-
-    function spawn() {
-      // enter from top edge, spread wider than box so they converge inward
-      const startX = W * (-0.15 + Math.random() * 1.3)
-      pts.push({
-        px: startX,
-        py: -8 - Math.random() * 28,
-        vx: (Math.random() - 0.5) * 3,
-        vy: 2.5 + Math.random() * 3,
-        rot: (Math.random() - 0.5) * 0.5,
-        vr: (Math.random() - 0.5) * 0.035,
-        sz: Math.round(W * (0.048 + Math.random() * 0.062)),
-        wp: Math.random() * Math.PI * 2,
-        op: Math.random() * Math.PI * 2,
-        tx: W * 0.08 + Math.random() * W * 0.84,
-        ty: H * 0.08 + Math.random() * H * 0.84,
-      })
-    }
-
-    function drawButterfly(p: P, now: number) {
-      const sz = p.sz
-      // wings flap: y-scale oscillates 0→1 at ~8 Hz
-      const flap  = Math.abs(Math.sin(now * 0.013 + p.wp))
-      const uWH   = sz * 0.72 * flap + 1.5  // upper wing height
-      const lWH   = sz * 0.44 * flap + 1    // lower wing height
-      const uWW   = sz * 1.05               // upper wing width (semi-major)
-      const lWW   = sz * 0.62               // lower wing width
-      const offX  = sz * 1.75              // horizontal centre of upper wings
-      const lOffX = sz * 1.15              // lower wings closer in
-
-      x.save()
-      x.translate(p.px, p.py)
-      x.rotate(p.rot)
-
-      // upper wings (left & right)
-      for (const s of [-1, 1]) {
-        x.beginPath()
-        x.ellipse(s * offX, -uWH * 0.25, uWW, uWH, s * -0.18, 0, Math.PI * 2)
-        x.fillStyle = 'rgba(237,255,0,0.52)'
-        x.fill()
-        x.strokeStyle = '#EDFF00'
-        x.lineWidth = 0.9
-        x.stroke()
-      }
-      // lower wings (left & right) — smaller, angled out more
-      for (const s of [-1, 1]) {
-        x.beginPath()
-        x.ellipse(s * lOffX, lWH * 0.35, lWW, lWH, s * 0.38, 0, Math.PI * 2)
-        x.fillStyle = 'rgba(237,255,0,0.40)'
-        x.fill()
-        x.strokeStyle = '#EDFF00'
-        x.lineWidth = 0.7
-        x.stroke()
-      }
-      // body: "OTHER" text
-      x.font         = `bold ${sz}px 'Bebas Neue', Impact, sans-serif`
-      x.fillStyle    = '#EDFF00'
-      x.textAlign    = 'center'
-      x.textBaseline = 'middle'
-      x.fillText('OTHER', 0, 0)
-
-      x.restore()
-    }
-
-    function frame(now: number) {
-      const elapsed  = now - t0
-      const progress = Math.min(elapsed / DUR, 1)
-
-      // spawn only during fly-in phase
-      if (elapsed - lastBatch > 22 && progress < 0.30) {
-        const burst = Math.round(15 + (progress / 0.30) * 32)
-        for (let i = 0; i < burst; i++) spawn()
-        lastBatch = elapsed
-      }
-
-      x.clearRect(0, 0, W, H)
-
-      for (const p of pts) {
-        if (progress < 0.32) {
-          // ── fly in: steer toward target with sinusoidal flutter ──
-          const dx = p.tx - p.px, dy = p.ty - p.py
-          p.vx = p.vx * 0.80 + dx * 0.022 + Math.sin(now * 0.005 + p.op) * 1.4
-          p.vy = p.vy * 0.80 + dy * 0.022 + Math.cos(now * 0.006 + p.op) * 0.8
-        } else if (progress < 0.66) {
-          // ── swarm: Lissajous orbit around personal target ──────
-          const ox = p.tx + Math.sin(now * 0.0019 + p.op)        * W * 0.32
-          const oy = p.ty + Math.cos(now * 0.0024 + p.op * 1.35) * H * 0.22
-          const dx = ox - p.px, dy = oy - p.py
-          p.vx = p.vx * 0.87 + dx * 0.028 + Math.sin(now * 0.008 + p.op) * 2.0
-          p.vy = p.vy * 0.87 + dy * 0.028 + Math.cos(now * 0.007 + p.op) * 1.3
-        } else {
-          // ── fly out: scatter away from centre ──────────────────
-          const dx = p.px - cx, dy = p.py - cy
-          const d  = Math.sqrt(dx * dx + dy * dy) || 1
-          p.vx += (dx / d) * 2.2 + (Math.random() - 0.5) * 0.8
-          p.vy += (dy / d) * 2.2 + 0.6 + (Math.random() - 0.5) * 0.8
-        }
-
-        p.px  += p.vx
-        p.py  += p.vy
-        p.rot += p.vr
-
-        // skip once off-canvas during exit (no fade — just gone)
-        if (progress > 0.66 &&
-            (p.py > H + 60 || p.py < -60 || p.px < -120 || p.px > W + 120)) continue
-
-        drawButterfly(p, now)
-      }
-
-      if (progress < 1) {
-        morphRafRef.current = requestAnimationFrame(frame)
-      } else {
-        x.clearRect(0, 0, W, H)
-      }
-    }
-
-    document.fonts.load(`bold 16px 'Bebas Neue'`)
-      .then(() => { morphRafRef.current = requestAnimationFrame(frame) })
-      .catch(() => { morphRafRef.current = requestAnimationFrame(frame) })
-
-    return () => cancelAnimationFrame(morphRafRef.current)
-  }, [morphing])
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -333,7 +225,9 @@ export default function Home() {
         body: JSON.stringify({ email, name }),
       })
       if (res.ok) {
-        setFormState('success')
+        setStepIn(false)
+        setFormStep('invite')
+        setFormState('idle')
       } else {
         const data = await res.json()
         setErrorMsg(data.error || 'Something went wrong.')
@@ -342,6 +236,22 @@ export default function Home() {
     } catch {
       setErrorMsg('Network error. Please try again.')
       setFormState('error')
+    }
+  }
+
+  async function handleInvite(e: React.FormEvent) {
+    e.preventDefault()
+    if (!inviteEmail || inviteState !== 'idle') return
+    setInviteState('loading')
+    try {
+      const res = await fetch('/api/invite', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, name, inviteEmail }),
+      })
+      setInviteState(res.ok ? 'sent' : 'error')
+    } catch {
+      setInviteState('error')
     }
   }
 
@@ -484,7 +394,7 @@ export default function Home() {
           Capsule 01
         </h1>
 
-        {/* Red content box — particles rain down on click */}
+        {/* Red content box */}
         <div ref={boxRef} style={{
           backgroundColor: '#FF3C00',
           maxWidth: 'clamp(300px, 30.15vw, 521px)',
@@ -492,192 +402,69 @@ export default function Home() {
           padding: 'clamp(1rem, 1.5vw, 26px)',
           position: 'relative',
         }}>
-          {/* Particle canvas — covers entire box including padding */}
-          <canvas ref={morphCanvasRef} style={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-            pointerEvents: 'none',
-            zIndex: 10,
-          }} />
-          <div style={{ position: 'relative' }}>
 
-            {/* Email content — stays in normal flow to hold box height; switch is instant (hidden under particles) */}
+          {/* Sunflower — sits bottom-left, animated on Register Now */}
+          {formStep !== 'invite' && (
+            <img
+              ref={sunflowerRef}
+              src={SUNFLOWER_SVG}
+              alt=""
+              style={{
+                position: 'absolute',
+                bottom: '-14px',
+                left: '-6px',
+                height: 'clamp(22px, 2.6vw, 44px)',
+                width: 'auto',
+                aspectRatio: '114 / 113',
+                pointerEvents: 'none',
+                zIndex: 5,
+                transformOrigin: 'center center',
+              }}
+            />
+          )}
+
+          {formStep === 'invite' ? (
+
+            /* ── Screen 3: YOU'RE IN ─────────────────────────────── */
             <div style={{
-              visibility: (formStep === 'name' || formState === 'success') ? 'hidden' : 'visible',
-              opacity:    (formStep === 'name' || formState === 'success') ? 0 : 1,
+              opacity: stepIn ? 1 : 0,
+              transition: 'opacity 0.4s ease',
             }}>
-
-              {/* Body copy */}
-              <div style={{ textAlign: 'center', marginBottom: 'clamp(0.75rem, 1.2vw, 21px)' }}>
-                <p style={{
-                  fontFamily: 'Vulf Sans, sans-serif',
-                  fontWeight: 700,
-                  fontSize: 'clamp(0.8rem, 1.014vw, 17.5px)',
-                  lineHeight: 1.29,
-                  color: '#EDFF00',
-                  marginBottom: '1.29em',
-                }}>
-                  The last 480 bottles of an amphora aged grenache,
-                  grown by Berber farmers in the foothills of
-                  the Atlas mountains.
-                </p>
-                <p style={{
-                  fontFamily: 'Vulf Sans, sans-serif',
-                  fontWeight: 400,
-                  fontSize: 'clamp(0.8rem, 1.014vw, 17.5px)',
-                  lineHeight: 1.29,
-                  color: '#EDFF00',
-                  marginBottom: 0,
-                }}>
-                  £89 including delivery.
-                </p>
-                <p style={{
-                  fontFamily: 'Vulf Sans, sans-serif',
-                  fontWeight: 400,
-                  fontSize: 'clamp(0.8rem, 1.014vw, 17.5px)',
-                  lineHeight: 1.29,
-                  color: '#EDFF00',
-                  marginBottom: 0,
-                }}>
-                  One bottle of amphora-aged Grenache gris, two bottles of estate rosé,
-                  and a small vial of their olive oil.
-                </p>
-              </div>
-
-              {/* Stats table */}
-              <div style={{ width: '100%' }}>
-                <div style={{ width: '100%', height: '1px', backgroundColor: '#EDFF00' }} />
-                {[
-                  { label: 'Ballot closes', value: '14 June 2026' },
-                  { label: 'Vineyard',      value: 'Meknes, Morocco' },
-                ].map(({ label, value }) => (
-                  <div key={label}>
-                    <div style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      padding: '0.7rem 0',
-                      fontFamily: 'Vulf Sans, sans-serif',
-                      fontSize: 'clamp(0.75rem, 1.16vw, 20px)',
-                      letterSpacing: '-0.01em',
-                      color: '#EDFF00',
-                      textTransform: 'uppercase',
-                    }}>
-                      <span style={{ fontWeight: 300 }}>{label}</span>
-                      <span style={{ fontWeight: 400 }}>{value}</span>
-                    </div>
-                    <div style={{ width: '100%', height: '1px', backgroundColor: '#EDFF00' }} />
-                  </div>
-                ))}
-              </div>
-
-              {/* Spacer + email form */}
-              <div style={{ height: 'clamp(0.75rem, 1.2vw, 21px)' }} />
-              <form onSubmit={advanceToName}>
-                <div style={{
-                  borderBottom: '1.5px solid #00006A',
-                  height: 'clamp(48px, 3.7vw, 64px)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  marginBottom: '0.65rem',
-                }}>
-                  <input
-                    type="email"
-                    required
-                    placeholder="Your Email Here"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    className="form-input-cream"
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      background: 'transparent',
-                      border: 'none',
-                      outline: 'none',
-                      padding: '0 1rem',
-                      fontFamily: 'Vulf Sans, sans-serif',
-                      fontWeight: 300,
-                      fontSize: 'clamp(0.8rem, 1.2vw, 21px)',
-                      letterSpacing: '-0.01em',
-                      color: '#EDFF00',
-                    }}
-                  />
-                </div>
-                <button
-                  type="submit"
-                  style={{
-                    display: 'block',
-                    width: '100%',
-                    height: 'clamp(52px, 4.05vw, 70px)',
-                    backgroundColor: '#EDFF00',
-                    color: '#00006A',
-                    border: '2px solid #00006A',
-                    borderRadius: '999px',
-                    fontFamily: 'Vulf Sans, sans-serif',
-                    fontWeight: 300,
-                    fontSize: 'clamp(0.9rem, 1.45vw, 25px)',
-                    letterSpacing: '-0.03em',
-                    textTransform: 'uppercase',
-                    cursor: 'pointer',
-                    transition: 'opacity 0.15s ease',
-                    fontFeatureSettings: "'cv10', 'ss03', 'ss05', 'case', 'ordn', 'dlig'",
-                  }}
-                  onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
-                  onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
-                >
-                  Register Now
-                </button>
-              </form>
-            </div>
-
-            {/* Success overlay */}
-            {formState === 'success' && (
-              <div style={{
-                position: 'absolute',
-                inset: 0,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+              <p style={{
+                fontFamily: 'Vulf Sans, sans-serif',
+                fontWeight: 700,
+                fontSize: 'clamp(1rem, 1.45vw, 25px)',
+                color: '#EDFF00',
+                letterSpacing: '-0.01em',
+                lineHeight: 1.1,
+                marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
               }}>
+                YOU&apos;RE IN.
+              </p>
+              <p style={{
+                fontFamily: 'Vulf Sans, sans-serif',
+                fontWeight: 300,
+                fontSize: 'clamp(0.78rem, 1.014vw, 17.5px)',
+                lineHeight: 1.4,
+                color: '#EDFF00',
+                marginBottom: 'clamp(0.75rem, 1.2vw, 21px)',
+              }}>
+                Wine is best shared, and you have one companion invite.
+                If they register, your entries will be linked — if one of
+                you gets drawn, you&apos;ll both get drawn.
+              </p>
+              {inviteState === 'sent' ? (
                 <p style={{
                   fontFamily: 'Vulf Sans, sans-serif',
                   fontWeight: 300,
-                  fontSize: '1rem',
-                  color: '#EDFF00',
-                  lineHeight: 1.65,
-                  textAlign: 'center',
-                }}>
-                  You&apos;re on the list. If drawn on 14 June you&apos;ll receive
-                  a checkout link with 48 hours to complete your purchase.
-                </p>
-              </div>
-            )}
-
-            {/* Name step overlay */}
-            {formStep === 'name' && formState !== 'success' && (
-              <div style={{
-                position: 'absolute',
-                inset: 0,
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                opacity: stepIn ? 1 : 0,
-                transform: stepIn ? 'translateY(0)' : 'translateY(8px)',
-                transition: 'opacity 0.32s ease, transform 0.32s ease',
-              }}>
-                <p style={{
-                  fontFamily: 'Vulf Sans, sans-serif',
-                  fontWeight: 300,
-                  fontSize: 'clamp(0.75rem, 1.05vw, 18px)',
+                  fontSize: 'clamp(0.78rem, 1.014vw, 17.5px)',
                   color: '#EDFF00',
                   lineHeight: 1.4,
-                  marginBottom: 'clamp(0.75rem, 1.2vw, 21px)',
                 }}>
-                  Thanks! Now enter your name so we know who we&apos;re dealing with.
+                  Invite sent.
                 </p>
-                <form onSubmit={handleSubmit}>
+              ) : (
+                <form onSubmit={handleInvite}>
                   <div style={{
                     borderBottom: '1.5px solid #00006A',
                     height: 'clamp(48px, 3.7vw, 64px)',
@@ -686,13 +473,12 @@ export default function Home() {
                     marginBottom: '0.65rem',
                   }}>
                     <input
-                      ref={nameInputRef}
-                      type="text"
+                      type="email"
                       required
-                      placeholder="Your Name Here"
-                      value={name}
-                      onChange={e => setName(e.target.value)}
-                      disabled={formState === 'loading'}
+                      placeholder="Their Email"
+                      value={inviteEmail}
+                      onChange={e => setInviteEmail(e.target.value)}
+                      disabled={inviteState === 'loading'}
                       className="form-input-cream"
                       style={{
                         width: '100%',
@@ -709,14 +495,14 @@ export default function Home() {
                       }}
                     />
                   </div>
-                  {formState === 'error' && (
+                  {inviteState === 'error' && (
                     <p style={{ color: '#EDFF00', fontSize: '0.75rem', marginBottom: '0.5rem', fontFamily: 'Vulf Sans, sans-serif' }}>
-                      {errorMsg}
+                      Something went wrong. Please try again.
                     </p>
                   )}
                   <button
                     type="submit"
-                    disabled={formState === 'loading'}
+                    disabled={inviteState === 'loading'}
                     style={{
                       display: 'block',
                       width: '100%',
@@ -730,21 +516,245 @@ export default function Home() {
                       fontSize: 'clamp(0.9rem, 1.45vw, 25px)',
                       letterSpacing: '-0.03em',
                       textTransform: 'uppercase',
-                      cursor: formState === 'loading' ? 'wait' : 'pointer',
-                      opacity: formState === 'loading' ? 0.6 : 1,
+                      cursor: inviteState === 'loading' ? 'wait' : 'pointer',
+                      opacity: inviteState === 'loading' ? 0.6 : 1,
                       transition: 'opacity 0.15s ease',
                       fontFeatureSettings: "'cv10', 'ss03', 'ss05', 'case', 'ordn', 'dlig'",
                     }}
-                    onMouseOver={e => { if (formState !== 'loading') e.currentTarget.style.opacity = '0.8' }}
-                    onMouseOut={e => { if (formState !== 'loading') e.currentTarget.style.opacity = '1' }}
+                    onMouseOver={e => { if (inviteState !== 'loading') e.currentTarget.style.opacity = '0.8' }}
+                    onMouseOut={e => { if (inviteState !== 'loading') e.currentTarget.style.opacity = '1' }}
                   >
-                    {formState === 'loading' ? '...' : 'Enter Ballot'}
+                    {inviteState === 'loading' ? '...' : 'Send Invite'}
+                  </button>
+                </form>
+              )}
+            </div>
+
+          ) : (
+
+            /* ── Screens 1 & 2: email → name ─────────────────────── */
+            <div style={{ position: 'relative' }}>
+
+              {/* Email content — holds box height; instantly hidden when on name step */}
+              <div style={{
+                visibility: formStep === 'name' ? 'hidden' : 'visible',
+                opacity:    formStep === 'name' ? 0 : 1,
+              }}>
+
+                {/* Body copy */}
+                <div style={{ textAlign: 'center', marginBottom: 'clamp(0.75rem, 1.2vw, 21px)' }}>
+                  <p style={{
+                    fontFamily: 'Vulf Sans, sans-serif',
+                    fontWeight: 700,
+                    fontSize: 'clamp(0.8rem, 1.014vw, 17.5px)',
+                    lineHeight: 1.29,
+                    color: '#EDFF00',
+                    marginBottom: '1.29em',
+                  }}>
+                    The last 480 bottles of an amphora aged grenache,
+                    grown by Berber farmers in the foothills of
+                    the Atlas mountains.
+                  </p>
+                  <p style={{
+                    fontFamily: 'Vulf Sans, sans-serif',
+                    fontWeight: 400,
+                    fontSize: 'clamp(0.8rem, 1.014vw, 17.5px)',
+                    lineHeight: 1.29,
+                    color: '#EDFF00',
+                    marginBottom: 0,
+                  }}>
+                    £89 including delivery.
+                  </p>
+                  <p style={{
+                    fontFamily: 'Vulf Sans, sans-serif',
+                    fontWeight: 400,
+                    fontSize: 'clamp(0.8rem, 1.014vw, 17.5px)',
+                    lineHeight: 1.29,
+                    color: '#EDFF00',
+                    marginBottom: 0,
+                  }}>
+                    One bottle of amphora-aged Grenache gris, two bottles of estate rosé,
+                    and a small vial of their olive oil.
+                  </p>
+                </div>
+
+                {/* Stats table */}
+                <div style={{ width: '100%' }}>
+                  <div style={{ width: '100%', height: '1px', backgroundColor: '#EDFF00' }} />
+                  {[
+                    { label: 'Ballot closes', value: '14 June 2026' },
+                    { label: 'Vineyard',      value: 'Meknes, Morocco' },
+                  ].map(({ label, value }) => (
+                    <div key={label}>
+                      <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        padding: '0.7rem 0',
+                        fontFamily: 'Vulf Sans, sans-serif',
+                        fontSize: 'clamp(0.75rem, 1.16vw, 20px)',
+                        letterSpacing: '-0.01em',
+                        color: '#EDFF00',
+                        textTransform: 'uppercase',
+                      }}>
+                        <span style={{ fontWeight: 300 }}>{label}</span>
+                        <span style={{ fontWeight: 400 }}>{value}</span>
+                      </div>
+                      <div style={{ width: '100%', height: '1px', backgroundColor: '#EDFF00' }} />
+                    </div>
+                  ))}
+                </div>
+
+                {/* Email form */}
+                <div style={{ height: 'clamp(0.75rem, 1.2vw, 21px)' }} />
+                <form onSubmit={advanceToName}>
+                  <div style={{
+                    borderBottom: '1.5px solid #00006A',
+                    height: 'clamp(48px, 3.7vw, 64px)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginBottom: '0.65rem',
+                  }}>
+                    <input
+                      type="email"
+                      required
+                      placeholder="Your Email Here"
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
+                      className="form-input-cream"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        background: 'transparent',
+                        border: 'none',
+                        outline: 'none',
+                        padding: '0 1rem',
+                        fontFamily: 'Vulf Sans, sans-serif',
+                        fontWeight: 300,
+                        fontSize: 'clamp(0.8rem, 1.2vw, 21px)',
+                        letterSpacing: '-0.01em',
+                        color: '#EDFF00',
+                      }}
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    style={{
+                      display: 'block',
+                      width: '100%',
+                      height: 'clamp(52px, 4.05vw, 70px)',
+                      backgroundColor: '#EDFF00',
+                      color: '#00006A',
+                      border: '2px solid #00006A',
+                      borderRadius: '999px',
+                      fontFamily: 'Vulf Sans, sans-serif',
+                      fontWeight: 300,
+                      fontSize: 'clamp(0.9rem, 1.45vw, 25px)',
+                      letterSpacing: '-0.03em',
+                      textTransform: 'uppercase',
+                      cursor: 'pointer',
+                      transition: 'opacity 0.15s ease',
+                      fontFeatureSettings: "'cv10', 'ss03', 'ss05', 'case', 'ordn', 'dlig'",
+                    }}
+                    onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
+                    onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
+                  >
+                    Register Now
                   </button>
                 </form>
               </div>
-            )}
 
-          </div>
+              {/* Name step overlay */}
+              {formStep === 'name' && (
+                <div style={{
+                  position: 'absolute',
+                  inset: 0,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  opacity: stepIn ? 1 : 0,
+                  transform: stepIn ? 'translateY(0)' : 'translateY(8px)',
+                  transition: 'opacity 0.32s ease, transform 0.32s ease',
+                }}>
+                  <p style={{
+                    fontFamily: 'Vulf Sans, sans-serif',
+                    fontWeight: 300,
+                    fontSize: 'clamp(0.75rem, 1.05vw, 18px)',
+                    color: '#EDFF00',
+                    lineHeight: 1.4,
+                    marginBottom: 'clamp(0.75rem, 1.2vw, 21px)',
+                  }}>
+                    Thanks! Now enter your name so we know who we&apos;re dealing with.
+                  </p>
+                  <form onSubmit={handleSubmit}>
+                    <div style={{
+                      borderBottom: '1.5px solid #00006A',
+                      height: 'clamp(48px, 3.7vw, 64px)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      marginBottom: '0.65rem',
+                    }}>
+                      <input
+                        ref={nameInputRef}
+                        type="text"
+                        required
+                        placeholder="Your Name Here"
+                        value={name}
+                        onChange={e => setName(e.target.value)}
+                        disabled={formState === 'loading'}
+                        className="form-input-cream"
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          background: 'transparent',
+                          border: 'none',
+                          outline: 'none',
+                          padding: '0 1rem',
+                          fontFamily: 'Vulf Sans, sans-serif',
+                          fontWeight: 300,
+                          fontSize: 'clamp(0.8rem, 1.2vw, 21px)',
+                          letterSpacing: '-0.01em',
+                          color: '#EDFF00',
+                        }}
+                      />
+                    </div>
+                    {formState === 'error' && (
+                      <p style={{ color: '#EDFF00', fontSize: '0.75rem', marginBottom: '0.5rem', fontFamily: 'Vulf Sans, sans-serif' }}>
+                        {errorMsg}
+                      </p>
+                    )}
+                    <button
+                      type="submit"
+                      disabled={formState === 'loading'}
+                      style={{
+                        display: 'block',
+                        width: '100%',
+                        height: 'clamp(52px, 4.05vw, 70px)',
+                        backgroundColor: '#EDFF00',
+                        color: '#00006A',
+                        border: '2px solid #00006A',
+                        borderRadius: '999px',
+                        fontFamily: 'Vulf Sans, sans-serif',
+                        fontWeight: 300,
+                        fontSize: 'clamp(0.9rem, 1.45vw, 25px)',
+                        letterSpacing: '-0.03em',
+                        textTransform: 'uppercase',
+                        cursor: formState === 'loading' ? 'wait' : 'pointer',
+                        opacity: formState === 'loading' ? 0.6 : 1,
+                        transition: 'opacity 0.15s ease',
+                        fontFeatureSettings: "'cv10', 'ss03', 'ss05', 'case', 'ordn', 'dlig'",
+                      }}
+                      onMouseOver={e => { if (formState !== 'loading') e.currentTarget.style.opacity = '0.8' }}
+                      onMouseOut={e => { if (formState !== 'loading') e.currentTarget.style.opacity = '1' }}
+                    >
+                      {formState === 'loading' ? '...' : 'Enter Ballot'}
+                    </button>
+                  </form>
+                </div>
+              )}
+
+            </div>
+          )}
         </div>
 
         <OtherLogoGif />
