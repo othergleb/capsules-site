@@ -33,6 +33,7 @@ const marqueeStrip = (bg: string, word: keyof typeof MARQUEE_TEXT) => (
       textTransform: 'uppercase',
       letterSpacing: '-0.03em',
       whiteSpace: 'nowrap',
+      lineHeight: 1,
     }}>
       {MARQUEE_TEXT[word]}
     </span>
