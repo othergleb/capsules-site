@@ -31,15 +31,16 @@ function OtherLogoVideo() {
 
     video.play().catch(() => {})
 
+    const v = video, c = canvas
     function draw() {
-      if (video.readyState >= 2) {
-        const vw = video.videoWidth  || 2000
-        const vh = video.videoHeight || 2000
+      if (v.readyState >= 2) {
+        const vw = v.videoWidth  || 2000
+        const vh = v.videoHeight || 2000
         const sx    = Math.round(0.15 * vw)
         const sw    = Math.round(0.70 * vw)
-        const cropH = Math.round(sw * canvas.height / canvas.width)
+        const cropH = Math.round(sw * c.height / c.width)
         const sy    = Math.round(0.51 * vh - cropH / 2)
-        ctx.drawImage(video, sx, sy, sw, cropH, 0, 0, canvas.width, canvas.height)
+        ctx.drawImage(v, sx, sy, sw, cropH, 0, 0, c.width, c.height)
       }
       rafRef.current = requestAnimationFrame(draw)
     }
