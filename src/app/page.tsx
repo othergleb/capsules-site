@@ -383,8 +383,17 @@ export default function Home() {
                 marginBottom: 'clamp(0.75rem, 1.2vw, 21px)',
               }}>
                 Though we&apos;re restricting this ballot to one box per person,
-                you can invite one friend. If either of you is drawn, you&apos;ll
-                both be drawn — your fate is linked.
+                you can invite one friend.
+              </p>
+              <p style={{
+                fontFamily: 'Vulf Sans, sans-serif',
+                fontWeight: 300,
+                fontSize: 'clamp(0.78rem, 1.014vw, 17.5px)',
+                lineHeight: 1.4,
+                color: '#EDFF00',
+                marginBottom: 'clamp(0.75rem, 1.2vw, 21px)',
+              }}>
+                If either of you is drawn, you&apos;ll both be drawn — your fate is linked.
               </p>
               {inviteState === 'sent' ? (
                 <p style={{
