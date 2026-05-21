@@ -145,24 +145,112 @@ export default function Home() {
   const [formState, setFormState] = useState<'idle'|'loading'|'success'|'error'>('idle')
   const [errorMsg, setErrorMsg]   = useState('')
   const nameInputRef              = useRef<HTMLInputElement>(null)
+  const boxRef                    = useRef<HTMLDivElement>(null)
+  const morphCanvasRef            = useRef<HTMLCanvasElement>(null)
+  const morphRafRef               = useRef<number>(0)
   const [soundOn, setSoundOn]     = useState(false)
 
   function advanceToName(e: React.FormEvent) {
     e.preventDefault()
     if (!email) return
     setMorphing(true)
-    setStepIn(false)
-    setTimeout(() => { setFormStep('name') }, 450)   // swap at circle's midpoint (50% of 900ms)
-    setTimeout(() => { setMorphing(false) }, 900)    // animation complete
+    // swap content at midpoint, while particles are densest
+    setTimeout(() => { setStepIn(false); setFormStep('name') }, 450)
+    setTimeout(() => { setMorphing(false) }, 900)
   }
 
   useEffect(() => {
     if (formStep === 'name') {
       const fadeIn = setTimeout(() => setStepIn(true), 20)
-      const focus  = setTimeout(() => nameInputRef.current?.focus(), 470) // after box springs open
+      const focus  = setTimeout(() => nameInputRef.current?.focus(), 480)
       return () => { clearTimeout(fadeIn); clearTimeout(focus) }
     }
   }, [formStep])
+
+  // ── Canvas particle animation ──────────────────────────────────
+  useEffect(() => {
+    if (!morphing) return
+    const canvas = morphCanvasRef.current
+    const box    = boxRef.current
+    if (!canvas || !box) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+    const x = ctx  // captured so closures below see non-null type
+
+    const { width, height } = box.getBoundingClientRect()
+    const W = Math.round(width)
+    const H = Math.round(height)
+    canvas.width  = W
+    canvas.height = H
+
+    type P = { x: number; y: number; vx: number; vy: number; rot: number; vr: number; sz: number; born: number }
+    const pts: P[] = []
+    const t0 = performance.now()
+    const DUR = 900
+    let lastBatch = -99
+
+    function spawn(now: number) {
+      pts.push({
+        x: Math.random() * W,
+        y: -6 - Math.random() * 20,
+        vx: (Math.random() - 0.5) * 2.5,
+        vy: 1.8 + Math.random() * 4,
+        rot: (Math.random() - 0.5) * 0.8,
+        vr: (Math.random() - 0.5) * 0.05,
+        sz: Math.round(W * (0.055 + Math.random() * 0.075)),
+        born: now,
+      })
+    }
+
+    function frame(now: number) {
+      const elapsed  = now - t0
+      const progress = Math.min(elapsed / DUR, 1)
+
+      // burst-spawn in first 58% — more particles as animation progresses
+      if (elapsed - lastBatch > 28 && progress < 0.58) {
+        const burst = Math.round(10 + progress * 28)
+        for (let i = 0; i < burst; i++) spawn(now)
+        lastBatch = elapsed
+      }
+
+      x.clearRect(0, 0, W, H)
+
+      for (const p of pts) {
+        p.x  += p.vx
+        p.y  += p.vy
+        p.vy += 0.1   // gravity
+        p.rot += p.vr
+
+        const age = now - p.born
+        let alpha = Math.min(age / 90, 1)        // quick fade-in
+        if (progress > 0.55) alpha *= 1 - (progress - 0.55) / 0.45  // fade out
+        if (alpha < 0.02) continue
+
+        x.save()
+        x.globalAlpha  = alpha
+        x.translate(p.x, p.y)
+        x.rotate(p.rot)
+        x.font         = `bold ${p.sz}px 'Bebas Neue', Impact, sans-serif`
+        x.fillStyle    = '#EDFF00'
+        x.textAlign    = 'center'
+        x.textBaseline = 'middle'
+        x.fillText('OTHER', 0, 0)
+        x.restore()
+      }
+
+      if (progress < 1) {
+        morphRafRef.current = requestAnimationFrame(frame)
+      } else {
+        x.clearRect(0, 0, W, H)
+      }
+    }
+
+    document.fonts.load(`bold 16px 'Bebas Neue'`)
+      .then(() => { morphRafRef.current = requestAnimationFrame(frame) })
+      .catch(() => { morphRafRef.current = requestAnimationFrame(frame) })
+
+    return () => cancelAnimationFrame(morphRafRef.current)
+  }, [morphing])
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -327,21 +415,29 @@ export default function Home() {
           Capsule 01
         </h1>
 
-        {/* Red content box — morphs to circle and springs back */}
-        <div style={{
+        {/* Red content box — particles rain down on click */}
+        <div ref={boxRef} style={{
           backgroundColor: '#FF3C00',
           maxWidth: 'clamp(300px, 30.15vw, 521px)',
           width: '100%',
           padding: 'clamp(1rem, 1.5vw, 26px)',
-          animation: morphing ? 'capsule-morph 0.9s forwards' : 'none',
+          position: 'relative',
         }}>
+          {/* Particle canvas — covers entire box including padding */}
+          <canvas ref={morphCanvasRef} style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            pointerEvents: 'none',
+            zIndex: 10,
+          }} />
           <div style={{ position: 'relative' }}>
 
-            {/* Email content — stays in normal flow to hold box height; hidden when overlaid */}
+            {/* Email content — stays in normal flow to hold box height; switch is instant (hidden under particles) */}
             <div style={{
               visibility: (formStep === 'name' || formState === 'success') ? 'hidden' : 'visible',
-              opacity: (formStep === 'name' || formState === 'success') ? 0 : (stepIn ? 1 : 0),
-              transition: 'opacity 0.32s ease',
+              opacity:    (formStep === 'name' || formState === 'success') ? 0 : 1,
             }}>
 
               {/* Body copy */}
