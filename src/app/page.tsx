@@ -141,27 +141,27 @@ export default function Home() {
   const [name, setName]           = useState('')
   const [formStep, setFormStep]   = useState<'email' | 'name'>('email')
   const [stepIn, setStepIn]       = useState(true)
+  const [morphing, setMorphing]   = useState(false)
   const [formState, setFormState] = useState<'idle'|'loading'|'success'|'error'>('idle')
   const [errorMsg, setErrorMsg]   = useState('')
   const nameInputRef              = useRef<HTMLInputElement>(null)
-  // FIX 2: start muted so browsers allow autoplay; user can toggle sound on
   const [soundOn, setSoundOn]     = useState(false)
 
   function advanceToName(e: React.FormEvent) {
     e.preventDefault()
     if (!email) return
+    setMorphing(true)
     setStepIn(false)
     setTimeout(() => {
       setFormStep('name')
-      // stepIn stays false — name form mounts invisible, then fades in next tick
-    }, 320)
+      setMorphing(false)
+    }, 280)
   }
 
   useEffect(() => {
     if (formStep === 'name') {
-      // One frame delay so name form paints at opacity:0 before transitioning in
       const fadeIn = setTimeout(() => setStepIn(true), 20)
-      const focus  = setTimeout(() => nameInputRef.current?.focus(), 380)
+      const focus  = setTimeout(() => nameInputRef.current?.focus(), 360)
       return () => { clearTimeout(fadeIn); clearTimeout(focus) }
     }
   }, [formStep])
@@ -329,243 +329,262 @@ export default function Home() {
           Capsule 01
         </h1>
 
-        {/* Red content box — Rectangle 10 in Figma: body copy + stats + form */}
+        {/* Red content box — spring-scales on morph, box stays same size throughout */}
         <div style={{
           backgroundColor: '#FF3C00',
           maxWidth: 'clamp(300px, 30.15vw, 521px)',
           width: '100%',
-          padding: formStep === 'name'
-            ? 'clamp(0.75rem, 1.2vw, 20px)'
-            : 'clamp(1rem, 1.5vw, 26px)',
-          transition: 'padding 0.45s cubic-bezier(0.4, 0, 0.2, 1)',
+          padding: 'clamp(1rem, 1.5vw, 26px)',
+          transform: morphing ? 'scale(0.96)' : 'scale(1)',
+          transition: morphing
+            ? 'transform 0.28s cubic-bezier(0.4, 0, 1, 1)'
+            : 'transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1)',
         }}>
+          <div style={{ position: 'relative' }}>
 
-          {/* Collapsible: body copy + stats — grid-template-rows animates actual height smoothly */}
-          <div style={{
-            display: 'grid',
-            gridTemplateRows: formStep === 'name' ? '0fr' : '1fr',
-            transition: 'grid-template-rows 0.45s cubic-bezier(0.4, 0, 0.2, 1)',
-          }}>
-          <div style={{ overflow: 'hidden', minHeight: 0 }}>
+            {/* Email content — stays in normal flow to hold box height; hidden when overlaid */}
+            <div style={{
+              visibility: (formStep === 'name' || formState === 'success') ? 'hidden' : 'visible',
+              opacity: (formStep === 'name' || formState === 'success') ? 0 : (stepIn ? 1 : 0),
+              transition: 'opacity 0.32s ease',
+            }}>
 
-          {/* Body copy — cream text on red */}
-          <div style={{ textAlign: 'center', marginBottom: 'clamp(0.75rem, 1.2vw, 21px)' }}>
-            <p style={{
-              fontFamily: 'Vulf Sans, sans-serif',
-              fontWeight: 700,
-              fontSize: 'clamp(0.8rem, 1.014vw, 17.5px)',
-              lineHeight: 1.29,
-              color: '#EDFF00',
-              marginBottom: '1.29em',
-            }}>
-              The last 480 bottles of an amphora aged grenache,
-              grown by Berber farmers in the foothills of
-              the Atlas mountains.
-            </p>
-            <p style={{
-              fontFamily: 'Vulf Sans, sans-serif',
-              fontWeight: 400,
-              fontSize: 'clamp(0.8rem, 1.014vw, 17.5px)',
-              lineHeight: 1.29,
-              color: '#EDFF00',
-              marginBottom: 0,
-            }}>
-              £89 including delivery.
-            </p>
-            <p style={{
-              fontFamily: 'Vulf Sans, sans-serif',
-              fontWeight: 400,
-              fontSize: 'clamp(0.8rem, 1.014vw, 17.5px)',
-              lineHeight: 1.29,
-              color: '#EDFF00',
-              marginBottom: 0,
-            }}>
-              One bottle of amphora-aged Grenache gris, two bottles of estate rosé,
-              and a small vial of their olive oil.
-            </p>
-          </div>
-
-          {/* Stats table */}
-          <div style={{ width: '100%' }}>
-            <div style={{ width: '100%', height: '1px', backgroundColor: '#EDFF00' }} />
-            {[
-              { label: 'Ballot closes', value: '14 June 2026' },
-              { label: 'Vineyard',      value: 'Mknes, Morocco' },
-            ].map(({ label, value }) => (
-              <div key={label}>
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  padding: '0.7rem 0',
+              {/* Body copy */}
+              <div style={{ textAlign: 'center', marginBottom: 'clamp(0.75rem, 1.2vw, 21px)' }}>
+                <p style={{
                   fontFamily: 'Vulf Sans, sans-serif',
-                  fontSize: 'clamp(0.75rem, 1.16vw, 20px)',
-                  letterSpacing: '-0.01em',
+                  fontWeight: 700,
+                  fontSize: 'clamp(0.8rem, 1.014vw, 17.5px)',
+                  lineHeight: 1.29,
                   color: '#EDFF00',
-                  textTransform: 'uppercase',
+                  marginBottom: '1.29em',
                 }}>
-                  <span style={{ fontWeight: 300 }}>{label}</span>
-                  <span style={{ fontWeight: 400 }}>{value}</span>
-                </div>
-                <div style={{ width: '100%', height: '1px', backgroundColor: '#EDFF00' }} />
+                  The last 480 bottles of an amphora aged grenache,
+                  grown by Berber farmers in the foothills of
+                  the Atlas mountains.
+                </p>
+                <p style={{
+                  fontFamily: 'Vulf Sans, sans-serif',
+                  fontWeight: 400,
+                  fontSize: 'clamp(0.8rem, 1.014vw, 17.5px)',
+                  lineHeight: 1.29,
+                  color: '#EDFF00',
+                  marginBottom: 0,
+                }}>
+                  £89 including delivery.
+                </p>
+                <p style={{
+                  fontFamily: 'Vulf Sans, sans-serif',
+                  fontWeight: 400,
+                  fontSize: 'clamp(0.8rem, 1.014vw, 17.5px)',
+                  lineHeight: 1.29,
+                  color: '#EDFF00',
+                  marginBottom: 0,
+                }}>
+                  One bottle of amphora-aged Grenache gris, two bottles of estate rosé,
+                  and a small vial of their olive oil.
+                </p>
               </div>
-            ))}
-          </div>
 
-          </div>{/* end grid inner */}
-          </div>{/* end collapsible */}
+              {/* Stats table */}
+              <div style={{ width: '100%' }}>
+                <div style={{ width: '100%', height: '1px', backgroundColor: '#EDFF00' }} />
+                {[
+                  { label: 'Ballot closes', value: '14 June 2026' },
+                  { label: 'Vineyard',      value: 'Meknes, Morocco' },
+                ].map(({ label, value }) => (
+                  <div key={label}>
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      padding: '0.7rem 0',
+                      fontFamily: 'Vulf Sans, sans-serif',
+                      fontSize: 'clamp(0.75rem, 1.16vw, 20px)',
+                      letterSpacing: '-0.01em',
+                      color: '#EDFF00',
+                      textTransform: 'uppercase',
+                    }}>
+                      <span style={{ fontWeight: 300 }}>{label}</span>
+                      <span style={{ fontWeight: 400 }}>{value}</span>
+                    </div>
+                    <div style={{ width: '100%', height: '1px', backgroundColor: '#EDFF00' }} />
+                  </div>
+                ))}
+              </div>
 
-          {/* Registration form */}
-          <div style={{
-            width: '100%',
-            marginTop: formStep === 'name' ? 0 : 'clamp(0.75rem, 1.2vw, 21px)',
-            transition: 'margin-top 0.45s cubic-bezier(0.4, 0, 0.2, 1)',
-          }}>
-            {formState === 'success' ? (
-              <p style={{
-                fontFamily: 'Vulf Sans, sans-serif',
-                fontWeight: 300,
-                fontSize: '1rem',
-                color: '#EDFF00',
-                lineHeight: 1.65,
-                textAlign: 'center',
-                padding: '1.5rem 0',
-              }}>
-                You&apos;re on the list. If drawn on 14 June you&apos;ll receive
-                a checkout link with 48 hours to complete your purchase.
-              </p>
-            ) : (
+              {/* Spacer + email form */}
+              <div style={{ height: 'clamp(0.75rem, 1.2vw, 21px)' }} />
+              <form onSubmit={advanceToName}>
+                <div style={{
+                  borderBottom: '1.5px solid #00006A',
+                  height: 'clamp(48px, 3.7vw, 64px)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginBottom: '0.65rem',
+                }}>
+                  <input
+                    type="email"
+                    required
+                    placeholder="Your Email Here"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    className="form-input-cream"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      background: 'transparent',
+                      border: 'none',
+                      outline: 'none',
+                      padding: '0 1rem',
+                      fontFamily: 'Vulf Sans, sans-serif',
+                      fontWeight: 300,
+                      fontSize: 'clamp(0.8rem, 1.2vw, 21px)',
+                      letterSpacing: '-0.01em',
+                      color: '#EDFF00',
+                    }}
+                  />
+                </div>
+                <button
+                  type="submit"
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    height: 'clamp(52px, 4.05vw, 70px)',
+                    backgroundColor: '#EDFF00',
+                    color: '#00006A',
+                    border: '2px solid #00006A',
+                    borderRadius: '999px',
+                    fontFamily: 'Vulf Sans, sans-serif',
+                    fontWeight: 300,
+                    fontSize: 'clamp(0.9rem, 1.45vw, 25px)',
+                    letterSpacing: '-0.03em',
+                    textTransform: 'uppercase',
+                    cursor: 'pointer',
+                    transition: 'opacity 0.15s ease',
+                    fontFeatureSettings: "'cv10', 'ss03', 'ss05', 'case', 'ordn', 'dlig'",
+                  }}
+                  onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
+                  onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
+                >
+                  Register Now
+                </button>
+              </form>
+            </div>
+
+            {/* Success overlay */}
+            {formState === 'success' && (
               <div style={{
-                transition: 'opacity 0.32s ease, transform 0.32s ease',
-                opacity: stepIn ? 1 : 0,
-                transform: stepIn ? 'translateY(0)' : 'translateY(10px)',
+                position: 'absolute',
+                inset: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}>
-                {formStep === 'email' ? (
-                  <form onSubmit={advanceToName}>
-                    <div style={{
-                      borderBottom: '1.5px solid #00006A',
-                      height: 'clamp(48px, 3.7vw, 64px)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      marginBottom: '0.65rem',
-                    }}>
-                      <input
-                        type="email"
-                        required
-                        placeholder="Your Email Here"
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                        className="form-input-cream"
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          background: 'transparent',
-                          border: 'none',
-                          outline: 'none',
-                          padding: '0 1rem',
-                          fontFamily: 'Vulf Sans, sans-serif',
-                          fontWeight: 300,
-                          fontSize: 'clamp(0.8rem, 1.2vw, 21px)',
-                          letterSpacing: '-0.01em',
-                          color: '#EDFF00',
-                        }}
-                      />
-                    </div>
-                    <button
-                      type="submit"
-                      style={{
-                        display: 'block',
-                        width: '100%',
-                        height: 'clamp(52px, 4.05vw, 70px)',
-                        backgroundColor: '#EDFF00',
-                        color: '#00006A',
-                        border: '2px solid #00006A',
-                        borderRadius: '999px',
-                        fontFamily: 'Vulf Sans, sans-serif',
-                        fontWeight: 300,
-                        fontSize: 'clamp(0.9rem, 1.45vw, 25px)',
-                        letterSpacing: '-0.03em',
-                        textTransform: 'uppercase',
-                        cursor: 'pointer',
-                        transition: 'opacity 0.15s ease',
-                        fontFeatureSettings: "'cv10', 'ss03', 'ss05', 'case', 'ordn', 'dlig'",
-                      }}
-                      onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
-                      onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
-                    >
-                      Register Now
-                    </button>
-                  </form>
-                ) : (
-                  <form onSubmit={handleSubmit}>
-                    <div style={{
-                      borderBottom: '1.5px solid #00006A',
-                      height: 'clamp(48px, 3.7vw, 64px)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      marginBottom: '0.65rem',
-                    }}>
-                      <input
-                        ref={nameInputRef}
-                        type="text"
-                        required
-                        placeholder="Your Name Here"
-                        value={name}
-                        onChange={e => setName(e.target.value)}
-                        disabled={formState === 'loading'}
-                        className="form-input-cream"
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          background: 'transparent',
-                          border: 'none',
-                          outline: 'none',
-                          padding: '0 1rem',
-                          fontFamily: 'Vulf Sans, sans-serif',
-                          fontWeight: 300,
-                          fontSize: 'clamp(0.8rem, 1.2vw, 21px)',
-                          letterSpacing: '-0.01em',
-                          color: '#EDFF00',
-                        }}
-                      />
-                    </div>
-                    {formState === 'error' && (
-                      <p style={{ color: '#EDFF00', fontSize: '0.75rem', marginBottom: '0.5rem', fontFamily: 'Vulf Sans, sans-serif' }}>
-                        {errorMsg}
-                      </p>
-                    )}
-                    <button
-                      type="submit"
-                      disabled={formState === 'loading'}
-                      style={{
-                        display: 'block',
-                        width: '100%',
-                        height: 'clamp(52px, 4.05vw, 70px)',
-                        backgroundColor: '#EDFF00',
-                        color: '#00006A',
-                        border: '2px solid #00006A',
-                        borderRadius: '999px',
-                        fontFamily: 'Vulf Sans, sans-serif',
-                        fontWeight: 300,
-                        fontSize: 'clamp(0.9rem, 1.45vw, 25px)',
-                        letterSpacing: '-0.03em',
-                        textTransform: 'uppercase',
-                        cursor: formState === 'loading' ? 'wait' : 'pointer',
-                        opacity: formState === 'loading' ? 0.6 : 1,
-                        transition: 'opacity 0.15s ease',
-                        fontFeatureSettings: "'cv10', 'ss03', 'ss05', 'case', 'ordn', 'dlig'",
-                      }}
-                      onMouseOver={e => { if (formState !== 'loading') e.currentTarget.style.opacity = '0.8' }}
-                      onMouseOut={e => { if (formState !== 'loading') e.currentTarget.style.opacity = '1' }}
-                    >
-                      {formState === 'loading' ? '...' : 'Enter Ballot'}
-                    </button>
-                  </form>
-                )}
+                <p style={{
+                  fontFamily: 'Vulf Sans, sans-serif',
+                  fontWeight: 300,
+                  fontSize: '1rem',
+                  color: '#EDFF00',
+                  lineHeight: 1.65,
+                  textAlign: 'center',
+                }}>
+                  You&apos;re on the list. If drawn on 14 June you&apos;ll receive
+                  a checkout link with 48 hours to complete your purchase.
+                </p>
               </div>
             )}
-          </div>
 
+            {/* Name step overlay */}
+            {formStep === 'name' && formState !== 'success' && (
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                opacity: stepIn ? 1 : 0,
+                transform: stepIn ? 'translateY(0)' : 'translateY(8px)',
+                transition: 'opacity 0.32s ease, transform 0.32s ease',
+              }}>
+                <p style={{
+                  fontFamily: 'Vulf Sans, sans-serif',
+                  fontWeight: 300,
+                  fontSize: 'clamp(0.75rem, 1.05vw, 18px)',
+                  color: '#EDFF00',
+                  lineHeight: 1.4,
+                  marginBottom: 'clamp(0.75rem, 1.2vw, 21px)',
+                }}>
+                  Thanks! Now enter your name so we know who we&apos;re dealing with.
+                </p>
+                <form onSubmit={handleSubmit}>
+                  <div style={{
+                    borderBottom: '1.5px solid #00006A',
+                    height: 'clamp(48px, 3.7vw, 64px)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginBottom: '0.65rem',
+                  }}>
+                    <input
+                      ref={nameInputRef}
+                      type="text"
+                      required
+                      placeholder="Your Name Here"
+                      value={name}
+                      onChange={e => setName(e.target.value)}
+                      disabled={formState === 'loading'}
+                      className="form-input-cream"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        background: 'transparent',
+                        border: 'none',
+                        outline: 'none',
+                        padding: '0 1rem',
+                        fontFamily: 'Vulf Sans, sans-serif',
+                        fontWeight: 300,
+                        fontSize: 'clamp(0.8rem, 1.2vw, 21px)',
+                        letterSpacing: '-0.01em',
+                        color: '#EDFF00',
+                      }}
+                    />
+                  </div>
+                  {formState === 'error' && (
+                    <p style={{ color: '#EDFF00', fontSize: '0.75rem', marginBottom: '0.5rem', fontFamily: 'Vulf Sans, sans-serif' }}>
+                      {errorMsg}
+                    </p>
+                  )}
+                  <button
+                    type="submit"
+                    disabled={formState === 'loading'}
+                    style={{
+                      display: 'block',
+                      width: '100%',
+                      height: 'clamp(52px, 4.05vw, 70px)',
+                      backgroundColor: '#EDFF00',
+                      color: '#00006A',
+                      border: '2px solid #00006A',
+                      borderRadius: '999px',
+                      fontFamily: 'Vulf Sans, sans-serif',
+                      fontWeight: 300,
+                      fontSize: 'clamp(0.9rem, 1.45vw, 25px)',
+                      letterSpacing: '-0.03em',
+                      textTransform: 'uppercase',
+                      cursor: formState === 'loading' ? 'wait' : 'pointer',
+                      opacity: formState === 'loading' ? 0.6 : 1,
+                      transition: 'opacity 0.15s ease',
+                      fontFeatureSettings: "'cv10', 'ss03', 'ss05', 'case', 'ordn', 'dlig'",
+                    }}
+                    onMouseOver={e => { if (formState !== 'loading') e.currentTarget.style.opacity = '0.8' }}
+                    onMouseOut={e => { if (formState !== 'loading') e.currentTarget.style.opacity = '1' }}
+                  >
+                    {formState === 'loading' ? '...' : 'Enter Ballot'}
+                  </button>
+                </form>
+              </div>
+            )}
+
+          </div>
         </div>
 
         <OtherLogoGif />

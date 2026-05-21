@@ -199,7 +199,7 @@ html, body {
 
 /* ── Homepage form inputs on red background ─────────────────── */
 .form-input-cream::placeholder {
-  color: rgba(237, 255, 0, 0.4);
+  color: #00006A;
 }
 
 /* ── FAQ accordion icon ─────────────────────────────────────── */
