@@ -28,6 +28,9 @@ export default function Nav({ color = '#00006A', showSound = false, soundOn = fa
       color,
     }}>
       <div style={{ display: 'flex', gap: '0.5rem', pointerEvents: 'all' }}>
+        {pathname !== '/' && (
+          <Link href="/" className="pill-btn">Home</Link>
+        )}
         <Link href="/the-wine" className="pill-btn" style={activePill('/the-wine')}>The Wine</Link>
         <Link href="/how-it-works" className="pill-btn" style={activePill('/how-it-works')}>How it Works</Link>
       </div>

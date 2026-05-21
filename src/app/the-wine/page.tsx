@@ -279,15 +279,15 @@ export default function TheWinePage() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: 'clamp(2rem, 3vw, 52px) clamp(2rem, 5.5vw, 95px) clamp(4rem, 7vw, 120px)',
+        paddingTop: 'clamp(2rem, 3vw, 52px)',
+        paddingBottom: 'clamp(4rem, 7vw, 120px)',
       }}>
         {sectionHeading('In the Box', 'PRODUCT', 'PRODUCT')}
 
         <div style={{
           width: '100%',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: 'clamp(1rem, 2vw, 34px)',
+          display: 'flex',
+          padding: '0 clamp(7px, 0.81vw, 14px)',
         }}>
           {[
             {
@@ -308,39 +308,71 @@ export default function TheWinePage() {
               qty: '1 vial · 100ml',
               desc: 'Cold-pressed from olive trees that share the same soil as the vines. A companion to the wine.',
             },
-          ].map(item => (
-            <div key={item.name} style={{ backgroundColor: 'var(--yellow)', display: 'flex', flexDirection: 'column', border: '2.22px solid #00006A' }}>
-              <img
-                src={item.img}
-                alt={item.name}
-                style={{ width: '100%', height: 'auto', display: 'block' }}
-              />
-              <div style={{ padding: 'clamp(1rem, 1.5vw, 26px)' }}>
+          ].map((item, i) => (
+            <div key={item.name} style={{
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              marginLeft: i > 0 ? '-2.22px' : 0,
+            }}>
+              {/* Arch */}
+              <div style={{
+                border: '2.22px solid #00006A',
+                borderRadius: 'clamp(100px, 16.44vw, 284px) clamp(100px, 16.44vw, 284px) 0 0',
+                backgroundColor: 'var(--red)',
+                overflow: 'hidden',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'flex-end',
+                paddingBottom: 'clamp(12px, 2.03vw, 35px)',
+                aspectRatio: '568 / 715',
+              }}>
+                <img
+                  src={item.img}
+                  alt={item.name}
+                  style={{ width: '37%', height: 'auto', display: 'block' }}
+                />
+              </div>
+              {/* Text panel */}
+              <div style={{
+                backgroundColor: 'var(--yellow)',
+                border: '2.22px solid #00006A',
+                marginTop: '-2.22px',
+                padding: 'clamp(14px, 1.79vw, 31px)',
+                paddingBottom: 'clamp(20px, 2.5vw, 43px)',
+              }}>
                 <p style={{
                   fontFamily: 'Vulf Sans, sans-serif',
                   fontWeight: 700,
-                  fontSize: 'clamp(0.75rem, 0.9vw, 15px)',
+                  fontSize: 'clamp(11px, 1.33vw, 23px)',
                   color: 'var(--blue)',
-                  marginBottom: '0.4rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '-0.03em',
+                  lineHeight: 1.25,
+                  marginBottom: '0.5em',
                 }}>
                   {item.name}
                 </p>
                 <p style={{
                   fontFamily: 'Vulf Sans, sans-serif',
-                  fontWeight: 300,
-                  fontSize: 'clamp(0.7rem, 0.85vw, 14px)',
+                  fontWeight: 400,
+                  fontSize: 'clamp(11px, 1.33vw, 23px)',
                   color: 'var(--blue)',
-                  lineHeight: 1.6,
-                  marginBottom: '0.5rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '-0.03em',
+                  lineHeight: 1.25,
+                  marginBottom: '0.75em',
                 }}>
                   {item.desc}
                 </p>
                 <p style={{
                   fontFamily: 'Vulf Sans, sans-serif',
                   fontWeight: 300,
-                  fontSize: 'clamp(0.65rem, 0.8vw, 13px)',
-                  color: 'rgba(0,0,106,0.55)',
-                  letterSpacing: '0.04em',
+                  fontSize: 'clamp(10px, 1.1vw, 19px)',
+                  color: 'var(--blue)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '-0.03em',
+                  lineHeight: 1.25,
                 }}>
                   {item.qty}
                 </p>

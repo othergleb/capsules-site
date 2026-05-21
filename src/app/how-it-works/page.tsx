@@ -65,7 +65,7 @@ export default function HowItWorksPage() {
         marginTop: 'auto',
         display: 'grid',
         gridTemplateColumns: 'repeat(4, 1fr)',
-        gap: 'clamp(0.75rem, 1.4vw, 24px)',
+        gap: 0,
         padding: '0 clamp(2rem, 4.6vw, 80px) clamp(2rem, 2.3vw, 40px)',
       }}>
         {STEPS.map(step => (
