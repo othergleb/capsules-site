@@ -85,7 +85,7 @@ export async function POST(req: NextRequest) {
     .from('members')
     .select('id, invite_code, companion_id')
     .eq('email', email.toLowerCase().trim())
-    .maybeSingle()
+    .maybeSingle() as { data: { id: string; invite_code: string; companion_id: string | null } | null; error: unknown }
 
   if (error || !member) {
     console.error('[Supabase] member lookup failed', error)
