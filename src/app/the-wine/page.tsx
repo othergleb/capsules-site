@@ -27,7 +27,8 @@ const marqueeStrip = (bg: string, word: keyof typeof MARQUEE_TEXT) => (
     overflow: 'hidden',
     display: 'flex',
     alignItems: 'center',
-    border: '2.22px solid #EDFF00',
+    borderTop: '2.22px solid #EDFF00',
+    borderBottom: '2.22px solid #EDFF00',
   }}>
     <span style={{
       fontFamily: 'Vulf Sans, sans-serif',
@@ -171,7 +172,6 @@ export default function TheWinePage() {
         flexDirection: 'column',
         alignItems: 'center',
         paddingBottom: 'clamp(3rem, 5vw, 86px)',
-        marginTop: '-2.22px',
       }}>
         <div style={{
           width: '100%',
@@ -180,6 +180,7 @@ export default function TheWinePage() {
           overflow: 'hidden',
           border: '2.22px solid #EDFF00',
           position: 'relative',
+          marginTop: '-2.22px',
           marginBottom: 'clamp(2rem, 3.5vw, 60px)',
         }}>
           <video
@@ -228,7 +229,6 @@ export default function TheWinePage() {
         flexDirection: 'column',
         alignItems: 'center',
         paddingBottom: 'clamp(3rem, 5vw, 86px)',
-        marginTop: '-2.22px',
       }}>
         <div style={{
           width: '100%',
@@ -237,6 +237,7 @@ export default function TheWinePage() {
           overflow: 'hidden',
           border: '2.22px solid #EDFF00',
           position: 'relative',
+          marginTop: '-2.22px',
           marginBottom: 'clamp(2rem, 3.5vw, 60px)',
         }}>
           <video
