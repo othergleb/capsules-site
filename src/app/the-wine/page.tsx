@@ -173,9 +173,11 @@ export default function TheWinePage() {
       }}>
         <div style={{
           width: '100%',
-          aspectRatio: '1728 / 973',
-          borderRadius: '50%',
+          aspectRatio: '857 / 482',
+          borderRadius: '486.5px',
           overflow: 'hidden',
+          border: '2.22px solid #EDFF00',
+          boxShadow: '15px 4px 15px 0 rgba(0,0,0,0.42) inset',
           marginBottom: 'clamp(2rem, 3.5vw, 60px)',
         }}>
           <video
@@ -220,9 +222,11 @@ export default function TheWinePage() {
       }}>
         <div style={{
           width: '100%',
-          aspectRatio: '1728 / 973',
-          borderRadius: '50%',
+          aspectRatio: '857 / 482',
+          borderRadius: '486.5px',
           overflow: 'hidden',
+          border: '2.22px solid #EDFF00',
+          boxShadow: '15px 4px 15px 0 rgba(0,0,0,0.42) inset',
           marginBottom: 'clamp(2rem, 3.5vw, 60px)',
         }}>
           <video
