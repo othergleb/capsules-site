@@ -148,9 +148,15 @@ export default function Home() {
   const nameInputRef                  = useRef<HTMLInputElement>(null)
   const [soundOn, setSoundOn]         = useState(false)
 
-  function advanceToName(e: React.FormEvent) {
+  async function advanceToName(e: React.FormEvent) {
     e.preventDefault()
     if (!email) return
+    // Capture email immediately — fire and forget, don't block the UI
+    fetch('/api/capture-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    }).catch(() => {/* silent fail */})
     setStepIn(false)
     setTimeout(() => { setFormStep('name') }, 220)
   }
