@@ -152,16 +152,14 @@ export default function Home() {
     if (!email) return
     setMorphing(true)
     setStepIn(false)
-    setTimeout(() => {
-      setFormStep('name')
-      setMorphing(false)
-    }, 280)
+    setTimeout(() => { setFormStep('name') }, 450)   // swap at circle's midpoint (50% of 900ms)
+    setTimeout(() => { setMorphing(false) }, 900)    // animation complete
   }
 
   useEffect(() => {
     if (formStep === 'name') {
       const fadeIn = setTimeout(() => setStepIn(true), 20)
-      const focus  = setTimeout(() => nameInputRef.current?.focus(), 360)
+      const focus  = setTimeout(() => nameInputRef.current?.focus(), 470) // after box springs open
       return () => { clearTimeout(fadeIn); clearTimeout(focus) }
     }
   }, [formStep])
@@ -329,16 +327,13 @@ export default function Home() {
           Capsule 01
         </h1>
 
-        {/* Red content box — spring-scales on morph, box stays same size throughout */}
+        {/* Red content box — morphs to circle and springs back */}
         <div style={{
           backgroundColor: '#FF3C00',
           maxWidth: 'clamp(300px, 30.15vw, 521px)',
           width: '100%',
           padding: 'clamp(1rem, 1.5vw, 26px)',
-          transform: morphing ? 'scale(0.96)' : 'scale(1)',
-          transition: morphing
-            ? 'transform 0.28s cubic-bezier(0.4, 0, 1, 1)'
-            : 'transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1)',
+          animation: morphing ? 'capsule-morph 0.9s forwards' : 'none',
         }}>
           <div style={{ position: 'relative' }}>
 
