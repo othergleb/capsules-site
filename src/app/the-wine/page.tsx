@@ -21,9 +21,9 @@ const marqueeStrip = (bg: string, word: keyof typeof MARQUEE_TEXT) => (
   <div style={{
     backgroundColor: bg,
     height: 'clamp(28px, 2.6vw, 45px)',
-    lineHeight: 'clamp(28px, 2.6vw, 45px)',
     overflow: 'hidden',
-    whiteSpace: 'nowrap',
+    display: 'flex',
+    alignItems: 'center',
   }}>
     <span style={{
       fontFamily: 'Vulf Sans, sans-serif',
@@ -32,15 +32,18 @@ const marqueeStrip = (bg: string, word: keyof typeof MARQUEE_TEXT) => (
       color: 'var(--yellow)',
       textTransform: 'uppercase',
       letterSpacing: '-0.03em',
-      verticalAlign: 'middle',
+      whiteSpace: 'nowrap',
+      lineHeight: 1,
     }}>
       {MARQUEE_TEXT[word]}
     </span>
   </div>
 )
 
-const labelStyle = {
-  flexShrink: 0,
+const sideLabel = {
+  position: 'absolute' as const,
+  top: '50%',
+  transform: 'translateY(-50%)',
   fontFamily: 'Vulf Sans, sans-serif',
   fontWeight: 300,
   fontSize: 'clamp(10px, 1.45vw, 25px)',
@@ -48,29 +51,26 @@ const labelStyle = {
   textTransform: 'uppercase' as const,
   letterSpacing: '-0.03em',
   lineHeight: 1,
-  width: 'clamp(3rem, 5vw, 86px)',
 }
 
 const sectionHeading = (text: string, leftLabel: string, rightLabel: string) => (
   <div style={{
-    display: 'flex',
-    alignItems: 'center',
+    position: 'relative',
     width: '100%',
+    textAlign: 'center',
     marginBottom: 'clamp(1.5rem, 2.5vw, 43px)',
   }}>
-    <span style={{ ...labelStyle }}>{leftLabel}</span>
+    <span style={{ ...sideLabel, left: 'clamp(1rem, 3.47vw, 60px)' }}>{leftLabel}</span>
     <h2 className="capsules-wordmark" style={{
-      flex: 1,
       fontSize: 'clamp(2.5rem, 5.53vw, 95px)',
       WebkitTextStrokeColor: 'var(--cream)',
       fontStyle: 'italic',
       fontWeight: 900,
       letterSpacing: '0.02em',
-      textAlign: 'center',
     }}>
       {text}
     </h2>
-    <span style={{ ...labelStyle, textAlign: 'right' }}>{rightLabel}</span>
+    <span style={{ ...sideLabel, right: 'clamp(1rem, 3.47vw, 60px)' }}>{rightLabel}</span>
   </div>
 )
 
