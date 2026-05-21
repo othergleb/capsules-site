@@ -1,50 +1,147 @@
 import { NextRequest, NextResponse } from 'next/server'
-// import { createClient } from '@/lib/supabase-server'  // uncomment once Supabase is set up
-// import { Resend } from 'resend'                        // uncomment once Resend is set up
+import { createClient } from '@/lib/supabase-server'
+
+const KLAVIYO_LIST_ID = process.env.KLAVIYO_LIST_ID!
+const KLAVIYO_KEY     = process.env.KLAVIYO_PRIVATE_KEY!
+
+// ── Klaviyo helpers ────────────────────────────────────────────
+
+async function klaviyoCreateProfile(email: string, name: string) {
+  const res = await fetch('https://a.klaviyo.com/api/profiles/', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Klaviyo-API-Key ${KLAVIYO_KEY}`,
+      'Content-Type':  'application/json',
+      'revision':      '2024-02-15',
+    },
+    body: JSON.stringify({
+      data: {
+        type: 'profile',
+        attributes: {
+          email,
+          first_name: name,
+        },
+      },
+    }),
+  })
+
+  // 409 means profile already exists — that's fine, fetch the existing ID
+  if (res.status === 409) {
+    const body = await res.json()
+    return body.errors?.[0]?.meta?.duplicate_profile_id as string | undefined
+  }
+
+  if (!res.ok) {
+    console.error('[Klaviyo] createProfile failed', await res.text())
+    return undefined
+  }
+
+  const body = await res.json()
+  return body.data?.id as string | undefined
+}
+
+async function klaviyoSubscribeToList(profileId: string) {
+  const res = await fetch(
+    `https://a.klaviyo.com/api/lists/${KLAVIYO_LIST_ID}/relationships/profiles/`,
+    {
+      method: 'POST',
+      headers: {
+        'Authorization': `Klaviyo-API-Key ${KLAVIYO_KEY}`,
+        'Content-Type':  'application/json',
+        'revision':      '2024-02-15',
+      },
+      body: JSON.stringify({
+        data: [{ type: 'profile', id: profileId }],
+      }),
+    }
+  )
+
+  if (!res.ok && res.status !== 204) {
+    console.error('[Klaviyo] subscribeToList failed', await res.text())
+  }
+}
+
+async function klaviyoTrackEvent(email: string, name: string, inviteCode: string) {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://capsules.otherwine.co.uk'
+
+  await fetch('https://a.klaviyo.com/api/events/', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Klaviyo-API-Key ${KLAVIYO_KEY}`,
+      'Content-Type':  'application/json',
+      'revision':      '2024-02-15',
+    },
+    body: JSON.stringify({
+      data: {
+        type: 'event',
+        attributes: {
+          metric: { data: { type: 'metric', attributes: { name: 'Ballot Registration' } } },
+          profile: { data: { type: 'profile', attributes: { email } } },
+          properties: {
+            name,
+            invite_link: `${siteUrl}/?ref=${inviteCode}`,
+            ballot_closes: '13 June 2026',
+          },
+        },
+      },
+    }),
+  })
+}
+
+// ── Route handler ──────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
-  const { email } = await req.json()
+  const { email, name } = await req.json()
 
   if (!email || typeof email !== 'string') {
     return NextResponse.json({ error: 'Email is required.' }, { status: 400 })
   }
+  if (!name || typeof name !== 'string') {
+    return NextResponse.json({ error: 'Name is required.' }, { status: 400 })
+  }
 
-  // ── TODO: wire up Supabase ───────────────────────────────────
-  // const supabase = createClient()
-  //
-  // 1. Check if member already exists
-  // const { data: existing } = await supabase
-  //   .from('members')
-  //   .select('id')
-  //   .eq('email', email)
-  //   .single()
-  //
-  // if (existing) {
-  //   return NextResponse.json({ error: 'Already registered.' }, { status: 409 })
-  // }
-  //
-  // 2. Generate member number (auto-increment via Supabase sequence)
-  // const { data: member, error } = await supabase
-  //   .from('members')
-  //   .insert({ email, status: 'registered' })
-  //   .select()
-  //   .single()
-  //
-  // if (error) {
-  //   return NextResponse.json({ error: 'Registration failed.' }, { status: 500 })
-  // }
-  //
-  // 3. Send registration email via Resend (magic link + member number)
-  // const resend = new Resend(process.env.RESEND_API_KEY)
-  // await resend.emails.send({
-  //   from: 'Capsules <capsules@otherwine.co.uk>',
-  //   to: email,
-  //   subject: `You're in — Member #${member.member_number}`,
-  //   // html: RegistrationEmailTemplate({ memberNumber: member.member_number, magicLink: '...' })
-  // })
-  // ────────────────────────────────────────────────────────────
+  const supabase = createClient()
 
-  // Placeholder response (remove once Supabase is wired)
-  console.log(`[DEV] Registration received for: ${email}`)
-  return NextResponse.json({ success: true })
+  // 1. Check for duplicate
+  const { data: existing } = await supabase
+    .from('members')
+    .select('id')
+    .eq('email', email.toLowerCase().trim())
+    .maybeSingle()
+
+  if (existing) {
+    return NextResponse.json({ error: 'This email is already registered.' }, { status: 409 })
+  }
+
+  // 2. Insert member — invite_code is auto-generated by Supabase default
+  const { data: member, error } = await supabase
+    .from('members')
+    .insert({
+      email:  email.toLowerCase().trim(),
+      name:   name.trim(),
+      status: 'registered',
+    })
+    .select()
+    .single()
+
+  if (error || !member) {
+    console.error('[Supabase] insert failed', error)
+    return NextResponse.json({ error: 'Registration failed. Please try again.' }, { status: 500 })
+  }
+
+  // 3. Klaviyo: create profile, subscribe to list, track event
+  try {
+    const profileId = await klaviyoCreateProfile(email, name)
+    if (profileId) {
+      await klaviyoSubscribeToList(profileId)
+      // Store Klaviyo profile ID for future reference
+      await supabase.from('members').update({ klaviyo_id: profileId }).eq('id', member.id)
+    }
+    await klaviyoTrackEvent(email, name.trim(), member.invite_code)
+  } catch (err) {
+    // Don't fail the registration if Klaviyo has a hiccup — member is in DB
+    console.error('[Klaviyo] error during registration', err)
+  }
+
+  return NextResponse.json({ success: true, inviteCode: member.invite_code })
 }

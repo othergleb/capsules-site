@@ -1,21 +1,18 @@
-// Server-side Supabase client (for use in Server Components and API routes)
-// Uncomment once NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY are set in .env.local
+// Server-side Supabase client — uses the service role key so it bypasses RLS.
+// Only ever import this in API routes or Server Components, never in client components.
 
-// import { createServerClient } from '@supabase/ssr'
-// import { cookies } from 'next/headers'
-// import type { Database } from './types'
+import { createClient as createSupabaseClient } from '@supabase/supabase-js'
+import type { Database } from './types'
 
-// export function createClient() {
-//   const cookieStore = cookies()
-//   return createServerClient<Database>(
-//     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-//     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-//     {
-//       cookies: {
-//         get(name) { return cookieStore.get(name)?.value },
-//         set(name, value, options) { cookieStore.set({ name, value, ...options }) },
-//         remove(name, options) { cookieStore.set({ name, value: '', ...options }) },
-//       },
-//     }
-//   )
-// }
+export function createClient() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY
+
+  if (!url || !key) {
+    throw new Error('Missing Supabase environment variables. Check .env.local')
+  }
+
+  return createSupabaseClient<Database>(url, key, {
+    auth: { persistSession: false },
+  })
+}
