@@ -3,18 +3,18 @@ import { createClient } from '@/lib/supabase-server'
 
 const KLAVIYO_KEY = process.env.KLAVIYO_PRIVATE_KEY!
 
-// ── Klaviyo: send companion invitation email ───────────────────
+// ── Klaviyo helpers ────────────────────────────────────────────
 
 async function klaviyoTrackCompanionInvite(
-  referrerEmail: string,
-  referrerName:  string,
+  referrerEmail:  string,
+  referrerName:   string,
   companionEmail: string,
-  inviteCode:    string,
+  inviteCode:     string,
 ) {
   const siteUrl   = process.env.NEXT_PUBLIC_SITE_URL || 'https://capsules.otherwine.co.uk'
   const inviteUrl = `${siteUrl}/?ref=${inviteCode}`
 
-  // Track the event on the referrer's profile
+  // Event on referrer's profile
   await fetch('https://a.klaviyo.com/api/events/', {
     method: 'POST',
     headers: {
@@ -28,18 +28,13 @@ async function klaviyoTrackCompanionInvite(
         attributes: {
           metric: { data: { type: 'metric', attributes: { name: 'Companion Invited' } } },
           profile: { data: { type: 'profile', attributes: { email: referrerEmail } } },
-          properties: {
-            referrer_name:   referrerName,
-            companion_email: companionEmail,
-            invite_link:     inviteUrl,
-          },
+          properties: { referrer_name: referrerName, companion_email: companionEmail, invite_link: inviteUrl },
         },
       },
     }),
   })
 
-  // Track the event on the companion's profile (creates profile if needed)
-  // This is what triggers the invitation email flow in Klaviyo
+  // Event on companion's profile — triggers the invitation email flow
   await fetch('https://a.klaviyo.com/api/events/', {
     method: 'POST',
     headers: {
@@ -53,11 +48,36 @@ async function klaviyoTrackCompanionInvite(
         attributes: {
           metric: { data: { type: 'metric', attributes: { name: 'Companion Invitation Received' } } },
           profile: { data: { type: 'profile', attributes: { email: companionEmail } } },
-          properties: {
-            referrer_name:   referrerName,
-            referrer_email:  referrerEmail,
-            invite_link:     inviteUrl,
-          },
+          properties: { referrer_name: referrerName, referrer_email: referrerEmail, invite_link: inviteUrl },
+        },
+      },
+    }),
+  })
+}
+
+async function klaviyoTrackAdminInvite(
+  referrerName:   string,
+  inviteeEmail:   string,
+  inviteCode:     string,
+) {
+  const siteUrl   = process.env.NEXT_PUBLIC_SITE_URL || 'https://capsules.otherwine.co.uk'
+  const inviteUrl = `${siteUrl}/?ref=${inviteCode}`
+
+  // Event on invitee's profile — triggers the personal invite email flow
+  await fetch('https://a.klaviyo.com/api/events/', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Klaviyo-API-Key ${KLAVIYO_KEY}`,
+      'Content-Type':  'application/json',
+      'revision':      '2024-02-15',
+    },
+    body: JSON.stringify({
+      data: {
+        type: 'event',
+        attributes: {
+          metric: { data: { type: 'metric', attributes: { name: 'Admin Invite Received' } } },
+          profile: { data: { type: 'profile', attributes: { email: inviteeEmail } } },
+          properties: { referrer_name: referrerName, invite_link: inviteUrl },
         },
       },
     }),
@@ -73,7 +93,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 })
   }
 
-  // Basic validation — companion can't invite themselves
   if (email.toLowerCase().trim() === inviteEmail.toLowerCase().trim()) {
     return NextResponse.json({ error: 'You can\'t invite yourself.' }, { status: 400 })
   }
@@ -84,32 +103,46 @@ export async function POST(req: NextRequest) {
   // 1. Find the referrer's member record
   const { data: member, error } = await supabase
     .from('members')
-    .select('id, invite_code, companion_id')
+    .select('id, invite_code, companion_id, is_admin')
     .eq('email', email.toLowerCase().trim())
-    .maybeSingle() as { data: { id: string; invite_code: string; companion_id: string | null } | null; error: unknown }
+    .maybeSingle() as {
+      data: { id: string; invite_code: string; companion_id: string | null; is_admin: boolean } | null
+      error: unknown
+    }
 
   if (error || !member) {
     console.error('[Supabase] member lookup failed', error)
     return NextResponse.json({ error: 'Member not found.' }, { status: 404 })
   }
 
-  // 2. Check they haven't already confirmed a companion
+  // ── Admin path: unlimited invites, no companion pairing ───────
+  if (member.is_admin) {
+    try {
+      await klaviyoTrackAdminInvite(name, inviteEmail, member.invite_code)
+    } catch (err) {
+      console.error('[Klaviyo] admin invite error', err)
+      return NextResponse.json({ error: 'Invite could not be sent. Please try again.' }, { status: 500 })
+    }
+    return NextResponse.json({ success: true })
+  }
+
+  // ── Standard path: one companion, ballot pairing ──────────────
+
+  // Block if companion already confirmed
   if (member.companion_id) {
     return NextResponse.json({ error: 'You already have a confirmed companion.' }, { status: 409 })
   }
 
-  // 3. Store the companion email on the member record
+  // Store companion email
   await supabase
     .from('members')
     .update({ companion_email: inviteEmail.toLowerCase().trim() })
     .eq('id', member.id)
 
-  // 4. Send via Klaviyo
   try {
     await klaviyoTrackCompanionInvite(email, name, inviteEmail, member.invite_code)
   } catch (err) {
     console.error('[Klaviyo] companion invite error', err)
-    // Invite email failed but companion_email is saved — can retry
     return NextResponse.json({ error: 'Invite could not be sent. Please try again.' }, { status: 500 })
   }
 
