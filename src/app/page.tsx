@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 import Nav from '@/components/Nav'
 
 const MAROC_SVG      = '/figma/maroc.svg'
@@ -136,7 +137,10 @@ function FarmerVideo({ src, label, muted }: { src: string; label: string; muted:
 }
 
 // ── Main page ──────────────────────────────────────────────────
-export default function Home() {
+function HomeInner() {
+  const searchParams                  = useSearchParams()
+  const refCode                       = searchParams.get('ref') ?? undefined
+
   const [email, setEmail]             = useState('')
   const [name, setName]               = useState('')
   const [inviteEmail, setInviteEmail] = useState('')
@@ -181,7 +185,7 @@ export default function Home() {
       const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, name }),
+        body: JSON.stringify({ email, name, refCode }),
       })
       if (res.ok) {
         setStepIn(false)
@@ -738,5 +742,13 @@ export default function Home() {
       </section>
 
     </div>
+  )
+}
+
+export default function Home() {
+  return (
+    <Suspense>
+      <HomeInner />
+    </Suspense>
   )
 }
