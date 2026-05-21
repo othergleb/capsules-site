@@ -78,7 +78,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'You can\'t invite yourself.' }, { status: 400 })
   }
 
-  const supabase = createClient()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const supabase = createClient() as any
 
   // 1. Find the referrer's member record
   const { data: member, error } = await supabase

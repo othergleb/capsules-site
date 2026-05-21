@@ -100,7 +100,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Name is required.' }, { status: 400 })
   }
 
-  const supabase = createClient()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const supabase = createClient() as any
 
   // 1. Check for duplicate
   const { data: existing } = await supabase
