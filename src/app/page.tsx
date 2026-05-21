@@ -31,7 +31,7 @@ function OtherLogoVideo() {
 
     video.play().catch(() => {})
 
-    const v = video, c = canvas
+    const v = video, c = canvas, x = ctx
     function draw() {
       if (v.readyState >= 2) {
         const vw = v.videoWidth  || 2000
@@ -40,7 +40,7 @@ function OtherLogoVideo() {
         const sw    = Math.round(0.70 * vw)
         const cropH = Math.round(sw * c.height / c.width)
         const sy    = Math.round(0.51 * vh - cropH / 2)
-        ctx.drawImage(v, sx, sy, sw, cropH, 0, 0, c.width, c.height)
+        x.drawImage(v, sx, sy, sw, cropH, 0, 0, c.width, c.height)
       }
       rafRef.current = requestAnimationFrame(draw)
     }
