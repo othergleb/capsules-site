@@ -68,8 +68,6 @@ const sectionHeading = (text: string, leftLabel: string, rightLabel: string) => 
     <span style={{ ...sideLabel, left: 'clamp(1rem, 3.47vw, 60px)' }}>{leftLabel}</span>
     <h2 className="capsules-wordmark" style={{
       fontSize: 'clamp(2.5rem, 5.53vw, 95px)',
-      WebkitTextStrokeColor: 'var(--cream)',
-      fontStyle: 'italic',
       fontWeight: 900,
       letterSpacing: '0.02em',
     }}>
