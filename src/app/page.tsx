@@ -142,73 +142,26 @@ export default function Home() {
   const [inviteEmail, setInviteEmail] = useState('')
   const [formStep, setFormStep]       = useState<'email' | 'name' | 'invite'>('email')
   const [stepIn, setStepIn]           = useState(true)
-  const [morphing, setMorphing]       = useState(false)
   const [formState, setFormState]     = useState<'idle'|'loading'|'error'>('idle')
   const [inviteState, setInviteState] = useState<'idle'|'loading'|'sent'|'error'>('idle')
   const [errorMsg, setErrorMsg]       = useState('')
   const nameInputRef                  = useRef<HTMLInputElement>(null)
-  const boxRef                        = useRef<HTMLDivElement>(null)
-  const sunflowerRef                  = useRef<HTMLImageElement>(null)
-  const sunRafRef                     = useRef<number>(0)
   const [soundOn, setSoundOn]         = useState(false)
-
-  // Sunflower travels: right along bottom → rises to centre → spins → returns
-  function animateSunflower() {
-    const sf  = sunflowerRef.current
-    const box = boxRef.current
-    if (!sf || !box) return
-    const boxR = box.getBoundingClientRect()
-    const sfR  = sf.getBoundingClientRect()
-    const sfCX = sfR.left - boxR.left + sfR.width  / 2
-    const sfCY = sfR.top  - boxR.top  + sfR.height / 2
-    const odx  = boxR.width  / 2 - sfCX
-    const ody  = boxR.height / 2 - sfCY
-    const t0   = performance.now()
-    const DUR  = 1800
-    const s    = sf  // capture for closure — TypeScript can't narrow ref.current inside nested fn
-    function eio(t: number) { return t < 0.5 ? 2*t*t : -1 + (4-2*t)*t }
-    cancelAnimationFrame(sunRafRef.current)
-    function frame(now: number) {
-      const p = Math.min((now - t0) / DUR, 1)
-      let tx: number, ty: number, rot: number
-      if (p < 0.28) {
-        const t = eio(p / 0.28)
-        tx = odx * t; ty = 0; rot = 0
-      } else if (p < 0.52) {
-        const t = eio((p - 0.28) / 0.24)
-        tx = odx; ty = ody * t; rot = t * 30
-      } else if (p < 0.72) {
-        const t = eio((p - 0.52) / 0.20)
-        tx = odx; ty = ody; rot = 30 + 720 * t
-      } else {
-        const t = eio((p - 0.72) / 0.28)
-        tx = odx * (1 - t); ty = ody * (1 - t); rot = (30 + 720) * (1 - t)
-      }
-      s.style.transform = `translate(${tx}px, ${ty}px) rotate(${rot}deg)`
-      if (p < 1) { sunRafRef.current = requestAnimationFrame(frame) }
-      else        { s.style.transform = '' }
-    }
-    sunRafRef.current = requestAnimationFrame(frame)
-  }
 
   function advanceToName(e: React.FormEvent) {
     e.preventDefault()
-    if (!email || morphing) return
-    setMorphing(true)
-    animateSunflower()
-    setTimeout(() => { setStepIn(false); setFormStep('name') }, 900)
-    setTimeout(() => { setMorphing(false) }, 1800)
+    if (!email) return
+    setStepIn(false)
+    setTimeout(() => { setFormStep('name') }, 220)
   }
 
   useEffect(() => {
-    if (formStep === 'name') {
+    if (formStep === 'name' || formStep === 'invite') {
       const fadeIn = setTimeout(() => setStepIn(true), 20)
-      const focus  = setTimeout(() => nameInputRef.current?.focus(), 480)
+      const focus  = formStep === 'name'
+        ? setTimeout(() => nameInputRef.current?.focus(), 260)
+        : undefined
       return () => { clearTimeout(fadeIn); clearTimeout(focus) }
-    }
-    if (formStep === 'invite') {
-      const fadeIn = setTimeout(() => setStepIn(true), 20)
-      return () => clearTimeout(fadeIn)
     }
   }, [formStep])
 
@@ -395,33 +348,13 @@ export default function Home() {
         </h1>
 
         {/* Red content box */}
-        <div ref={boxRef} style={{
+        <div style={{
           backgroundColor: '#FF3C00',
           maxWidth: 'clamp(300px, 30.15vw, 521px)',
           width: '100%',
           padding: 'clamp(1rem, 1.5vw, 26px)',
           position: 'relative',
         }}>
-
-          {/* Sunflower — sits bottom-left, animated on Register Now */}
-          {formStep !== 'invite' && (
-            <img
-              ref={sunflowerRef}
-              src={SUNFLOWER_SVG}
-              alt=""
-              style={{
-                position: 'absolute',
-                bottom: '-14px',
-                left: '-6px',
-                height: 'clamp(22px, 2.6vw, 44px)',
-                width: 'auto',
-                aspectRatio: '114 / 113',
-                pointerEvents: 'none',
-                zIndex: 5,
-                transformOrigin: 'center center',
-              }}
-            />
-          )}
 
           {formStep === 'invite' ? (
 
@@ -439,7 +372,7 @@ export default function Home() {
                 lineHeight: 1.1,
                 marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
               }}>
-                YOU&apos;RE IN.
+                WINE IS FOR SHARING.
               </p>
               <p style={{
                 fontFamily: 'Vulf Sans, sans-serif',
@@ -449,9 +382,9 @@ export default function Home() {
                 color: '#EDFF00',
                 marginBottom: 'clamp(0.75rem, 1.2vw, 21px)',
               }}>
-                Wine is best shared, and you have one companion invite.
-                If they register, your entries will be linked — if one of
-                you gets drawn, you&apos;ll both get drawn.
+                Though we&apos;re restricting this ballot to one box per person,
+                you can invite one friend. If either of you is drawn, you&apos;ll
+                both be drawn — your fate is linked.
               </p>
               {inviteState === 'sent' ? (
                 <p style={{
@@ -475,7 +408,7 @@ export default function Home() {
                     <input
                       type="email"
                       required
-                      placeholder="Their Email"
+                      placeholder="Companion Email"
                       value={inviteEmail}
                       onChange={e => setInviteEmail(e.target.value)}
                       disabled={inviteState === 'loading'}
@@ -535,10 +468,11 @@ export default function Home() {
             /* ── Screens 1 & 2: email → name ─────────────────────── */
             <div style={{ position: 'relative' }}>
 
-              {/* Email content — holds box height; instantly hidden when on name step */}
+              {/* Email content — holds box height; fades out then hides on name step */}
               <div style={{
                 visibility: formStep === 'name' ? 'hidden' : 'visible',
-                opacity:    formStep === 'name' ? 0 : 1,
+                opacity:    formStep === 'name' ? 0 : (stepIn ? 1 : 0),
+                transition: 'opacity 0.22s ease',
               }}>
 
                 {/* Body copy */}
@@ -684,7 +618,7 @@ export default function Home() {
                     lineHeight: 1.4,
                     marginBottom: 'clamp(0.75rem, 1.2vw, 21px)',
                   }}>
-                    Thanks! Now enter your name so we know who we&apos;re dealing with.
+                    What shall we call you?
                   </p>
                   <form onSubmit={handleSubmit}>
                     <div style={{
