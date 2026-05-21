@@ -154,9 +154,8 @@ export default function Home() {
     e.preventDefault()
     if (!email) return
     setMorphing(true)
-    // swap content at midpoint, while particles are densest
-    setTimeout(() => { setStepIn(false); setFormStep('name') }, 450)
-    setTimeout(() => { setMorphing(false) }, 900)
+    setTimeout(() => { setStepIn(false); setFormStep('name') }, 600)  // mid-swarm
+    setTimeout(() => { setMorphing(false) }, 1300)
   }
 
   useEffect(() => {
@@ -167,7 +166,7 @@ export default function Home() {
     }
   }, [formStep])
 
-  // ── Canvas particle animation ──────────────────────────────────
+  // ── Butterfly particle animation ──────────────────────────────
   useEffect(() => {
     if (!morphing) return
     const canvas = morphCanvasRef.current
@@ -175,67 +174,137 @@ export default function Home() {
     if (!canvas || !box) return
     const ctx = canvas.getContext('2d')
     if (!ctx) return
-    const x = ctx  // captured so closures below see non-null type
+    const x = ctx
 
     const { width, height } = box.getBoundingClientRect()
     const W = Math.round(width)
     const H = Math.round(height)
     canvas.width  = W
     canvas.height = H
+    const cx = W / 2, cy = H / 2
 
-    type P = { x: number; y: number; vx: number; vy: number; rot: number; vr: number; sz: number; born: number }
+    type P = {
+      px: number; py: number       // position
+      vx: number; vy: number       // velocity
+      rot: number; vr: number      // rotation
+      sz: number                   // font size
+      wp: number                   // wing flap phase offset
+      op: number                   // orbit phase offset
+      tx: number; ty: number       // swarm target
+    }
+
     const pts: P[] = []
     const t0 = performance.now()
-    const DUR = 900
+    const DUR = 1300
+    // phases: fly-in 0–0.30 | swarm 0.30–0.65 | fly-out 0.65–1.0
     let lastBatch = -99
 
-    function spawn(now: number) {
+    function spawn() {
+      // enter from top edge, spread wider than box so they converge inward
+      const startX = W * (-0.15 + Math.random() * 1.3)
       pts.push({
-        x: Math.random() * W,
-        y: -6 - Math.random() * 20,
-        vx: (Math.random() - 0.5) * 2.5,
-        vy: 1.8 + Math.random() * 4,
-        rot: (Math.random() - 0.5) * 0.8,
-        vr: (Math.random() - 0.5) * 0.05,
-        sz: Math.round(W * (0.055 + Math.random() * 0.075)),
-        born: now,
+        px: startX,
+        py: -8 - Math.random() * 28,
+        vx: (Math.random() - 0.5) * 3,
+        vy: 2.5 + Math.random() * 3,
+        rot: (Math.random() - 0.5) * 0.5,
+        vr: (Math.random() - 0.5) * 0.035,
+        sz: Math.round(W * (0.048 + Math.random() * 0.062)),
+        wp: Math.random() * Math.PI * 2,
+        op: Math.random() * Math.PI * 2,
+        tx: W * 0.08 + Math.random() * W * 0.84,
+        ty: H * 0.08 + Math.random() * H * 0.84,
       })
+    }
+
+    function drawButterfly(p: P, now: number) {
+      const sz = p.sz
+      // wings flap: y-scale oscillates 0→1 at ~8 Hz
+      const flap  = Math.abs(Math.sin(now * 0.013 + p.wp))
+      const uWH   = sz * 0.72 * flap + 1.5  // upper wing height
+      const lWH   = sz * 0.44 * flap + 1    // lower wing height
+      const uWW   = sz * 1.05               // upper wing width (semi-major)
+      const lWW   = sz * 0.62               // lower wing width
+      const offX  = sz * 1.75              // horizontal centre of upper wings
+      const lOffX = sz * 1.15              // lower wings closer in
+
+      x.save()
+      x.translate(p.px, p.py)
+      x.rotate(p.rot)
+
+      // upper wings (left & right)
+      for (const s of [-1, 1]) {
+        x.beginPath()
+        x.ellipse(s * offX, -uWH * 0.25, uWW, uWH, s * -0.18, 0, Math.PI * 2)
+        x.fillStyle = 'rgba(237,255,0,0.52)'
+        x.fill()
+        x.strokeStyle = '#EDFF00'
+        x.lineWidth = 0.9
+        x.stroke()
+      }
+      // lower wings (left & right) — smaller, angled out more
+      for (const s of [-1, 1]) {
+        x.beginPath()
+        x.ellipse(s * lOffX, lWH * 0.35, lWW, lWH, s * 0.38, 0, Math.PI * 2)
+        x.fillStyle = 'rgba(237,255,0,0.40)'
+        x.fill()
+        x.strokeStyle = '#EDFF00'
+        x.lineWidth = 0.7
+        x.stroke()
+      }
+      // body: "OTHER" text
+      x.font         = `bold ${sz}px 'Bebas Neue', Impact, sans-serif`
+      x.fillStyle    = '#EDFF00'
+      x.textAlign    = 'center'
+      x.textBaseline = 'middle'
+      x.fillText('OTHER', 0, 0)
+
+      x.restore()
     }
 
     function frame(now: number) {
       const elapsed  = now - t0
       const progress = Math.min(elapsed / DUR, 1)
 
-      // burst-spawn in first 58% — more particles as animation progresses
-      if (elapsed - lastBatch > 28 && progress < 0.58) {
-        const burst = Math.round(10 + progress * 28)
-        for (let i = 0; i < burst; i++) spawn(now)
+      // spawn only during fly-in phase
+      if (elapsed - lastBatch > 22 && progress < 0.30) {
+        const burst = Math.round(15 + (progress / 0.30) * 32)
+        for (let i = 0; i < burst; i++) spawn()
         lastBatch = elapsed
       }
 
       x.clearRect(0, 0, W, H)
 
       for (const p of pts) {
-        p.x  += p.vx
-        p.y  += p.vy
-        p.vy += 0.1   // gravity
+        if (progress < 0.32) {
+          // ── fly in: steer toward target with sinusoidal flutter ──
+          const dx = p.tx - p.px, dy = p.ty - p.py
+          p.vx = p.vx * 0.80 + dx * 0.022 + Math.sin(now * 0.005 + p.op) * 1.4
+          p.vy = p.vy * 0.80 + dy * 0.022 + Math.cos(now * 0.006 + p.op) * 0.8
+        } else if (progress < 0.66) {
+          // ── swarm: Lissajous orbit around personal target ──────
+          const ox = p.tx + Math.sin(now * 0.0019 + p.op)        * W * 0.32
+          const oy = p.ty + Math.cos(now * 0.0024 + p.op * 1.35) * H * 0.22
+          const dx = ox - p.px, dy = oy - p.py
+          p.vx = p.vx * 0.87 + dx * 0.028 + Math.sin(now * 0.008 + p.op) * 2.0
+          p.vy = p.vy * 0.87 + dy * 0.028 + Math.cos(now * 0.007 + p.op) * 1.3
+        } else {
+          // ── fly out: scatter away from centre ──────────────────
+          const dx = p.px - cx, dy = p.py - cy
+          const d  = Math.sqrt(dx * dx + dy * dy) || 1
+          p.vx += (dx / d) * 2.2 + (Math.random() - 0.5) * 0.8
+          p.vy += (dy / d) * 2.2 + 0.6 + (Math.random() - 0.5) * 0.8
+        }
+
+        p.px  += p.vx
+        p.py  += p.vy
         p.rot += p.vr
 
-        const age = now - p.born
-        let alpha = Math.min(age / 90, 1)        // quick fade-in
-        if (progress > 0.55) alpha *= 1 - (progress - 0.55) / 0.45  // fade out
-        if (alpha < 0.02) continue
+        // skip once off-canvas during exit (no fade — just gone)
+        if (progress > 0.66 &&
+            (p.py > H + 60 || p.py < -60 || p.px < -120 || p.px > W + 120)) continue
 
-        x.save()
-        x.globalAlpha  = alpha
-        x.translate(p.x, p.y)
-        x.rotate(p.rot)
-        x.font         = `bold ${p.sz}px 'Bebas Neue', Impact, sans-serif`
-        x.fillStyle    = '#EDFF00'
-        x.textAlign    = 'center'
-        x.textBaseline = 'middle'
-        x.fillText('OTHER', 0, 0)
-        x.restore()
+        drawButterfly(p, now)
       }
 
       if (progress < 1) {
