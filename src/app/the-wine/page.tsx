@@ -11,7 +11,7 @@ const DETAILS = [
   ['Format', '75cl · natural cork'],
 ]
 
-const repeat = (word: string, sep = '          ', n = 40) =>
+const repeat = (word: string, sep = '          ', n = 12) =>
   Array.from({ length: n }, () => word).join(sep)
 
 const MARQUEE_TEXT = {
