@@ -171,6 +171,7 @@ export default function TheWinePage() {
         flexDirection: 'column',
         alignItems: 'center',
         paddingBottom: 'clamp(3rem, 5vw, 86px)',
+        marginTop: '-2.22px',
       }}>
         <div style={{
           width: '100%',
@@ -178,7 +179,7 @@ export default function TheWinePage() {
           borderRadius: '486.5px',
           overflow: 'hidden',
           border: '2.22px solid #EDFF00',
-          boxShadow: '15px 4px 15px 0 rgba(0,0,0,0.42) inset',
+          position: 'relative',
           marginBottom: 'clamp(2rem, 3.5vw, 60px)',
         }}>
           <video
@@ -186,6 +187,13 @@ export default function TheWinePage() {
             autoPlay muted loop playsInline
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            borderRadius: '486.5px',
+            boxShadow: '15px 4px 15px 0 rgba(0,0,0,0.42) inset',
+            pointerEvents: 'none',
+          }} />
         </div>
         {sectionHeading('Meknes, Morocco', 'ORIGIN', 'ORIGIN')}
         <div style={{
@@ -220,6 +228,7 @@ export default function TheWinePage() {
         flexDirection: 'column',
         alignItems: 'center',
         paddingBottom: 'clamp(3rem, 5vw, 86px)',
+        marginTop: '-2.22px',
       }}>
         <div style={{
           width: '100%',
@@ -227,7 +236,7 @@ export default function TheWinePage() {
           borderRadius: '486.5px',
           overflow: 'hidden',
           border: '2.22px solid #EDFF00',
-          boxShadow: '15px 4px 15px 0 rgba(0,0,0,0.42) inset',
+          position: 'relative',
           marginBottom: 'clamp(2rem, 3.5vw, 60px)',
         }}>
           <video
@@ -235,6 +244,13 @@ export default function TheWinePage() {
             autoPlay muted loop playsInline
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            borderRadius: '486.5px',
+            boxShadow: '15px 4px 15px 0 rgba(0,0,0,0.42) inset',
+            pointerEvents: 'none',
+          }} />
         </div>
         {sectionHeading('Amphora aged', 'method', 'method')}
         <div style={{
