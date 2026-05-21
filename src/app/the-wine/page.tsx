@@ -11,10 +11,13 @@ const DETAILS = [
   ['Format', '75cl · natural cork'],
 ]
 
-const MARQUEE_TEXT: Record<string, string> = {
-  ORIGIN: 'ORIGIN          ORIGIN          ORIGIN          ORIGIN          ORIGIN          ORIGIN          ORIGIN          ORIGIN          ORIGIN          ORIGIN          ORIGIN          ORIGIN          ORIGIN',
-  METHOD: 'METHOD          METHOD          METHOD          METHOD          METHOD          METHOD          METHOD          METHOD          METHOD          METHOD          METHOD          METHOD          METHOD',
-  BOX:    'BOX          BOX          BOX          BOX          BOX          BOX          BOX          BOX          BOX          BOX          BOX          BOX          BOX          BOX          BOX          BOX',
+const repeat = (word: string, sep = '          ', n = 40) =>
+  Array.from({ length: n }, () => word).join(sep)
+
+const MARQUEE_TEXT = {
+  ORIGIN: repeat('ORIGIN'),
+  METHOD: repeat('METHOD'),
+  BOX:    repeat('BOX'),
 }
 
 const marqueeStrip = (bg: string, word: keyof typeof MARQUEE_TEXT) => (
