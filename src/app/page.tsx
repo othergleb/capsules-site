@@ -387,10 +387,15 @@ export default function Home() {
 
           {/* Stats table */}
           <div style={{ width: '100%' }}>
-            <div style={{ width: '100%', height: '1px', backgroundColor: 'rgba(255,255,245,0.4)' }} />
+            <div style={{ width: '100%', height: '1px', backgroundColor: '#EDFF00' }} />
             {[
+              { label: 'Producer',     value: 'Domaine de la Zouina' },
+              { label: 'Region',       value: 'Meknes, Morocco' },
+              { label: 'Grape',        value: 'Grenache Gris' },
+              { label: 'Vintage',      value: '2023' },
+              { label: 'Method',       value: 'Amphora aged' },
+              { label: 'Format',       value: '75cl · Natural cork' },
               { label: 'Ballot closes', value: '14 June 2026' },
-              { label: 'Vineyard',      value: 'Mknes, Morocco' },
             ].map(({ label, value }) => (
               <div key={label}>
                 <div style={{
@@ -407,7 +412,7 @@ export default function Home() {
                   <span style={{ fontWeight: 300 }}>{label}</span>
                   <span style={{ fontWeight: 400 }}>{value}</span>
                 </div>
-                <div style={{ width: '100%', height: '1px', backgroundColor: 'rgba(255,255,245,0.4)' }} />
+                <div style={{ width: '100%', height: '1px', backgroundColor: '#EDFF00' }} />
               </div>
             ))}
           </div>
@@ -443,7 +448,7 @@ export default function Home() {
                 {formStep === 'email' ? (
                   <form onSubmit={advanceToName}>
                     <div style={{
-                      border: '1.5px solid rgba(255,255,245,0.5)',
+                      border: '1.5px solid #EDFF00',
                       borderRadius: '6px',
                       height: 'clamp(48px, 3.7vw, 64px)',
                       display: 'flex',
@@ -500,7 +505,7 @@ export default function Home() {
                 ) : (
                   <form onSubmit={handleSubmit}>
                     <div style={{
-                      border: '1.5px solid rgba(255,255,245,0.5)',
+                      border: '1.5px solid #EDFF00',
                       borderRadius: '6px',
                       height: 'clamp(48px, 3.7vw, 64px)',
                       display: 'flex',
