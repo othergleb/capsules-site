@@ -335,6 +335,7 @@ export default function TheWinePage() {
               </div>
               {/* Text panel */}
               <div style={{
+                flex: 1,
                 backgroundColor: 'var(--yellow)',
                 border: '2.22px solid #00006A',
                 marginTop: '-2.22px',
