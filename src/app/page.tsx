@@ -52,7 +52,7 @@ function OtherLogoVideo() {
   return (
     <div style={{
       width: '104.1vw',
-      marginLeft: '-2.92vw',
+      alignSelf: 'center',
       aspectRatio: '469 / 103',
       maxWidth: 'calc(25dvh * 469 / 103)',
       overflow: 'hidden',
@@ -240,7 +240,7 @@ function HomeInner() {
         overflow: 'hidden',
         position: 'relative',
         paddingTop: '30px',
-        paddingBottom: 'clamp(0.5rem, 1.2vw, 1.25rem)',
+        paddingBottom: 'clamp(1rem, 2.5vw, 44px)',
       }}>
 
         <OtherLogoVideo />
@@ -329,7 +329,6 @@ function HomeInner() {
           </div>
         </div>
 
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 'clamp(0.5rem, 1.2vw, 1.25rem)', backgroundColor: '#EDFF00' }} />
       </section>
 
       {/* ══════════════════════════════════════════════════════
