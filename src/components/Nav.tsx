@@ -27,14 +27,14 @@ export default function Nav({ color = '#00006A', showSound = false, soundOn = fa
       pointerEvents: 'none',
       color,
     }}>
-      <div style={{ display: 'flex', gap: '0.5rem', pointerEvents: 'all' }}>
+      <div style={{ display: 'flex', gap: 0, pointerEvents: 'all' }}>
         {pathname !== '/' && (
           <Link href="/" className="pill-btn">Home</Link>
         )}
         <Link href="/the-wine" className="pill-btn" style={activePill('/the-wine')}>The Wine</Link>
         <Link href="/how-it-works" className="pill-btn" style={activePill('/how-it-works')}>How it Works</Link>
       </div>
-      <div style={{ display: 'flex', gap: '0.5rem', pointerEvents: 'all' }}>
+      <div style={{ display: 'flex', gap: 0, pointerEvents: 'all' }}>
         {showSound && (
           <button className="pill-btn" onClick={onSoundToggle} style={{ color }}>
             {soundOn ? 'Sound Off' : 'Sound On'}

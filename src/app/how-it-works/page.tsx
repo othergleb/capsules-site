@@ -68,7 +68,7 @@ export default function HowItWorksPage() {
         gap: 0,
         padding: '0 clamp(2rem, 4.6vw, 80px) clamp(2rem, 2.3vw, 40px)',
       }}>
-        {STEPS.map(step => (
+        {STEPS.map((step, i) => (
           <div key={step.num} style={{
             border: '2px solid var(--red)',
             borderRadius: 'clamp(1rem, 2.1vw, 36px)',
@@ -77,6 +77,7 @@ export default function HowItWorksPage() {
             flexDirection: 'column',
             gap: '0.75rem',
             textAlign: 'center',
+            marginLeft: i > 0 ? '-2px' : 0,
           }}>
             <p style={{
               fontFamily: 'Vulf Sans, sans-serif',

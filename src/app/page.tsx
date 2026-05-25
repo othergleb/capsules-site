@@ -151,6 +151,14 @@ function HomeInner() {
   const [errorMsg, setErrorMsg]       = useState('')
   const nameInputRef                  = useRef<HTMLInputElement>(null)
   const [soundOn, setSoundOn]         = useState(false)
+  const yellowRef                     = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      yellowRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }, 4000)
+    return () => clearTimeout(t)
+  }, [])
 
   async function advanceToName(e: React.FormEvent) {
     e.preventDefault()
@@ -333,7 +341,7 @@ function HomeInner() {
       {/* ══════════════════════════════════════════════════════
           CONTENT — yellow
       ══════════════════════════════════════════════════════ */}
-      <section style={{
+      <section ref={yellowRef} style={{
         backgroundColor: '#EDFF00',
         display: 'flex',
         flexDirection: 'column',
