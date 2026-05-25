@@ -147,7 +147,7 @@ function HomeInner() {
   const [formStep, setFormStep]       = useState<'email' | 'name' | 'invite'>('email')
   const [stepIn, setStepIn]           = useState(true)
   const [formState, setFormState]     = useState<'idle'|'loading'|'error'>('idle')
-  const [inviteState, setInviteState] = useState<'idle'|'loading'|'sent'|'error'>('idle')
+  const [inviteState, setInviteState] = useState<'idle'|'loading'|'sent'|'error'|'skipped'>('idle')
   const [errorMsg, setErrorMsg]       = useState('')
   const nameInputRef                  = useRef<HTMLInputElement>(null)
   const [soundOn, setSoundOn]         = useState(false)
@@ -237,6 +237,29 @@ function HomeInner() {
       setInviteState('error')
     }
   }
+
+  function skipName() {
+    setStepIn(false)
+    setTimeout(() => setFormStep('invite'), 220)
+  }
+
+  function skipInvite() {
+    setInviteState('skipped')
+  }
+
+  const stepDots = (current: number) => (
+    <div style={{ display: 'flex', gap: '5px', justifyContent: 'center', marginBottom: 'clamp(0.5rem, 0.8vw, 14px)' }}>
+      {[1, 2, 3].map(i => (
+        <div key={i} style={{
+          width: 6, height: 6, borderRadius: '50%',
+          backgroundColor: i <= current ? '#EDFF00' : 'transparent',
+          border: '1.5px solid #EDFF00',
+          opacity: i > current ? 0.3 : 1,
+          flexShrink: 0,
+        }} />
+      ))}
+    </div>
+  )
 
   return (
     <div style={{ backgroundColor: '#FF3C00', overflow: 'hidden' }}>
@@ -396,6 +419,7 @@ function HomeInner() {
               opacity: stepIn ? 1 : 0,
               transition: 'opacity 0.4s ease',
             }}>
+              {stepDots(3)}
               <p style={{
                 fontFamily: 'Vulf Sans, sans-serif',
                 fontWeight: 700,
@@ -428,7 +452,7 @@ function HomeInner() {
               }}>
                 If either of you is drawn, you&apos;ll both be drawn — your fate is linked.
               </p>
-              {inviteState === 'sent' ? (
+              {inviteState === 'sent' || inviteState === 'skipped' ? (
                 <p style={{
                   fontFamily: 'Vulf Sans, sans-serif',
                   fontWeight: 300,
@@ -436,7 +460,7 @@ function HomeInner() {
                   color: '#EDFF00',
                   lineHeight: 1.4,
                 }}>
-                  Invite sent.
+                  {inviteState === 'sent' ? 'Invite sent.' : 'You\'re registered.'}
                 </p>
               ) : (
                 <form onSubmit={handleInvite}>
@@ -500,6 +524,21 @@ function HomeInner() {
                     onMouseOut={e => { if (inviteState !== 'loading') e.currentTarget.style.opacity = '1' }}
                   >
                     {inviteState === 'loading' ? '...' : 'Send Invite'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={skipInvite}
+                    style={{
+                      background: 'none', border: 'none', cursor: 'pointer',
+                      fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300,
+                      fontSize: 'clamp(0.65rem, 0.9vw, 15px)',
+                      color: '#EDFF00', opacity: 0.5,
+                      textTransform: 'uppercase', letterSpacing: '-0.02em',
+                      marginTop: '0.6rem', display: 'block', width: '100%', textAlign: 'center',
+                      padding: '0.25rem',
+                    }}
+                  >
+                    Skip
                   </button>
                 </form>
               )}
@@ -652,6 +691,7 @@ function HomeInner() {
                   transform: stepIn ? 'translateY(0)' : 'translateY(8px)',
                   transition: 'opacity 0.32s ease, transform 0.32s ease',
                 }}>
+                  {stepDots(2)}
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
                     fontWeight: 300,
@@ -726,6 +766,21 @@ function HomeInner() {
                       {formState === 'loading' ? '...' : 'Enter Ballot'}
                     </button>
                   </form>
+                  <button
+                    type="button"
+                    onClick={skipName}
+                    style={{
+                      background: 'none', border: 'none', cursor: 'pointer',
+                      fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300,
+                      fontSize: 'clamp(0.65rem, 0.9vw, 15px)',
+                      color: '#EDFF00', opacity: 0.5,
+                      textTransform: 'uppercase', letterSpacing: '-0.02em',
+                      marginTop: '0.6rem', display: 'block', width: '100%', textAlign: 'center',
+                      padding: '0.25rem',
+                    }}
+                  >
+                    Skip
+                  </button>
                 </div>
               )}
 
