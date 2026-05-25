@@ -54,7 +54,7 @@ function OtherLogoVideo() {
       width: '104.1vw',
       marginLeft: '-2.92vw',
       aspectRatio: '469 / 103',
-      maxHeight: '25dvh',
+      maxWidth: 'calc(25dvh * 469 / 103)',
       overflow: 'hidden',
       position: 'relative',
       lineHeight: 0,
@@ -240,6 +240,7 @@ function HomeInner() {
         overflow: 'hidden',
         position: 'relative',
         paddingTop: '30px',
+        paddingBottom: 'clamp(0.5rem, 1.2vw, 1.25rem)',
       }}>
 
         <OtherLogoVideo />
