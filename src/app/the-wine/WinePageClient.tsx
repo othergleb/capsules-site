@@ -80,6 +80,11 @@ export default function WinePageClient() {
   const video2Ref = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
+    video1Ref.current?.play().catch(() => {})
+    video2Ref.current?.play().catch(() => {})
+  }, [])
+
+  useEffect(() => {
     if (video1Ref.current) video1Ref.current.muted = !soundOn
     if (video2Ref.current) video2Ref.current.muted = !soundOn
   }, [soundOn])
