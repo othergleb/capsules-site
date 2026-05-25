@@ -155,8 +155,20 @@ function HomeInner() {
 
   useEffect(() => {
     const t = setTimeout(() => {
-      yellowRef.current?.scrollIntoView({ behavior: 'smooth' })
-    }, 4000)
+      const target = yellowRef.current
+      if (!target) return
+      const start = window.scrollY
+      const end = target.getBoundingClientRect().top + window.scrollY
+      const duration = 1600
+      const startTime = performance.now()
+      function step(now: number) {
+        const p = Math.min((now - startTime) / duration, 1)
+        const ease = p < 0.5 ? 2 * p * p : -1 + (4 - 2 * p) * p
+        window.scrollTo(0, start + (end - start) * ease)
+        if (p < 1) requestAnimationFrame(step)
+      }
+      requestAnimationFrame(step)
+    }, 3000)
     return () => clearTimeout(t)
   }, [])
 
