@@ -54,6 +54,7 @@ function OtherLogoVideo() {
       width: '104.1vw',
       marginLeft: '-2.92vw',
       aspectRatio: '469 / 103',
+      maxHeight: '25dvh',
       overflow: 'hidden',
       position: 'relative',
       lineHeight: 0,
@@ -110,8 +111,8 @@ function FarmerVideo({ src, label, muted }: { src: string; label: string; muted:
     <div style={{
       borderRadius: 'clamp(80px, 13.83vw, 239px)',
       overflow: 'hidden',
-      aspectRatio: '843 / 474',
       width: '100%',
+      height: '100%',
       border: '2.22px solid #EDFF00',
       position: 'relative',
       transform: 'translateZ(0)',
@@ -235,10 +236,10 @@ function HomeInner() {
         backgroundColor: '#FF3C00',
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '100vh',
+        height: '100dvh',
+        overflow: 'hidden',
         position: 'relative',
         paddingTop: '30px',
-        paddingBottom: '40px',
       }}>
 
         <OtherLogoVideo />
@@ -250,6 +251,8 @@ function HomeInner() {
           gap: '0.09vw',
           padding: '0 1.5%',
           marginTop: 'clamp(-10px, -1.62vw, -5px)',
+          flex: 1,
+          minHeight: 0,
         }}>
           <FarmerVideo src={FARMER_LEFT}  label="Moroccan farmers in the vineyard" muted={!soundOn} />
           <FarmerVideo src={FARMER_RIGHT} label="Berber farmers working in the Atlas mountains" muted={!soundOn} />
@@ -266,7 +269,7 @@ function HomeInner() {
             style={{ height: 'clamp(50px, 7vw, 121px)', width: 'auto', aspectRatio: '1 / 1', display: 'block' }} />
         </div>
 
-        <div style={{ marginTop: 'clamp(0.5rem, 2.89vw, 50px)', flexShrink: 0 }}>
+        <div style={{ marginTop: 'clamp(0.25rem, 1.5vw, 26px)', flexShrink: 0 }}>
 
           {/* Row 1: Tifinagh left, Arabic right */}
           <div style={{
@@ -336,11 +339,12 @@ function HomeInner() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        minHeight: '69.21vw',
-        paddingTop: 'clamp(2rem, 10.24vw, 177px)',
+        height: '100dvh',
+        overflow: 'hidden',
+        paddingTop: 'clamp(2rem, 8vw, 140px)',
         paddingLeft: 'clamp(1.5rem, 5vw, 4rem)',
         paddingRight: 'clamp(1.5rem, 5vw, 4rem)',
-        paddingBottom: 'clamp(3rem, 6vw, 5rem)',
+        paddingBottom: 'clamp(2rem, 4vw, 70px)',
         position: 'relative',
       }}>
 
