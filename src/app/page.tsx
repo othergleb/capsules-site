@@ -252,9 +252,9 @@ function HomeInner() {
       {[1, 2, 3].map(i => (
         <div key={i} style={{
           width: 6, height: 6, borderRadius: '50%',
-          backgroundColor: i <= current ? '#EDFF00' : 'transparent',
+          backgroundColor: i === current ? '#EDFF00' : 'transparent',
           border: '1.5px solid #EDFF00',
-          opacity: i > current ? 0.3 : 1,
+          opacity: i === current ? 1 : 0.3,
           flexShrink: 0,
         }} />
       ))}
