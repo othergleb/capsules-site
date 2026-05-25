@@ -52,9 +52,8 @@ function OtherLogoVideo() {
   return (
     <div style={{
       width: '104.1vw',
-      alignSelf: 'center',
+      marginLeft: '-2.05vw',
       aspectRatio: '469 / 103',
-      maxWidth: 'calc(25dvh * 469 / 103)',
       overflow: 'hidden',
       position: 'relative',
       lineHeight: 0,
