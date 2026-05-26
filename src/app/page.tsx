@@ -250,7 +250,7 @@ function HomeInner() {
         {/* Star overlapping lower-left of logo — Figma y:295 / 1728 = 17.07vw */}
         <div style={{
           position: 'absolute',
-          top: '17.07vw',
+          top: '15vw',
           left: '17px',
           pointerEvents: 'none',
         }}>
@@ -270,7 +270,7 @@ function HomeInner() {
             <img src={TIFINAGH_SVG} alt="ⵍⵎⵖⵔⵉⴱ"
               style={{ height: 'clamp(10px, 1.97vw, 34px)', width: 'auto', aspectRatio: '171 / 34' }} />
             <img src={ARABIC_SVG} alt="المغرب"
-              style={{ height: 'clamp(16px, 3.18vw, 55px)', width: 'auto', aspectRatio: '161 / 55' }} />
+              style={{ height: 'clamp(16px, 3.18vw, 55px)', width: 'auto', aspectRatio: '161 / 55', transform: 'scaleX(-1)', marginBottom: '0.5vw' }} />
           </div>
 
           {/* Row 2: MAROC L · "Limited Edition Capsules" · MAROC R */}
@@ -302,8 +302,8 @@ function HomeInner() {
               <img src={SUNFLOWER_SVG} alt=""
                 style={{
                   position: 'absolute',
-                  top: '-30%',
-                  left: '-8%',
+                  top: '-45%',
+                  left: '-9%',
                   height: 'clamp(24px, 4.6vw, 80px)',
                   width: 'auto',
                   aspectRatio: '114 / 113',
@@ -329,7 +329,7 @@ function HomeInner() {
         alignItems: 'center',
         height: '100dvh',
         overflow: 'hidden',
-        paddingTop: 'clamp(2rem, 8vw, 140px)',
+        paddingTop: 'clamp(2.5rem, 3.5vw, 60px)',
         paddingLeft: 'clamp(1.5rem, 5vw, 4rem)',
         paddingRight: 'clamp(1.5rem, 5vw, 4rem)',
         paddingBottom: 'clamp(2rem, 4vw, 70px)',
@@ -337,13 +337,17 @@ function HomeInner() {
       }}>
 
         <h1
-          className="capsules-wordmark"
           style={{
-            fontSize: 'clamp(3rem, 5.52vw, 95.5px)',
-            letterSpacing: '0.02em',
-            WebkitTextStrokeColor: '#00006A',
+            fontFamily: 'Vulf Sans, sans-serif',
+            fontSize: 'clamp(3rem, 5.52vw, 95.484px)',
+            fontStyle: 'normal',
+            fontWeight: 900,
+            lineHeight: 1.47,
+            letterSpacing: '1.91px',
+            color: 'transparent',
+            WebkitTextStroke: '2.22px #00006A',
             textAlign: 'center',
-            marginBottom: 'clamp(1.5rem, 3vw, 52px)',
+            marginBottom: 'clamp(1rem, 2.03vw, 35px)',
           }}
         >
           Capsule 01
@@ -352,7 +356,7 @@ function HomeInner() {
         {/* Red content box */}
         <div style={{
           backgroundColor: '#FF3C00',
-          maxWidth: 'clamp(300px, 30.15vw, 521px)',
+          maxWidth: 'clamp(300px, 30.03vw, 519px)',
           width: '100%',
           padding: 'clamp(1rem, 1.5vw, 26px)',
           position: 'relative',
@@ -489,7 +493,7 @@ function HomeInner() {
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
                     fontWeight: 700,
-                    fontSize: 'clamp(0.8rem, 1.014vw, 17.5px)',
+                    fontSize: 'clamp(0.9rem, 1.331vw, 23px)',
                     lineHeight: 1.29,
                     color: '#EDFF00',
                     marginBottom: '1.29em',
@@ -501,7 +505,7 @@ function HomeInner() {
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
                     fontWeight: 400,
-                    fontSize: 'clamp(0.8rem, 1.014vw, 17.5px)',
+                    fontSize: 'clamp(0.9rem, 1.331vw, 23px)',
                     lineHeight: 1.29,
                     color: '#EDFF00',
                     marginBottom: 0,
@@ -511,7 +515,7 @@ function HomeInner() {
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
                     fontWeight: 400,
-                    fontSize: 'clamp(0.8rem, 1.014vw, 17.5px)',
+                    fontSize: 'clamp(0.9rem, 1.331vw, 23px)',
                     lineHeight: 1.29,
                     color: '#EDFF00',
                     marginBottom: 0,
