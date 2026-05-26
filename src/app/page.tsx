@@ -51,8 +51,8 @@ function OtherLogoVideo() {
 
   return (
     <div style={{
-      width: '104.1vw',
-      marginLeft: '-2.05vw',
+      width: 'min(104.1vw, calc(38dvh * 469 / 103))',
+      alignSelf: 'center',
       aspectRatio: '469 / 103',
       overflow: 'hidden',
       position: 'relative',
@@ -142,14 +142,10 @@ function HomeInner() {
   const refCode                       = searchParams.get('ref') ?? undefined
 
   const [email, setEmail]             = useState('')
-  const [name, setName]               = useState('')
   const [inviteEmail, setInviteEmail] = useState('')
-  const [formStep, setFormStep]       = useState<'email' | 'name' | 'invite'>('email')
+  const [formStep, setFormStep]       = useState<'email' | 'invite'>('email')
   const [stepIn, setStepIn]           = useState(true)
-  const [formState, setFormState]     = useState<'idle'|'loading'|'error'>('idle')
   const [inviteState, setInviteState] = useState<'idle'|'loading'|'sent'|'error'|'skipped'>('idle')
-  const [errorMsg, setErrorMsg]       = useState('')
-  const nameInputRef                  = useRef<HTMLInputElement>(null)
   const [soundOn, setSoundOn]         = useState(false)
   const yellowRef                     = useRef<HTMLElement>(null)
 
@@ -172,55 +168,24 @@ function HomeInner() {
     return () => clearTimeout(t)
   }, [])
 
-  async function advanceToName(e: React.FormEvent) {
+  function advanceToInvite(e: React.FormEvent) {
     e.preventDefault()
     if (!email) return
-    // Capture email immediately — fire and forget, don't block the UI
-    fetch('/api/capture-email', {
+    fetch('/api/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email }),
-    }).catch(() => {/* silent fail */})
+      body: JSON.stringify({ email, refCode }),
+    }).catch(() => {})
     setStepIn(false)
-    setTimeout(() => { setFormStep('name') }, 220)
+    setTimeout(() => setFormStep('invite'), 220)
   }
 
   useEffect(() => {
-    if (formStep === 'name' || formStep === 'invite') {
+    if (formStep === 'invite') {
       const fadeIn = setTimeout(() => setStepIn(true), 20)
-      const focus  = formStep === 'name'
-        ? setTimeout(() => nameInputRef.current?.focus(), 260)
-        : undefined
-      return () => { clearTimeout(fadeIn); clearTimeout(focus) }
+      return () => clearTimeout(fadeIn)
     }
   }, [formStep])
-
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    if (!name) return
-    setFormState('loading')
-    setErrorMsg('')
-    try {
-      const res = await fetch('/api/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, name, refCode }),
-      })
-      if (res.ok) {
-        setStepIn(false)
-        setFormStep('invite')
-        setFormState('idle')
-      } else {
-        const data = await res.json()
-        setErrorMsg(data.error || 'Something went wrong.')
-        setFormState('error')
-      }
-    } catch {
-      setErrorMsg('Network error. Please try again.')
-      setFormState('error')
-    }
-  }
 
   async function handleInvite(e: React.FormEvent) {
     e.preventDefault()
@@ -230,7 +195,7 @@ function HomeInner() {
       const res = await fetch('/api/invite', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, name, inviteEmail }),
+        body: JSON.stringify({ email, inviteEmail }),
       })
       setInviteState(res.ok ? 'sent' : 'error')
     } catch {
@@ -238,28 +203,9 @@ function HomeInner() {
     }
   }
 
-  function skipName() {
-    setStepIn(false)
-    setTimeout(() => setFormStep('invite'), 220)
-  }
-
   function skipInvite() {
     setInviteState('skipped')
   }
-
-  const stepDots = (current: number) => (
-    <div style={{ display: 'flex', gap: '5px', justifyContent: 'center', marginBottom: 'clamp(0.5rem, 0.8vw, 14px)' }}>
-      {[1, 2, 3].map(i => (
-        <div key={i} style={{
-          width: 6, height: 6, borderRadius: '50%',
-          backgroundColor: i === current ? '#EDFF00' : 'transparent',
-          border: '1.5px solid #EDFF00',
-          opacity: i === current ? 1 : 0.3,
-          flexShrink: 0,
-        }} />
-      ))}
-    </div>
-  )
 
   return (
     <div style={{ backgroundColor: '#FF3C00', overflow: 'hidden' }}>
@@ -281,7 +227,7 @@ function HomeInner() {
         height: '100dvh',
         overflow: 'hidden',
         position: 'relative',
-        paddingTop: '30px',
+        paddingTop: '0.58vw',
         paddingBottom: 'clamp(1rem, 2.5vw, 44px)',
       }}>
 
@@ -419,7 +365,6 @@ function HomeInner() {
               opacity: stepIn ? 1 : 0,
               transition: 'opacity 0.4s ease',
             }}>
-              {stepDots(3)}
               <p style={{
                 fontFamily: 'Vulf Sans, sans-serif',
                 fontWeight: 700,
@@ -439,18 +384,7 @@ function HomeInner() {
                 color: '#EDFF00',
                 marginBottom: 'clamp(0.75rem, 1.2vw, 21px)',
               }}>
-                Though we&apos;re restricting this ballot to one box per person,
-                you can invite one friend.
-              </p>
-              <p style={{
-                fontFamily: 'Vulf Sans, sans-serif',
-                fontWeight: 300,
-                fontSize: 'clamp(0.78rem, 1.014vw, 17.5px)',
-                lineHeight: 1.4,
-                color: '#EDFF00',
-                marginBottom: 'clamp(0.75rem, 1.2vw, 21px)',
-              }}>
-                If either of you is drawn, you&apos;ll both be drawn — your fate is linked.
+                Invite a companion below and improve your chances of being drawn from the ballot.
               </p>
               {inviteState === 'sent' || inviteState === 'skipped' ? (
                 <p style={{
@@ -546,15 +480,9 @@ function HomeInner() {
 
           ) : (
 
-            /* ── Screens 1 & 2: email → name ─────────────────────── */
+            /* ── Screen 1: email ─────────────────────────────────── */
             <div style={{ position: 'relative' }}>
-
-              {/* Email content — holds box height; fades out then hides on name step */}
-              <div style={{
-                visibility: formStep === 'name' ? 'hidden' : 'visible',
-                opacity:    formStep === 'name' ? 0 : (stepIn ? 1 : 0),
-                transition: 'opacity 0.22s ease',
-              }}>
+              <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease' }}>
 
                 {/* Body copy */}
                 <div style={{ textAlign: 'center', marginBottom: 'clamp(0.75rem, 1.2vw, 21px)' }}>
@@ -622,7 +550,7 @@ function HomeInner() {
 
                 {/* Email form */}
                 <div style={{ height: 'clamp(0.75rem, 1.2vw, 21px)' }} />
-                <form onSubmit={advanceToName}>
+                <form onSubmit={advanceToInvite}>
                   <div style={{
                     borderBottom: '1.5px solid #00006A',
                     height: 'clamp(48px, 3.7vw, 64px)',
@@ -674,115 +602,11 @@ function HomeInner() {
                     onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
                     onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
                   >
-                    Register Now
+                    Enter the Ballot
                   </button>
                 </form>
               </div>
 
-              {/* Name step overlay */}
-              {formStep === 'name' && (
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  opacity: stepIn ? 1 : 0,
-                  transform: stepIn ? 'translateY(0)' : 'translateY(8px)',
-                  transition: 'opacity 0.32s ease, transform 0.32s ease',
-                }}>
-                  {stepDots(2)}
-                  <p style={{
-                    fontFamily: 'Vulf Sans, sans-serif',
-                    fontWeight: 300,
-                    fontSize: 'clamp(0.75rem, 1.05vw, 18px)',
-                    color: '#EDFF00',
-                    lineHeight: 1.4,
-                    marginBottom: 'clamp(0.75rem, 1.2vw, 21px)',
-                  }}>
-                    What shall we call you?
-                  </p>
-                  <form onSubmit={handleSubmit}>
-                    <div style={{
-                      borderBottom: '1.5px solid #00006A',
-                      height: 'clamp(48px, 3.7vw, 64px)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      marginBottom: '0.65rem',
-                    }}>
-                      <input
-                        ref={nameInputRef}
-                        type="text"
-                        required
-                        placeholder="Your Name Here"
-                        value={name}
-                        onChange={e => setName(e.target.value)}
-                        disabled={formState === 'loading'}
-                        className="form-input-cream"
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          background: 'transparent',
-                          border: 'none',
-                          outline: 'none',
-                          padding: '0 1rem',
-                          fontFamily: 'Vulf Sans, sans-serif',
-                          fontWeight: 300,
-                          fontSize: 'clamp(0.8rem, 1.2vw, 21px)',
-                          letterSpacing: '-0.01em',
-                          color: '#EDFF00',
-                        }}
-                      />
-                    </div>
-                    {formState === 'error' && (
-                      <p style={{ color: '#EDFF00', fontSize: '0.75rem', marginBottom: '0.5rem', fontFamily: 'Vulf Sans, sans-serif' }}>
-                        {errorMsg}
-                      </p>
-                    )}
-                    <button
-                      type="submit"
-                      disabled={formState === 'loading'}
-                      style={{
-                        display: 'block',
-                        width: '100%',
-                        height: 'clamp(52px, 4.05vw, 70px)',
-                        backgroundColor: '#EDFF00',
-                        color: '#00006A',
-                        border: '2px solid #00006A',
-                        borderRadius: '999px',
-                        fontFamily: 'Vulf Sans, sans-serif',
-                        fontWeight: 300,
-                        fontSize: 'clamp(0.9rem, 1.45vw, 25px)',
-                        letterSpacing: '-0.03em',
-                        textTransform: 'uppercase',
-                        cursor: formState === 'loading' ? 'wait' : 'pointer',
-                        opacity: formState === 'loading' ? 0.6 : 1,
-                        transition: 'opacity 0.15s ease',
-                        fontFeatureSettings: "'cv10', 'ss03', 'ss05', 'case', 'ordn', 'dlig'",
-                      }}
-                      onMouseOver={e => { if (formState !== 'loading') e.currentTarget.style.opacity = '0.8' }}
-                      onMouseOut={e => { if (formState !== 'loading') e.currentTarget.style.opacity = '1' }}
-                    >
-                      {formState === 'loading' ? '...' : 'Enter Ballot'}
-                    </button>
-                  </form>
-                  <button
-                    type="button"
-                    onClick={skipName}
-                    style={{
-                      background: 'none', border: 'none', cursor: 'pointer',
-                      fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300,
-                      fontSize: 'clamp(0.65rem, 0.9vw, 15px)',
-                      color: '#EDFF00', opacity: 0.5,
-                      textTransform: 'uppercase', letterSpacing: '-0.02em',
-                      marginTop: '0.6rem', display: 'block', width: '100%', textAlign: 'center',
-                      padding: '0.25rem',
-                    }}
-                  >
-                    Skip
-                  </button>
-                </div>
-              )}
 
             </div>
           )}
