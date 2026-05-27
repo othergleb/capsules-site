@@ -630,17 +630,6 @@ function HomeInner() {
                   >
                     Enter the Ballot
                   </button>
-                  <p style={{
-                    fontFamily: 'Vulf Sans, sans-serif',
-                    fontWeight: 400,
-                    fontSize: 'clamp(0.7rem, 0.95vw, 16px)',
-                    color: '#EDFF00',
-                    textAlign: 'center',
-                    lineHeight: 1.4,
-                    marginTop: 'clamp(0.5rem, 0.87vw, 15px)',
-                  }}>
-                    If drawn, you will have 48 hours to purchase your allocation, or pass it on to the next person on the waitlist.
-                  </p>
                 </form>
               </div>
 
