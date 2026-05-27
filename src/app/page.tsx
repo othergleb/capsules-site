@@ -445,6 +445,7 @@ function HomeInner() {
                         fontSize: 'clamp(0.8rem, 1.2vw, 21px)',
                         letterSpacing: '-0.01em',
                         color: '#EDFF00',
+                        textAlign: 'center',
                       }}
                     />
                   </div>
