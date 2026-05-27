@@ -527,7 +527,7 @@ function HomeInner() {
                     color: '#EDFF00',
                     marginBottom: 0,
                   }}>
-                    Available for purchase via ballot only, maximum one entry per person.
+                    Available for purchase via ballot, one entry per person.
                   </p>
                 </div>
 
