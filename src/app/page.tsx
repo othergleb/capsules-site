@@ -415,7 +415,7 @@ function HomeInner() {
                     color: '#EDFF00',
                     marginBottom: 'clamp(0.75rem, 1.2vw, 21px)',
                   }}>
-                    You have one companion invite to share this with a friend.<br /><br />If they accept, you&apos;ll both have a higher chance of securing an allocation.
+                    Wine is for sharing - and you have one companion invite to share this with a friend.<br /><br />If they accept, you&apos;ll both have a higher chance of securing an allocation.
                   </p>
                   <form onSubmit={handleInvite}>
                   <div style={{
