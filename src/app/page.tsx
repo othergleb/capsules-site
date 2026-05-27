@@ -379,7 +379,7 @@ function HomeInner() {
                     lineHeight: 1.1,
                     marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
                   }}>
-                    One step away from unforgettable wine.
+                    BALLOT ENTRY CONFIRMED
                   </p>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
