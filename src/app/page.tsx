@@ -368,42 +368,56 @@ function HomeInner() {
               opacity: stepIn ? 1 : 0,
               transition: 'opacity 0.4s ease',
             }}>
-              <p style={{
-                fontFamily: 'Vulf Sans, sans-serif',
-                fontWeight: 700,
-                fontSize: 'clamp(1rem, 1.45vw, 25px)',
-                color: '#EDFF00',
-                letterSpacing: '-0.01em',
-                lineHeight: 1.1,
-                marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
-              }}>
-                You&apos;ve entered the ballot.
-              </p>
-              <p style={{
-                fontFamily: 'Vulf Sans, sans-serif',
-                fontWeight: 300,
-                fontSize: 'clamp(0.78rem, 1.014vw, 17.5px)',
-                lineHeight: 1.4,
-                color: '#EDFF00',
-                marginBottom: 'clamp(0.75rem, 1.2vw, 21px)',
-              }}>
-                Wine is for sharing - and you have one companion invite to share this with a friend. If they accept, you&apos;ll both have a higher chance of securing an allocation.
-              </p>
               {inviteState === 'sent' || inviteState === 'skipped' ? (
-                <p style={{
-                  fontFamily: 'Vulf Sans, sans-serif',
-                  fontWeight: 300,
-                  fontSize: 'clamp(0.78rem, 1.014vw, 17.5px)',
-                  color: '#EDFF00',
-                  lineHeight: 1.4,
-                }}>
-                  Keep an eye on your emails — the draw is taking place on the 21st June. If you have any queries in the meantime, check out our{' '}
-                  <a href="/faq" style={{ color: '#EDFF00', textDecoration: 'underline' }}>FAQs</a>
-                  {' '}or{' '}
-                  <a href="mailto:info@otherwine.co.uk" style={{ color: '#EDFF00', textDecoration: 'underline' }}>email us</a>.
-                </p>
+                <>
+                  <p style={{
+                    fontFamily: 'Vulf Sans, sans-serif',
+                    fontWeight: 700,
+                    fontSize: 'clamp(1rem, 1.45vw, 25px)',
+                    color: '#EDFF00',
+                    letterSpacing: '-0.01em',
+                    lineHeight: 1.1,
+                    marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
+                  }}>
+                    One step away from unforgettable wine.
+                  </p>
+                  <p style={{
+                    fontFamily: 'Vulf Sans, sans-serif',
+                    fontWeight: 300,
+                    fontSize: 'clamp(0.78rem, 1.014vw, 17.5px)',
+                    color: '#EDFF00',
+                    lineHeight: 1.4,
+                  }}>
+                    Keep an eye on your emails — the draw is taking place on the 21st June. If you have any queries in the meantime, check out our{' '}
+                    <a href="/faq" style={{ color: '#EDFF00', textDecoration: 'underline' }}>FAQs</a>
+                    {' '}or{' '}
+                    <a href="mailto:info@otherwine.co.uk" style={{ color: '#EDFF00', textDecoration: 'underline' }}>email us</a>.
+                  </p>
+                </>
               ) : (
-                <form onSubmit={handleInvite}>
+                <>
+                  <p style={{
+                    fontFamily: 'Vulf Sans, sans-serif',
+                    fontWeight: 700,
+                    fontSize: 'clamp(1rem, 1.45vw, 25px)',
+                    color: '#EDFF00',
+                    letterSpacing: '-0.01em',
+                    lineHeight: 1.1,
+                    marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
+                  }}>
+                    You&apos;ve entered the ballot.
+                  </p>
+                  <p style={{
+                    fontFamily: 'Vulf Sans, sans-serif',
+                    fontWeight: 300,
+                    fontSize: 'clamp(0.78rem, 1.014vw, 17.5px)',
+                    lineHeight: 1.4,
+                    color: '#EDFF00',
+                    marginBottom: 'clamp(0.75rem, 1.2vw, 21px)',
+                  }}>
+                    Wine is for sharing - and you have one companion invite to share this with a friend.<br /><br />If they accept, you&apos;ll both have a higher chance of securing an allocation.
+                  </p>
+                  <form onSubmit={handleInvite}>
                   <div style={{
                     borderBottom: '1.5px solid #00006A',
                     height: 'clamp(48px, 3.7vw, 64px)',
@@ -481,6 +495,7 @@ function HomeInner() {
                     Skip
                   </button>
                 </form>
+                </>
               )}
             </div>
 
