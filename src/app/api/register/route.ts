@@ -6,7 +6,7 @@ const KLAVIYO_KEY     = process.env.KLAVIYO_PRIVATE_KEY!
 
 // ── Klaviyo helpers ────────────────────────────────────────────
 
-async function klaviyoCreateProfile(email: string, name: string) {
+async function klaviyoCreateProfile(email: string) {
   const res = await fetch('https://a.klaviyo.com/api/profiles/', {
     method: 'POST',
     headers: {
@@ -15,17 +15,10 @@ async function klaviyoCreateProfile(email: string, name: string) {
       'revision':      '2024-02-15',
     },
     body: JSON.stringify({
-      data: {
-        type: 'profile',
-        attributes: {
-          email,
-          first_name: name,
-        },
-      },
+      data: { type: 'profile', attributes: { email } },
     }),
   })
 
-  // 409 means profile already exists — that's fine, fetch the existing ID
   if (res.status === 409) {
     const body = await res.json()
     return body.errors?.[0]?.meta?.duplicate_profile_id as string | undefined
@@ -61,7 +54,7 @@ async function klaviyoSubscribeToList(profileId: string) {
   }
 }
 
-async function klaviyoTrackEvent(email: string, name: string, inviteCode: string) {
+async function klaviyoTrackRegistration(email: string, inviteCode: string) {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://capsules.otherwine.co.uk'
 
   await fetch('https://a.klaviyo.com/api/events/', {
@@ -78,9 +71,8 @@ async function klaviyoTrackEvent(email: string, name: string, inviteCode: string
           metric: { data: { type: 'metric', attributes: { name: 'Ballot Registration' } } },
           profile: { data: { type: 'profile', attributes: { email } } },
           properties: {
-            name,
-            invite_link: `${siteUrl}/?ref=${inviteCode}`,
-            ballot_closes: '13 June 2026',
+            invite_link:   `${siteUrl}/?ref=${inviteCode}`,
+            ballot_closes: '20 June 2026',
           },
         },
       },
@@ -88,9 +80,7 @@ async function klaviyoTrackEvent(email: string, name: string, inviteCode: string
   })
 }
 
-// ── Route handler ──────────────────────────────────────────────
-
-async function klaviyoTrackCompanionAccepted(referrerEmail: string, companionName: string) {
+async function klaviyoTrackCompanionAccepted(referrerEmail: string) {
   await fetch('https://a.klaviyo.com/api/events/', {
     method: 'POST',
     headers: {
@@ -104,36 +94,34 @@ async function klaviyoTrackCompanionAccepted(referrerEmail: string, companionNam
         attributes: {
           metric: { data: { type: 'metric', attributes: { name: 'Companion Accepted' } } },
           profile: { data: { type: 'profile', attributes: { email: referrerEmail } } },
-          properties: { companion_name: companionName },
+          properties: {},
         },
       },
     }),
   })
 }
 
+// ── Route handler ──────────────────────────────────────────────
+
 export async function POST(req: NextRequest) {
-  const { email, name, refCode } = await req.json()
+  const { email, refCode } = await req.json()
 
   if (!email || typeof email !== 'string') {
     return NextResponse.json({ error: 'Email is required.' }, { status: 400 })
-  }
-  if (!name || typeof name !== 'string') {
-    return NextResponse.json({ error: 'Name is required.' }, { status: 400 })
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const supabase = createClient() as any
   const cleanEmail = email.toLowerCase().trim()
 
-  // 1. Check for duplicate — if email was captured at step 1, update instead of insert
+  // 1. Check for duplicate
   const { data: existing } = await supabase
     .from('members')
-    .select('id, name')
+    .select('id')
     .eq('email', cleanEmail)
     .maybeSingle()
 
-  if (existing?.name) {
-    // Already fully registered
+  if (existing) {
     return NextResponse.json({ error: 'This email is already registered.' }, { status: 409 })
   }
 
@@ -148,57 +136,44 @@ export async function POST(req: NextRequest) {
     referrer = data ?? null
   }
 
-  // 3. Upsert member (insert or update the partial record from step 1)
-  const { data: member, error } = existing
-    ? await supabase
-        .from('members')
-        .update({
-          name:          name.trim(),
-          status:        referrer ? 'paired' : 'registered',
-          invited_by_id: referrer?.id ?? null,
-        })
-        .eq('id', existing.id)
-        .select()
-        .single()
-    : await supabase
-        .from('members')
-        .insert({
-          email:         cleanEmail,
-          name:          name.trim(),
-          status:        referrer ? 'paired' : 'registered',
-          invited_by_id: referrer?.id ?? null,
-        })
-        .select()
-        .single()
+  // 3. Insert member
+  const { data: member, error } = await supabase
+    .from('members')
+    .insert({
+      email:         cleanEmail,
+      status:        referrer ? 'paired' : 'registered',
+      invited_by_id: referrer?.id ?? null,
+    })
+    .select()
+    .single()
 
   if (error || !member) {
-    console.error('[Supabase] upsert failed', error)
+    console.error('[Supabase] insert failed', error)
     return NextResponse.json({ error: 'Registration failed. Please try again.' }, { status: 500 })
   }
 
-  // 4. If referred — link the referrer's companion_id back and mark them paired
+  // 4. If referred — link referrer's companion_id and mark paired
   if (referrer && !referrer.companion_id) {
     await supabase
       .from('members')
       .update({ companion_id: member.id, status: 'paired' })
       .eq('id', referrer.id)
 
-    // Notify referrer their companion accepted
     try {
-      await klaviyoTrackCompanionAccepted(referrer.email, name.trim())
+      await klaviyoTrackCompanionAccepted(referrer.email)
     } catch (err) {
       console.error('[Klaviyo] companion accepted event failed', err)
     }
   }
 
-  // 5. Klaviyo: create profile, subscribe to list, track registration event
+  // 5. Klaviyo: create profile, subscribe, track event
   try {
-    const profileId = await klaviyoCreateProfile(cleanEmail, name)
+    const profileId = await klaviyoCreateProfile(cleanEmail)
     if (profileId) {
       await klaviyoSubscribeToList(profileId)
       await supabase.from('members').update({ klaviyo_id: profileId }).eq('id', member.id)
     }
-    await klaviyoTrackEvent(cleanEmail, name.trim(), member.invite_code)
+    await klaviyoTrackRegistration(cleanEmail, member.invite_code)
   } catch (err) {
     console.error('[Klaviyo] error during registration', err)
   }

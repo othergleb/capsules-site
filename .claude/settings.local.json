@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(echo \"Dev server PID: $!\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "Bash(npx --yes playwright screenshot --browser chromium http://localhost:3000 /tmp/capsules-before.png)",
+      "Bash(open http://localhost:3000)",
+      "Bash(screencapture -x /tmp/capsules-before.png)",
+      "Bash(ffmpeg -i /Users/gleb/Documents/CLAUDE/capsules-site/public/other-logo.mp4 -vframes 1 -q:v 2 /tmp/logo-frame.jpg)",
+      "Bash(mediainfo /Users/gleb/Documents/CLAUDE/capsules-site/public/other-logo.mp4)",
+      "Bash(avconvert --help)",
+      "Bash(/opt/homebrew/bin/ffmpeg -version)",
+      "Bash(/usr/local/bin/ffmpeg -version)",
+      "Bash(python3 *)",
+      "Bash(qlmanage -t -s 800 -o /tmp/ /Users/gleb/Documents/CLAUDE/capsules-site/public/Other_alt3_yellow_red.mp4)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "mcp__claude_ai_Figma__get_design_context",
+      "mcp__claude_ai_Figma__get_metadata",
+      "mcp__claude_ai_Figma__get_screenshot",
+      "mcp__claude_ai_Figma__whoami",
+      "Bash(npx tsc *)",
+      "Bash(sips -g pixelWidth -g pixelHeight /Users/gleb/Documents/CLAUDE/capsules-site/public/figma/other-logo-yellow.png)",
+      "mcp__claude_ai_Figma__use_figma",
+      "Bash(curl *)",
+      "Bash(git commit *)",
+      "Bash(sips --cropToHeightWidth 888 289 /Users/gleb/Documents/CLAUDE/capsules-site/public/bottle-1.png --out /tmp/bottle-full.png)",
+      "Bash(sips -z 400 130 /tmp/bottle-full.png --out /tmp/bottle-small.png)",
+      "Bash(cp \"/Users/gleb/Downloads/BOTTLE TRANSPARENT.png\" /Users/gleb/Documents/CLAUDE/capsules-site/public/bottle-1.png)",
+      "Bash(cp \"/Users/gleb/Downloads/BOTTLE TRANSPARENT.png\" /Users/gleb/Documents/CLAUDE/capsules-site/public/bottle-2.png)",
+      "Bash(sips -g pixelWidth,pixelHeight,hasAlpha /Users/gleb/Documents/CLAUDE/capsules-site/public/bottle-1.png)",
+      "Bash(sips -g all /Users/gleb/Documents/CLAUDE/capsules-site/public/bottle-1.png)",
+      "Bash(git revert *)",
+      "Bash(ffprobe -v quiet -print_format json -show_streams /Users/gleb/Documents/CLAUDE/capsules-site/public/Other_alt3_yellow_red_6k.mp4)",
+      "Bash(mdls -name kMDItemContentType -name kMDItemFSSize /Users/gleb/Documents/CLAUDE/capsules-site/public/Other_alt3_yellow_red_6k.mp4)",
+      "Bash(git *)"
+    ]
+  }
+}

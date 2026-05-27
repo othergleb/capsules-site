@@ -7,7 +7,6 @@ const KLAVIYO_KEY = process.env.KLAVIYO_PRIVATE_KEY!
 
 async function klaviyoTrackCompanionInvite(
   referrerEmail:  string,
-  referrerName:   string,
   companionEmail: string,
   inviteCode:     string,
 ) {
@@ -28,7 +27,7 @@ async function klaviyoTrackCompanionInvite(
         attributes: {
           metric: { data: { type: 'metric', attributes: { name: 'Companion Invited' } } },
           profile: { data: { type: 'profile', attributes: { email: referrerEmail } } },
-          properties: { referrer_name: referrerName, companion_email: companionEmail, invite_link: inviteUrl },
+          properties: { companion_email: companionEmail, invite_link: inviteUrl },
         },
       },
     }),
@@ -48,7 +47,7 @@ async function klaviyoTrackCompanionInvite(
         attributes: {
           metric: { data: { type: 'metric', attributes: { name: 'Companion Invitation Received' } } },
           profile: { data: { type: 'profile', attributes: { email: companionEmail } } },
-          properties: { referrer_name: referrerName, referrer_email: referrerEmail, invite_link: inviteUrl },
+          properties: { referrer_email: referrerEmail, invite_link: inviteUrl },
         },
       },
     }),
@@ -56,9 +55,8 @@ async function klaviyoTrackCompanionInvite(
 }
 
 async function klaviyoTrackAdminInvite(
-  referrerName:   string,
-  inviteeEmail:   string,
-  inviteCode:     string,
+  inviteeEmail: string,
+  inviteCode:   string,
 ) {
   const siteUrl   = process.env.NEXT_PUBLIC_SITE_URL || 'https://capsules.otherwine.co.uk'
   const inviteUrl = `${siteUrl}/?ref=${inviteCode}`
@@ -77,7 +75,7 @@ async function klaviyoTrackAdminInvite(
         attributes: {
           metric: { data: { type: 'metric', attributes: { name: 'Admin Invite Received' } } },
           profile: { data: { type: 'profile', attributes: { email: inviteeEmail } } },
-          properties: { referrer_name: referrerName, invite_link: inviteUrl },
+          properties: { invite_link: inviteUrl },
         },
       },
     }),
@@ -87,9 +85,9 @@ async function klaviyoTrackAdminInvite(
 // ── Route handler ──────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
-  const { email, name, inviteEmail } = await req.json()
+  const { email, inviteEmail } = await req.json()
 
-  if (!email || !name || !inviteEmail) {
+  if (!email || !inviteEmail) {
     return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 })
   }
 
@@ -118,7 +116,7 @@ export async function POST(req: NextRequest) {
   // ── Admin path: unlimited invites, no companion pairing ───────
   if (member.is_admin) {
     try {
-      await klaviyoTrackAdminInvite(name, inviteEmail, member.invite_code)
+      await klaviyoTrackAdminInvite(inviteEmail, member.invite_code)
     } catch (err) {
       console.error('[Klaviyo] admin invite error', err)
       return NextResponse.json({ error: 'Invite could not be sent. Please try again.' }, { status: 500 })
@@ -140,7 +138,7 @@ export async function POST(req: NextRequest) {
     .eq('id', member.id)
 
   try {
-    await klaviyoTrackCompanionInvite(email, name, inviteEmail, member.invite_code)
+    await klaviyoTrackCompanionInvite(email, inviteEmail, member.invite_code)
   } catch (err) {
     console.error('[Klaviyo] companion invite error', err)
     return NextResponse.json({ error: 'Invite could not be sent. Please try again.' }, { status: 500 })
