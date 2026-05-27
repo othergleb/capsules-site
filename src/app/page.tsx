@@ -83,7 +83,7 @@ function OtherLogoGif() {
     <div style={{
       position: 'absolute',
       left: '0.98vw',
-      bottom: '3.99vw',
+      bottom: '0.64vw',
       width: '21.18vw',
       aspectRatio: '366 / 69',
       backgroundImage: 'url(/d1b1a4182a1186e24123228dd59891419b9ccdd3.gif)',
@@ -327,12 +327,11 @@ function HomeInner() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        height: '100dvh',
-        overflow: 'hidden',
+        minHeight: '100dvh',
         paddingTop: 'clamp(2.5rem, 3.5vw, 60px)',
         paddingLeft: 'clamp(1.5rem, 5vw, 4rem)',
         paddingRight: 'clamp(1.5rem, 5vw, 4rem)',
-        paddingBottom: 'clamp(2rem, 4vw, 70px)',
+        paddingBottom: 'clamp(2rem, 14.64vw, 253px)',
         position: 'relative',
       }}>
 
@@ -356,7 +355,7 @@ function HomeInner() {
         {/* Red content box */}
         <div style={{
           backgroundColor: '#FF3C00',
-          maxWidth: 'clamp(300px, 30.03vw, 519px)',
+          maxWidth: 'clamp(340px, 36vw, 622px)',
           width: '100%',
           padding: 'clamp(1rem, 1.5vw, 26px)',
           position: 'relative',
@@ -378,7 +377,7 @@ function HomeInner() {
                 lineHeight: 1.1,
                 marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
               }}>
-                WINE IS FOR SHARING.
+                You&apos;ve entered the ballot.
               </p>
               <p style={{
                 fontFamily: 'Vulf Sans, sans-serif',
@@ -388,7 +387,7 @@ function HomeInner() {
                 color: '#EDFF00',
                 marginBottom: 'clamp(0.75rem, 1.2vw, 21px)',
               }}>
-                Invite a companion below and improve your chances of being drawn from the ballot.
+                You have one companion invite to use - if they accept, you&apos;ll both have a higher chance of securing an allocation.<br /><br />After all - wine is for sharing.
               </p>
               {inviteState === 'sent' || inviteState === 'skipped' ? (
                 <p style={{
@@ -398,7 +397,10 @@ function HomeInner() {
                   color: '#EDFF00',
                   lineHeight: 1.4,
                 }}>
-                  {inviteState === 'sent' ? 'Invite sent.' : 'You\'re registered.'}
+                  Keep an eye on your emails — the draw is taking place on the 21st June. If you have any queries in the meantime, check out our{' '}
+                  <a href="/faq" style={{ color: '#EDFF00', textDecoration: 'underline' }}>FAQs</a>
+                  {' '}or{' '}
+                  <a href="mailto:info@otherwine.co.uk" style={{ color: '#EDFF00', textDecoration: 'underline' }}>email us</a>.
                 </p>
               ) : (
                 <form onSubmit={handleInvite}>
@@ -468,9 +470,9 @@ function HomeInner() {
                     onClick={skipInvite}
                     style={{
                       background: 'none', border: 'none', cursor: 'pointer',
-                      fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300,
-                      fontSize: 'clamp(0.65rem, 0.9vw, 15px)',
-                      color: '#EDFF00', opacity: 0.5,
+                      fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400,
+                      fontSize: 'clamp(0.75rem, 1.05vw, 18px)',
+                      color: '#EDFF00', opacity: 0.8,
                       textTransform: 'uppercase', letterSpacing: '-0.02em',
                       marginTop: '0.6rem', display: 'block', width: '100%', textAlign: 'center',
                       padding: '0.25rem',
@@ -489,63 +491,67 @@ function HomeInner() {
               <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease' }}>
 
                 {/* Body copy */}
-                <div style={{ textAlign: 'center', marginBottom: 'clamp(0.75rem, 1.2vw, 21px)' }}>
+                <div style={{ textAlign: 'center', marginBottom: 'clamp(0.75rem, 2.54vw, 44px)' }}>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
                     fontWeight: 700,
                     fontSize: 'clamp(0.9rem, 1.331vw, 23px)',
                     lineHeight: 1.29,
+                    letterSpacing: '0.23px',
                     color: '#EDFF00',
                     marginBottom: '1.29em',
                   }}>
-                    The last 480 bottles of an amphora aged grenache,
-                    grown by Berber farmers in the foothills of
-                    the Atlas mountains.
+                    We&apos;ve been given access to the remaining 480 bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco.<br />A rosé so pale, it enters a new classification.
                   </p>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
                     fontWeight: 400,
                     fontSize: 'clamp(0.9rem, 1.331vw, 23px)',
                     lineHeight: 1.29,
+                    letterSpacing: '0.23px',
                     color: '#EDFF00',
                     marginBottom: 0,
                   }}>
-                    £89 including delivery.
-                  </p>
-                  <p style={{
-                    fontFamily: 'Vulf Sans, sans-serif',
-                    fontWeight: 400,
-                    fontSize: 'clamp(0.9rem, 1.331vw, 23px)',
-                    lineHeight: 1.29,
-                    color: '#EDFF00',
-                    marginBottom: 0,
-                  }}>
-                    One bottle of amphora-aged Grenache gris, two bottles of estate rosé,
-                    and a small vial of their olive oil.
+                    Available for purchase via ballot only, maximum one entry per person.
                   </p>
                 </div>
 
-                {/* Stats table */}
-                <div style={{ width: '100%' }}>
+                {/* Contents table */}
+                <div style={{ width: '100%', marginBottom: 'clamp(0.75rem, 3.31vw, 57px)' }}>
+                  <div style={{
+                    padding: 'clamp(4px, 0.33vw, 6px) clamp(18px, 2.79vw, 48px)',
+                    paddingBottom: 'clamp(6px, 0.87vw, 15px)',
+                    fontFamily: 'Vulf Sans, sans-serif',
+                    fontWeight: 400,
+                    fontSize: 'clamp(0.75rem, 1.16vw, 20px)',
+                    lineHeight: 1,
+                    letterSpacing: '-0.2px',
+                    color: '#EDFF00',
+                    textTransform: 'uppercase',
+                  }}>
+                    Inside Capsule 01 (£89)
+                  </div>
                   <div style={{ width: '100%', height: '1px', backgroundColor: '#EDFF00' }} />
                   {[
-                    { label: 'Ballot closes', value: '14 June 2026' },
-                    { label: 'Vineyard',      value: 'Meknes, Morocco' },
-                  ].map(({ label, value }) => (
-                    <div key={label}>
+                    ['1 × bottle',  'Amphora aged Grenache, 2023'],
+                    ['2 × bottles', 'Estate Moroccan Rosé'],
+                    ['1 × vial',    'Award-winning olive oil'],
+                  ].map(([qty, item]) => (
+                    <div key={item}>
                       <div style={{
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
-                        padding: '0.7rem 0',
+                        padding: 'clamp(4px, 0.33vw, 6px) clamp(18px, 2.79vw, 48px)',
                         fontFamily: 'Vulf Sans, sans-serif',
                         fontSize: 'clamp(0.75rem, 1.16vw, 20px)',
-                        letterSpacing: '-0.01em',
+                        lineHeight: 1,
+                        letterSpacing: '-0.2px',
                         color: '#EDFF00',
                         textTransform: 'uppercase',
                       }}>
-                        <span style={{ fontWeight: 300 }}>{label}</span>
-                        <span style={{ fontWeight: 400 }}>{value}</span>
+                        <span style={{ fontWeight: 300 }}>{qty}</span>
+                        <span style={{ fontWeight: 400 }}>{item}</span>
                       </div>
                       <div style={{ width: '100%', height: '1px', backgroundColor: '#EDFF00' }} />
                     </div>
@@ -553,14 +559,13 @@ function HomeInner() {
                 </div>
 
                 {/* Email form */}
-                <div style={{ height: 'clamp(0.75rem, 1.2vw, 21px)' }} />
                 <form onSubmit={advanceToInvite}>
                   <div style={{
                     borderBottom: '1.5px solid #00006A',
-                    height: 'clamp(48px, 3.7vw, 64px)',
+                    height: 'clamp(28px, 2.3vw, 40px)',
                     display: 'flex',
                     alignItems: 'center',
-                    marginBottom: '0.65rem',
+                    marginBottom: 'clamp(0.5rem, 1.79vw, 31px)',
                   }}>
                     <input
                       type="email"
@@ -581,6 +586,7 @@ function HomeInner() {
                         fontSize: 'clamp(0.8rem, 1.2vw, 21px)',
                         letterSpacing: '-0.01em',
                         color: '#EDFF00',
+                        textAlign: 'center',
                       }}
                     />
                   </div>
@@ -588,7 +594,8 @@ function HomeInner() {
                     type="submit"
                     style={{
                       display: 'block',
-                      width: '100%',
+                      width: 'clamp(180px, 17.42vw, 301px)',
+                      margin: '0 auto',
                       height: 'clamp(52px, 4.05vw, 70px)',
                       backgroundColor: '#EDFF00',
                       color: '#00006A',
@@ -608,6 +615,17 @@ function HomeInner() {
                   >
                     Enter the Ballot
                   </button>
+                  <p style={{
+                    fontFamily: 'Vulf Sans, sans-serif',
+                    fontWeight: 400,
+                    fontSize: 'clamp(0.7rem, 0.95vw, 16px)',
+                    color: '#EDFF00',
+                    textAlign: 'center',
+                    lineHeight: 1.4,
+                    marginTop: 'clamp(0.5rem, 0.87vw, 15px)',
+                  }}>
+                    If drawn, you will have 48 hours to purchase your allocation, or pass it on to the next person on the waitlist.
+                  </p>
                 </form>
               </div>
 
@@ -622,7 +640,7 @@ function HomeInner() {
         <img src={DIAMONDS_SVG} alt="" style={{
           position: 'absolute',
           right: '7.58vw',
-          bottom: '14.24vw',
+          bottom: '11.35vw',
           width: '8.68vw',
           height: 'auto',
         }} />
@@ -631,7 +649,7 @@ function HomeInner() {
         <img src="/figma/villa-text.svg" alt="" style={{
           position: 'absolute',
           right: '16.32vw',
-          bottom: '7.99vw',
+          bottom: '4.63vw',
           width: '13.95vw',
           height: 'auto',
         }} />
@@ -640,7 +658,7 @@ function HomeInner() {
         <img src="/figma/villa-volubilia-text.svg" alt="Villa Volubilia" style={{
           position: 'absolute',
           right: '1.39vw',
-          bottom: '4.63vw',
+          bottom: '1.27vw',
           width: '23.84vw',
           height: 'auto',
         }} />

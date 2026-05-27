@@ -25,6 +25,15 @@ const STEPS = [
   },
 ]
 
+const textBase = {
+  fontFamily: 'Vulf Sans, sans-serif',
+  fontSize: 'clamp(14px, 1.33vw, 23px)',
+  color: 'var(--blue)',
+  letterSpacing: '0.23px',
+  lineHeight: 1.29,
+  margin: 0,
+}
+
 export default function HowItWorksPage() {
   return (
     <div style={{
@@ -36,7 +45,7 @@ export default function HowItWorksPage() {
     }}>
       <Nav />
 
-      {/* Intro paragraph — pushed down to roughly the same vertical position as in Figma */}
+      {/* Intro paragraph */}
       <div style={{
         display: 'flex',
         justifyContent: 'center',
@@ -48,15 +57,16 @@ export default function HowItWorksPage() {
         <p style={{
           fontFamily: 'Vulf Sans, sans-serif',
           fontWeight: 700,
-          fontSize: 'clamp(1rem, 1.5vw, 26px)',
+          fontSize: 'clamp(14px, 1.16vw, 20px)',
           color: 'var(--blue)',
           textAlign: 'center',
-          lineHeight: 1.45,
+          lineHeight: 1.29,
+          letterSpacing: '0.2px',
           maxWidth: '640px',
         }}>
-          We allocate by ballot to give everyone an equal shot.
-          Register once, and if you are drawn on 14 June you will receive
-          a checkout link with 48 hours to complete your purchase.
+          We allocate by ballot to give everyone an equal shot.{' '}
+          <br />
+          Register once, and if you are drawn on 14 June you will receive a checkout link with 48 hours to complete your purchase.
         </p>
       </div>
 
@@ -66,47 +76,36 @@ export default function HowItWorksPage() {
         display: 'grid',
         gridTemplateColumns: 'repeat(4, 1fr)',
         gap: 0,
-        padding: '0 clamp(2rem, 4.6vw, 80px) clamp(2rem, 2.3vw, 40px)',
+        padding: '0 clamp(10px, 1.04vw, 18px) clamp(1.5rem, 2.3vw, 40px)',
       }}>
         {STEPS.map((step, i) => (
           <div key={step.num} style={{
-            border: '2px solid var(--red)',
-            borderRadius: 'clamp(1rem, 2.1vw, 36px)',
-            padding: 'clamp(1.5rem, 2.8vw, 48px)',
+            border: '2.22px solid var(--red)',
+            borderRadius: 'clamp(40px, 4.63vw, 80px)',
+            padding: 'clamp(28px, 3.15vw, 54px) clamp(12px, 1.74vw, 30px) clamp(24px, 3vw, 52px)',
             display: 'flex',
             flexDirection: 'column',
-            gap: '0.75rem',
             textAlign: 'center',
-            marginLeft: i > 0 ? '-2px' : 0,
+            marginLeft: i > 0 ? '-2.22px' : 0,
           }}>
             <p style={{
               fontFamily: 'Vulf Sans, sans-serif',
-              fontWeight: 400,
-              fontSize: 'clamp(0.6rem, 0.8vw, 14px)',
+              fontWeight: 300,
+              fontSize: 'clamp(14px, 1.45vw, 25px)',
               color: 'var(--red)',
-              letterSpacing: '0.08em',
+              letterSpacing: '-0.75px',
               textTransform: 'uppercase',
+              lineHeight: 2.5,
+              margin: 0,
+              fontFeatureSettings: "'cv10' 1, 'ss03' 1, 'ss05' 1, 'case' 1, 'ordn' 1, 'dlig' 1",
             }}>
               Step {step.num}
             </p>
-            <p style={{
-              fontFamily: 'Vulf Sans, sans-serif',
-              fontWeight: 700,
-              fontSize: 'clamp(0.9rem, 1.16vw, 20px)',
-              color: 'var(--blue)',
-              textTransform: 'uppercase',
-              letterSpacing: '-0.01em',
-              lineHeight: 1.15,
-            }}>
+            <p style={{ ...textBase, fontWeight: 700, textTransform: 'uppercase' }}>
               {step.title}
             </p>
-            <p style={{
-              fontFamily: 'Vulf Sans, sans-serif',
-              fontWeight: 300,
-              fontSize: 'clamp(0.8rem, 0.95vw, 16px)',
-              color: 'var(--blue)',
-              lineHeight: 1.6,
-            }}>
+            <p style={{ ...textBase, fontWeight: 400 }}>&nbsp;</p>
+            <p style={{ ...textBase, fontWeight: 400 }}>
               {step.body}
             </p>
           </div>

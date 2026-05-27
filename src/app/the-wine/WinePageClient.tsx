@@ -102,8 +102,8 @@ export default function WinePageClient() {
       }}>
         <div style={{
           position: 'absolute',
-          left: 'clamp(1rem, 9.4vw, 162px)',
-          bottom: 0,
+          left: 'clamp(1rem, 9.38vw, 162px)',
+          bottom: 'clamp(24px, 4.75vw, 82px)',
           display: 'flex',
           alignItems: 'flex-end',
         }}>
@@ -128,20 +128,23 @@ export default function WinePageClient() {
           position: 'absolute',
           left: '55.67vw',
           top: '22.86vw',
-          width: 'clamp(260px, 30.03vw, 519px)',
+          width: '30.03vw',
           backgroundColor: 'var(--yellow)',
-          padding: 'clamp(0.75rem, 2.26vw, 39px)',
-          paddingBottom: 'clamp(4rem, 8.97vw, 155px)',
+          paddingTop: '1.27vw',
+          paddingBottom: '1.79vw',
         }}>
-          <div style={{ borderTop: '1.5px solid var(--blue)' }}>
+          <div style={{ margin: '0 1.16vw' }}>
+            {/* Top line */}
+            <div style={{ height: '1.5px', backgroundColor: 'var(--blue)' }} />
+
             {DETAILS.map(([label, val]) => (
               <div key={label} style={{
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                padding: 'clamp(0.4rem, 0.9vw, 15px) 0',
+                height: '1.79vw',
+                padding: '0 1.1vw',
                 borderBottom: '1.5px solid var(--blue)',
-                gap: '1rem',
               }}>
                 <span style={{
                   fontFamily: 'Vulf Sans, sans-serif',
@@ -149,7 +152,9 @@ export default function WinePageClient() {
                   fontSize: 'clamp(0.65rem, 1.16vw, 20px)',
                   color: 'var(--blue)',
                   textTransform: 'uppercase',
-                  letterSpacing: '0.02em',
+                  letterSpacing: '-0.2px',
+                  lineHeight: 1,
+                  whiteSpace: 'nowrap',
                 }}>
                   {label}
                 </span>
@@ -160,11 +165,19 @@ export default function WinePageClient() {
                   color: 'var(--blue)',
                   textAlign: 'right',
                   textTransform: 'uppercase',
+                  letterSpacing: '-0.2px',
+                  lineHeight: 1,
                 }}>
                   {val}
                 </span>
               </div>
             ))}
+
+            {/* Empty yellow section below data rows */}
+            <div style={{ height: '7vw' }} />
+
+            {/* Bottom line */}
+            <div style={{ height: '1.5px', backgroundColor: 'var(--blue)' }} />
           </div>
         </div>
       </section>
@@ -354,39 +367,45 @@ export default function WinePageClient() {
                 marginTop: '-2.22px',
                 padding: 'clamp(14px, 1.79vw, 31px)',
                 paddingBottom: 'clamp(20px, 2.5vw, 43px)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                minHeight: 'clamp(120px, 16vw, 276px)',
               }}>
-                <p style={{
-                  fontFamily: 'Vulf Sans, sans-serif',
-                  fontWeight: 700,
-                  fontSize: 'clamp(11px, 1.33vw, 23px)',
-                  color: 'var(--blue)',
-                  textTransform: 'uppercase',
-                  letterSpacing: '-0.03em',
-                  lineHeight: 1.25,
-                  marginBottom: '0.5em',
-                }}>
-                  {item.name}
-                </p>
-                <p style={{
-                  fontFamily: 'Vulf Sans, sans-serif',
-                  fontWeight: 400,
-                  fontSize: 'clamp(11px, 1.33vw, 23px)',
-                  color: 'var(--blue)',
-                  textTransform: 'uppercase',
-                  letterSpacing: '-0.03em',
-                  lineHeight: 1.25,
-                  marginBottom: '0.75em',
-                }}>
-                  {item.desc}
-                </p>
+                <div>
+                  <p style={{
+                    fontFamily: 'Vulf Sans, sans-serif',
+                    fontWeight: 400,
+                    fontSize: 'clamp(11px, 1.33vw, 23px)',
+                    color: 'var(--blue)',
+                    letterSpacing: '-0.03em',
+                    lineHeight: 1.25,
+                    margin: 0,
+                    textTransform: 'uppercase',
+                  }}>
+                    {item.name}
+                  </p>
+                  <p style={{
+                    fontFamily: 'Vulf Sans, sans-serif',
+                    fontWeight: 300,
+                    fontSize: 'clamp(11px, 1.33vw, 23px)',
+                    color: 'var(--blue)',
+                    letterSpacing: '-0.03em',
+                    lineHeight: 1.25,
+                    margin: 0,
+                  }}>
+                    {item.desc}
+                  </p>
+                </div>
                 <p style={{
                   fontFamily: 'Vulf Sans, sans-serif',
                   fontWeight: 300,
-                  fontSize: 'clamp(10px, 1.1vw, 19px)',
+                  fontSize: 'clamp(11px, 1.33vw, 23px)',
                   color: 'var(--blue)',
-                  textTransform: 'uppercase',
                   letterSpacing: '-0.03em',
                   lineHeight: 1.25,
+                  margin: 0,
+                  textTransform: 'uppercase',
                 }}>
                   {item.qty}
                 </p>

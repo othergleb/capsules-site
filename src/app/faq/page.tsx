@@ -20,49 +20,46 @@ const BALLOT: [string, string][] = [
   ['Does inviting a Companion affect my chances?', 'Yes — companions are linked. If you\'re allocated, your companion is too.'],
 ]
 
-function AccordionSection({ label, items }: { label: string; items: [string, string][] }) {
+const rowText = {
+  fontFamily: 'Vulf Sans, sans-serif',
+  fontSize: 'clamp(14px, 1.16vw, 20px)',
+  color: 'var(--blue)',
+  letterSpacing: '-0.2px',
+  lineHeight: 1.55,
+  margin: 0,
+}
+
+function AccordionSection({ label, items, firstOpen = false }: {
+  label: string
+  items: [string, string][]
+  firstOpen?: boolean
+}) {
   return (
-    <div style={{ marginBottom: '2.5rem' }}>
-      <p style={{
-        fontFamily: 'Vulf Sans, sans-serif',
-        fontWeight: 300,
-        fontSize: 'clamp(0.6rem, 0.75vw, 13px)',
-        letterSpacing: '0.1em',
-        textTransform: 'uppercase',
-        color: 'var(--blue)',
-        marginBottom: '0.5rem',
-      }}>
+    <div style={{ marginBottom: '1.74vw' }}>
+      <p style={{ ...rowText, fontWeight: 300, textTransform: 'uppercase', paddingLeft: '2.26vw' }}>
         {label}
       </p>
-      <div style={{ borderTop: '1.5px solid var(--blue)' }}>
-        {items.map(([q, a]) => (
-          <details key={q} style={{ borderBottom: '1.5px solid var(--blue)' }}>
-            <summary style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              padding: '0.85rem 0',
-              cursor: 'pointer',
-              fontFamily: 'Vulf Sans, sans-serif',
-              fontWeight: 400,
-              fontSize: 'clamp(0.8rem, 0.95vw, 16px)',
-              color: 'var(--blue)',
-              userSelect: 'none',
-            }}>
-              <span>{q}</span>
-              <span className="faq-toggle" style={{ fontSize: '1.3rem', fontWeight: 300 }}>+</span>
+      <div style={{ borderBottom: '2.22px solid var(--blue)' }}>
+        {items.map(([q, a], idx) => (
+          <details
+            key={q}
+            open={idx === 0 && firstOpen}
+            style={{ borderTop: '2.22px solid var(--blue)' }}
+          >
+            <summary style={{ display: 'flex', cursor: 'pointer', userSelect: 'none' }}>
+              <span style={{ ...rowText, fontWeight: 400, flex: '0 0 50%', paddingLeft: '2.26vw' }}>
+                {q}
+              </span>
+              <span className="faq-toggle" style={{ ...rowText, fontWeight: 400, flex: '0 0 50%' }}>
+                +
+              </span>
             </summary>
-            <p style={{
-              fontFamily: 'Vulf Sans, sans-serif',
-              fontWeight: 300,
-              fontSize: 'clamp(0.75rem, 0.9vw, 15px)',
-              color: 'var(--blue)',
-              lineHeight: 1.65,
-              padding: '0.25rem 0 1rem',
-              maxWidth: '520px',
-            }}>
-              {a}
-            </p>
+            <div style={{ display: 'flex' }}>
+              <div style={{ flex: '0 0 50%' }} />
+              <p style={{ ...rowText, fontWeight: 300, flex: '0 0 50%', lineHeight: 1.35, paddingBottom: '0.87vw' }}>
+                {a}
+              </p>
+            </div>
           </details>
         ))}
       </div>
@@ -81,24 +78,23 @@ export default function FAQPage() {
     }}>
       <Nav />
 
-      {/* Header */}
+      {/* Intro text */}
       <div style={{
-        paddingTop: 'clamp(5rem, 9vw, 10rem)',
-        paddingBottom: 'clamp(1.5rem, 3vw, 52px)',
+        paddingTop: 'clamp(5rem, 10.62vw, 12rem)',
+        paddingBottom: 'clamp(2rem, 5.12vw, 6rem)',
         textAlign: 'center',
-        paddingLeft: '2rem',
-        paddingRight: '2rem',
       }}>
         <p style={{
           fontFamily: 'Vulf Sans, sans-serif',
           fontWeight: 700,
-          fontSize: 'clamp(1rem, 1.4vw, 24px)',
+          fontSize: 'clamp(14px, 1.16vw, 20px)',
           color: 'var(--blue)',
-          lineHeight: 1.4,
-          maxWidth: '580px',
+          lineHeight: 1.29,
+          letterSpacing: '0.2px',
           margin: '0 auto',
         }}>
           Everything we&apos;ve been asked. If something&apos;s missing,{' '}
+          <br />
           email capsules@otherwine.co.uk.
         </p>
       </div>
@@ -106,25 +102,25 @@ export default function FAQPage() {
       {/* Yellow accordion box */}
       <div style={{
         backgroundColor: 'var(--yellow)',
-        maxWidth: '820px',
-        marginLeft: 'clamp(2rem, 16.4vw, 284px)',
-        marginRight: 'clamp(2rem, 5vw, 4rem)',
-        marginBottom: 'clamp(5rem, 12vw, 13rem)',
-        padding: 'clamp(1.5rem, 3vw, 52px) clamp(1.5rem, 3.5vw, 60px)',
+        marginLeft: '20.17vw',
+        marginRight: '20.17vw',
+        marginBottom: 'clamp(3rem, 8vw, 10rem)',
+        paddingTop: '1.21vw',
+        paddingBottom: '2.37vw',
       }}>
-        <AccordionSection label="General" items={GENERAL} />
+        <AccordionSection label="General" items={GENERAL} firstOpen />
         <AccordionSection label="The Ballot" items={BALLOT} />
       </div>
 
       {/* Sunflower decoration */}
       <img
-        src="/figma/sunflower.svg"
+        src="/sunflower.svg"
         alt=""
         style={{
           position: 'absolute',
-          right: 'clamp(-1rem, -1.5vw, -1.5rem)',
-          bottom: 'clamp(5rem, 15vw, 15rem)',
-          width: 'clamp(80px, 8vw, 138px)',
+          right: '6.66vw',
+          bottom: '20.34vw',
+          width: '6.48vw',
           height: 'auto',
           pointerEvents: 'none',
         }}
