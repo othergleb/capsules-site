@@ -388,7 +388,7 @@ function HomeInner() {
                     color: '#EDFF00',
                     lineHeight: 1.4,
                   }}>
-                    Keep an eye on your emails — the draw is taking place on the 21st June. If you have any queries in the meantime, check out our{' '}
+                    The draw is on the 21st of June.<br /><br />Keep an eye on your emails - and if you have any queries in the meantime, check out our{' '}
                     <a href="/faq" style={{ color: '#EDFF00', textDecoration: 'underline' }}>FAQs</a>
                     {' '}or{' '}
                     <a href="mailto:info@otherwine.co.uk" style={{ color: '#EDFF00', textDecoration: 'underline' }}>email us</a>.
