@@ -36,7 +36,9 @@
       "Bash(ffprobe -v quiet -print_format json -show_streams /Users/gleb/Documents/CLAUDE/capsules-site/public/Other_alt3_yellow_red_6k.mp4)",
       "Bash(mdls -name kMDItemContentType -name kMDItemFSSize /Users/gleb/Documents/CLAUDE/capsules-site/public/Other_alt3_yellow_red_6k.mp4)",
       "Bash(git *)",
-      "Bash(vercel --version)"
+      "Bash(vercel --version)",
+      "Bash(ffprobe -v quiet -print_format json -show_streams /Users/gleb/Documents/CLAUDE/capsules-site/public/farmer-left.mp4)",
+      "Bash(ffprobe /Users/gleb/Documents/CLAUDE/capsules-site/public/farmer-left.mp4)"
     ]
   }
 }

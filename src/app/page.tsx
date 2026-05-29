@@ -121,8 +121,9 @@ function FarmerVideo({ src, label, muted }: { src: string; label: string; muted:
       <video
         ref={videoRef}
         autoPlay loop muted playsInline
+        preload="auto"
         aria-label={label}
-        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', backgroundColor: '#FF3C00' }}
       >
         <source src={src} type="video/mp4" />
       </video>

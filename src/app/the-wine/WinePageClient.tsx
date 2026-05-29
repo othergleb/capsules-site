@@ -329,8 +329,8 @@ export default function WinePageClient() {
           <video
             ref={video1Ref}
             src="/farmer-right.mp4"
-            autoPlay muted loop playsInline
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            autoPlay muted loop playsInline preload="auto"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', backgroundColor: 'var(--red)' }}
           />
           <div style={{
             position: 'absolute',
@@ -387,8 +387,8 @@ export default function WinePageClient() {
           <video
             ref={video2Ref}
             src="/farmer-left.mp4"
-            autoPlay muted loop playsInline
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            autoPlay muted loop playsInline preload="auto"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', backgroundColor: 'var(--red)' }}
           />
           <div style={{
             position: 'absolute',
