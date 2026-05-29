@@ -1,7 +1,10 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import Link from 'next/link'
 import Nav from '@/components/Nav'
+import MobileNav from '@/components/MobileNav'
+import { useIsMobile } from '@/hooks/useIsMobile'
 
 const DETAILS = [
   ['Producer', 'Domaine de la Zouina'],
@@ -74,7 +77,125 @@ const sectionHeading = (text: string, leftLabel: string, rightLabel: string) => 
   </div>
 )
 
+// ── Mobile product data ────────────────────────────────────────
+const PRODUCTS = [
+  {
+    name: 'Amphora Aged Grenache',
+    img: '/bottle-box-1.png',
+    details: [
+      ['Producer', 'Domaine de la Zouina'],
+      ['Region',   'Meknes, Morocco'],
+      ['Grape',    'Grenache Gris'],
+      ['Vintage',  '2023'],
+      ['Method',   'Amphora aged'],
+      ['Format',   '75cl · natural cork'],
+    ],
+  },
+  {
+    name: 'Estate Rosé',
+    img: '/bottle-box-2.png',
+    details: [
+      ['Producer', 'Domaine de la Zouina'],
+      ['Region',   'Meknes, Morocco'],
+      ['Grape',    'Grenache Gris'],
+      ['Vintage',  '2023'],
+      ['Method',   'Stainless steel'],
+      ['Format',   '75cl · natural cork'],
+    ],
+  },
+  {
+    name: 'Estate Olive Oil',
+    img: '/bottle-box-3.png',
+    details: [
+      ['Producer', 'Domaine de la Zouina'],
+      ['Region',   'Meknes, Morocco'],
+      ['Type',     'Cold-pressed'],
+      ['Harvest',  '2023'],
+      ['Format',   '100ml vial'],
+    ],
+  },
+]
+
+// ── Mobile wine page ───────────────────────────────────────────
+function WinePageMobile() {
+  const [current, setCurrent] = useState(0)
+  const [touchStart, setTouchStart] = useState<number | null>(null)
+  const product = PRODUCTS[current]
+
+  function prev() { setCurrent(c => (c - 1 + PRODUCTS.length) % PRODUCTS.length) }
+  function next() { setCurrent(c => (c + 1) % PRODUCTS.length) }
+
+  function onTouchStart(e: React.TouchEvent) { setTouchStart(e.touches[0].clientX) }
+  function onTouchEnd(e: React.TouchEvent) {
+    if (touchStart === null) return
+    const diff = touchStart - e.changedTouches[0].clientX
+    if (Math.abs(diff) > 50) diff > 0 ? next() : prev()
+    setTouchStart(null)
+  }
+
+  const TH: React.CSSProperties = {
+    fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300,
+    fontSize: '13px', color: '#00006A', textTransform: 'uppercase',
+    letterSpacing: '-0.2px', lineHeight: 1,
+  }
+
+  return (
+    <div style={{ backgroundColor: 'var(--cream)', minHeight: '100dvh', paddingBottom: '41px' }}>
+
+      {/* Logo header */}
+      <Link href="/" style={{ display: 'block', padding: '20px 16px 16px', textAlign: 'center' }}>
+        <img src="/figma/other-logo-yellow.png" alt="OTHER" style={{ height: '44px', width: 'auto' }} />
+      </Link>
+
+      {/* Carousel */}
+      <div
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+        style={{ padding: '0 24px', userSelect: 'none' }}
+      >
+        {/* Product image */}
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-end', minHeight: '340px', padding: '0 32px' }}>
+          <img
+            src={product.img}
+            alt={product.name}
+            style={{ maxHeight: '340px', width: 'auto', maxWidth: '100%', display: 'block' }}
+          />
+        </div>
+
+        {/* Dot indicators */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', padding: '16px 0' }}>
+          {PRODUCTS.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              style={{ width: '8px', height: '8px', borderRadius: '50%', border: 'none', cursor: 'pointer', backgroundColor: i === current ? '#00006A' : 'rgba(0,0,106,0.2)', padding: 0 }}
+            />
+          ))}
+        </div>
+
+        {/* Spec table */}
+        <div style={{ backgroundColor: '#EDFF00', marginBottom: '16px' }}>
+          <div style={{ height: '1.5px', backgroundColor: '#00006A', margin: '0 16px' }} />
+          {product.details.map(([label, val]) => (
+            <div key={label} style={{ margin: '0 16px', borderBottom: '1.5px solid #00006A' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0' }}>
+                <span style={{ ...TH, fontWeight: 300 }}>{label}</span>
+                <span style={{ ...TH, fontWeight: 400 }}>{val}</span>
+              </div>
+            </div>
+          ))}
+          <div style={{ height: '24px' }} />
+          <div style={{ height: '1.5px', backgroundColor: '#00006A', margin: '0 16px' }} />
+        </div>
+      </div>
+
+      <MobileNav />
+    </div>
+  )
+}
+
 export default function WinePageClient() {
+  const isMobile = useIsMobile()
   const [soundOn, setSoundOn] = useState(false)
   const video1Ref = useRef<HTMLVideoElement>(null)
   const video2Ref = useRef<HTMLVideoElement>(null)
@@ -88,6 +209,8 @@ export default function WinePageClient() {
     if (video1Ref.current) video1Ref.current.muted = !soundOn
     if (video2Ref.current) video2Ref.current.muted = !soundOn
   }, [soundOn])
+
+  if (isMobile) return <WinePageMobile />
 
   return (
     <div style={{ backgroundColor: 'var(--red)' }}>

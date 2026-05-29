@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Nav from '@/components/Nav'
+import MobileNav from '@/components/MobileNav'
+import { useIsMobile } from '@/hooks/useIsMobile'
 
 const MAROC_SVG      = '/figma/maroc.svg'
 const ARABIC_SVG     = '/figma/arabic.svg'
@@ -136,10 +138,253 @@ function FarmerVideo({ src, label, muted }: { src: string; label: string; muted:
   )
 }
 
+// ── Mobile homepage ────────────────────────────────────────────
+function HomeMobile() {
+  const searchParams = useSearchParams()
+  const refCode      = searchParams.get('ref') ?? undefined
+
+  const [email, setEmail]             = useState('')
+  const [inviteEmail, setInviteEmail] = useState('')
+  const [formStep, setFormStep]       = useState<'email' | 'invite'>('email')
+  const [stepIn, setStepIn]           = useState(true)
+  const [inviteState, setInviteState] = useState<'idle'|'loading'|'sent'|'error'|'skipped'>('idle')
+  const [soundOn, setSoundOn]         = useState(false)
+
+  function advanceToInvite(e: React.FormEvent) {
+    e.preventDefault()
+    if (!email) return
+    fetch('/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, refCode }),
+    }).catch(() => {})
+    setStepIn(false)
+    setTimeout(() => setFormStep('invite'), 220)
+  }
+
+  useEffect(() => {
+    if (formStep === 'invite') {
+      const t = setTimeout(() => setStepIn(true), 20)
+      return () => clearTimeout(t)
+    }
+  }, [formStep])
+
+  async function handleInvite(e: React.FormEvent) {
+    e.preventDefault()
+    if (!inviteEmail || inviteState !== 'idle') return
+    setInviteState('loading')
+    try {
+      const res = await fetch('/api/invite', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, inviteEmail }),
+      })
+      setInviteState(res.ok ? 'sent' : 'error')
+    } catch {
+      setInviteState('error')
+    }
+  }
+
+  const TEXT: React.CSSProperties = {
+    fontFamily: 'Vulf Sans, sans-serif',
+    color: '#EDFF00',
+  }
+
+  return (
+    <div style={{ backgroundColor: '#FF3C00', overflowX: 'hidden' }}>
+
+      {/* ── Red hero ─────────────────────────────────────── */}
+      <section style={{ backgroundColor: '#FF3C00', paddingBottom: '12px', position: 'relative' }}>
+
+        {/* OTHER logo */}
+        <OtherLogoVideo />
+
+        {/* Videos stacked */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '8px 7px 0' }}>
+          <div style={{ borderRadius: 'clamp(60px,28vw,120px)', overflow: 'hidden', aspectRatio: '380/214', border: '2.22px solid #EDFF00', position: 'relative' }}>
+            <FarmerVideo src={FARMER_LEFT}  label="Moroccan farmers in the vineyard" muted={!soundOn} />
+          </div>
+          <div style={{ borderRadius: 'clamp(60px,28vw,120px)', overflow: 'hidden', aspectRatio: '380/214', border: '2.22px solid #EDFF00', position: 'relative' }}>
+            <FarmerVideo src={FARMER_RIGHT} label="Berber farmers working in the Atlas mountains" muted={!soundOn} />
+          </div>
+        </div>
+
+        {/* Script text row */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 12px 4px' }}>
+          <img src={TIFINAGH_SVG} alt="ⵍⵎⵖⵔⵉⴱ" style={{ height: '10px', width: 'auto' }} />
+          <img src={ARABIC_SVG}   alt="المغرب"   style={{ height: '17px', width: 'auto', transform: 'scaleX(-1)' }} />
+        </div>
+        {/* MAROC row */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 7px 4px' }}>
+          <img src={MAROC_SVG} alt="MAROC" style={{ height: 'clamp(30px,8vw,48px)', width: 'auto' }} />
+          <span style={{ ...TEXT, fontWeight: 400, fontSize: 'clamp(0.5rem,3.5vw,14px)', letterSpacing: '0.05em', whiteSpace: 'nowrap' }}>
+            Limited Edition Capsules
+          </span>
+          <div style={{ position: 'relative' }}>
+            <img src={SUNFLOWER_SVG} alt="" style={{ position: 'absolute', top: '-45%', left: '-9%', height: 'clamp(18px,7vw,36px)', width: 'auto', pointerEvents: 'none', zIndex: 1 }} />
+            <img src={MAROC_SVG} alt="MAROC" style={{ height: 'clamp(30px,8vw,48px)', width: 'auto' }} />
+          </div>
+        </div>
+
+        {/* Sound toggle */}
+        <div style={{ textAlign: 'right', padding: '0 12px 6px' }}>
+          <button onClick={() => setSoundOn(s => !s)} style={{ ...TEXT, background: 'none', border: 'none', cursor: 'pointer', fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 300, opacity: 0.75 }}>
+            {soundOn ? 'Sound Off' : 'Sound On'}
+          </button>
+        </div>
+      </section>
+
+      {/* ── Yellow content ───────────────────────────────── */}
+      <section style={{
+        backgroundColor: '#EDFF00',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        paddingTop: '28px',
+        paddingLeft: '16px',
+        paddingRight: '16px',
+        paddingBottom: '80px', // space for mobile nav
+        position: 'relative',
+      }}>
+
+        <h1 style={{
+          fontFamily: 'Vulf Sans, sans-serif',
+          fontSize: 'clamp(2.5rem,13vw,4rem)',
+          fontWeight: 900,
+          letterSpacing: '1.5px',
+          color: 'transparent',
+          WebkitTextStroke: '2px #00006A',
+          textAlign: 'center',
+          marginBottom: '20px',
+          lineHeight: 1.4,
+        }}>
+          Capsule 01
+        </h1>
+
+        {/* Red form box */}
+        <div style={{ backgroundColor: '#FF3C00', width: '100%', maxWidth: '440px', padding: '16px', position: 'relative' }}>
+
+          {formStep === 'invite' ? (
+
+            /* ── Confirmed / Invite ─── */
+            <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease' }}>
+              {inviteState === 'sent' || inviteState === 'skipped' ? (
+                <>
+                  <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.9rem,4.5vw,18px)', letterSpacing: '-0.01em', lineHeight: 1.1, marginBottom: '12px' }}>
+                    BALLOT ENTRY CONFIRMED
+                  </p>
+                  <p style={{ ...TEXT, fontWeight: 300, fontSize: 'clamp(0.75rem,3.5vw,15px)', lineHeight: 1.4 }}>
+                    The draw is on the 21st of June.<br /><br />
+                    Keep an eye on your emails - and if you have any queries in the meantime, check out our{' '}
+                    <a href="/faq" style={{ color: '#EDFF00', textDecoration: 'underline' }}>FAQs</a>
+                    {' '}or{' '}
+                    <a href="mailto:info@otherwine.co.uk" style={{ color: '#EDFF00', textDecoration: 'underline' }}>email us</a>.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.9rem,4.5vw,18px)', letterSpacing: '-0.01em', lineHeight: 1.1, marginBottom: '12px' }}>
+                    You&apos;ve entered the ballot.
+                  </p>
+                  <p style={{ ...TEXT, fontWeight: 300, fontSize: 'clamp(0.75rem,3.5vw,15px)', lineHeight: 1.4, marginBottom: '16px' }}>
+                    You have one companion invite to share with a friend.<br /><br />
+                    Once they accept, your fates will be tied - if either of you get drawn, the other will too.<br /><br />
+                    Double the chances of winning, and someone to share the experience with.
+                  </p>
+                  <form onSubmit={handleInvite}>
+                    <div style={{ borderBottom: '1.5px solid #00006A', height: '44px', display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                      <input
+                        type="email" required placeholder="Companion Email"
+                        value={inviteEmail} onChange={e => setInviteEmail(e.target.value)}
+                        disabled={inviteState === 'loading'}
+                        className="form-input-cream"
+                        style={{ width: '100%', height: '100%', background: 'transparent', border: 'none', outline: 'none', padding: '0 1rem', fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: '16px', letterSpacing: '-0.01em', color: '#EDFF00', textAlign: 'center' }}
+                      />
+                    </div>
+                    {inviteState === 'error' && (
+                      <p style={{ ...TEXT, fontSize: '0.75rem', marginBottom: '0.5rem' }}>Something went wrong. Please try again.</p>
+                    )}
+                    <button type="submit" disabled={inviteState === 'loading'} style={{ display: 'block', width: '100%', height: '52px', backgroundColor: '#EDFF00', color: '#00006A', border: '2px solid #00006A', borderRadius: '999px', fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: '16px', letterSpacing: '-0.03em', textTransform: 'uppercase', cursor: inviteState === 'loading' ? 'wait' : 'pointer', opacity: inviteState === 'loading' ? 0.6 : 1 }}>
+                      {inviteState === 'loading' ? '...' : 'Send Invite'}
+                    </button>
+                    <button type="button" onClick={() => setInviteState('skipped')} style={{ background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: '13px', color: '#EDFF00', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '-0.02em', marginTop: '10px', display: 'block', width: '100%', textAlign: 'center' }}>
+                      Skip
+                    </button>
+                  </form>
+                </>
+              )}
+            </div>
+
+          ) : (
+
+            /* ── Email entry ─── */
+            <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease' }}>
+              <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+                <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.3, marginBottom: '1em' }}>
+                  We&apos;ve been given access to the remaining 480 bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco.<br />A rosé so pale, it enters a new classification.
+                </p>
+                <p style={{ ...TEXT, fontWeight: 400, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.3 }}>
+                  Available for purchase via ballot, one entry per person.
+                </p>
+              </div>
+
+              {/* Contents table */}
+              <div style={{ width: '100%', marginBottom: '20px' }}>
+                <div style={{ padding: '4px 16px 6px', fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: 'clamp(0.7rem,3.5vw,14px)', lineHeight: 1, letterSpacing: '-0.2px', color: '#EDFF00', textTransform: 'uppercase' }}>
+                  Inside Capsule 01 (£89)
+                </div>
+                <div style={{ width: '100%', height: '1px', backgroundColor: '#EDFF00' }} />
+                {[
+                  ['1 × bottle',  'Amphora aged Grenache, 2023'],
+                  ['2 × bottles', 'Estate Moroccan Rosé'],
+                  ['1 × vial',    'Award-winning olive oil'],
+                ].map(([qty, item]) => (
+                  <div key={item}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '4px 16px', fontFamily: 'Vulf Sans, sans-serif', fontSize: 'clamp(0.7rem,3.5vw,14px)', lineHeight: 1, letterSpacing: '-0.2px', color: '#EDFF00', textTransform: 'uppercase' }}>
+                      <span style={{ fontWeight: 300 }}>{qty}</span>
+                      <span style={{ fontWeight: 400 }}>{item}</span>
+                    </div>
+                    <div style={{ width: '100%', height: '1px', backgroundColor: '#EDFF00' }} />
+                  </div>
+                ))}
+              </div>
+
+              <form onSubmit={advanceToInvite}>
+                <div style={{ borderBottom: '1.5px solid #00006A', height: '40px', display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
+                  <input
+                    type="email" required placeholder="Your Email Here"
+                    value={email} onChange={e => setEmail(e.target.value)}
+                    className="form-input-cream"
+                    style={{ width: '100%', height: '100%', background: 'transparent', border: 'none', outline: 'none', padding: '0 1rem', fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: '16px', letterSpacing: '-0.01em', color: '#EDFF00', textAlign: 'center' }}
+                  />
+                </div>
+                <button type="submit" style={{ display: 'block', width: '100%', maxWidth: '240px', margin: '0 auto', height: '52px', backgroundColor: '#EDFF00', color: '#00006A', border: '2px solid #00006A', borderRadius: '999px', fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: '16px', letterSpacing: '-0.03em', textTransform: 'uppercase', cursor: 'pointer' }}>
+                  Enter the Ballot
+                </button>
+              </form>
+            </div>
+          )}
+        </div>
+
+        {/* Bottle images */}
+        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: '0', marginTop: '32px', width: '100%', maxWidth: '440px' }}>
+          {['/bottle-box-1.png', '/bottle-box-2.png', '/bottle-box-3.png'].map((src, i) => (
+            <img key={src} src={src} alt="" style={{ width: '33.33%', height: 'auto', display: 'block', marginLeft: i > 0 ? '-8px' : 0 }} />
+          ))}
+        </div>
+
+      </section>
+
+      <MobileNav />
+    </div>
+  )
+}
+
 // ── Main page ──────────────────────────────────────────────────
 function HomeInner() {
   const searchParams                  = useSearchParams()
   const refCode                       = searchParams.get('ref') ?? undefined
+  const isMobile                      = useIsMobile()
 
   const [email, setEmail]             = useState('')
   const [inviteEmail, setInviteEmail] = useState('')
@@ -206,6 +451,8 @@ function HomeInner() {
   function skipInvite() {
     setInviteState('skipped')
   }
+
+  if (isMobile) return <HomeMobile />
 
   return (
     <div style={{ backgroundColor: '#FF3C00', overflow: 'hidden' }}>
