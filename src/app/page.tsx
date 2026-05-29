@@ -217,9 +217,6 @@ function HomeMobile() {
         {/* MAROC row */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 7px 4px' }}>
           <img src={MAROC_SVG} alt="MAROC" style={{ height: 'clamp(30px,8vw,48px)', width: 'auto' }} />
-          <span style={{ ...TEXT, fontWeight: 400, fontSize: 'clamp(0.5rem,3.5vw,14px)', letterSpacing: '0.05em', whiteSpace: 'nowrap' }}>
-            Limited Edition Capsules
-          </span>
           <div style={{ position: 'relative' }}>
             <img src={SUNFLOWER_SVG} alt="" style={{ position: 'absolute', top: '-45%', left: '-9%', height: 'clamp(18px,7vw,36px)', width: 'auto', pointerEvents: 'none', zIndex: 1 }} />
             <img src={MAROC_SVG} alt="MAROC" style={{ height: 'clamp(30px,8vw,48px)', width: 'auto' }} />
