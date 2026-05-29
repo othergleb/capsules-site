@@ -11,18 +11,20 @@ const PAGES = [
   { label: 'FAQS',               href: '/faq'                },
 ]
 
-const LABEL_STYLE: React.CSSProperties = {
+// Matches Figma: Vulf Sans Light, 18px, uppercase, -0.54px tracking, #00006a on #fffff5
+const NAV_TEXT: React.CSSProperties = {
   fontFamily: 'Vulf Sans, sans-serif',
   fontWeight: 300,
-  fontSize: '11px',
-  letterSpacing: '0.1em',
+  fontSize: '18px',
+  letterSpacing: '-0.54px',
   textTransform: 'uppercase',
-  color: '#EDFF00',
+  color: '#00006a',
   background: 'none',
   border: 'none',
   cursor: 'pointer',
-  padding: '6px',
+  padding: 0,
   lineHeight: 1,
+  fontFeatureSettings: '"cv10" 1, "ss03" 1, "ss05" 1, "case" 1, "ordn" 1, "dlig" 1',
 }
 
 export default function MobileNav() {
@@ -47,20 +49,20 @@ export default function MobileNav() {
 
       {/* Expanded menu panel */}
       {open && (
-        <div style={{ backgroundColor: '#00006A' }}>
+        <div style={{ backgroundColor: '#fffff5' }}>
           {PAGES.filter(p => p.href !== '/').map((page, i) => (
             <div key={page.href}>
               {i > 0 && (
-                <div style={{ height: '1px', backgroundColor: 'rgba(237,255,0,0.2)', margin: '0 24px' }} />
+                <div style={{ height: '1px', backgroundColor: '#00006a', margin: '0 24px', opacity: 0.25 }} />
               )}
               <Link
                 href={page.href}
                 onClick={() => setOpen(false)}
                 style={{
-                  ...LABEL_STYLE,
+                  ...NAV_TEXT,
                   display: 'block',
                   textAlign: 'center',
-                  padding: '11px 24px',
+                  padding: '10px 24px',
                   textDecoration: 'none',
                   fontWeight: pathname === page.href ? 700 : 300,
                 }}
@@ -69,24 +71,25 @@ export default function MobileNav() {
               </Link>
             </div>
           ))}
+          {/* Divider above bottom bar */}
+          <div style={{ height: '1px', backgroundColor: '#00006a', margin: '0 24px', opacity: 0.25 }} />
         </div>
       )}
 
       {/* Bottom bar */}
       <div style={{
         height: '41px',
-        backgroundColor: '#FF3C00',
+        backgroundColor: '#fffff5',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: '0 24px',
-        borderTop: open ? '1px solid rgba(237,255,0,0.25)' : 'none',
       }}>
-        <button onClick={() => go(PAGES[prevIdx].href)} style={LABEL_STYLE}>←</button>
-        <button onClick={() => setOpen(o => !o)} style={{ ...LABEL_STYLE, letterSpacing: '0.12em' }}>
+        <button onClick={() => go(PAGES[prevIdx].href)} style={NAV_TEXT}>←</button>
+        <button onClick={() => setOpen(o => !o)} style={NAV_TEXT}>
           {open ? 'CLOSE MENU' : centerLabel}
         </button>
-        <button onClick={() => go(PAGES[nextIdx].href)} style={LABEL_STYLE}>→</button>
+        <button onClick={() => go(PAGES[nextIdx].href)} style={NAV_TEXT}>→</button>
       </div>
 
     </div>

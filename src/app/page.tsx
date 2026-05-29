@@ -223,12 +223,6 @@ function HomeMobile() {
           </div>
         </div>
 
-        {/* Sound toggle */}
-        <div style={{ textAlign: 'right', padding: '0 12px 6px' }}>
-          <button onClick={() => setSoundOn(s => !s)} style={{ ...TEXT, background: 'none', border: 'none', cursor: 'pointer', fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 300, opacity: 0.75 }}>
-            {soundOn ? 'Sound Off' : 'Sound On'}
-          </button>
-        </div>
       </section>
 
       {/* ── Yellow content ───────────────────────────────── */}
