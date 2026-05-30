@@ -25,13 +25,6 @@ function OtherLogoVideo() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const rafRef    = useRef<number>(0)
 
-  // Ref callback: runs synchronously when element attaches — sets muted BEFORE
-  // the browser can evaluate autoplay, bypassing React's broken `muted` JSX prop.
-  function logoVideoRef(el: HTMLVideoElement | null) {
-    (videoRef as React.MutableRefObject<HTMLVideoElement | null>).current = el
-    if (el) { el.muted = true; el.defaultMuted = true }
-  }
-
   useEffect(() => {
     const video  = videoRef.current
     const canvas = canvasRef.current
@@ -39,6 +32,7 @@ function OtherLogoVideo() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
+    video.muted = true
     video.play().catch(() => {})
 
     const v = video, c = canvas, x = ctx
@@ -68,10 +62,10 @@ function OtherLogoVideo() {
       lineHeight: 0,
       flexShrink: 0,
     }}>
-      {/* opacity:0 not display:none — iOS won't decode frames for display:none */}
+      {/* opacity:0 not display:none — iOS won't decode frames for display:none elements */}
       <video
-        ref={logoVideoRef}
-        loop playsInline preload="auto"
+        ref={videoRef}
+        autoPlay loop muted playsInline preload="auto"
         style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', width: '100%', height: '100%' }}
       >
         <source src={OTHER_VIDEO} type="video/mp4" />
@@ -107,20 +101,13 @@ function OtherLogoGif() {
 function FarmerVideo({ src, label, muted }: { src: string; label: string; muted: boolean }) {
   const videoRef = useRef<HTMLVideoElement>(null)
 
-  // Ref callback: called synchronously when the element is first attached to the DOM,
-  // before the browser can evaluate the autoplay policy. Sets both the JS property
-  // AND the defaultMuted content attribute (equivalent to the muted HTML attribute).
-  // This bypasses React's bug where the `muted` JSX prop is never written to the DOM.
-  function farmerVideoRef(el: HTMLVideoElement | null) {
-    (videoRef as React.MutableRefObject<HTMLVideoElement | null>).current = el
-    if (el) { el.muted = true; el.defaultMuted = true }
-  }
-
   useEffect(() => {
-    videoRef.current?.play().catch(() => {})
+    const v = videoRef.current
+    if (!v) return
+    v.muted = true
+    v.play().catch(() => {})
   }, [])
 
-  // Sync muted state when parent toggles sound
   useEffect(() => {
     if (videoRef.current) videoRef.current.muted = muted
   }, [muted])
@@ -136,8 +123,8 @@ function FarmerVideo({ src, label, muted }: { src: string; label: string; muted:
       transform: 'translateZ(0)',
     }}>
       <video
-        ref={farmerVideoRef}
-        loop playsInline preload="auto"
+        ref={videoRef}
+        autoPlay loop muted playsInline preload="auto"
         aria-label={label}
         style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', backgroundColor: '#FF3C00' }}
       >

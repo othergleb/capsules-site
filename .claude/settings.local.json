@@ -38,7 +38,11 @@
       "Bash(git *)",
       "Bash(vercel --version)",
       "Bash(ffprobe -v quiet -print_format json -show_streams /Users/gleb/Documents/CLAUDE/capsules-site/public/farmer-left.mp4)",
-      "Bash(ffprobe /Users/gleb/Documents/CLAUDE/capsules-site/public/farmer-left.mp4)"
+      "Bash(ffprobe /Users/gleb/Documents/CLAUDE/capsules-site/public/farmer-left.mp4)",
+      "Bash(ffmpeg -version)",
+      "Bash(brew list *)",
+      "Bash(/opt/homebrew/bin/ffmpeg -i farmer-left.mp4 -movflags +faststart -c copy farmer-left-fixed.mp4 -y)",
+      "Bash(/opt/homebrew/bin/ffmpeg -i farmer-right.mp4 -movflags +faststart -c copy farmer-right-fixed.mp4 -y)"
     ]
   }
 }
