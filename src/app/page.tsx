@@ -32,6 +32,7 @@ function OtherLogoVideo() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
+    video.muted = true  // set imperatively — React doesn't reliably apply the muted attr
     video.play().catch(() => {})
 
     const v = video, c = canvas, x = ctx
@@ -100,8 +101,14 @@ function OtherLogoGif() {
 function FarmerVideo({ src, label, muted }: { src: string; label: string; muted: boolean }) {
   const videoRef = useRef<HTMLVideoElement>(null)
 
-  // FIX 2: always starts muted (autoPlay muted) so browsers allow autoplay
-  useEffect(() => { videoRef.current?.play().catch(() => {}) }, [])
+  // React doesn't reliably reflect the `muted` JSX prop to the DOM attribute,
+  // so mobile Safari won't autoplay unless we set it imperatively first.
+  useEffect(() => {
+    const v = videoRef.current
+    if (!v) return
+    v.muted = true   // must be muted before play() for mobile autoplay
+    v.play().catch(() => {})
+  }, [])
 
   // Sync muted state when parent toggles sound
   useEffect(() => {
