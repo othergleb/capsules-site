@@ -32,7 +32,9 @@ function OtherLogoVideo() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    video.muted = true  // set imperatively — React doesn't reliably apply the muted attr
+    // iOS Safari checks the HTML attribute, not just the JS property
+    video.setAttribute('muted', '')
+    video.muted = true
     video.play().catch(() => {})
 
     const v = video, c = canvas, x = ctx
@@ -62,11 +64,12 @@ function OtherLogoVideo() {
       lineHeight: 0,
       flexShrink: 0,
     }}>
+      {/* position:absolute + opacity:0 instead of display:none — iOS won't decode display:none video frames */}
       <video
         ref={videoRef}
         autoPlay loop muted playsInline
         preload="auto"
-        style={{ display: 'none' }}
+        style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', width: '100%', height: '100%' }}
       >
         <source src={OTHER_VIDEO} type="video/mp4" />
       </video>
@@ -101,12 +104,13 @@ function OtherLogoGif() {
 function FarmerVideo({ src, label, muted }: { src: string; label: string; muted: boolean }) {
   const videoRef = useRef<HTMLVideoElement>(null)
 
-  // React doesn't reliably reflect the `muted` JSX prop to the DOM attribute,
-  // so mobile Safari won't autoplay unless we set it imperatively first.
+  // React doesn't reflect `muted` as an HTML attribute — iOS Safari checks the
+  // attribute (not the JS property) before allowing autoplay, so we need both.
   useEffect(() => {
     const v = videoRef.current
     if (!v) return
-    v.muted = true   // must be muted before play() for mobile autoplay
+    v.setAttribute('muted', '')  // HTML attribute — what iOS Safari reads
+    v.muted = true               // JS property — what play() checks
     v.play().catch(() => {})
   }, [])
 

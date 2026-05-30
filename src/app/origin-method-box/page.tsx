@@ -12,10 +12,9 @@ export default function OriginMethodBoxPage() {
   const video2Ref = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
-    // Set muted imperatively — React doesn't reliably reflect the muted JSX prop
-    // to the DOM attribute, so mobile Safari blocks autoplay without this.
-    if (video1Ref.current) { video1Ref.current.muted = true; video1Ref.current.play().catch(() => {}) }
-    if (video2Ref.current) { video2Ref.current.muted = true; video2Ref.current.play().catch(() => {}) }
+    // setAttribute sets the HTML attribute iOS Safari reads; .muted = true sets the JS property
+    if (video1Ref.current) { video1Ref.current.setAttribute('muted', ''); video1Ref.current.muted = true; video1Ref.current.play().catch(() => {}) }
+    if (video2Ref.current) { video2Ref.current.setAttribute('muted', ''); video2Ref.current.muted = true; video2Ref.current.play().catch(() => {}) }
   }, [])
 
   // ── Shared strip ────────────────────────────────────────────
