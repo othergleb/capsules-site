@@ -16,7 +16,6 @@ export default function OriginMethodBoxPage() {
     if (video2Ref.current) { video2Ref.current.muted = true; video2Ref.current.play().catch(() => {}) }
   }, [])
 
-  // ── Shared strip ────────────────────────────────────────────
   function Strip({ label, bg }: { label: string; bg: string }) {
     return (
       <div style={{
@@ -89,7 +88,6 @@ export default function OriginMethodBoxPage() {
         <Nav />
       )}
 
-      {/* ── ORIGIN ──────────────────────────────────────────── */}
       <Strip label="ORIGIN" bg="var(--red)" />
 
       <section style={{
@@ -136,7 +134,6 @@ export default function OriginMethodBoxPage() {
         </div>
       </section>
 
-      {/* ── METHOD ──────────────────────────────────────────── */}
       <Strip label="METHOD" bg="var(--blue)" />
 
       <section style={{
@@ -182,7 +179,6 @@ export default function OriginMethodBoxPage() {
         </div>
       </section>
 
-      {/* ── BOX ─────────────────────────────────────────────── */}
       <Strip label="BOX" bg="var(--blue)" />
 
       <section style={{
@@ -203,7 +199,6 @@ export default function OriginMethodBoxPage() {
           In the Box
         </h2>
 
-        {/* 2-column product grid */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',

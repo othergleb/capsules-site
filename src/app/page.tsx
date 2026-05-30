@@ -6,20 +6,17 @@ import Nav from '@/components/Nav'
 import MobileNav from '@/components/MobileNav'
 import { useIsMobile } from '@/hooks/useIsMobile'
 
-const MAROC_SVG      = '/figma/maroc.svg'
-const ARABIC_SVG     = '/figma/arabic.svg'
-const TIFINAGH_SVG   = '/figma/tifinagh.svg'
-const SUNFLOWER_SVG  = '/figma/sunflower.svg'
-const STAR_SVG       = '/figma/star.svg'
-const DIAMONDS_SVG   = '/figma/polygon-diamonds.svg'
-const OTHER_LOGO_PNG = '/figma/other-logo-yellow.png'
-const OTHER_VIDEO    = '/Other_alt3_yellow_red.mp4'  // H.264, yellow letters on red
-const FARMER_LEFT    = '/farmer-left.mp4'
-const FARMER_RIGHT   = '/farmer-right.mp4'
+const MAROC_SVG     = '/figma/maroc.svg'
+const ARABIC_SVG    = '/figma/arabic.svg'
+const TIFINAGH_SVG  = '/figma/tifinagh.svg'
+const SUNFLOWER_SVG = '/figma/sunflower.svg'
+const STAR_SVG      = '/figma/star.svg'
+const DIAMONDS_SVG  = '/figma/polygon-diamonds.svg'
+const OTHER_VIDEO   = '/Other_alt3_yellow_red.mp4'
+const FARMER_LEFT   = '/farmer-left.mp4'
+const FARMER_RIGHT  = '/farmer-right.mp4'
 
-// ── Animated OTHER logo ────────────────────────────────────────
-// Canvas-based crop: draws the letter band (x:15–85%, y centred at 51%)
-// from the hidden video onto a visible canvas each frame.
+// Canvas draws the letter band from a hidden video each frame
 function OtherLogoVideo() {
   const videoRef  = useRef<HTMLVideoElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -62,8 +59,6 @@ function OtherLogoVideo() {
       lineHeight: 0,
       flexShrink: 0,
     }}>
-      {/* No autoPlay attr — iOS pre-blocks elements with autoplay but no muted attr (React bug).
-          play() is called explicitly in useEffect after v.muted=true is set. */}
       <video
         ref={videoRef}
         loop playsInline preload="auto"
@@ -81,7 +76,6 @@ function OtherLogoVideo() {
   )
 }
 
-// ── Bottom-left OTHER logo (animated GIF, cropped via Figma background offsets) ──
 function OtherLogoGif() {
   return (
     <div style={{
@@ -98,7 +92,6 @@ function OtherLogoGif() {
   )
 }
 
-// ── Oval farmer video ──────────────────────────────────────────
 function FarmerVideo({ src, label, muted }: { src: string; label: string; muted: boolean }) {
   const videoRef = useRef<HTMLVideoElement>(null)
 
@@ -142,7 +135,6 @@ function FarmerVideo({ src, label, muted }: { src: string; label: string; muted:
   )
 }
 
-// ── Step dots (pages 2 & 3) ────────────────────────────────────
 function StepDots({ step, size = 6 }: { step: 2 | 3; size?: number }) {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', gap: '7px', marginBottom: '18px' }}>
@@ -158,7 +150,6 @@ function StepDots({ step, size = 6 }: { step: 2 | 3; size?: number }) {
   )
 }
 
-// ── Mobile homepage ────────────────────────────────────────────
 function HomeMobile() {
   const searchParams = useSearchParams()
   const refCode      = searchParams.get('ref') ?? undefined
@@ -169,7 +160,6 @@ function HomeMobile() {
   const [formStep, setFormStep]       = useState<'email' | 'name' | 'invite'>('email')
   const [stepIn, setStepIn]           = useState(true)
   const [inviteState, setInviteState] = useState<'idle'|'loading'|'sent'|'error'|'skipped'>('idle')
-  const [soundOn, setSoundOn]         = useState(false)
 
   function advanceToName(e: React.FormEvent) {
     e.preventDefault()
@@ -221,35 +211,30 @@ function HomeMobile() {
   return (
     <div style={{ backgroundColor: '#FF3C00', overflowX: 'hidden' }}>
 
-      {/* ── Red hero — fills full viewport so yellow is below the fold ── */}
       <section style={{
         backgroundColor: '#FF3C00',
         height: '100dvh',
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden',
-        paddingBottom: '49px', /* 41px nav + 8px breathing room */
+        paddingBottom: '49px',
       }}>
 
-        {/* OTHER logo */}
         <OtherLogoVideo />
 
-        {/* Videos — fill remaining space */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '8px 7px 0', flex: 1, minHeight: 0 }}>
           <div style={{ flex: 1, minHeight: 0, borderRadius: 'clamp(60px,28vw,120px)', overflow: 'hidden', border: '2.22px solid #EDFF00', position: 'relative' }}>
-            <FarmerVideo src={FARMER_LEFT}  label="Moroccan farmers in the vineyard" muted={!soundOn} />
+            <FarmerVideo src={FARMER_LEFT}  label="Moroccan farmers in the vineyard" muted />
           </div>
           <div style={{ flex: 1, minHeight: 0, borderRadius: 'clamp(60px,28vw,120px)', overflow: 'hidden', border: '2.22px solid #EDFF00', position: 'relative' }}>
-            <FarmerVideo src={FARMER_RIGHT} label="Berber farmers working in the Atlas mountains" muted={!soundOn} />
+            <FarmerVideo src={FARMER_RIGHT} label="Berber farmers working in the Atlas mountains" muted />
           </div>
         </div>
 
-        {/* Script text row */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 12px 4px', flexShrink: 0 }}>
           <img src={TIFINAGH_SVG} alt="ⵍⵎⵖⵔⵉⴱ" style={{ height: '10px', width: 'auto' }} />
           <img src={ARABIC_SVG}   alt="المغرب"   style={{ height: '17px', width: 'auto', transform: 'scaleX(-1)' }} />
         </div>
-        {/* MAROC row */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 7px 4px', flexShrink: 0 }}>
           <img src={MAROC_SVG} alt="MAROC" style={{ height: 'clamp(30px,8vw,48px)', width: 'auto' }} />
           <div style={{ position: 'relative' }}>
@@ -260,7 +245,6 @@ function HomeMobile() {
 
       </section>
 
-      {/* ── Yellow content ───────────────────────────────── */}
       <section style={{
         backgroundColor: '#EDFF00',
         display: 'flex',
@@ -287,12 +271,11 @@ function HomeMobile() {
           Capsule 01
         </h1>
 
-        {/* Red form box */}
         <div style={{ backgroundColor: '#FF3C00', width: '100%', maxWidth: '440px', padding: '16px', position: 'relative' }}>
 
           {formStep === 'invite' ? (
 
-            /* ── Confirmed / Invite ─── */
+            /* Confirmed / Invite */
             <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease' }}>
               <StepDots step={3} />
               {inviteState === 'sent' || inviteState === 'skipped' ? (
@@ -344,7 +327,7 @@ function HomeMobile() {
 
           ) : formStep === 'name' ? (
 
-            /* ── Name step ─── */
+            /* Name step */
             <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease' }}>
               <StepDots step={2} />
               <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.9rem,4.5vw,18px)', textAlign: 'center', marginBottom: '20px', lineHeight: 1.2 }}>
@@ -372,7 +355,7 @@ function HomeMobile() {
 
           ) : (
 
-            /* ── Email entry ─── */
+            /* Email entry */
             <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease' }}>
               <div style={{ textAlign: 'center', marginBottom: '20px' }}>
                 <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.3, marginBottom: '1em' }}>
@@ -422,7 +405,6 @@ function HomeMobile() {
           )}
         </div>
 
-        {/* Bottle images — transparent bg, staggered: two full-size + one smaller right */}
         <div style={{ display: 'flex', alignItems: 'flex-end', marginTop: '32px', width: '100%', maxWidth: '440px' }}>
           <img src="/bottle-1.png" alt="" style={{ width: '40%', height: 'auto', display: 'block', flexShrink: 0 }} />
           <img src="/bottle-2.png" alt="" style={{ width: '40%', height: 'auto', display: 'block', flexShrink: 0 }} />
@@ -436,7 +418,6 @@ function HomeMobile() {
   )
 }
 
-// ── Main page ──────────────────────────────────────────────────
 function HomeInner() {
   const searchParams                  = useSearchParams()
   const refCode                       = searchParams.get('ref') ?? undefined
@@ -528,9 +509,6 @@ function HomeInner() {
         onSoundToggle={() => setSoundOn(s => !s)}
       />
 
-      {/* ══════════════════════════════════════════════════════
-          HERO — FIX 3: height: 100vh so everything fits on screen
-      ══════════════════════════════════════════════════════ */}
       <section style={{
         backgroundColor: '#FF3C00',
         display: 'flex',
@@ -544,7 +522,6 @@ function HomeInner() {
 
         <OtherLogoVideo />
 
-        {/* Ovals — natural aspect ratio, section grows to fit */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
@@ -558,7 +535,6 @@ function HomeInner() {
           <FarmerVideo src={FARMER_RIGHT} label="Berber farmers working in the Atlas mountains" muted={!soundOn} />
         </div>
 
-        {/* Star overlapping lower-left of logo — Figma y:295 / 1728 = 17.07vw */}
         <div style={{
           position: 'absolute',
           top: '15vw',
@@ -571,7 +547,6 @@ function HomeInner() {
 
         <div style={{ marginTop: 'clamp(0.25rem, 1.5vw, 26px)', flexShrink: 0 }}>
 
-          {/* Row 1: Tifinagh left, Arabic right */}
           <div style={{
             display: 'flex',
             justifyContent: 'space-between',
@@ -584,7 +559,6 @@ function HomeInner() {
               style={{ height: 'clamp(16px, 3.18vw, 55px)', width: 'auto', aspectRatio: '161 / 55', transform: 'scaleX(-1)', marginBottom: '0.5vw' }} />
           </div>
 
-          {/* Row 2: MAROC L · "Limited Edition Capsules" · MAROC R */}
           <div style={{
             display: 'flex',
             justifyContent: 'space-between',
@@ -595,7 +569,6 @@ function HomeInner() {
             <img src={MAROC_SVG} alt="MAROC"
               style={{ height: 'clamp(40px, 5.61vw, 97px)', width: 'auto', aspectRatio: '431 / 99', display: 'block' }} />
 
-            {/* FIX 5: text only, no sunflower here */}
             <span style={{
               fontFamily: 'Vulf Sans, sans-serif',
               fontWeight: 400,
@@ -608,7 +581,6 @@ function HomeInner() {
               Limited Edition Capsules
             </span>
 
-            {/* FIX 4: right MAROC with sunflower overlapping its top-left corner */}
             <div style={{ position: 'relative' }}>
               <img src={SUNFLOWER_SVG} alt=""
                 style={{
@@ -630,9 +602,6 @@ function HomeInner() {
 
       </section>
 
-      {/* ══════════════════════════════════════════════════════
-          CONTENT — yellow
-      ══════════════════════════════════════════════════════ */}
       <section ref={yellowRef} style={{
         backgroundColor: '#EDFF00',
         display: 'flex',
@@ -663,7 +632,6 @@ function HomeInner() {
           Capsule 01
         </h1>
 
-        {/* Red content box */}
         <div style={{
           backgroundColor: '#FF3C00',
           maxWidth: 'clamp(340px, 36vw, 622px)',
@@ -674,7 +642,7 @@ function HomeInner() {
 
           {formStep === 'invite' ? (
 
-            /* ── Screen 3: companion invite ──────────────────────── */
+            /* Screen 3: companion invite */
             <div style={{
               opacity: stepIn ? 1 : 0,
               transition: 'opacity 0.4s ease',
@@ -814,7 +782,7 @@ function HomeInner() {
 
           ) : formStep === 'name' ? (
 
-            /* ── Screen 2: name ──────────────────────────────────── */
+            /* Screen 2: name */
             <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease' }}>
               <StepDots step={2} size={7} />
               <p style={{
@@ -891,12 +859,11 @@ function HomeInner() {
 
           ) : (
 
-            /* ── Screen 1: email ─────────────────────────────────── */
+            /* Screen 1: email */
             <div style={{ position: 'relative' }}>
               <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease' }}>
 
-                {/* Body copy */}
-                <div style={{ textAlign: 'center', marginBottom: 'clamp(0.75rem, 2.54vw, 44px)' }}>
+                        <div style={{ textAlign: 'center', marginBottom: 'clamp(0.75rem, 2.54vw, 44px)' }}>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
                     fontWeight: 700,
@@ -921,7 +888,6 @@ function HomeInner() {
                   </p>
                 </div>
 
-                {/* Contents table */}
                 <div style={{ width: '100%', marginBottom: 'clamp(0.75rem, 3.31vw, 57px)' }}>
                   <div style={{
                     padding: 'clamp(4px, 0.33vw, 6px) clamp(18px, 2.79vw, 48px)',
@@ -963,7 +929,6 @@ function HomeInner() {
                   ))}
                 </div>
 
-                {/* Email form */}
                 <form onSubmit={advanceToName}>
                   <div style={{
                     borderBottom: '1.5px solid #00006A',
@@ -1030,7 +995,6 @@ function HomeInner() {
 
         <OtherLogoGif />
 
-        {/* Bottom-right: 4 diamond polygons — Figma x:1447–1597, y:1766–2054 */}
         <img src={DIAMONDS_SVG} alt="" style={{
           position: 'absolute',
           right: '7.58vw',
@@ -1039,7 +1003,6 @@ function HomeInner() {
           height: 'auto',
         }} />
 
-        {/* "Villa" cursive text (node 1:85) — Figma x:1205, y:2052, w:241, h:110 */}
         <img src="/figma/villa-text.svg" alt="" style={{
           position: 'absolute',
           right: '16.32vw',
@@ -1048,7 +1011,6 @@ function HomeInner() {
           height: 'auto',
         }} />
 
-        {/* "Volubilia" cursive text (node 1:84) — Figma x:1292, y:2069, w:412, h:151 */}
         <img src="/figma/villa-volubilia-text.svg" alt="Villa Volubilia" style={{
           position: 'absolute',
           right: '1.39vw',

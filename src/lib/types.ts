@@ -1,12 +1,15 @@
 // Supabase database types
 
 export type MemberStatus =
-  | 'registered'   // signed up, no companion yet
-  | 'paired'       // companion confirmed
-  | 'allocated'    // selected in ballot, awaiting purchase
-  | 'purchased'    // completed checkout
-  | 'waitlisted'   // not selected, on waitlist
-  | 'lapsed'       // allocated but 48hr window expired
+  | 'registered'          // signed up, no companion yet
+  | 'paired'              // companion confirmed
+  | 'allocated'           // ballot winner — purchase window open
+  | 'lapsed'              // winner window expired without purchase
+  | 'purchased'           // completed checkout
+  | 'not_selected'        // didn't win ballot, hasn't opted into waitlist
+  | 'waitlisted'          // actively opted into waitlist after not winning
+  | 'waitlist_allocated'  // waitlist member given a purchase window
+  | 'waitlist_lapsed'     // waitlist window expired without purchase
 
 export interface Member {
   id:               string
@@ -19,6 +22,7 @@ export interface Member {
   invited_by_id:    string | null    // FK → members.id (who invited them)
   status:           MemberStatus
   klaviyo_id:       string | null
+  is_admin:         boolean
   allocated_at:     string | null
   purchased_at:     string | null
   shopify_order_id: string | null
