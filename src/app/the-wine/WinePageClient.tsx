@@ -107,7 +107,7 @@ function WinePageMobile() {
         <div style={{ height: '20px' }} />
       </div>
 
-      <MobileNav />
+      <MobileNav bg="#ff3c00" />
     </div>
   )
 }

@@ -11,7 +11,6 @@ const PAGES = [
   { label: 'FAQS',               href: '/faq'                },
 ]
 
-// Matches Figma: Vulf Sans Light, 18px, uppercase, -0.54px tracking, #00006a on #fffff5
 const NAV_TEXT: React.CSSProperties = {
   fontFamily: 'Vulf Sans, sans-serif',
   fontWeight: 300,
@@ -27,7 +26,7 @@ const NAV_TEXT: React.CSSProperties = {
   fontFeatureSettings: '"cv10" 1, "ss03" 1, "ss05" 1, "case" 1, "ordn" 1, "dlig" 1',
 }
 
-export default function MobileNav() {
+export default function MobileNav({ bg = '#fffff5' }: { bg?: string }) {
   const pathname = usePathname()
   const router   = useRouter()
   const [open, setOpen] = useState(false)
@@ -79,7 +78,7 @@ export default function MobileNav() {
       {/* Bottom bar */}
       <div style={{
         height: '41px',
-        backgroundColor: '#fffff5',
+        backgroundColor: bg,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',

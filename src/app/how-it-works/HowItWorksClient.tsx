@@ -106,7 +106,7 @@ export default function HowItWorksClient() {
           ))}
         </div>
 
-        <MobileNav />
+        <MobileNav bg="#ff3c00" />
       </div>
     )
   }
