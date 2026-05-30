@@ -139,32 +139,56 @@ function FarmerVideo({ src, label, muted }: { src: string; label: string; muted:
   )
 }
 
+// ── Step dots (pages 2 & 3) ────────────────────────────────────
+function StepDots({ step, size = 6 }: { step: 2 | 3; size?: number }) {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', gap: '7px', marginBottom: '18px' }}>
+      {[1, 2, 3].map(n => (
+        <div key={n} style={{
+          width: size, height: size, borderRadius: '50%',
+          backgroundColor: n === step ? '#EDFF00' : 'rgba(237,255,0,0.28)',
+          transition: 'background-color 0.3s ease',
+          flexShrink: 0,
+        }} />
+      ))}
+    </div>
+  )
+}
+
 // ── Mobile homepage ────────────────────────────────────────────
 function HomeMobile() {
   const searchParams = useSearchParams()
   const refCode      = searchParams.get('ref') ?? undefined
 
   const [email, setEmail]             = useState('')
+  const [name, setName]               = useState('')
   const [inviteEmail, setInviteEmail] = useState('')
-  const [formStep, setFormStep]       = useState<'email' | 'invite'>('email')
+  const [formStep, setFormStep]       = useState<'email' | 'name' | 'invite'>('email')
   const [stepIn, setStepIn]           = useState(true)
   const [inviteState, setInviteState] = useState<'idle'|'loading'|'sent'|'error'|'skipped'>('idle')
   const [soundOn, setSoundOn]         = useState(false)
 
-  function advanceToInvite(e: React.FormEvent) {
+  function advanceToName(e: React.FormEvent) {
     e.preventDefault()
     if (!email) return
+    setStepIn(false)
+    setTimeout(() => setFormStep('name'), 220)
+  }
+
+  function advanceToInvite(e: React.FormEvent) {
+    e.preventDefault()
+    if (!name) return
     fetch('/api/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, refCode }),
+      body: JSON.stringify({ email, name, refCode }),
     }).catch(() => {})
     setStepIn(false)
     setTimeout(() => setFormStep('invite'), 220)
   }
 
   useEffect(() => {
-    if (formStep === 'invite') {
+    if (formStep === 'invite' || formStep === 'name') {
       const t = setTimeout(() => setStepIn(true), 20)
       return () => clearTimeout(t)
     }
@@ -267,6 +291,7 @@ function HomeMobile() {
 
             /* ── Confirmed / Invite ─── */
             <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease' }}>
+              <StepDots step={3} />
               {inviteState === 'sent' || inviteState === 'skipped' ? (
                 <>
                   <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.9rem,4.5vw,18px)', letterSpacing: '-0.01em', lineHeight: 1.1, marginBottom: '12px' }}>
@@ -314,6 +339,34 @@ function HomeMobile() {
               )}
             </div>
 
+          ) : formStep === 'name' ? (
+
+            /* ── Name step ─── */
+            <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease' }}>
+              <StepDots step={2} />
+              <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.9rem,4.5vw,18px)', textAlign: 'center', marginBottom: '20px', lineHeight: 1.2 }}>
+                What&apos;s your name?
+              </p>
+              <form onSubmit={advanceToInvite}>
+                <div style={{ borderBottom: '1.5px solid #00006A', height: '40px', display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
+                  <input
+                    type="text"
+                    name="name"
+                    autoComplete="name"
+                    required
+                    placeholder="Your name"
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                    className="form-input-cream"
+                    style={{ width: '100%', height: '100%', background: 'transparent', border: 'none', outline: 'none', padding: '0 1rem', fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: '16px', letterSpacing: '-0.01em', color: '#EDFF00', textAlign: 'center' }}
+                  />
+                </div>
+                <button type="submit" style={{ display: 'block', width: '100%', maxWidth: '240px', margin: '0 auto', height: '52px', backgroundColor: '#EDFF00', color: '#00006A', border: '2px solid #00006A', borderRadius: '999px', fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: '16px', letterSpacing: '-0.03em', textTransform: 'uppercase', cursor: 'pointer' }}>
+                  Continue
+                </button>
+              </form>
+            </div>
+
           ) : (
 
             /* ── Email entry ─── */
@@ -348,7 +401,7 @@ function HomeMobile() {
                 ))}
               </div>
 
-              <form onSubmit={advanceToInvite}>
+              <form onSubmit={advanceToName}>
                 <div style={{ borderBottom: '1.5px solid #00006A', height: '40px', display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
                   <input
                     type="email" required placeholder="Your Email Here"
@@ -362,6 +415,7 @@ function HomeMobile() {
                 </button>
               </form>
             </div>
+
           )}
         </div>
 
@@ -386,8 +440,9 @@ function HomeInner() {
   const isMobile                      = useIsMobile()
 
   const [email, setEmail]             = useState('')
+  const [name, setName]               = useState('')
   const [inviteEmail, setInviteEmail] = useState('')
-  const [formStep, setFormStep]       = useState<'email' | 'invite'>('email')
+  const [formStep, setFormStep]       = useState<'email' | 'name' | 'invite'>('email')
   const [stepIn, setStepIn]           = useState(true)
   const [inviteState, setInviteState] = useState<'idle'|'loading'|'sent'|'error'|'skipped'>('idle')
   const [soundOn, setSoundOn]         = useState(false)
@@ -412,20 +467,27 @@ function HomeInner() {
     return () => clearTimeout(t)
   }, [])
 
-  function advanceToInvite(e: React.FormEvent) {
+  function advanceToName(e: React.FormEvent) {
     e.preventDefault()
     if (!email) return
+    setStepIn(false)
+    setTimeout(() => setFormStep('name'), 220)
+  }
+
+  function advanceToInvite(e: React.FormEvent) {
+    e.preventDefault()
+    if (!name) return
     fetch('/api/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, refCode }),
+      body: JSON.stringify({ email, name, refCode }),
     }).catch(() => {})
     setStepIn(false)
     setTimeout(() => setFormStep('invite'), 220)
   }
 
   useEffect(() => {
-    if (formStep === 'invite') {
+    if (formStep === 'invite' || formStep === 'name') {
       const fadeIn = setTimeout(() => setStepIn(true), 20)
       return () => clearTimeout(fadeIn)
     }
@@ -609,11 +671,12 @@ function HomeInner() {
 
           {formStep === 'invite' ? (
 
-            /* ── Screen 3: YOU'RE IN ─────────────────────────────── */
+            /* ── Screen 3: companion invite ──────────────────────── */
             <div style={{
               opacity: stepIn ? 1 : 0,
               transition: 'opacity 0.4s ease',
             }}>
+              <StepDots step={3} size={7} />
               {inviteState === 'sent' || inviteState === 'skipped' ? (
                 <>
                   <p style={{
@@ -746,6 +809,83 @@ function HomeInner() {
               )}
             </div>
 
+          ) : formStep === 'name' ? (
+
+            /* ── Screen 2: name ──────────────────────────────────── */
+            <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease' }}>
+              <StepDots step={2} size={7} />
+              <p style={{
+                fontFamily: 'Vulf Sans, sans-serif',
+                fontWeight: 700,
+                fontSize: 'clamp(1rem, 1.45vw, 25px)',
+                color: '#EDFF00',
+                textAlign: 'center',
+                marginBottom: 'clamp(1rem, 1.5vw, 26px)',
+                lineHeight: 1.2,
+              }}>
+                What&apos;s your name?
+              </p>
+              <form onSubmit={advanceToInvite}>
+                <div style={{
+                  borderBottom: '1.5px solid #00006A',
+                  height: 'clamp(28px, 2.3vw, 40px)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginBottom: 'clamp(0.5rem, 1.79vw, 31px)',
+                }}>
+                  <input
+                    type="text"
+                    name="name"
+                    autoComplete="name"
+                    required
+                    placeholder="Your name"
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                    className="form-input-cream"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      background: 'transparent',
+                      border: 'none',
+                      outline: 'none',
+                      padding: '0 1rem',
+                      fontFamily: 'Vulf Sans, sans-serif',
+                      fontWeight: 300,
+                      fontSize: 'clamp(0.8rem, 1.2vw, 21px)',
+                      letterSpacing: '-0.01em',
+                      color: '#EDFF00',
+                      textAlign: 'center',
+                    }}
+                  />
+                </div>
+                <button
+                  type="submit"
+                  style={{
+                    display: 'block',
+                    width: 'clamp(180px, 17.42vw, 301px)',
+                    margin: '0 auto',
+                    height: 'clamp(52px, 4.05vw, 70px)',
+                    backgroundColor: '#EDFF00',
+                    color: '#00006A',
+                    border: '2px solid #00006A',
+                    borderRadius: '999px',
+                    fontFamily: 'Vulf Sans, sans-serif',
+                    fontWeight: 300,
+                    fontSize: 'clamp(0.9rem, 1.45vw, 25px)',
+                    letterSpacing: '-0.03em',
+                    textTransform: 'uppercase',
+                    cursor: 'pointer',
+                    transition: 'opacity 0.15s ease',
+                    fontFeatureSettings: "'cv10', 'ss03', 'ss05', 'case', 'ordn', 'dlig'",
+                  }}
+                  onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
+                  onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
+                >
+                  Continue
+                </button>
+              </form>
+            </div>
+
           ) : (
 
             /* ── Screen 1: email ─────────────────────────────────── */
@@ -821,7 +961,7 @@ function HomeInner() {
                 </div>
 
                 {/* Email form */}
-                <form onSubmit={advanceToInvite}>
+                <form onSubmit={advanceToName}>
                   <div style={{
                     borderBottom: '1.5px solid #00006A',
                     height: 'clamp(28px, 2.3vw, 40px)',

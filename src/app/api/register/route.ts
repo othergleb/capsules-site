@@ -6,7 +6,11 @@ const KLAVIYO_KEY     = process.env.KLAVIYO_PRIVATE_KEY!
 
 // ── Klaviyo helpers ────────────────────────────────────────────
 
-async function klaviyoCreateProfile(email: string) {
+async function klaviyoCreateProfile(email: string, firstName?: string, lastName?: string) {
+  const attributes: Record<string, string> = { email }
+  if (firstName) attributes.first_name = firstName
+  if (lastName)  attributes.last_name  = lastName
+
   const res = await fetch('https://a.klaviyo.com/api/profiles/', {
     method: 'POST',
     headers: {
@@ -15,7 +19,7 @@ async function klaviyoCreateProfile(email: string) {
       'revision':      '2024-02-15',
     },
     body: JSON.stringify({
-      data: { type: 'profile', attributes: { email } },
+      data: { type: 'profile', attributes },
     }),
   })
 
@@ -104,7 +108,7 @@ async function klaviyoTrackCompanionAccepted(referrerEmail: string) {
 // ── Route handler ──────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
-  const { email, refCode } = await req.json()
+  const { email, name, refCode } = await req.json()
 
   if (!email || typeof email !== 'string') {
     return NextResponse.json({ error: 'Email is required.' }, { status: 400 })
@@ -113,6 +117,12 @@ export async function POST(req: NextRequest) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const supabase = createClient() as any
   const cleanEmail = email.toLowerCase().trim()
+  const cleanName  = typeof name === 'string' ? name.trim() : ''
+
+  // Parse first / last name for Klaviyo
+  const nameParts = cleanName.split(/\s+/)
+  const firstName = nameParts[0] ?? ''
+  const lastName  = nameParts.slice(1).join(' ')
 
   // 1. Check for duplicate
   const { data: existing } = await supabase
@@ -141,6 +151,7 @@ export async function POST(req: NextRequest) {
     .from('members')
     .insert({
       email:         cleanEmail,
+      name:          cleanName || null,
       status:        referrer ? 'paired' : 'registered',
       invited_by_id: referrer?.id ?? null,
     })
@@ -168,7 +179,7 @@ export async function POST(req: NextRequest) {
 
   // 5. Klaviyo: create profile, subscribe, track event
   try {
-    const profileId = await klaviyoCreateProfile(cleanEmail)
+    const profileId = await klaviyoCreateProfile(cleanEmail, firstName || undefined, lastName || undefined)
     if (profileId) {
       await klaviyoSubscribeToList(profileId)
       await supabase.from('members').update({ klaviyo_id: profileId }).eq('id', member.id)
