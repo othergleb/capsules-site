@@ -15,9 +15,10 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Preload above-the-fold videos on the homepage */}
-        <link rel="preload" href="/farmer-left.mp4"  as="video" type="video/mp4" />
-        <link rel="preload" href="/farmer-right.mp4" as="video" type="video/mp4" />
+        <link rel="preload" href="/farmer-left.mp4"         as="video" type="video/mp4" />
+        <link rel="preload" href="/farmer-right.mp4"        as="video" type="video/mp4" />
         <link rel="preload" href="/Other_alt3_yellow_red.mp4" as="video" type="video/mp4" />
+        <link rel="preload" href="/logo-animated-v3.mp4"   as="video" type="video/mp4" />
       </head>
       <body>{children}</body>
     </html>

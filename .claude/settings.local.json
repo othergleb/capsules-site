@@ -42,7 +42,15 @@
       "Bash(ffmpeg -version)",
       "Bash(brew list *)",
       "Bash(/opt/homebrew/bin/ffmpeg -i farmer-left.mp4 -movflags +faststart -c copy farmer-left-fixed.mp4 -y)",
-      "Bash(/opt/homebrew/bin/ffmpeg -i farmer-right.mp4 -movflags +faststart -c copy farmer-right-fixed.mp4 -y)"
+      "Bash(/opt/homebrew/bin/ffmpeg -i farmer-right.mp4 -movflags +faststart -c copy farmer-right-fixed.mp4 -y)",
+      "Bash(ffprobe -v quiet -print_format json -show_streams /Users/gleb/Documents/CLAUDE/capsules-site/public/other-logo-web.mp4)",
+      "Bash(ffprobe -v error -select_streams v:0 -show_entries stream=width,height,codec_name -of default=noprint_wrappers=1 /Users/gleb/Documents/CLAUDE/capsules-site/public/other-logo-web.mp4)",
+      "Bash(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of default=noprint_wrappers=1 /Users/gleb/Documents/CLAUDE/capsules-site/public/logo-animated-v3.mp4)",
+      "Bash(mdls -name kMDItemPixelWidth -name kMDItemPixelHeight /Users/gleb/Documents/CLAUDE/capsules-site/public/other-logo-web.mp4 /Users/gleb/Documents/CLAUDE/capsules-site/public/logo-animated-v3.mp4)",
+      "Bash(ffmpeg -i /Users/gleb/Documents/CLAUDE/capsules-site/public/other-logo-web.mp4 -vframes 1 -f image2 /tmp/logo-web-frame.jpg)",
+      "Bash(ffmpeg -i /Users/gleb/Documents/CLAUDE/capsules-site/public/logo-animated-v3.mp4 -vframes 1 -f image2 /tmp/logo-v3-frame.jpg)",
+      "Bash(qlmanage -t -s 400 -o /tmp/ /Users/gleb/Documents/CLAUDE/capsules-site/public/other-logo-web.mp4)",
+      "Bash(qlmanage -t -s 400 -o /tmp/ /Users/gleb/Documents/CLAUDE/capsules-site/public/logo-animated-v3.mp4)"
     ]
   }
 }
