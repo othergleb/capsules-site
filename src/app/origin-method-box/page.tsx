@@ -12,9 +12,8 @@ export default function OriginMethodBoxPage() {
   const video2Ref = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
-    // setAttribute sets the HTML attribute iOS Safari reads; .muted = true sets the JS property
-    if (video1Ref.current) { video1Ref.current.setAttribute('muted', ''); video1Ref.current.muted = true; video1Ref.current.play().catch(() => {}) }
-    if (video2Ref.current) { video2Ref.current.setAttribute('muted', ''); video2Ref.current.muted = true; video2Ref.current.play().catch(() => {}) }
+    if (video1Ref.current) { video1Ref.current.muted = true; video1Ref.current.play().catch(() => {}) }
+    if (video2Ref.current) { video2Ref.current.muted = true; video2Ref.current.play().catch(() => {}) }
   }, [])
 
   // ── Shared strip ────────────────────────────────────────────
@@ -111,7 +110,7 @@ export default function OriginMethodBoxPage() {
           marginTop: '-2.22px',
           marginBottom: isMobile ? '20px' : 'clamp(2rem,3.5vw,60px)',
         }}>
-          <video ref={video1Ref} src="/farmer-right.mp4" autoPlay muted loop playsInline
+          <video ref={video1Ref} src="/farmer-right.mp4" loop playsInline
             style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           <div style={{ position: 'absolute', inset: 0, borderRadius: 'inherit', boxShadow: '15px 4px 15px 0 rgba(0,0,0,0.42) inset', pointerEvents: 'none' }} />
         </div>
@@ -157,7 +156,7 @@ export default function OriginMethodBoxPage() {
           marginTop: '-2.22px',
           marginBottom: isMobile ? '20px' : 'clamp(2rem,3.5vw,60px)',
         }}>
-          <video ref={video2Ref} src="/farmer-left.mp4" autoPlay muted loop playsInline
+          <video ref={video2Ref} src="/farmer-left.mp4" loop playsInline
             style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           <div style={{ position: 'absolute', inset: 0, borderRadius: 'inherit', boxShadow: '15px 4px 15px 0 rgba(0,0,0,0.42) inset', pointerEvents: 'none' }} />
         </div>

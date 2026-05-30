@@ -62,10 +62,11 @@ function OtherLogoVideo() {
       lineHeight: 0,
       flexShrink: 0,
     }}>
-      {/* opacity:0 not display:none — iOS won't decode frames for display:none elements */}
+      {/* No autoPlay attr — iOS pre-blocks elements with autoplay but no muted attr (React bug).
+          play() is called explicitly in useEffect after v.muted=true is set. */}
       <video
         ref={videoRef}
-        autoPlay loop muted playsInline preload="auto"
+        loop playsInline preload="auto"
         style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', width: '100%', height: '100%' }}
       >
         <source src={OTHER_VIDEO} type="video/mp4" />
@@ -124,7 +125,7 @@ function FarmerVideo({ src, label, muted }: { src: string; label: string; muted:
     }}>
       <video
         ref={videoRef}
-        autoPlay loop muted playsInline preload="auto"
+        loop playsInline preload="auto"
         aria-label={label}
         style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', backgroundColor: '#FF3C00' }}
       >
