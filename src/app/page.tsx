@@ -21,32 +21,27 @@ const FARMER_RIGHT   = '/farmer-right.mp4'
 // Canvas-based crop: draws the letter band (x:15–85%, y centred at 51%)
 // from the hidden video onto a visible canvas each frame.
 function OtherLogoVideo() {
+  const videoRef  = useRef<HTMLVideoElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const rafRef    = useRef<number>(0)
 
+  // Ref callback: runs synchronously when element attaches — sets muted BEFORE
+  // the browser can evaluate autoplay, bypassing React's broken `muted` JSX prop.
+  function logoVideoRef(el: HTMLVideoElement | null) {
+    (videoRef as React.MutableRefObject<HTMLVideoElement | null>).current = el
+    if (el) { el.muted = true; el.defaultMuted = true }
+  }
+
   useEffect(() => {
+    const video  = videoRef.current
     const canvas = canvasRef.current
-    if (!canvas) return
+    if (!video || !canvas) return
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    // Build the video element imperatively so muted is set BEFORE it enters the DOM.
-    // React's JSX never sets the `muted` HTML attribute, and iOS won't autoplay without it.
-    const v = document.createElement('video')
-    v.muted        = true
-    v.defaultMuted = true          // sets the muted content attribute
-    v.loop         = true
-    v.playsInline  = true
-    v.preload      = 'auto'
-    v.src          = OTHER_VIDEO
-    v.setAttribute('playsinline', '') // belt-and-suspenders for older iOS
-    // Keep it invisible but still decoded (display:none prevents frame decoding on iOS)
-    Object.assign(v.style, { position: 'absolute', opacity: '0', pointerEvents: 'none', width: '1px', height: '1px' })
-    canvas.parentElement?.appendChild(v)
+    video.play().catch(() => {})
 
-    v.play().catch(() => {})
-
-    const c = canvas, x = ctx
+    const v = video, c = canvas, x = ctx
     function draw() {
       if (v.readyState >= 2) {
         const vw = v.videoWidth  || 2000
@@ -60,13 +55,7 @@ function OtherLogoVideo() {
       rafRef.current = requestAnimationFrame(draw)
     }
     rafRef.current = requestAnimationFrame(draw)
-
-    return () => {
-      cancelAnimationFrame(rafRef.current)
-      v.pause()
-      v.src = ''
-      v.remove()
-    }
+    return () => { cancelAnimationFrame(rafRef.current); video.pause() }
   }, [])
 
   return (
@@ -79,6 +68,14 @@ function OtherLogoVideo() {
       lineHeight: 0,
       flexShrink: 0,
     }}>
+      {/* opacity:0 not display:none — iOS won't decode frames for display:none */}
+      <video
+        ref={logoVideoRef}
+        loop playsInline preload="auto"
+        style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', width: '100%', height: '100%' }}
+      >
+        <source src={OTHER_VIDEO} type="video/mp4" />
+      </video>
       <canvas
         ref={canvasRef}
         width={2000}
@@ -107,70 +104,51 @@ function OtherLogoGif() {
 }
 
 // ── Oval farmer video ──────────────────────────────────────────
-// Video element is created imperatively (not via JSX) so that muted is set as
-// a real HTML attribute BEFORE the element enters the DOM — React's JSX never
-// sets the `muted` attribute, which blocks autoplay on iOS Safari.
 function FarmerVideo({ src, label, muted }: { src: string; label: string; muted: boolean }) {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const videoRef     = useRef<HTMLVideoElement | null>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  // Ref callback: called synchronously when the element is first attached to the DOM,
+  // before the browser can evaluate the autoplay policy. Sets both the JS property
+  // AND the defaultMuted content attribute (equivalent to the muted HTML attribute).
+  // This bypasses React's bug where the `muted` JSX prop is never written to the DOM.
+  function farmerVideoRef(el: HTMLVideoElement | null) {
+    (videoRef as React.MutableRefObject<HTMLVideoElement | null>).current = el
+    if (el) { el.muted = true; el.defaultMuted = true }
+  }
 
   useEffect(() => {
-    const container = containerRef.current
-    if (!container) return
+    videoRef.current?.play().catch(() => {})
+  }, [])
 
-    const v = document.createElement('video')
-    v.muted        = true
-    v.defaultMuted = true
-    v.loop         = true
-    v.playsInline  = true
-    v.preload      = 'auto'
-    v.src          = src
-    v.setAttribute('playsinline', '')
-    v.setAttribute('aria-label', label)
-    Object.assign(v.style, {
-      width: '100%', height: '100%',
-      objectFit: 'cover', display: 'block',
-      backgroundColor: '#FF3C00',
-    })
-
-    container.prepend(v)   // insert before the shadow overlay div
-    videoRef.current = v
-    v.play().catch(() => {})
-
-    return () => {
-      v.pause()
-      v.src = ''
-      v.remove()
-      videoRef.current = null
-    }
-  }, [src, label])
-
-  // Sync muted/unmuted when parent toggles sound
+  // Sync muted state when parent toggles sound
   useEffect(() => {
     if (videoRef.current) videoRef.current.muted = muted
   }, [muted])
 
   return (
-    <div
-      ref={containerRef}
-      style={{
-        borderRadius: 'clamp(80px, 13.83vw, 239px)',
-        overflow: 'hidden',
-        width: '100%',
-        height: '100%',
-        border: '2.22px solid #EDFF00',
-        position: 'relative',
-        transform: 'translateZ(0)',
-      }}
-    >
-      {/* Shadow overlay — sits on top of the imperatively-created video */}
+    <div style={{
+      borderRadius: 'clamp(80px, 13.83vw, 239px)',
+      overflow: 'hidden',
+      width: '100%',
+      height: '100%',
+      border: '2.22px solid #EDFF00',
+      position: 'relative',
+      transform: 'translateZ(0)',
+    }}>
+      <video
+        ref={farmerVideoRef}
+        loop playsInline preload="auto"
+        aria-label={label}
+        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', backgroundColor: '#FF3C00' }}
+      >
+        <source src={src} type="video/mp4" />
+      </video>
       <div style={{
         position: 'absolute',
         inset: 0,
         boxShadow: '15px 4px 15px 0 rgba(0, 0, 0, 0.42) inset',
         borderRadius: 'inherit',
         pointerEvents: 'none',
-        zIndex: 1,
       }} />
     </div>
   )
