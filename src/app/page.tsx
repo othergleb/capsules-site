@@ -426,11 +426,11 @@ function HomeMobile() {
           )}
         </div>
 
-        {/* Bottle images */}
-        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: '0', marginTop: '32px', width: '100%', maxWidth: '440px' }}>
-          {['/bottle-box-1.png', '/bottle-box-2.png', '/bottle-box-3.png'].map((src, i) => (
-            <img key={src} src={src} alt="" style={{ width: '33.33%', height: 'auto', display: 'block', marginLeft: i > 0 ? '-8px' : 0 }} />
-          ))}
+        {/* Bottle images — transparent bg, staggered: two full-size + one smaller right */}
+        <div style={{ display: 'flex', alignItems: 'flex-end', marginTop: '32px', width: '100%', maxWidth: '440px' }}>
+          <img src="/bottle-1.png" alt="" style={{ width: '40%', height: 'auto', display: 'block', flexShrink: 0 }} />
+          <img src="/bottle-2.png" alt="" style={{ width: '40%', height: 'auto', display: 'block', flexShrink: 0 }} />
+          <img src="/bottle-1.png" alt="" style={{ width: '20%', height: 'auto', display: 'block', flexShrink: 0 }} />
         </div>
 
       </section>
