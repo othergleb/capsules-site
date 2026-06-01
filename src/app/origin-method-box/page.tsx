@@ -222,57 +222,63 @@ function OriginMethodBoxMobile() {
       <Strip label="BOX" />
 
       <section style={{ backgroundColor: '#FF3C00', paddingTop: '13px', paddingBottom: '32px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', padding: '0 9px' }}>
-          {BOX_ITEMS.map((item, i) => (
-            <div key={item.name} style={{ display: 'flex', flexDirection: 'column', marginLeft: i % 2 !== 0 ? '-1px' : 0 }}>
-              {/* Card image frame */}
-              <div style={{
-                border: '1px solid #00006A',
-                borderRadius: '284px 284px 0 0',
-                overflow: 'hidden',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: item.artwork ? 'center' : 'flex-end',
-                paddingBottom: item.artwork ? '0' : '10px',
-                aspectRatio: '185 / 259',
-                backgroundColor: '#FF3C00',
-              }}>
-                {item.artwork ? (
-                  /* Artwork: cream-bordered rectangle centered in the card */
-                  <div style={{
-                    border: '1px solid #fffff5',
-                    width: '65%',
-                    aspectRatio: '121 / 156',
-                    overflow: 'hidden',
-                    flexShrink: 0,
-                  }}>
-                    <img src={item.img} alt={item.name}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                  </div>
-                ) : (
-                  <img src={item.img} alt={item.name} style={{ width: '41%', height: 'auto', display: 'block' }} />
-                )}
-              </div>
-              {/* Caption */}
-              <div style={{
-                backgroundColor: '#EDFF00',
-                border: '1px solid #00006A',
-                marginTop: '-1px',
-                padding: '8px 8px 10px',
-                aspectRatio: '185 / 113',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-              }}>
-                <div>
-                  <p style={CAPTION_NAME}>{item.name}</p>
-                  <p style={CAPTION_DESC}>{item.desc}</p>
+        {[BOX_ITEMS.slice(0, 2), BOX_ITEMS.slice(2, 4)].map((rowItems, rowIdx) => (
+          <div key={rowIdx} style={{ marginTop: rowIdx > 0 ? '9px' : 0, padding: '0 9px' }}>
+            {/* Card frames row — separate grid so heights lock across columns */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+              {rowItems.map((item, colIdx) => (
+                <div key={item.name} style={{
+                  border: '1px solid #00006A',
+                  borderRadius: '284px 284px 0 0',
+                  overflow: 'hidden',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: item.artwork ? 'center' : 'flex-end',
+                  paddingBottom: item.artwork ? '0' : '10px',
+                  aspectRatio: '185 / 259',
+                  backgroundColor: '#FF3C00',
+                  marginLeft: colIdx > 0 ? '-1px' : 0,
+                }}>
+                  {item.artwork ? (
+                    <div style={{
+                      border: '1px solid #fffff5',
+                      width: '65%',
+                      aspectRatio: '121 / 156',
+                      overflow: 'hidden',
+                      flexShrink: 0,
+                    }}>
+                      <img src={item.img} alt={item.name}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                    </div>
+                  ) : (
+                    <img src={item.img} alt={item.name} style={{ width: '41%', height: 'auto', display: 'block' }} />
+                  )}
                 </div>
-                <p style={{ ...CAPTION_DESC, textTransform: 'uppercase' }}>{item.qty}</p>
-              </div>
+              ))}
             </div>
-          ))}
-        </div>
+            {/* Caption row — separate grid, always bottom-aligned with cards above */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', marginTop: '-1px' }}>
+              {rowItems.map((item, colIdx) => (
+                <div key={item.name} style={{
+                  backgroundColor: '#EDFF00',
+                  border: '1px solid #00006A',
+                  marginLeft: colIdx > 0 ? '-1px' : 0,
+                  padding: '8px 8px 10px',
+                  aspectRatio: '185 / 113',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                }}>
+                  <div>
+                    <p style={CAPTION_NAME}>{item.name}</p>
+                    <p style={CAPTION_DESC}>{item.desc}</p>
+                  </div>
+                  <p style={{ ...CAPTION_DESC, textTransform: 'uppercase' }}>{item.qty}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </section>
 
       <MobileNav />
