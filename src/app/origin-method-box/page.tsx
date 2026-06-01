@@ -228,7 +228,10 @@ function OriginMethodBoxMobile() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
               {rowItems.map((item, colIdx) => (
                 <div key={item.name} style={{
-                  border: '1px solid #00006A',
+                  borderTop: '1px solid #00006A',
+                  borderLeft: '1px solid #00006A',
+                  borderRight: '1px solid #00006A',
+                  borderBottom: 'none',
                   borderRadius: '284px 284px 0 0',
                   overflow: 'hidden',
                   display: 'flex',
@@ -257,7 +260,7 @@ function OriginMethodBoxMobile() {
               ))}
             </div>
             {/* Caption row — separate grid, always bottom-aligned with cards above */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', marginTop: '-1px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
               {rowItems.map((item, colIdx) => (
                 <div key={item.name} style={{
                   backgroundColor: '#EDFF00',
