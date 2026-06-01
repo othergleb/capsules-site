@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
     winners = body.winners
-    if (!Array.isArray(winners) || winners.length === 0) {
+    if (!Array.isArray(winners)) {
       return NextResponse.json({ error: 'winners array is required' }, { status: 400 })
     }
   } catch {
