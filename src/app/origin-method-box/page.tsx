@@ -119,6 +119,7 @@ function OriginMethodBoxMobile() {
     fontSize: '16px',
     color: '#fffff5',
     lineHeight: '18px',
+    letterSpacing: '0.16px',
     margin: 0,
   }
 
@@ -159,6 +160,7 @@ function OriginMethodBoxMobile() {
     fontWeight: 300,
     fontSize: '12px',
     color: '#00006A',
+    textTransform: 'uppercase',
     letterSpacing: '-0.36px',
     lineHeight: '14px',
     margin: 0,
@@ -223,7 +225,7 @@ function OriginMethodBoxMobile() {
                 aspectRatio: '185 / 259',
                 backgroundColor: '#FF3C00',
               }}>
-                <img src={item.img} alt={item.name} style={{ width: '52%', height: 'auto', display: 'block' }} />
+                <img src={item.img} alt={item.name} style={{ width: '41%', height: 'auto', display: 'block' }} />
               </div>
               <div style={{
                 backgroundColor: '#EDFF00',
