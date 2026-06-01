@@ -52,32 +52,33 @@ function OtherLogoVideo() {
 
 // ── Section strip ──────────────────────────────────────────────
 function Strip({ label }: { label: string }) {
+  const text = Array.from({ length: 6 }, () => label).join('          ')
   return (
     <div style={{
       backgroundColor: '#00006A',
       height: '30px',
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'space-evenly',
+      justifyContent: 'center',
       borderTop: '1px solid #EDFF00',
       borderBottom: '1px solid #EDFF00',
       overflow: 'hidden',
     }}>
-      {Array.from({ length: 10 }, (_, i) => (
-        <span key={i} style={{
-          fontFamily: 'Vulf Sans, sans-serif',
-          fontWeight: 300,
-          fontSize: '14px',
-          color: '#EDFF00',
-          textTransform: 'uppercase',
-          letterSpacing: '-0.42px',
-          whiteSpace: 'nowrap',
-          flexShrink: 0,
-          fontFeatureSettings: '"cv10" 1, "ss03" 1, "ss05" 1, "case" 1, "ordn" 1, "dlig" 1',
-        }}>
-          {label}
-        </span>
-      ))}
+      <p style={{
+        fontFamily: 'Vulf Sans, sans-serif',
+        fontWeight: 300,
+        fontSize: '14px',
+        color: '#EDFF00',
+        textTransform: 'uppercase',
+        letterSpacing: '-0.42px',
+        lineHeight: '20px',
+        whiteSpace: 'pre',
+        margin: 0,
+        textAlign: 'center',
+        fontFeatureSettings: '"cv10" 1, "ss03" 1, "ss05" 1, "case" 1, "ordn" 1, "dlig" 1',
+      }}>
+        {text}
+      </p>
     </div>
   )
 }
@@ -88,18 +89,28 @@ const BOX_ITEMS = [
     name: 'Amphora Aged Grenache',
     desc: 'The centrepiece. Gris de grenache, 2023 vintage. Copper-coloured, textured, alive.',
     qty: '1 bottle · 75cl',
+    artwork: false,
   },
   {
     img: '/bottle-box-2.png',
     name: 'Estate Rosé',
     desc: 'Made from the same vines, same harvest. A paler, more delicate expression of the same fruit.',
     qty: '2 bottles · 75cl each',
+    artwork: false,
   },
   {
     img: '/bottle-box-3.png',
     name: 'Estate Olive Oil',
     desc: 'Cold-pressed from olive trees that share the same soil as the vines. A companion to the wine.',
     qty: '1 vial · 100ml',
+    artwork: false,
+  },
+  {
+    img: '/poster-artwork.png',
+    name: 'Illustrator Name',
+    desc: 'The centrepiece. Gris de grenache, 2023 vintage. Copper-coloured, textured, alive.',
+    qty: '1 poster · 100 x 70 cm',
+    artwork: true,
   },
 ]
 
@@ -214,19 +225,35 @@ function OriginMethodBoxMobile() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', padding: '0 9px' }}>
           {BOX_ITEMS.map((item, i) => (
             <div key={item.name} style={{ display: 'flex', flexDirection: 'column', marginLeft: i % 2 !== 0 ? '-1px' : 0 }}>
+              {/* Card image frame */}
               <div style={{
                 border: '1px solid #00006A',
                 borderRadius: '284px 284px 0 0',
                 overflow: 'hidden',
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'flex-end',
-                paddingBottom: '10px',
+                alignItems: item.artwork ? 'center' : 'flex-end',
+                paddingBottom: item.artwork ? '0' : '10px',
                 aspectRatio: '185 / 259',
                 backgroundColor: '#FF3C00',
               }}>
-                <img src={item.img} alt={item.name} style={{ width: '41%', height: 'auto', display: 'block' }} />
+                {item.artwork ? (
+                  /* Artwork: cream-bordered rectangle centered in the card */
+                  <div style={{
+                    border: '1px solid #fffff5',
+                    width: '65%',
+                    aspectRatio: '121 / 156',
+                    overflow: 'hidden',
+                    flexShrink: 0,
+                  }}>
+                    <img src={item.img} alt={item.name}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                  </div>
+                ) : (
+                  <img src={item.img} alt={item.name} style={{ width: '41%', height: 'auto', display: 'block' }} />
+                )}
               </div>
+              {/* Caption */}
               <div style={{
                 backgroundColor: '#EDFF00',
                 border: '1px solid #00006A',
