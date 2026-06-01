@@ -139,7 +139,7 @@ function OriginMethodBoxMobile() {
     fontWeight: 900,
     fontSize: '30px',
     color: 'transparent',
-    WebkitTextStroke: '1.5px #fffff5',
+    WebkitTextStroke: '1.5px #EDFF00',
     letterSpacing: '1.2px',
     textAlign: 'center',
     margin: '25px 0 18px',
