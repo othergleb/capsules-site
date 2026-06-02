@@ -224,10 +224,10 @@ function HomeMobile() {
         <OtherLogoVideo src={OTHER_VIDEO} />
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '8px 7px 0', flex: 1, minHeight: 0 }}>
-          <div style={{ flex: 1, minHeight: 0, borderRadius: 'clamp(60px,28vw,120px)', overflow: 'hidden', border: '2.22px solid #EDFF00', position: 'relative' }}>
+          <div style={{ flex: 1, minHeight: 0, borderRadius: '239.351px', overflow: 'hidden', border: '2.22px solid #EDFF00', position: 'relative' }}>
             <FarmerVideo src={FARMER_LEFT}  label="Moroccan farmers in the vineyard" muted />
           </div>
-          <div style={{ flex: 1, minHeight: 0, borderRadius: 'clamp(60px,28vw,120px)', overflow: 'hidden', border: '2.22px solid #EDFF00', position: 'relative' }}>
+          <div style={{ flex: 1, minHeight: 0, borderRadius: '239.351px', overflow: 'hidden', border: '2.22px solid #EDFF00', position: 'relative' }}>
             <FarmerVideo src={FARMER_RIGHT} label="Berber farmers working in the Atlas mountains" muted />
           </div>
         </div>
