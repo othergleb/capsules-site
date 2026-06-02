@@ -362,7 +362,7 @@ function HomeMobile() {
                   In 2023, a community of Berber farmers in northern Morocco worked together with French winemakers to create something extraordinary.
                 </p>
                 <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.3, marginBottom: '1em' }}>
-                  Ageing their finest grenache grapes in clay amphora, they created a one of kind ros&eacute;, so pale that it enters a new classification.
+                  An amphora aged grenache ros&eacute;, so pale that it enters a new classification.
                 </p>
                 <p style={{ ...TEXT, fontWeight: 400, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.3 }}>
                   Available to members only, on sale for one day as part of Capsule 01.
@@ -822,7 +822,7 @@ function HomeInner() {
                     color: '#EDFF00',
                     marginBottom: '1.29em',
                   }}>
-                    Ageing their finest grenache grapes in clay amphora, they created a one of kind ros&eacute;, so pale that it enters a new classification.
+                    An amphora aged grenache ros&eacute;, so pale that it enters a new classification.
                   </p>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
