@@ -210,37 +210,31 @@ function HomeMobile() {
   }
 
   return (
-    <div style={{ backgroundColor: '#FF3C00', overflowX: 'hidden' }}>
+    <div style={{ backgroundColor: '#FF3C00' }}>
 
-      <section style={{
-        backgroundColor: '#FF3C00',
-        height: '100dvh',
-        display: 'flex',
-        flexDirection: 'column',
-        overflow: 'hidden',
-        paddingBottom: '49px',
-      }}>
+      <section style={{ backgroundColor: '#FF3C00' }}>
 
         <OtherLogoVideo src={OTHER_VIDEO} />
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '8px 7px 0', flex: 1, minHeight: 0 }}>
-          <div style={{ flex: 1, minHeight: 0, borderRadius: '239.351px', overflow: 'hidden', border: '2.22px solid #EDFF00', position: 'relative' }}>
+        {/* Two video ovals — fixed aspect ratio, no flex stretching */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '8px' }}>
+          <div style={{ marginLeft: '7px', width: 'calc(100% - 13px)', aspectRatio: '380 / 214', borderRadius: '239.351px', overflow: 'hidden', border: '2.22px solid #EDFF00', position: 'relative' }}>
             <FarmerVideo src={FARMER_LEFT}  label="Moroccan farmers in the vineyard" muted />
           </div>
-          <div style={{ flex: 1, minHeight: 0, borderRadius: '239.351px', overflow: 'hidden', border: '2.22px solid #EDFF00', position: 'relative' }}>
+          <div style={{ marginLeft: '7px', width: 'calc(100% - 13px)', aspectRatio: '380 / 214', borderRadius: '239.351px', overflow: 'hidden', border: '2.22px solid #EDFF00', position: 'relative' }}>
             <FarmerVideo src={FARMER_RIGHT} label="Berber farmers working in the Atlas mountains" muted />
           </div>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 12px 4px', flexShrink: 0 }}>
-          <img src={TIFINAGH_SVG} alt="ⵍⵎⵖⵔⵉⴱ" style={{ height: '10px', width: 'auto' }} />
-          <img src={ARABIC_SVG}   alt="المغرب"   style={{ height: '17px', width: 'auto', transform: 'scaleX(-1)' }} />
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 7px 4px', flexShrink: 0 }}>
-          <img src={MAROC_SVG} alt="MAROC" style={{ height: 'clamp(30px,8vw,48px)', width: 'auto' }} />
-          <div style={{ position: 'relative' }}>
-            <img src={SUNFLOWER_SVG} alt="" style={{ position: 'absolute', top: '-45%', left: '-9%', height: 'clamp(18px,7vw,36px)', width: 'auto', pointerEvents: 'none', zIndex: 1 }} />
-            <img src={MAROC_SVG} alt="MAROC" style={{ height: 'clamp(30px,8vw,48px)', width: 'auto' }} />
+        {/* MAROC / script text */}
+        <div style={{ padding: '50px 12px 0' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '9px' }}>
+            <img src={TIFINAGH_SVG} alt="ⵍⵎⵖⵔⵉⴱ" style={{ height: '10px', width: 'auto' }} />
+            <img src={ARABIC_SVG}   alt="المغرب"   style={{ height: '17px', width: 'auto', transform: 'scaleX(-1)' }} />
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '13px' }}>
+            <img src={MAROC_SVG} alt="MAROC" style={{ height: '31px', width: 'auto' }} />
+            <img src={MAROC_SVG} alt="MAROC" style={{ height: '31px', width: 'auto' }} />
           </div>
         </div>
 
