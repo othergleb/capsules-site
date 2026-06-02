@@ -255,28 +255,29 @@ function HomeMobile() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        paddingTop: '28px',
-        paddingLeft: '16px',
-        paddingRight: '16px',
-        paddingBottom: '80px', // space for mobile nav
+        paddingTop: '10px',
+        paddingLeft: '40px',
+        paddingRight: '36px',
+        paddingBottom: '80px',
         position: 'relative',
       }}>
 
         <h1 style={{
           fontFamily: 'Vulf Sans, sans-serif',
-          fontSize: 'clamp(2.5rem,13vw,4rem)',
+          fontSize: '45px',
           fontWeight: 900,
-          letterSpacing: '1.5px',
+          letterSpacing: '0.9px',
           color: 'transparent',
           WebkitTextStroke: '2px #00006A',
           textAlign: 'center',
           marginBottom: '20px',
-          lineHeight: 1.4,
+          lineHeight: 'normal',
+          whiteSpace: 'nowrap',
         }}>
           Capsule 01
         </h1>
 
-        <div style={{ backgroundColor: '#FF3C00', width: '100%', maxWidth: '440px', padding: '16px', position: 'relative' }}>
+        <div style={{ backgroundColor: '#FF3C00', width: '100%', padding: '16px', position: 'relative' }}>
 
           {formStep === 'invite' ? (
 
@@ -410,10 +411,10 @@ function HomeMobile() {
           )}
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'flex-end', marginTop: '32px', width: '100%', maxWidth: '440px' }}>
-          <img src="/bottle-1.png" alt="" style={{ width: '40%', height: 'auto', display: 'block', flexShrink: 0 }} />
-          <img src="/bottle-2.png" alt="" style={{ width: '40%', height: 'auto', display: 'block', flexShrink: 0 }} />
-          <img src="/bottle-1.png" alt="" style={{ width: '20%', height: 'auto', display: 'block', flexShrink: 0 }} />
+        <div style={{ display: 'flex', alignItems: 'flex-end', marginTop: '32px', width: '100%' }}>
+          <img src="/bottle-1.png" alt="" style={{ width: '130px', height: 'auto', display: 'block', flexShrink: 0 }} />
+          <img src="/bottle-2.png" alt="" style={{ width: '130px', height: 'auto', display: 'block', flexShrink: 0 }} />
+          <img src="/bottle-1.png" alt="" style={{ width: '66px', height: 'auto', display: 'block', flexShrink: 0, transform: 'rotate(0.83deg)' }} />
         </div>
 
       </section>
