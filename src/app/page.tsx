@@ -217,7 +217,7 @@ function HomeMobile() {
   }
 
   return (
-    <div style={{ backgroundColor: '#FF3C00' }}>
+    <div style={{ backgroundColor: '#FF3C00', overflowX: 'hidden' }}>
 
       <section style={{
         backgroundColor: '#FF3C00',
