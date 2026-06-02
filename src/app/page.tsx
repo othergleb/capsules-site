@@ -199,8 +199,7 @@ function HomeMobile() {
     const url = inviteCode ? `${siteUrl}/?ref=${inviteCode}` : siteUrl
     const shareData = {
       title: 'Other Wine — Capsule 01',
-      text:  "I've registered for Other Wine's first capsule drop. Join the list:",
-      url,
+      text:  `I've registered for Other Wine's first capsule drop. Join the list:\n${url}`,
     }
     if (navigator.share) {
       try { await navigator.share(shareData) } catch { /* dismissed */ }
@@ -470,8 +469,7 @@ function HomeInner() {
     const url = inviteCode ? `${siteUrl}/?ref=${inviteCode}` : siteUrl
     const shareData = {
       title: 'Other Wine — Capsule 01',
-      text:  "I've registered for Other Wine's first capsule drop. Join the list:",
-      url,
+      text:  `I've registered for Other Wine's first capsule drop. Join the list:\n${url}`,
     }
     if (navigator.share) {
       try { await navigator.share(shareData) } catch { /* dismissed */ }

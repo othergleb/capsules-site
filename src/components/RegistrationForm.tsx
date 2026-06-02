@@ -59,8 +59,7 @@ export default function RegistrationForm({ dark = false, minimal = false }: Regi
   async function handleShare() {
     const shareData = {
       title: 'Other Wine — Capsule 01',
-      text:  'I\'ve registered for Other Wine\'s first capsule drop. Join the list:',
-      url:   referralUrl,
+      text:  `I've registered for Other Wine's first capsule drop. Join the list:\n${referralUrl}`,
     }
 
     if (typeof navigator !== 'undefined' && navigator.share) {
