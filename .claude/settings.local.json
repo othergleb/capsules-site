@@ -50,7 +50,10 @@
       "Bash(ffmpeg -i /Users/gleb/Documents/CLAUDE/capsules-site/public/other-logo-web.mp4 -vframes 1 -f image2 /tmp/logo-web-frame.jpg)",
       "Bash(ffmpeg -i /Users/gleb/Documents/CLAUDE/capsules-site/public/logo-animated-v3.mp4 -vframes 1 -f image2 /tmp/logo-v3-frame.jpg)",
       "Bash(qlmanage -t -s 400 -o /tmp/ /Users/gleb/Documents/CLAUDE/capsules-site/public/other-logo-web.mp4)",
-      "Bash(qlmanage -t -s 400 -o /tmp/ /Users/gleb/Documents/CLAUDE/capsules-site/public/logo-animated-v3.mp4)"
+      "Bash(qlmanage -t -s 400 -o /tmp/ /Users/gleb/Documents/CLAUDE/capsules-site/public/logo-animated-v3.mp4)",
+      "Bash(ffprobe /Users/gleb/Documents/CLAUDE/capsules-site/public/Other_alt3_yellow_red_6k.mp4)",
+      "Bash(mdls -name kMDItemCodecs /Users/gleb/Documents/CLAUDE/capsules-site/public/Other_alt3_yellow_red_6k.mp4)",
+      "Bash(mdls -name kMDItemCodecs /Users/gleb/Documents/CLAUDE/capsules-site/public/Other_alt3_yellow_red.mp4)"
     ]
   }
 }
