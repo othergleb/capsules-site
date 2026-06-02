@@ -217,8 +217,8 @@ function HomeMobile() {
         minHeight: '100dvh',
         display: 'flex',
         flexDirection: 'column',
-        paddingTop: '7px',
-        paddingBottom: '41px',
+        paddingTop: 'calc(env(safe-area-inset-top, 0px) + 7px)',
+        paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 41px)',
       }}>
 
         <OtherLogoVideo src={OTHER_VIDEO} />

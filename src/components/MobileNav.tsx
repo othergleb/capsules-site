@@ -77,12 +77,12 @@ export default function MobileNav({ bg = '#fffff5' }: { bg?: string }) {
 
       {/* Bottom bar */}
       <div style={{
-        height: '41px',
+        height: 'calc(41px + env(safe-area-inset-bottom, 0px))',
         backgroundColor: bg,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '0 24px',
+        padding: '0 24px calc(env(safe-area-inset-bottom, 0px)) 24px',
       }}>
         <button onClick={() => go(PAGES[prevIdx].href)} style={NAV_TEXT}>←</button>
         <button onClick={() => setOpen(o => !o)} style={NAV_TEXT}>
