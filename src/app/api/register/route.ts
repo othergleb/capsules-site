@@ -124,36 +124,40 @@ export async function POST(req: NextRequest) {
   const firstName = nameParts[0] ?? ''
   const lastName  = nameParts.slice(1).join(' ')
 
-  // 1. Check for duplicate
+  // 1. Check for existing member — return their details so frontend can show "welcome back"
   const { data: existing } = await supabase
     .from('members')
-    .select('id')
+    .select('id, name, invite_code')
     .eq('email', cleanEmail)
     .maybeSingle()
 
   if (existing) {
-    return NextResponse.json({ error: 'This email is already registered.' }, { status: 409 })
+    return NextResponse.json({
+      returning:   true,
+      name:        existing.name ?? '',
+      inviteCode:  existing.invite_code,
+    }, { status: 200 })
   }
 
-  // 2. Look up referrer if refCode provided
-  let referrer: { id: string; email: string; companion_id: string | null } | null = null
+  // 2. Look up referrer if refCode provided (no limit on how many referrals a member can make)
+  let referrer: { id: string; email: string } | null = null
   if (refCode) {
     const { data } = await supabase
       .from('members')
-      .select('id, email, companion_id')
+      .select('id, email')
       .eq('invite_code', refCode)
       .maybeSingle()
     referrer = data ?? null
   }
 
-  // 3. Insert member (tier 1 if referred, otherwise tier 2)
+  // 3. Insert member — always tier 2 on signup; tier 1 earned by referring
   const { data: member, error } = await supabase
     .from('members')
     .insert({
       email:         cleanEmail,
       name:          cleanName || null,
       status:        'registered',
-      tier:          referrer ? 1 : 2,
+      tier:          2,
       invited_by_id: referrer?.id ?? null,
     })
     .select()
@@ -164,8 +168,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Registration failed. Please try again.' }, { status: 500 })
   }
 
-  // 4. If referred — bump referrer to tier 1 and fire Klaviyo event
-  if (referrer && !referrer.companion_id) {
+  // 4. If referred — bump referrer to tier 1 on their first successful referral
+  if (referrer) {
     await supabase
       .from('members')
       .update({ companion_id: member.id, tier: 1 })

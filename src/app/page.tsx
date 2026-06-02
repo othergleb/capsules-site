@@ -157,14 +157,33 @@ function HomeMobile() {
 
   const [email, setEmail]             = useState('')
   const [name, setName]               = useState('')
+  const [welcomeBack, setWelcomeBack] = useState(false)
   const [formStep, setFormStep]       = useState<'email' | 'name' | 'invite'>('email')
   const [stepIn, setStepIn]           = useState(true)
   const [inviteCode, setInviteCode]   = useState<string | null>(null)
   const [copied, setCopied]           = useState(false)
 
-  function advanceToName(e: React.FormEvent) {
+  async function advanceToName(e: React.FormEvent) {
     e.preventDefault()
     if (!email) return
+    try {
+      const res = await fetch('/api/check-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+      if (res.ok) {
+        const data = await res.json()
+        if (data.exists) {
+          setName(data.name ?? '')
+          setInviteCode(data.inviteCode)
+          setWelcomeBack(true)
+          setStepIn(false)
+          setTimeout(() => setFormStep('invite'), 220)
+          return
+        }
+      }
+    } catch { /* fall through */ }
     setStepIn(false)
     setTimeout(() => setFormStep('name'), 220)
   }
@@ -291,7 +310,7 @@ function HomeMobile() {
             <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease' }}>
               <StepDots step={3} />
               <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.9rem,4.5vw,18px)', letterSpacing: '-0.01em', lineHeight: 1.1, marginBottom: '12px' }}>
-                You&apos;re on the list.
+                {welcomeBack ? `Welcome back${name ? `, ${name.split(' ')[0]}` : ''}.` : 'You\'re on the list.'}
               </p>
               <p style={{ ...TEXT, fontWeight: 300, fontSize: 'clamp(0.75rem,3.5vw,15px)', lineHeight: 1.4, marginBottom: '16px' }}>
                 Invite a friend — if they sign up, you&apos;ll both get early access before the general list.
@@ -406,6 +425,7 @@ function HomeInner() {
 
   const [email, setEmail]             = useState('')
   const [name, setName]               = useState('')
+  const [welcomeBack, setWelcomeBack] = useState(false)
   const [formStep, setFormStep]       = useState<'email' | 'name' | 'invite'>('email')
   const [stepIn, setStepIn]           = useState(true)
   const [inviteCode, setInviteCode]   = useState<string | null>(null)
@@ -432,9 +452,28 @@ function HomeInner() {
     return () => clearTimeout(t)
   }, [])
 
-  function advanceToName(e: React.FormEvent) {
+  async function advanceToName(e: React.FormEvent) {
     e.preventDefault()
     if (!email) return
+    // Check if already registered — if so skip straight to share step
+    try {
+      const res = await fetch('/api/check-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+      if (res.ok) {
+        const data = await res.json()
+        if (data.exists) {
+          setName(data.name ?? '')
+          setInviteCode(data.inviteCode)
+          setWelcomeBack(true)
+          setStepIn(false)
+          setTimeout(() => setFormStep('invite'), 220)
+          return
+        }
+      }
+    } catch { /* fall through to normal flow */ }
     setStepIn(false)
     setTimeout(() => setFormStep('name'), 220)
   }
@@ -637,7 +676,7 @@ function HomeInner() {
                 lineHeight: 1.1,
                 marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
               }}>
-                You&apos;re on the list.
+                {welcomeBack ? `Welcome back${name ? `, ${name.split(' ')[0]}` : ''}.` : 'You\'re on the list.'}
               </p>
               <p style={{
                 fontFamily: 'Vulf Sans, sans-serif',
