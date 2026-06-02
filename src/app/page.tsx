@@ -214,7 +214,7 @@ function HomeMobile() {
 
       <section style={{
         backgroundColor: '#FF3C00',
-        minHeight: '100dvh',
+        minHeight: '100svh',
         display: 'flex',
         flexDirection: 'column',
         paddingTop: 'calc(env(safe-area-inset-top, 0px) + 7px)',
