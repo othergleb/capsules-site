@@ -157,10 +157,10 @@ function HomeMobile() {
 
   const [email, setEmail]             = useState('')
   const [name, setName]               = useState('')
-  const [inviteEmail, setInviteEmail] = useState('')
   const [formStep, setFormStep]       = useState<'email' | 'name' | 'invite'>('email')
   const [stepIn, setStepIn]           = useState(true)
-  const [inviteState, setInviteState] = useState<'idle'|'loading'|'sent'|'error'|'skipped'>('idle')
+  const [inviteCode, setInviteCode]   = useState<string | null>(null)
+  const [copied, setCopied]           = useState(false)
 
   function advanceToName(e: React.FormEvent) {
     e.preventDefault()
@@ -169,15 +169,21 @@ function HomeMobile() {
     setTimeout(() => setFormStep('name'), 220)
   }
 
-  function advanceToInvite(e: React.FormEvent) {
+  async function advanceToInvite(e: React.FormEvent) {
     e.preventDefault()
     if (!name) return
-    fetch('/api/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, name, refCode }),
-    }).catch(() => {})
     setStepIn(false)
+    try {
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, name, refCode }),
+      })
+      if (res.ok) {
+        const data = await res.json()
+        setInviteCode(data.inviteCode ?? null)
+      }
+    } catch { /* non-blocking */ }
     setTimeout(() => setFormStep('invite'), 220)
   }
 
@@ -188,19 +194,20 @@ function HomeMobile() {
     }
   }, [formStep])
 
-  async function handleInvite(e: React.FormEvent) {
-    e.preventDefault()
-    if (!inviteEmail || inviteState !== 'idle') return
-    setInviteState('loading')
-    try {
-      const res = await fetch('/api/invite', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, inviteEmail }),
-      })
-      setInviteState(res.ok ? 'sent' : 'error')
-    } catch {
-      setInviteState('error')
+  async function handleShare() {
+    const siteUrl = window.location.origin
+    const url = inviteCode ? `${siteUrl}/?ref=${inviteCode}` : siteUrl
+    const shareData = {
+      title: 'Other Wine — Capsule 01',
+      text:  "I've registered for Other Wine's first capsule drop. Join the list:",
+      url,
+    }
+    if (navigator.share) {
+      try { await navigator.share(shareData) } catch { /* dismissed */ }
+    } else {
+      await navigator.clipboard.writeText(url)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
     }
   }
 
@@ -281,53 +288,22 @@ function HomeMobile() {
 
           {formStep === 'invite' ? (
 
-            /* Confirmed / Invite */
+            /* Confirmed / Share */
             <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease' }}>
               <StepDots step={3} />
-              {inviteState === 'sent' || inviteState === 'skipped' ? (
-                <>
-                  <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.9rem,4.5vw,18px)', letterSpacing: '-0.01em', lineHeight: 1.1, marginBottom: '12px' }}>
-                    BALLOT ENTRY CONFIRMED
-                  </p>
-                  <p style={{ ...TEXT, fontWeight: 300, fontSize: 'clamp(0.75rem,3.5vw,15px)', lineHeight: 1.4 }}>
-                    The draw is on the 21st of June.<br /><br />
-                    Keep an eye on your emails - and if you have any queries in the meantime, check out our{' '}
-                    <a href="/faq" style={{ color: '#EDFF00', textDecoration: 'underline' }}>FAQs</a>
-                    {' '}or{' '}
-                    <a href="mailto:info@otherwine.co.uk" style={{ color: '#EDFF00', textDecoration: 'underline' }}>email us</a>.
-                  </p>
-                </>
-              ) : (
-                <>
-                  <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.9rem,4.5vw,18px)', letterSpacing: '-0.01em', lineHeight: 1.1, marginBottom: '12px' }}>
-                    You&apos;ve entered the ballot.
-                  </p>
-                  <p style={{ ...TEXT, fontWeight: 300, fontSize: 'clamp(0.75rem,3.5vw,15px)', lineHeight: 1.4, marginBottom: '16px' }}>
-                    You have one companion invite to share with a friend.<br /><br />
-                    Once they accept, your fates will be tied - if either of you get drawn, the other will too.<br /><br />
-                    Double the chances of winning, and someone to share the experience with.
-                  </p>
-                  <form onSubmit={handleInvite}>
-                    <div style={{ borderBottom: '1.5px solid #00006A', height: '44px', display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-                      <input
-                        type="email" required placeholder="Companion Email"
-                        value={inviteEmail} onChange={e => setInviteEmail(e.target.value)}
-                        disabled={inviteState === 'loading'}
-                        className="form-input-cream"
-                        style={{ width: '100%', height: '100%', background: 'transparent', border: 'none', outline: 'none', padding: '0 1rem', fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: '16px', letterSpacing: '-0.01em', color: '#EDFF00', textAlign: 'center' }}
-                      />
-                    </div>
-                    {inviteState === 'error' && (
-                      <p style={{ ...TEXT, fontSize: '0.75rem', marginBottom: '0.5rem' }}>Something went wrong. Please try again.</p>
-                    )}
-                    <button type="submit" disabled={inviteState === 'loading'} style={{ display: 'block', width: '100%', height: '52px', backgroundColor: '#EDFF00', color: '#00006A', border: '2px solid #00006A', borderRadius: '999px', fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: '16px', letterSpacing: '-0.03em', textTransform: 'uppercase', cursor: inviteState === 'loading' ? 'wait' : 'pointer', opacity: inviteState === 'loading' ? 0.6 : 1 }}>
-                      {inviteState === 'loading' ? '...' : 'Send Invite'}
-                    </button>
-                    <button type="button" onClick={() => setInviteState('skipped')} style={{ background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: '13px', color: '#EDFF00', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '-0.02em', marginTop: '10px', display: 'block', width: '100%', textAlign: 'center' }}>
-                      Skip
-                    </button>
-                  </form>
-                </>
+              <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.9rem,4.5vw,18px)', letterSpacing: '-0.01em', lineHeight: 1.1, marginBottom: '12px' }}>
+                You&apos;re on the list.
+              </p>
+              <p style={{ ...TEXT, fontWeight: 300, fontSize: 'clamp(0.75rem,3.5vw,15px)', lineHeight: 1.4, marginBottom: '16px' }}>
+                Invite a friend — if they sign up, you&apos;ll both get early access before the general list.
+              </p>
+              {inviteCode && (
+                <button
+                  onClick={handleShare}
+                  style={{ display: 'block', width: '100%', height: '52px', backgroundColor: '#EDFF00', color: '#00006A', border: '2px solid #00006A', borderRadius: '999px', fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: '16px', letterSpacing: '-0.03em', textTransform: 'uppercase', cursor: 'pointer' }}
+                >
+                  {copied ? 'Link copied!' : 'Invite a friend'}
+                </button>
               )}
             </div>
 
@@ -368,7 +344,7 @@ function HomeMobile() {
                   We&apos;ve been given access to the remaining 480 bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco.<br />A rosé so pale, it enters a new classification.
                 </p>
                 <p style={{ ...TEXT, fontWeight: 400, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.3 }}>
-                  Available for purchase via ballot, one entry per person.
+                  Available for purchase to waitlist members. One per person.
                 </p>
               </div>
 
@@ -403,7 +379,7 @@ function HomeMobile() {
                   />
                 </div>
                 <button type="submit" style={{ display: 'block', width: '100%', maxWidth: '240px', margin: '0 auto', height: '52px', backgroundColor: '#EDFF00', color: '#00006A', border: '2px solid #00006A', borderRadius: '999px', fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: '16px', letterSpacing: '-0.03em', textTransform: 'uppercase', cursor: 'pointer' }}>
-                  Enter the Ballot
+                  Join the Waitlist
                 </button>
               </form>
             </div>
@@ -431,10 +407,10 @@ function HomeInner() {
 
   const [email, setEmail]             = useState('')
   const [name, setName]               = useState('')
-  const [inviteEmail, setInviteEmail] = useState('')
   const [formStep, setFormStep]       = useState<'email' | 'name' | 'invite'>('email')
   const [stepIn, setStepIn]           = useState(true)
-  const [inviteState, setInviteState] = useState<'idle'|'loading'|'sent'|'error'|'skipped'>('idle')
+  const [inviteCode, setInviteCode]   = useState<string | null>(null)
+  const [copied, setCopied]           = useState(false)
   const [soundOn, setSoundOn]         = useState(false)
   const yellowRef                     = useRef<HTMLElement>(null)
 
@@ -464,15 +440,21 @@ function HomeInner() {
     setTimeout(() => setFormStep('name'), 220)
   }
 
-  function advanceToInvite(e: React.FormEvent) {
+  async function advanceToInvite(e: React.FormEvent) {
     e.preventDefault()
     if (!name) return
-    fetch('/api/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, name, refCode }),
-    }).catch(() => {})
     setStepIn(false)
+    try {
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, name, refCode }),
+      })
+      if (res.ok) {
+        const data = await res.json()
+        setInviteCode(data.inviteCode ?? null)
+      }
+    } catch { /* non-blocking */ }
     setTimeout(() => setFormStep('invite'), 220)
   }
 
@@ -483,24 +465,21 @@ function HomeInner() {
     }
   }, [formStep])
 
-  async function handleInvite(e: React.FormEvent) {
-    e.preventDefault()
-    if (!inviteEmail || inviteState !== 'idle') return
-    setInviteState('loading')
-    try {
-      const res = await fetch('/api/invite', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, inviteEmail }),
-      })
-      setInviteState(res.ok ? 'sent' : 'error')
-    } catch {
-      setInviteState('error')
+  async function handleShare() {
+    const siteUrl = window.location.origin
+    const url = inviteCode ? `${siteUrl}/?ref=${inviteCode}` : siteUrl
+    const shareData = {
+      title: 'Other Wine — Capsule 01',
+      text:  "I've registered for Other Wine's first capsule drop. Join the list:",
+      url,
     }
-  }
-
-  function skipInvite() {
-    setInviteState('skipped')
+    if (navigator.share) {
+      try { await navigator.share(shareData) } catch { /* dismissed */ }
+    } else {
+      await navigator.clipboard.writeText(url)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }
   }
 
   if (isMobile) return <HomeMobile />
@@ -648,141 +627,54 @@ function HomeInner() {
 
           {formStep === 'invite' ? (
 
-            /* Screen 3: companion invite */
-            <div style={{
-              opacity: stepIn ? 1 : 0,
-              transition: 'opacity 0.4s ease',
-            }}>
+            /* Screen 3: share / confirmed */
+            <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease' }}>
               <StepDots step={3} size={7} />
-              {inviteState === 'sent' || inviteState === 'skipped' ? (
-                <>
-                  <p style={{
-                    fontFamily: 'Vulf Sans, sans-serif',
-                    fontWeight: 700,
-                    fontSize: 'clamp(1rem, 1.45vw, 25px)',
-                    color: '#EDFF00',
-                    letterSpacing: '-0.01em',
-                    lineHeight: 1.1,
-                    marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
-                  }}>
-                    BALLOT ENTRY CONFIRMED
-                  </p>
-                  <p style={{
-                    fontFamily: 'Vulf Sans, sans-serif',
-                    fontWeight: 300,
-                    fontSize: 'clamp(0.78rem, 1.014vw, 17.5px)',
-                    color: '#EDFF00',
-                    lineHeight: 1.4,
-                  }}>
-                    The draw is on the 21st of June.<br /><br />Keep an eye on your emails - and if you have any queries in the meantime, check out our{' '}
-                    <a href="/faq" style={{ color: '#EDFF00', textDecoration: 'underline' }}>FAQs</a>
-                    {' '}or{' '}
-                    <a href="mailto:info@otherwine.co.uk" style={{ color: '#EDFF00', textDecoration: 'underline' }}>email us</a>.
-                  </p>
-                </>
-              ) : (
-                <>
-                  <p style={{
-                    fontFamily: 'Vulf Sans, sans-serif',
-                    fontWeight: 700,
-                    fontSize: 'clamp(1rem, 1.45vw, 25px)',
-                    color: '#EDFF00',
-                    letterSpacing: '-0.01em',
-                    lineHeight: 1.1,
-                    marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
-                  }}>
-                    You&apos;ve entered the ballot.
-                  </p>
-                  <p style={{
+              <p style={{
+                fontFamily: 'Vulf Sans, sans-serif',
+                fontWeight: 700,
+                fontSize: 'clamp(1rem, 1.45vw, 25px)',
+                color: '#EDFF00',
+                letterSpacing: '-0.01em',
+                lineHeight: 1.1,
+                marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
+              }}>
+                You&apos;re on the list.
+              </p>
+              <p style={{
+                fontFamily: 'Vulf Sans, sans-serif',
+                fontWeight: 300,
+                fontSize: 'clamp(0.78rem, 1.014vw, 17.5px)',
+                lineHeight: 1.4,
+                color: '#EDFF00',
+                marginBottom: 'clamp(0.75rem, 1.2vw, 21px)',
+              }}>
+                Invite a friend — if they sign up, you&apos;ll both get early access before the general list.
+              </p>
+              {inviteCode && (
+                <button
+                  onClick={handleShare}
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    height: 'clamp(52px, 4.05vw, 70px)',
+                    backgroundColor: '#EDFF00',
+                    color: '#00006A',
+                    border: '2px solid #00006A',
+                    borderRadius: '999px',
                     fontFamily: 'Vulf Sans, sans-serif',
                     fontWeight: 300,
-                    fontSize: 'clamp(0.78rem, 1.014vw, 17.5px)',
-                    lineHeight: 1.4,
-                    color: '#EDFF00',
-                    marginBottom: 'clamp(0.75rem, 1.2vw, 21px)',
-                  }}>
-                    You have one companion invite to share with a friend.<br /><br />Once they accept, your fates will be tied - if either of you get drawn, the other will too.<br /><br />Double the chances of winning, and someone to share the experience with.
-                  </p>
-                  <form onSubmit={handleInvite}>
-                  <div style={{
-                    borderBottom: '1.5px solid #00006A',
-                    height: 'clamp(48px, 3.7vw, 64px)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginBottom: '0.65rem',
-                  }}>
-                    <input
-                      type="email"
-                      required
-                      placeholder="Companion Email"
-                      value={inviteEmail}
-                      onChange={e => setInviteEmail(e.target.value)}
-                      disabled={inviteState === 'loading'}
-                      className="form-input-cream"
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        background: 'transparent',
-                        border: 'none',
-                        outline: 'none',
-                        padding: '0 1rem',
-                        fontFamily: 'Vulf Sans, sans-serif',
-                        fontWeight: 300,
-                        fontSize: 'clamp(0.8rem, 1.2vw, 21px)',
-                        letterSpacing: '-0.01em',
-                        color: '#EDFF00',
-                        textAlign: 'center',
-                      }}
-                    />
-                  </div>
-                  {inviteState === 'error' && (
-                    <p style={{ color: '#EDFF00', fontSize: '0.75rem', marginBottom: '0.5rem', fontFamily: 'Vulf Sans, sans-serif' }}>
-                      Something went wrong. Please try again.
-                    </p>
-                  )}
-                  <button
-                    type="submit"
-                    disabled={inviteState === 'loading'}
-                    style={{
-                      display: 'block',
-                      width: '100%',
-                      height: 'clamp(52px, 4.05vw, 70px)',
-                      backgroundColor: '#EDFF00',
-                      color: '#00006A',
-                      border: '2px solid #00006A',
-                      borderRadius: '999px',
-                      fontFamily: 'Vulf Sans, sans-serif',
-                      fontWeight: 300,
-                      fontSize: 'clamp(0.9rem, 1.45vw, 25px)',
-                      letterSpacing: '-0.03em',
-                      textTransform: 'uppercase',
-                      cursor: inviteState === 'loading' ? 'wait' : 'pointer',
-                      opacity: inviteState === 'loading' ? 0.6 : 1,
-                      transition: 'opacity 0.15s ease',
-                      fontFeatureSettings: "'cv10', 'ss03', 'ss05', 'case', 'ordn', 'dlig'",
-                    }}
-                    onMouseOver={e => { if (inviteState !== 'loading') e.currentTarget.style.opacity = '0.8' }}
-                    onMouseOut={e => { if (inviteState !== 'loading') e.currentTarget.style.opacity = '1' }}
-                  >
-                    {inviteState === 'loading' ? '...' : 'Send Invite'}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={skipInvite}
-                    style={{
-                      background: 'none', border: 'none', cursor: 'pointer',
-                      fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400,
-                      fontSize: 'clamp(0.75rem, 1.05vw, 18px)',
-                      color: '#EDFF00', opacity: 0.8,
-                      textTransform: 'uppercase', letterSpacing: '-0.02em',
-                      marginTop: '0.6rem', display: 'block', width: '100%', textAlign: 'center',
-                      padding: '0.25rem',
-                    }}
-                  >
-                    Skip
-                  </button>
-                </form>
-                </>
+                    fontSize: 'clamp(0.9rem, 1.45vw, 25px)',
+                    letterSpacing: '-0.03em',
+                    textTransform: 'uppercase',
+                    cursor: 'pointer',
+                    transition: 'opacity 0.15s ease',
+                  }}
+                  onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
+                  onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
+                >
+                  {copied ? 'Link copied!' : 'Invite a friend'}
+                </button>
               )}
             </div>
 
@@ -890,7 +782,7 @@ function HomeInner() {
                     color: '#EDFF00',
                     marginBottom: 0,
                   }}>
-                    Available for purchase via ballot, one entry per person.
+                    Available for purchase to waitlist members. One per person.
                   </p>
                 </div>
 
@@ -989,7 +881,7 @@ function HomeInner() {
                     onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
                     onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
                   >
-                    Enter the Ballot
+                    Join the Waitlist
                   </button>
                 </form>
               </div>
