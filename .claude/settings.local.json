@@ -53,7 +53,10 @@
       "Bash(qlmanage -t -s 400 -o /tmp/ /Users/gleb/Documents/CLAUDE/capsules-site/public/logo-animated-v3.mp4)",
       "Bash(ffprobe /Users/gleb/Documents/CLAUDE/capsules-site/public/Other_alt3_yellow_red_6k.mp4)",
       "Bash(mdls -name kMDItemCodecs /Users/gleb/Documents/CLAUDE/capsules-site/public/Other_alt3_yellow_red_6k.mp4)",
-      "Bash(mdls -name kMDItemCodecs /Users/gleb/Documents/CLAUDE/capsules-site/public/Other_alt3_yellow_red.mp4)"
+      "Bash(mdls -name kMDItemCodecs /Users/gleb/Documents/CLAUDE/capsules-site/public/Other_alt3_yellow_red.mp4)",
+      "Read(//Users/gleb/.claude/**)",
+      "Bash(claude mcp *)",
+      "Bash(identify /Users/gleb/Documents/CLAUDE/capsules-site/public/home-photo.jpg)"
     ]
   }
 }

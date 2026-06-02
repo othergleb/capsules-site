@@ -277,12 +277,6 @@ function HomeMobile() {
           Capsule 01
         </h1>
 
-        <img
-          src="/home-photo.png"
-          alt=""
-          style={{ width: '100%', height: 'auto', aspectRatio: '314 / 319', display: 'block', objectFit: 'cover', marginBottom: '16px' }}
-        />
-
         <div style={{ backgroundColor: '#FF3C00', width: '100%', padding: '16px', position: 'relative' }}>
 
           {formStep === 'invite' ? (
