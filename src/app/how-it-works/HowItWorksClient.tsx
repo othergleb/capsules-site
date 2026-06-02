@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import Nav from '@/components/Nav'
 import MobileNav from '@/components/MobileNav'
 import { useIsMobile } from '@/hooks/useIsMobile'
@@ -32,74 +31,48 @@ export default function HowItWorksClient() {
   const isMobile = useIsMobile()
 
   if (isMobile) {
+    const T: React.CSSProperties = {
+      fontFamily: 'Vulf Sans, sans-serif',
+      fontSize: '18px',
+      color: '#00006A',
+      lineHeight: '20px',
+      letterSpacing: '0.18px',
+      margin: 0,
+    }
     return (
-      <div style={{ backgroundColor: 'var(--cream)', minHeight: '100dvh', paddingBottom: '41px' }}>
+      <div style={{ backgroundColor: '#fffff5', minHeight: '100svh', paddingBottom: '41px', position: 'relative', overflow: 'hidden' }}>
 
-        {/* Logo header */}
-        <Link href="/" style={{ display: 'block', padding: '20px 16px 16px', textAlign: 'center' }}>
-          <img src="/figma/other-logo-yellow.png" alt="OTHER" style={{ height: '44px', width: 'auto' }} />
-        </Link>
+        {/* Large red logo bleeding from top-left */}
+        <div style={{ position: 'absolute', left: '-23.15vw', top: '-60.3vw', width: '144.8vw', height: '144.8vw', pointerEvents: 'none', zIndex: 0 }}>
+          <img src="/figma/other-logo-red.png" alt="" style={{ width: '100%', height: '100%' }} />
+        </div>
 
         {/* Intro */}
-        <div style={{ padding: '24px 24px 32px', textAlign: 'center' }}>
-          <p style={{
-            fontFamily: 'Vulf Sans, sans-serif',
-            fontWeight: 700,
-            fontSize: '14px',
-            color: 'var(--blue)',
-            lineHeight: 1.4,
-            letterSpacing: '0.2px',
-          }}>
+        <div style={{ position: 'relative', zIndex: 1, paddingTop: '160px', paddingLeft: '32px', paddingRight: '32px', paddingBottom: '32px', textAlign: 'center' }}>
+          <p style={{ ...T, fontWeight: 700, maxWidth: '330px', margin: '0 auto' }}>
             We allocate by ballot to give everyone an equal shot.{' '}
             Register once, and if you are drawn on 14 June you will receive a checkout link with 48 hours to complete your purchase.
           </p>
         </div>
 
-        {/* Step cards — stacked */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0', padding: '0 16px 24px' }}>
+        {/* Step cards */}
+        <div style={{ position: 'relative', zIndex: 1, padding: '0 11px 32px' }}>
           {STEPS.map((step, i) => (
             <div key={step.num} style={{
-              border: '2.22px solid var(--red)',
-              borderRadius: '40px',
-              padding: '28px 24px',
-              display: 'flex',
-              flexDirection: 'column',
+              border: '1px solid #ff3c00',
+              borderRadius: '50px',
+              padding: '21px 22px',
               textAlign: 'center',
-              marginTop: i > 0 ? '-2.22px' : 0,
-              backgroundColor: 'var(--cream)',
+              marginTop: i > 0 ? '-1px' : 0,
+              backgroundColor: '#fffff5',
             }}>
-              <p style={{
-                fontFamily: 'Vulf Sans, sans-serif',
-                fontWeight: 300,
-                fontSize: '14px',
-                color: 'var(--red)',
-                letterSpacing: '-0.75px',
-                textTransform: 'uppercase',
-                lineHeight: 2,
-                margin: 0,
-              }}>
+              <p style={{ ...T, fontWeight: 300, color: '#ff3c00', letterSpacing: '-0.54px', textTransform: 'uppercase' }}>
                 Step {step.num}
               </p>
-              <p style={{
-                fontFamily: 'Vulf Sans, sans-serif',
-                fontWeight: 700,
-                fontSize: '14px',
-                color: 'var(--blue)',
-                letterSpacing: '0.2px',
-                textTransform: 'uppercase',
-                lineHeight: 1.3,
-                margin: '0 0 8px',
-              }}>
+              <p style={{ ...T, fontWeight: 700, textTransform: 'uppercase', margin: '20px 0' }}>
                 {step.title}
               </p>
-              <p style={{
-                fontFamily: 'Vulf Sans, sans-serif',
-                fontWeight: 400,
-                fontSize: '14px',
-                color: 'var(--blue)',
-                lineHeight: 1.5,
-                margin: 0,
-              }}>
+              <p style={{ ...T, fontWeight: 400 }}>
                 {step.body}
               </p>
             </div>

@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import Nav from '@/components/Nav'
 import MobileNav from '@/components/MobileNav'
 import { useIsMobile } from '@/hooks/useIsMobile'
@@ -38,28 +37,29 @@ function AccordionSection({ label, items, firstOpen = false, mobile = false }: {
   firstOpen?: boolean
   mobile?: boolean
 }) {
+  const border = mobile ? '1px solid var(--blue)' : '2.22px solid var(--blue)'
   return (
-    <div style={{ marginBottom: mobile ? '20px' : '1.74vw' }}>
-      <p style={{ ...rowText, fontWeight: 300, textTransform: 'uppercase', paddingLeft: mobile ? '16px' : '2.26vw', fontSize: mobile ? '11px' : undefined }}>
+    <div style={{ marginBottom: mobile ? '32px' : '1.74vw' }}>
+      <p style={{ ...rowText, fontWeight: 300, textTransform: 'uppercase', paddingLeft: mobile ? '16px' : '2.26vw', fontSize: mobile ? '18px' : undefined }}>
         {label}
       </p>
-      <div style={{ borderBottom: '2.22px solid var(--blue)' }}>
+      <div style={{ borderBottom: border }}>
         {items.map(([q, a], idx) => (
-          <details key={q} open={idx === 0 && firstOpen} style={{ borderTop: '2.22px solid var(--blue)' }}>
+          <details key={q} open={idx === 0 && firstOpen} style={{ borderTop: border }}>
             <summary style={{ display: 'flex', cursor: 'pointer', userSelect: 'none' }}>
-              <span style={{ ...rowText, fontWeight: 400, flex: mobile ? '1' : '0 0 50%', paddingLeft: mobile ? '16px' : '2.26vw', fontSize: mobile ? '13px' : undefined, padding: mobile ? '10px 16px' : undefined }}>
+              <span style={{ ...rowText, fontWeight: 400, flex: mobile ? '1' : '0 0 50%', paddingLeft: mobile ? '16px' : '2.26vw', fontSize: mobile ? '18px' : undefined, padding: mobile ? '6px 16px' : undefined }}>
                 {q}
               </span>
               {!mobile && (
                 <span className="faq-toggle" style={{ ...rowText, fontWeight: 400, flex: '0 0 50%' }}>+</span>
               )}
               {mobile && (
-                <span className="faq-toggle" style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: '16px', color: 'var(--blue)', padding: '10px 16px', lineHeight: 1 }}>+</span>
+                <span className="faq-toggle" style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: '18px', color: 'var(--blue)', padding: '6px 16px', lineHeight: 1 }}>+</span>
               )}
             </summary>
-            <div style={{ display: 'flex', padding: mobile ? '0 16px 12px' : undefined }}>
+            <div style={{ display: 'flex', padding: mobile ? '4px 16px 12px' : undefined }}>
               {!mobile && <div style={{ flex: '0 0 50%' }} />}
-              <p style={{ ...rowText, fontWeight: 300, flex: mobile ? undefined : '0 0 50%', lineHeight: 1.35, paddingBottom: mobile ? undefined : '0.87vw', fontSize: mobile ? '13px' : undefined }}>
+              <p style={{ ...rowText, fontWeight: 300, flex: mobile ? undefined : '0 0 50%', lineHeight: 1.35, paddingBottom: mobile ? undefined : '0.87vw', fontSize: mobile ? '18px' : undefined }}>
                 {a}
               </p>
             </div>
@@ -75,22 +75,22 @@ export default function FaqClient() {
 
   if (isMobile) {
     return (
-      <div style={{ backgroundColor: 'var(--cream)', minHeight: '100dvh', paddingBottom: '41px' }}>
+      <div style={{ backgroundColor: '#fffff5', minHeight: '100svh', paddingBottom: '41px', position: 'relative', overflow: 'hidden' }}>
 
-        {/* Logo header */}
-        <Link href="/" style={{ display: 'block', padding: '20px 16px 16px', textAlign: 'center' }}>
-          <img src="/figma/other-logo-yellow.png" alt="OTHER" style={{ height: '44px', width: 'auto' }} />
-        </Link>
+        {/* Large red logo bleeding from top-left */}
+        <div style={{ position: 'absolute', left: '-23.15vw', top: '-60.3vw', width: '144.8vw', height: '144.8vw', pointerEvents: 'none', zIndex: 0 }}>
+          <img src="/figma/other-logo-red.png" alt="" style={{ width: '100%', height: '100%' }} />
+        </div>
 
         {/* Intro */}
-        <div style={{ padding: '16px 24px 28px', textAlign: 'center' }}>
-          <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 700, fontSize: '14px', color: 'var(--blue)', lineHeight: 1.4, letterSpacing: '0.2px', margin: 0 }}>
-            Everything we&apos;ve been asked. If something&apos;s missing, email capsules@otherwine.co.uk.
+        <div style={{ position: 'relative', zIndex: 1, paddingTop: '160px', paddingLeft: '32px', paddingRight: '32px', paddingBottom: '28px', textAlign: 'center' }}>
+          <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 700, fontSize: '18px', color: '#00006A', lineHeight: '20px', letterSpacing: '0.18px', margin: '0 auto', maxWidth: '330px' }}>
+            Everything we&apos;ve been asked.{' '}If something&apos;s missing,{' '}email capsules@otherwine.co.uk.
           </p>
         </div>
 
         {/* Yellow accordion */}
-        <div style={{ backgroundColor: 'var(--yellow)', margin: '0 11px', padding: '12px 0' }}>
+        <div style={{ backgroundColor: '#EDFF00', margin: '0 11px', position: 'relative', zIndex: 1 }}>
           <AccordionSection label="General"    items={GENERAL} firstOpen mobile />
           <AccordionSection label="The Ballot" items={BALLOT}  mobile />
         </div>
