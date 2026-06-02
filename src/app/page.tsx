@@ -217,7 +217,7 @@ function HomeMobile() {
         minHeight: '100svh',
         display: 'flex',
         flexDirection: 'column',
-        paddingTop: 'max(calc(env(safe-area-inset-top, 0px) + 7px), 27px)',
+        paddingTop: 'max(calc(env(safe-area-inset-top, 0px) + 20px), 40px)',
         paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 41px)',
       }}>
 
