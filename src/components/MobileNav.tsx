@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 const PAGES = [
   { label: 'THE WINE',            href: '/the-wine'           },
@@ -27,7 +27,22 @@ const NAV_TEXT: React.CSSProperties = {
 
 export default function MobileNav({ bg = '#fffff5' }: { bg?: string }) {
   const pathname = usePathname()
+  const router   = useRouter()
   const [open, setOpen] = useState(false)
+
+  const isHome  = pathname === '/'
+  const idx     = PAGES.findIndex(p => p.href === pathname)
+  const safeIdx = idx < 0 ? 0 : idx
+  const prevIdx = (safeIdx - 1 + PAGES.length) % PAGES.length
+  const nextIdx = (safeIdx + 1) % PAGES.length
+  const centerLabel = isHome ? 'MENU' : (PAGES[safeIdx]?.label ?? 'MENU')
+
+  function go(href: string) {
+    setOpen(false)
+    router.push(href)
+  }
+
+  const showArrows = !open && !isHome
 
   return (
     <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 200 }}>
@@ -56,7 +71,6 @@ export default function MobileNav({ bg = '#fffff5' }: { bg?: string }) {
               </Link>
             </div>
           ))}
-          {/* Divider above bottom bar */}
           <div style={{ height: '1px', backgroundColor: '#00006a', margin: '0 24px' }} />
         </div>
       )}
@@ -67,12 +81,19 @@ export default function MobileNav({ bg = '#fffff5' }: { bg?: string }) {
         backgroundColor: bg,
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: showArrows ? 'space-between' : 'center',
+        padding: '0 24px',
         paddingBottom: 'env(safe-area-inset-bottom, 0px)',
       }}>
+        {showArrows && (
+          <button onClick={() => go(PAGES[prevIdx].href)} style={NAV_TEXT}>←</button>
+        )}
         <button onClick={() => setOpen(o => !o)} style={NAV_TEXT}>
-          {open ? 'CLOSE MENU' : 'MENU'}
+          {open ? 'CLOSE MENU' : centerLabel}
         </button>
+        {showArrows && (
+          <button onClick={() => go(PAGES[nextIdx].href)} style={NAV_TEXT}>→</button>
+        )}
       </div>
 
     </div>

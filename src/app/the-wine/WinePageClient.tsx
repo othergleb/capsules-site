@@ -14,35 +14,6 @@ const DETAILS = [
   ['Format',   '75cl · natural cork'],
 ]
 
-// ── Animated red-on-cream logo for wine page ───────────────────
-function WineLogoVideo() {
-  const videoRef = useRef<HTMLVideoElement>(null)
-
-  useEffect(() => {
-    const v = videoRef.current
-    if (!v) return
-    v.muted = true
-    v.play().catch(() => {})
-  }, [])
-
-  return (
-    <div style={{
-      width: '100%',
-      aspectRatio: '469 / 103',
-      overflow: 'hidden',
-      flexShrink: 0,
-    }}>
-      <video
-        ref={videoRef}
-        loop playsInline preload="auto"
-        style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 45%' }}
-      >
-        <source src="/logo-animated-v3.mp4" type="video/mp4" />
-      </video>
-    </div>
-  )
-}
-
 // ── Mobile wine page ───────────────────────────────────────────
 function WinePageMobile() {
   const CELL: React.CSSProperties = {
@@ -58,16 +29,28 @@ function WinePageMobile() {
   return (
     <div style={{
       backgroundColor: '#fffff5',
-      height: '100dvh',
+      height: '100svh',
       display: 'flex',
       flexDirection: 'column',
       overflow: 'hidden',
       paddingBottom: '41px',
+      position: 'relative',
     }}>
 
-      <WineLogoVideo />
+      {/* Large red OTHER logo – bleeds from top-left, sized in vw to stay proportional */}
+      <div style={{
+        position: 'absolute',
+        left: '-23.15vw',
+        top: '-60.3vw',
+        width: '144.8vw',
+        height: '144.8vw',
+        pointerEvents: 'none',
+        zIndex: 0,
+      }}>
+        <img src="/figma/other-logo-red.png" alt="" style={{ width: '100%', height: '100%' }} />
+      </div>
 
-      {/* Two bottles */}
+      {/* Bottles – centred, fill remaining space, aligned to bottom */}
       <div style={{
         flex: 1,
         display: 'flex',
@@ -75,21 +58,23 @@ function WinePageMobile() {
         alignItems: 'flex-end',
         paddingBottom: '8px',
         minHeight: 0,
+        position: 'relative',
+        zIndex: 1,
       }}>
         <img
           src="/bottle-1.png"
           alt="Amphora aged Grenache"
-          style={{ width: '32%', height: 'auto', display: 'block', flexShrink: 0 }}
+          style={{ width: '32.3%', height: 'auto', display: 'block', flexShrink: 0 }}
         />
         <img
           src="/bottle-2.png"
           alt="Estate Rosé"
-          style={{ width: '32%', height: 'auto', display: 'block', flexShrink: 0, marginLeft: '-5%' }}
+          style={{ width: '32.3%', height: 'auto', display: 'block', flexShrink: 0, marginLeft: '-5.6%' }}
         />
       </div>
 
       {/* Wine spec table */}
-      <div style={{ margin: '0 11px', backgroundColor: '#EDFF00', flexShrink: 0 }}>
+      <div style={{ margin: '0 11px', backgroundColor: '#EDFF00', flexShrink: 0, position: 'relative', zIndex: 1 }}>
         <div style={{ height: '1px', backgroundColor: '#00006A' }} />
         {DETAILS.map(([label, val]) => (
           <div key={label} style={{
@@ -104,7 +89,7 @@ function WinePageMobile() {
             <span style={{ ...CELL, fontWeight: 400, textAlign: 'right' }}>{val}</span>
           </div>
         ))}
-        <div style={{ height: '20px' }} />
+        <div style={{ height: '22px' }} />
       </div>
 
       <MobileNav bg="#ff3c00" />
