@@ -79,6 +79,7 @@ export default function MobileNav({ bg = '#fffff5' }: { bg?: string }) {
       <div style={{
         height: 'calc(41px + env(safe-area-inset-bottom, 0px))',
         backgroundColor: bg,
+        borderTop: '1px solid #00006a',
         display: 'flex',
         alignItems: 'center',
         justifyContent: showArrows ? 'space-between' : 'center',
