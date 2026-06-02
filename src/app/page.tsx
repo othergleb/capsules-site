@@ -109,7 +109,7 @@ function FarmerVideo({ src, label, muted }: { src: string; label: string; muted:
 
   return (
     <div style={{
-      borderRadius: 'clamp(80px, 13.83vw, 239px)',
+      borderRadius: '239.351px',
       overflow: 'hidden',
       width: '100%',
       height: '100%',
@@ -218,10 +218,10 @@ function HomeMobile() {
 
         {/* Two video ovals — fixed aspect ratio, no flex stretching */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '8px' }}>
-          <div style={{ marginLeft: '7px', width: 'calc(100% - 13px)', aspectRatio: '380 / 214', borderRadius: '239.351px', overflow: 'hidden', border: '2.22px solid #EDFF00', position: 'relative' }}>
+          <div style={{ marginLeft: '7px', width: 'calc(100% - 13px)', aspectRatio: '380 / 214' }}>
             <FarmerVideo src={FARMER_LEFT}  label="Moroccan farmers in the vineyard" muted />
           </div>
-          <div style={{ marginLeft: '7px', width: 'calc(100% - 13px)', aspectRatio: '380 / 214', borderRadius: '239.351px', overflow: 'hidden', border: '2.22px solid #EDFF00', position: 'relative' }}>
+          <div style={{ marginLeft: '7px', width: 'calc(100% - 13px)', aspectRatio: '380 / 214' }}>
             <FarmerVideo src={FARMER_RIGHT} label="Berber farmers working in the Atlas mountains" muted />
           </div>
         </div>
