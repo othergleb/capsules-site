@@ -359,10 +359,13 @@ function HomeMobile() {
             <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease' }}>
               <div style={{ textAlign: 'center', marginBottom: '20px' }}>
                 <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.3, marginBottom: '1em' }}>
-                  Amphora aged grenache, grown by Berber farmers, vinified by French winemakers. A ros&eacute; so pale, it enters a new classification.
+                  In 2023, a community of Berber farmers in northern Morocco worked together with French winemakers to create something extraordinary.
+                </p>
+                <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.3, marginBottom: '1em' }}>
+                  Ageing their finest grenache grapes in clay amphora, they created a one of kind ros&eacute;, so pale that it enters a new classification.
                 </p>
                 <p style={{ ...TEXT, fontWeight: 400, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.3 }}>
-                  Just 480 bottles of their revered 2023 vintage remain &mdash; for sale on the 23rd June to Capsule members only.
+                  Available to members only, on sale for one day as part of Capsule 01.
                 </p>
               </div>
 
@@ -808,7 +811,18 @@ function HomeInner() {
                     color: '#EDFF00',
                     marginBottom: '1.29em',
                   }}>
-                    Amphora aged grenache, grown by Berber farmers, vinified by French winemakers. A ros&eacute; so pale, it enters a new classification.
+                    In 2023, a community of Berber farmers in northern Morocco worked together with French winemakers to create something extraordinary.
+                  </p>
+                  <p style={{
+                    fontFamily: 'Vulf Sans, sans-serif',
+                    fontWeight: 700,
+                    fontSize: 'clamp(0.9rem, 1.331vw, 23px)',
+                    lineHeight: 1.29,
+                    letterSpacing: '0.23px',
+                    color: '#EDFF00',
+                    marginBottom: '1.29em',
+                  }}>
+                    Ageing their finest grenache grapes in clay amphora, they created a one of kind ros&eacute;, so pale that it enters a new classification.
                   </p>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
@@ -819,7 +833,7 @@ function HomeInner() {
                     color: '#EDFF00',
                     marginBottom: 0,
                   }}>
-                    Just 480 bottles of their revered 2023 vintage remain &mdash; for sale on the 23rd June to Capsule members only.
+                    Available to members only, on sale for one day as part of Capsule 01.
                   </p>
                 </div>
 
