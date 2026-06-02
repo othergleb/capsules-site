@@ -359,31 +359,29 @@ function HomeMobile() {
             <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease' }}>
               <div style={{ textAlign: 'center', marginBottom: '20px' }}>
                 <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.3, marginBottom: '1em' }}>
-                  In 2023, a community of Berber farmers worked alongside French winemakers to create something extraordinary.
+                  In 2023, a community of Berber farmers paired with world renowned winemakers to create something extraordinary.
                 </p>
                 <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.3, marginBottom: '1em' }}>
                   A grenache ros&eacute;, aged in clay amphora, so pale that it enters a new classification.
                 </p>
                 <p style={{ ...TEXT, fontWeight: 400, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.3 }}>
-                  480 bottles remain, available as part of Capsule 01 to members only.
+                  480 bottles remain. Available as part of Capsule 01 to members only.
                 </p>
               </div>
 
-              {/* Contents table */}
+              {/* Info table */}
               <div style={{ width: '100%', marginBottom: '20px' }}>
-                <div style={{ padding: '4px 16px 6px', fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: 'clamp(0.7rem,3.5vw,14px)', lineHeight: 1, letterSpacing: '-0.2px', color: '#EDFF00', textTransform: 'uppercase' }}>
-                  Inside Capsule 01 (£89)
-                </div>
                 <div style={{ width: '100%', height: '1px', backgroundColor: '#EDFF00' }} />
                 {[
-                  ['1 × bottle',  'Amphora aged Grenache, 2023'],
-                  ['2 × bottles', 'Estate Moroccan Rosé'],
-                  ['1 × vial',    'Award-winning olive oil'],
-                ].map(([qty, item]) => (
-                  <div key={item}>
+                  ['On Sale',             '23 June'],
+                  ['Membership Status',   'Open'],
+                  ['Capsules Available',  '480'],
+                  ['Pricing',             '£87'],
+                ].map(([label, value]) => (
+                  <div key={label}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '4px 16px', fontFamily: 'Vulf Sans, sans-serif', fontSize: 'clamp(0.7rem,3.5vw,14px)', lineHeight: 1, letterSpacing: '-0.2px', color: '#EDFF00', textTransform: 'uppercase' }}>
-                      <span style={{ fontWeight: 300 }}>{qty}</span>
-                      <span style={{ fontWeight: 400 }}>{item}</span>
+                      <span style={{ fontWeight: 300 }}>{label}</span>
+                      <span style={{ fontWeight: 400 }}>{value}</span>
                     </div>
                     <div style={{ width: '100%', height: '1px', backgroundColor: '#EDFF00' }} />
                   </div>
@@ -811,7 +809,7 @@ function HomeInner() {
                     color: '#EDFF00',
                     marginBottom: '1.29em',
                   }}>
-                    In 2023, a community of Berber farmers worked alongside French winemakers to create something extraordinary.
+                    In 2023, a community of Berber farmers paired with world renowned winemakers to create something extraordinary.
                   </p>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
@@ -833,31 +831,19 @@ function HomeInner() {
                     color: '#EDFF00',
                     marginBottom: 0,
                   }}>
-                    480 bottles remain, available as part of Capsule 01 to members only.
+                    480 bottles remain. Available as part of Capsule 01 to members only.
                   </p>
                 </div>
 
                 <div style={{ width: '100%', marginBottom: 'clamp(0.75rem, 3.31vw, 57px)' }}>
-                  <div style={{
-                    padding: 'clamp(4px, 0.33vw, 6px) clamp(18px, 2.79vw, 48px)',
-                    paddingBottom: 'clamp(6px, 0.87vw, 15px)',
-                    fontFamily: 'Vulf Sans, sans-serif',
-                    fontWeight: 400,
-                    fontSize: 'clamp(0.75rem, 1.16vw, 20px)',
-                    lineHeight: 1,
-                    letterSpacing: '-0.2px',
-                    color: '#EDFF00',
-                    textTransform: 'uppercase',
-                  }}>
-                    Inside Capsule 01 (£89)
-                  </div>
                   <div style={{ width: '100%', height: '1px', backgroundColor: '#EDFF00' }} />
                   {[
-                    ['1 × bottle',  'Amphora aged Grenache, 2023'],
-                    ['2 × bottles', 'Estate Moroccan Rosé'],
-                    ['1 × vial',    'Award-winning olive oil'],
-                  ].map(([qty, item]) => (
-                    <div key={item}>
+                    ['On Sale',            '23 June'],
+                    ['Membership Status',  'Open'],
+                    ['Capsules Available', '480'],
+                    ['Pricing',            '£87'],
+                  ].map(([label, value]) => (
+                    <div key={label}>
                       <div style={{
                         display: 'flex',
                         justifyContent: 'space-between',
@@ -870,8 +856,8 @@ function HomeInner() {
                         color: '#EDFF00',
                         textTransform: 'uppercase',
                       }}>
-                        <span style={{ fontWeight: 300 }}>{qty}</span>
-                        <span style={{ fontWeight: 400 }}>{item}</span>
+                        <span style={{ fontWeight: 300 }}>{label}</span>
+                        <span style={{ fontWeight: 400 }}>{value}</span>
                       </div>
                       <div style={{ width: '100%', height: '1px', backgroundColor: '#EDFF00' }} />
                     </div>
