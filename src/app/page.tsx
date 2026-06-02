@@ -12,7 +12,7 @@ const TIFINAGH_SVG  = '/figma/tifinagh.svg'
 const SUNFLOWER_SVG = '/figma/sunflower.svg'
 const STAR_SVG      = '/figma/star.svg'
 const DIAMONDS_SVG  = '/figma/polygon-diamonds.svg'
-const OTHER_VIDEO   = '/Other_alt3_yellow_red.mp4'
+const OTHER_VIDEO   = '/Other_alt3_yellow_red_6k.mp4'
 const FARMER_LEFT   = '/farmer-left.mp4'
 const FARMER_RIGHT  = '/farmer-right.mp4'
 

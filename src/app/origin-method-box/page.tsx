@@ -42,7 +42,7 @@ function OtherLogoVideo() {
     <div style={{ width: '100%', aspectRatio: '469 / 103', overflow: 'hidden', position: 'relative', lineHeight: 0, flexShrink: 0 }}>
       <video ref={videoRef} loop playsInline preload="auto"
         style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', width: '100%', height: '100%' }}>
-        <source src="/Other_alt3_yellow_red.mp4" type="video/mp4" />
+        <source src="/Other_alt3_yellow_red_6k.mp4" type="video/mp4" />
       </video>
       <canvas ref={canvasRef} width={2000} height={440}
         style={{ width: '100%', height: '100%', display: 'block' }} />
