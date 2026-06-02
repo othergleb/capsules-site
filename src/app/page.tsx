@@ -359,10 +359,10 @@ function HomeMobile() {
             <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease' }}>
               <div style={{ textAlign: 'center', marginBottom: '20px' }}>
                 <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.3, marginBottom: '1em' }}>
-                  We&apos;ve been given access to the remaining 480 bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco.<br />A rosé so pale, it enters a new classification.
+                  Amphora aged grenache, grown by Berber farmers, vinified by French winemakers. A ros&eacute; so pale, it enters a new classification.
                 </p>
                 <p style={{ ...TEXT, fontWeight: 400, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.3 }}>
-                  Available for purchase to waitlist members. One per person.
+                  Just 480 bottles of their revered 2023 vintage remain &mdash; for sale on the 23rd June to Capsule members only.
                 </p>
               </div>
 
@@ -808,7 +808,7 @@ function HomeInner() {
                     color: '#EDFF00',
                     marginBottom: '1.29em',
                   }}>
-                    We&apos;ve been given access to the remaining 480 bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco.<br />A rosé so pale, it enters a new classification.
+                    Amphora aged grenache, grown by Berber farmers, vinified by French winemakers. A ros&eacute; so pale, it enters a new classification.
                   </p>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
@@ -819,7 +819,7 @@ function HomeInner() {
                     color: '#EDFF00',
                     marginBottom: 0,
                   }}>
-                    Available for purchase to waitlist members. One per person.
+                    Just 480 bottles of their revered 2023 vintage remain &mdash; for sale on the 23rd June to Capsule members only.
                   </p>
                 </div>
 
