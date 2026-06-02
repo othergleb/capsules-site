@@ -11,13 +11,14 @@ const ARABIC_SVG    = '/figma/arabic.svg'
 const TIFINAGH_SVG  = '/figma/tifinagh.svg'
 const SUNFLOWER_SVG = '/figma/sunflower.svg'
 const STAR_SVG      = '/figma/star.svg'
-const DIAMONDS_SVG  = '/figma/polygon-diamonds.svg'
-const OTHER_VIDEO   = '/Other_alt3_yellow_red.mp4'
-const FARMER_LEFT   = '/farmer-left.mp4'
-const FARMER_RIGHT  = '/farmer-right.mp4'
+const DIAMONDS_SVG      = '/figma/polygon-diamonds.svg'
+const OTHER_VIDEO       = '/Other_alt3_yellow_red.mp4'
+const OTHER_VIDEO_6K    = '/Other_alt3_yellow_red_6k.mp4'
+const FARMER_LEFT       = '/farmer-left.mp4'
+const FARMER_RIGHT      = '/farmer-right.mp4'
 
 // Canvas draws the letter band from a hidden video each frame
-function OtherLogoVideo() {
+function OtherLogoVideo({ src = OTHER_VIDEO }: { src?: string }) {
   const videoRef  = useRef<HTMLVideoElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const rafRef    = useRef<number>(0)
@@ -64,7 +65,7 @@ function OtherLogoVideo() {
         loop playsInline preload="auto"
         style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', width: '100%', height: '100%' }}
       >
-        <source src={OTHER_VIDEO} type="video/mp4" />
+        <source src={src} type="video/mp4" />
       </video>
       <canvas
         ref={canvasRef}
@@ -220,7 +221,7 @@ function HomeMobile() {
         paddingBottom: '49px',
       }}>
 
-        <OtherLogoVideo />
+        <OtherLogoVideo src={OTHER_VIDEO} />
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '8px 7px 0', flex: 1, minHeight: 0 }}>
           <div style={{ flex: 1, minHeight: 0, borderRadius: 'clamp(60px,28vw,120px)', overflow: 'hidden', border: '2.22px solid #EDFF00', position: 'relative' }}>
@@ -520,7 +521,7 @@ function HomeInner() {
         paddingBottom: 'clamp(1rem, 2.5vw, 44px)',
       }}>
 
-        <OtherLogoVideo />
+        <OtherLogoVideo src={OTHER_VIDEO_6K} />
 
         <div style={{
           display: 'grid',
