@@ -359,13 +359,13 @@ function HomeMobile() {
             <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease' }}>
               <div style={{ textAlign: 'center', marginBottom: '20px' }}>
                 <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.3, marginBottom: '1em' }}>
-                  In 2023, a community of Berber farmers in northern Morocco worked together with French winemakers to create something extraordinary.
+                  In 2023, a community of Berber farmers worked alongside French winemakers to create something extraordinary.
                 </p>
                 <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.3, marginBottom: '1em' }}>
-                  An amphora aged grenache ros&eacute;, so pale that it enters a new classification.
+                  A grenache ros&eacute;, aged in clay amphora, so pale that it enters a new classification.
                 </p>
                 <p style={{ ...TEXT, fontWeight: 400, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.3 }}>
-                  Available to members only, on sale for one day as part of Capsule 01.
+                  480 bottles remain. Available to members only, on sale for one day as part of Capsule 01.
                 </p>
               </div>
 
@@ -811,7 +811,7 @@ function HomeInner() {
                     color: '#EDFF00',
                     marginBottom: '1.29em',
                   }}>
-                    In 2023, a community of Berber farmers in northern Morocco worked together with French winemakers to create something extraordinary.
+                    In 2023, a community of Berber farmers worked alongside French winemakers to create something extraordinary.
                   </p>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
@@ -822,7 +822,7 @@ function HomeInner() {
                     color: '#EDFF00',
                     marginBottom: '1.29em',
                   }}>
-                    An amphora aged grenache ros&eacute;, so pale that it enters a new classification.
+                    A grenache ros&eacute;, aged in clay amphora, so pale that it enters a new classification.
                   </p>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
@@ -833,7 +833,7 @@ function HomeInner() {
                     color: '#EDFF00',
                     marginBottom: 0,
                   }}>
-                    Available to members only, on sale for one day as part of Capsule 01.
+                    480 bottles remain. Available to members only, on sale for one day as part of Capsule 01.
                   </p>
                 </div>
 
