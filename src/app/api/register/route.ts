@@ -146,13 +146,14 @@ export async function POST(req: NextRequest) {
     referrer = data ?? null
   }
 
-  // 3. Insert member
+  // 3. Insert member (tier 1 if referred, otherwise tier 2)
   const { data: member, error } = await supabase
     .from('members')
     .insert({
       email:         cleanEmail,
       name:          cleanName || null,
-      status:        referrer ? 'paired' : 'registered',
+      status:        'registered',
+      tier:          referrer ? 1 : 2,
       invited_by_id: referrer?.id ?? null,
     })
     .select()
@@ -163,11 +164,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Registration failed. Please try again.' }, { status: 500 })
   }
 
-  // 4. If referred — link referrer's companion_id and mark paired
+  // 4. If referred — bump referrer to tier 1 and fire Klaviyo event
   if (referrer && !referrer.companion_id) {
     await supabase
       .from('members')
-      .update({ companion_id: member.id, status: 'paired' })
+      .update({ companion_id: member.id, tier: 1 })
       .eq('id', referrer.id)
 
     try {

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 type State = 'idle' | 'loading' | 'success' | 'error'
 
@@ -10,11 +10,25 @@ interface RegistrationFormProps {
 }
 
 export default function RegistrationForm({ dark = false, minimal = false }: RegistrationFormProps) {
-  const [email, setEmail] = useState('')
-  const [state, setState] = useState<State>('idle')
-  const [errorMsg, setErrorMsg] = useState('')
+  const [email, setEmail]         = useState('')
+  const [state, setState]         = useState<State>('idle')
+  const [errorMsg, setErrorMsg]   = useState('')
+  const [inviteCode, setInviteCode] = useState<string | null>(null)
+  const [refCode, setRefCode]     = useState<string | null>(null)
+  const [copied, setCopied]       = useState(false)
 
   const textColor = dark ? 'var(--cream)' : 'var(--blue)'
+
+  // Pick up ?ref= from the URL on mount
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const ref = params.get('ref')
+    if (ref) setRefCode(ref)
+  }, [])
+
+  const referralUrl = inviteCode
+    ? `${typeof window !== 'undefined' ? window.location.origin : 'https://capsules.otherwine.co.uk'}/?ref=${inviteCode}`
+    : ''
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -25,9 +39,11 @@ export default function RegistrationForm({ dark = false, minimal = false }: Regi
       const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, refCode }),
       })
       if (res.ok) {
+        const data = await res.json()
+        setInviteCode(data.inviteCode ?? null)
         setState('success')
       } else {
         const data = await res.json()
@@ -40,11 +56,54 @@ export default function RegistrationForm({ dark = false, minimal = false }: Regi
     }
   }
 
+  async function handleShare() {
+    const shareData = {
+      title: 'Other Wine — Capsule 01',
+      text:  'I\'ve registered for Other Wine\'s first capsule drop. Join the list:',
+      url:   referralUrl,
+    }
+
+    if (typeof navigator !== 'undefined' && navigator.share) {
+      try {
+        await navigator.share(shareData)
+      } catch {
+        // User dismissed — that's fine
+      }
+    } else {
+      await navigator.clipboard.writeText(referralUrl)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }
+  }
+
   if (state === 'success') {
     return (
-      <p className="text-base font-light" style={{ color: textColor }}>
-        You&apos;re on the list. Check your inbox.
-      </p>
+      <div className="flex flex-col gap-4" style={{ color: textColor }}>
+        <p className="text-base font-light">
+          You&apos;re on the list.
+        </p>
+        {inviteCode && (
+          <div className="flex flex-col gap-2">
+            <p className="text-sm font-light" style={{ opacity: 0.7 }}>
+              Refer a friend and you&apos;ll both get early access.
+            </p>
+            <button
+              onClick={handleShare}
+              className="text-sm font-medium tracking-widest uppercase px-5 py-3 transition-opacity hover:opacity-80"
+              style={{
+                backgroundColor: 'var(--red)',
+                color:           'white',
+                fontFamily:      'Vulf Sans, sans-serif',
+                letterSpacing:   '0.1em',
+                border:          'none',
+                cursor:          'pointer',
+              }}
+            >
+              {copied ? 'Link copied!' : 'Invite a friend'}
+            </button>
+          </div>
+        )}
+      </div>
     )
   }
 
@@ -64,7 +123,7 @@ export default function RegistrationForm({ dark = false, minimal = false }: Regi
             disabled={state === 'loading'}
             className="flex-1 bg-transparent text-sm font-light outline-none placeholder:opacity-40"
             style={{
-              color: 'var(--blue)',
+              color:      'var(--blue)',
               fontFamily: 'Vulf Sans, sans-serif',
             }}
           />
@@ -74,9 +133,9 @@ export default function RegistrationForm({ dark = false, minimal = false }: Regi
             className="text-xs font-medium tracking-widest uppercase px-4 py-2 whitespace-nowrap hover:opacity-80 transition-opacity"
             style={{
               backgroundColor: 'var(--red)',
-              color: 'white',
-              fontFamily: 'Vulf Sans, sans-serif',
-              letterSpacing: '0.1em',
+              color:           'white',
+              fontFamily:      'Vulf Sans, sans-serif',
+              letterSpacing:   '0.1em',
             }}
           >
             {state === 'loading' ? '…' : 'Register'}
@@ -104,10 +163,10 @@ export default function RegistrationForm({ dark = false, minimal = false }: Regi
           disabled={state === 'loading'}
           className="flex-1 px-5 py-3 rounded-full border text-sm outline-none transition-all"
           style={{
-            borderColor: dark ? 'rgba(248,248,248,0.3)' : 'var(--blue)',
-            color: textColor,
+            borderColor:     dark ? 'rgba(248,248,248,0.3)' : 'var(--blue)',
+            color:           textColor,
             backgroundColor: 'transparent',
-            fontFamily: 'Vulf Sans, sans-serif',
+            fontFamily:      'Vulf Sans, sans-serif',
           }}
         />
         <button
