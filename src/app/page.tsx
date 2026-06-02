@@ -217,6 +217,7 @@ function HomeMobile() {
         minHeight: '100dvh',
         display: 'flex',
         flexDirection: 'column',
+        paddingTop: '7px',
         paddingBottom: '41px',
       }}>
 
