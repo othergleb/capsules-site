@@ -269,6 +269,9 @@ function HomeMobile() {
 
         {dismissed ? (
           <div style={{ backgroundColor: '#FF3C00', width: '100%', padding: '16px' }}>
+            <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.9rem,4.5vw,18px)', letterSpacing: '-0.01em', lineHeight: 1.1, marginBottom: '12px', textTransform: 'uppercase' }}>
+              You&apos;ve registered.
+            </p>
             <p style={{ ...TEXT, fontWeight: 300, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.4, marginBottom: '1em' }}>
               Purchase link drops on 23 June, keep an eye on your emails.
             </p>
@@ -597,6 +600,18 @@ function HomeInner() {
             width: '100%',
             padding: 'clamp(1rem, 1.5vw, 26px)',
           }}>
+            <p style={{
+              fontFamily: 'Vulf Sans, sans-serif',
+              fontWeight: 700,
+              fontSize: 'clamp(1rem, 1.45vw, 25px)',
+              color: '#EDFF00',
+              letterSpacing: '-0.01em',
+              lineHeight: 1.1,
+              marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
+              textTransform: 'uppercase',
+            }}>
+              You&apos;ve registered.
+            </p>
             <p style={{
               fontFamily: 'Vulf Sans, sans-serif',
               fontWeight: 300,
