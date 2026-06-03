@@ -138,34 +138,16 @@ function HomeMobile() {
 
   const [email, setEmail]             = useState('')
   const [name, setName]               = useState('')
-  const [welcomeBack, setWelcomeBack] = useState(false)
   const [formStep, setFormStep]       = useState<'email' | 'name' | 'invite'>('email')
   const [stepIn, setStepIn]           = useState(true)
   const [inviteCode, setInviteCode]   = useState<string | null>(null)
   const [copied, setCopied]           = useState(false)
   const [dismissed, setDismissed]     = useState(false)
+  const [hasShared, setHasShared]     = useState(false)
 
   async function advanceToName(e: React.FormEvent) {
     e.preventDefault()
     if (!email) return
-    try {
-      const res = await fetch('/api/check-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      })
-      if (res.ok) {
-        const data = await res.json()
-        if (data.exists) {
-          setName(data.name ?? '')
-          setInviteCode(data.inviteCode)
-          setWelcomeBack(true)
-          setStepIn(false)
-          setTimeout(() => setFormStep('invite'), 220)
-          return
-        }
-      }
-    } catch { /* fall through */ }
     setStepIn(false)
     setTimeout(() => setFormStep('name'), 220)
   }
@@ -209,6 +191,7 @@ function HomeMobile() {
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     }
+    setHasShared(true)
   }
 
   const TEXT: React.CSSProperties = {
@@ -284,26 +267,27 @@ function HomeMobile() {
           Capsule 01
         </h1>
 
-        {!dismissed && <div style={{ backgroundColor: '#FF3C00', width: '100%', padding: '16px', position: 'relative' }}>
+        {dismissed ? (
+          <div style={{ backgroundColor: '#FF3C00', width: '100%', padding: '16px' }}>
+            <p style={{ ...TEXT, fontWeight: 300, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.4, marginBottom: '1em' }}>
+              Purchase link drops on 23 June, keep an eye on your emails.
+            </p>
+            <p style={{ ...TEXT, fontWeight: 300, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.4 }}>
+              <a href="/the-wine" style={{ color: '#EDFF00', textDecoration: 'underline' }}>What&apos;s in the box</a>
+            </p>
+          </div>
+        ) : <div style={{ backgroundColor: '#FF3C00', width: '100%', padding: '16px', position: 'relative' }}>
 
           {formStep === 'invite' ? (
 
             /* Confirmed / Share */
             <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease' }}>
               <StepDots step={3} />
-              {welcomeBack ? (
-                <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.9rem,4.5vw,18px)', letterSpacing: '-0.01em', lineHeight: 1.1, marginBottom: '12px' }}>
-                  {`Welcome back${name ? `, ${name.split(' ')[0]}` : ''}.`}
-                </p>
-              ) : (
-                <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.9rem,4.5vw,18px)', letterSpacing: '-0.01em', lineHeight: 1.1, marginBottom: '8px', textTransform: 'uppercase' }}>
-                  Claim Early Bird Access
-                </p>
-              )}
+              <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.9rem,4.5vw,18px)', letterSpacing: '-0.01em', lineHeight: 1.1, marginBottom: '8px', textTransform: 'uppercase' }}>
+                Claim Early Bird Access
+              </p>
               <p style={{ ...TEXT, fontWeight: 300, fontSize: 'clamp(0.75rem,3.5vw,15px)', lineHeight: 1.4, marginBottom: '16px' }}>
-                {welcomeBack
-                  ? 'Invite a friend — if they sign up, you\'ll both get early access before the general list.'
-                  : 'Successfully refer one friend to join Capsule 01 to get access 24 hours early.'}
+                Successfully refer one friend to join Capsule 01 and get access 24 hours early.
               </p>
               {inviteCode && (
                 <button
@@ -313,14 +297,12 @@ function HomeMobile() {
                   {copied ? 'Link copied!' : 'Invite a friend'}
                 </button>
               )}
-              {!welcomeBack && (
-                <button
-                  onClick={() => setDismissed(true)}
-                  style={{ display: 'block', width: '100%', height: '52px', background: 'none', border: 'none', fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: '16px', letterSpacing: '-0.03em', textTransform: 'uppercase', color: '#EDFF00', cursor: 'pointer', opacity: 0.6 }}
-                >
-                  Skip
-                </button>
-              )}
+              <button
+                onClick={() => setDismissed(true)}
+                style={{ display: 'block', width: '100%', height: '52px', background: 'none', border: hasShared ? '2px solid #EDFF00' : 'none', borderRadius: '999px', fontFamily: 'Vulf Sans, sans-serif', fontWeight: hasShared ? 500 : 300, fontSize: '16px', letterSpacing: '-0.03em', textTransform: 'uppercase', color: '#EDFF00', cursor: 'pointer', opacity: hasShared ? 1 : 0.6 }}
+              >
+                {hasShared ? 'Complete' : 'Skip'}
+              </button>
             </div>
 
           ) : formStep === 'name' ? (
@@ -402,12 +384,12 @@ function HomeInner() {
 
   const [email, setEmail]             = useState('')
   const [name, setName]               = useState('')
-  const [welcomeBack, setWelcomeBack] = useState(false)
   const [formStep, setFormStep]       = useState<'email' | 'name' | 'invite'>('email')
   const [stepIn, setStepIn]           = useState(true)
   const [inviteCode, setInviteCode]   = useState<string | null>(null)
   const [copied, setCopied]           = useState(false)
   const [dismissed, setDismissed]     = useState(false)
+  const [hasShared, setHasShared]     = useState(false)
   const yellowRef                     = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -432,25 +414,6 @@ function HomeInner() {
   async function advanceToName(e: React.FormEvent) {
     e.preventDefault()
     if (!email) return
-    // Check if already registered — if so skip straight to share step
-    try {
-      const res = await fetch('/api/check-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      })
-      if (res.ok) {
-        const data = await res.json()
-        if (data.exists) {
-          setName(data.name ?? '')
-          setInviteCode(data.inviteCode)
-          setWelcomeBack(true)
-          setStepIn(false)
-          setTimeout(() => setFormStep('invite'), 220)
-          return
-        }
-      }
-    } catch { /* fall through to normal flow */ }
     setStepIn(false)
     setTimeout(() => setFormStep('name'), 220)
   }
@@ -494,6 +457,7 @@ function HomeInner() {
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     }
+    setHasShared(true)
   }
 
   if (isMobile) return <HomeMobile />
@@ -626,7 +590,34 @@ function HomeInner() {
           Capsule 01
         </h1>
 
-        {!dismissed && <div style={{
+        {dismissed ? (
+          <div style={{
+            backgroundColor: '#FF3C00',
+            maxWidth: 'clamp(340px, 36vw, 622px)',
+            width: '100%',
+            padding: 'clamp(1rem, 1.5vw, 26px)',
+          }}>
+            <p style={{
+              fontFamily: 'Vulf Sans, sans-serif',
+              fontWeight: 300,
+              fontSize: 'clamp(0.85rem, 1.2vw, 21px)',
+              lineHeight: 1.4,
+              color: '#EDFF00',
+              marginBottom: '1em',
+            }}>
+              Purchase link drops on 23 June, keep an eye on your emails.
+            </p>
+            <p style={{
+              fontFamily: 'Vulf Sans, sans-serif',
+              fontWeight: 300,
+              fontSize: 'clamp(0.85rem, 1.2vw, 21px)',
+              lineHeight: 1.4,
+              color: '#EDFF00',
+            }}>
+              <a href="/the-wine" style={{ color: '#EDFF00', textDecoration: 'underline' }}>What&apos;s in the box</a>
+            </p>
+          </div>
+        ) : <div style={{
           backgroundColor: '#FF3C00',
           maxWidth: 'clamp(340px, 36vw, 622px)',
           width: '100%',
@@ -639,32 +630,18 @@ function HomeInner() {
             /* Screen 3: share / confirmed */
             <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease' }}>
               <StepDots step={3} size={7} />
-              {welcomeBack ? (
-                <p style={{
-                  fontFamily: 'Vulf Sans, sans-serif',
-                  fontWeight: 700,
-                  fontSize: 'clamp(1rem, 1.45vw, 25px)',
-                  color: '#EDFF00',
-                  letterSpacing: '-0.01em',
-                  lineHeight: 1.1,
-                  marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
-                }}>
-                  {`Welcome back${name ? `, ${name.split(' ')[0]}` : ''}.`}
-                </p>
-              ) : (
-                <p style={{
-                  fontFamily: 'Vulf Sans, sans-serif',
-                  fontWeight: 700,
-                  fontSize: 'clamp(1rem, 1.45vw, 25px)',
-                  color: '#EDFF00',
-                  letterSpacing: '-0.01em',
-                  lineHeight: 1.1,
-                  marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
-                  textTransform: 'uppercase',
-                }}>
-                  Claim Early Bird Access
-                </p>
-              )}
+              <p style={{
+                fontFamily: 'Vulf Sans, sans-serif',
+                fontWeight: 700,
+                fontSize: 'clamp(1rem, 1.45vw, 25px)',
+                color: '#EDFF00',
+                letterSpacing: '-0.01em',
+                lineHeight: 1.1,
+                marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
+                textTransform: 'uppercase',
+              }}>
+                Claim Early Bird Access
+              </p>
               <p style={{
                 fontFamily: 'Vulf Sans, sans-serif',
                 fontWeight: 300,
@@ -673,9 +650,7 @@ function HomeInner() {
                 color: '#EDFF00',
                 marginBottom: 'clamp(0.75rem, 1.2vw, 21px)',
               }}>
-                {welcomeBack
-                  ? 'Invite a friend — if they sign up, you\'ll both get early access before the general list.'
-                  : 'Successfully refer one friend to join Capsule 01 to get access 24 hours early.'}
+                Successfully refer one friend to join Capsule 01 and get access 24 hours early.
               </p>
               {inviteCode && (
                 <button
@@ -703,31 +678,30 @@ function HomeInner() {
                   {copied ? 'Link copied!' : 'Invite a friend'}
                 </button>
               )}
-              {!welcomeBack && (
-                <button
-                  onClick={() => setDismissed(true)}
-                  style={{
-                    display: 'block',
-                    width: '100%',
-                    height: 'clamp(52px, 4.05vw, 70px)',
-                    background: 'none',
-                    border: 'none',
-                    fontFamily: 'Vulf Sans, sans-serif',
-                    fontWeight: 300,
-                    fontSize: 'clamp(0.9rem, 1.45vw, 25px)',
-                    letterSpacing: '-0.03em',
-                    textTransform: 'uppercase',
-                    color: '#EDFF00',
-                    cursor: 'pointer',
-                    opacity: 0.6,
-                    transition: 'opacity 0.15s ease',
-                  }}
-                  onMouseOver={e => { e.currentTarget.style.opacity = '1' }}
-                  onMouseOut={e => { e.currentTarget.style.opacity = '0.6' }}
-                >
-                  Skip
-                </button>
-              )}
+              <button
+                onClick={() => setDismissed(true)}
+                style={{
+                  display: 'block',
+                  width: '100%',
+                  height: 'clamp(52px, 4.05vw, 70px)',
+                  background: 'none',
+                  border: hasShared ? '2px solid #EDFF00' : 'none',
+                  borderRadius: '999px',
+                  fontFamily: 'Vulf Sans, sans-serif',
+                  fontWeight: hasShared ? 500 : 300,
+                  fontSize: 'clamp(0.9rem, 1.45vw, 25px)',
+                  letterSpacing: '-0.03em',
+                  textTransform: 'uppercase',
+                  color: '#EDFF00',
+                  cursor: 'pointer',
+                  opacity: hasShared ? 1 : 0.6,
+                  transition: 'opacity 0.15s ease',
+                }}
+                onMouseOver={e => { if (!hasShared) e.currentTarget.style.opacity = '1' }}
+                onMouseOut={e => { if (!hasShared) e.currentTarget.style.opacity = '0.6' }}
+              >
+                {hasShared ? 'Complete' : 'Skip'}
+              </button>
             </div>
 
           ) : formStep === 'name' ? (
