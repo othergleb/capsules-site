@@ -357,7 +357,7 @@ function HomeMobile() {
                   />
                 </div>
                 <button type="submit" style={{ display: 'block', width: '100%', maxWidth: '240px', margin: '0 auto', height: '52px', backgroundColor: '#EDFF00', color: '#00006A', border: '2px solid #00006A', borderRadius: '999px', fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: '16px', letterSpacing: '-0.03em', textTransform: 'uppercase', cursor: 'pointer' }}>
-                  Join the Waitlist
+                  Register for Access
                 </button>
               </form>
             </div>
@@ -831,7 +831,7 @@ function HomeInner() {
                     onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
                     onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
                   >
-                    Join the Waitlist
+                    Register for Access
                   </button>
                 </form>
               </div>
