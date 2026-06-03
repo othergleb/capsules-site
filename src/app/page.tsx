@@ -143,6 +143,7 @@ function HomeMobile() {
   const [stepIn, setStepIn]           = useState(true)
   const [inviteCode, setInviteCode]   = useState<string | null>(null)
   const [copied, setCopied]           = useState(false)
+  const [dismissed, setDismissed]     = useState(false)
 
   async function advanceToName(e: React.FormEvent) {
     e.preventDefault()
@@ -283,25 +284,41 @@ function HomeMobile() {
           Capsule 01
         </h1>
 
-        <div style={{ backgroundColor: '#FF3C00', width: '100%', padding: '16px', position: 'relative' }}>
+        {!dismissed && <div style={{ backgroundColor: '#FF3C00', width: '100%', padding: '16px', position: 'relative' }}>
 
           {formStep === 'invite' ? (
 
             /* Confirmed / Share */
             <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease' }}>
               <StepDots step={3} />
-              <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.9rem,4.5vw,18px)', letterSpacing: '-0.01em', lineHeight: 1.1, marginBottom: '12px' }}>
-                {welcomeBack ? `Welcome back${name ? `, ${name.split(' ')[0]}` : ''}.` : 'You\'re on the list.'}
-              </p>
+              {welcomeBack ? (
+                <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.9rem,4.5vw,18px)', letterSpacing: '-0.01em', lineHeight: 1.1, marginBottom: '12px' }}>
+                  {`Welcome back${name ? `, ${name.split(' ')[0]}` : ''}.`}
+                </p>
+              ) : (
+                <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.9rem,4.5vw,18px)', letterSpacing: '-0.01em', lineHeight: 1.1, marginBottom: '8px', textTransform: 'uppercase' }}>
+                  Claim Early Bird Access
+                </p>
+              )}
               <p style={{ ...TEXT, fontWeight: 300, fontSize: 'clamp(0.75rem,3.5vw,15px)', lineHeight: 1.4, marginBottom: '16px' }}>
-                Invite a friend — if they sign up, you&apos;ll both get early access before the general list.
+                {welcomeBack
+                  ? 'Invite a friend — if they sign up, you\'ll both get early access before the general list.'
+                  : 'Successfully refer one friend to join Capsule 01 to get access 24 hours early.'}
               </p>
               {inviteCode && (
                 <button
                   onClick={handleShare}
-                  style={{ display: 'block', width: '100%', height: '52px', backgroundColor: '#EDFF00', color: '#00006A', border: '2px solid #00006A', borderRadius: '999px', fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: '16px', letterSpacing: '-0.03em', textTransform: 'uppercase', cursor: 'pointer' }}
+                  style={{ display: 'block', width: '100%', height: '52px', backgroundColor: '#EDFF00', color: '#00006A', border: '2px solid #00006A', borderRadius: '999px', fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: '16px', letterSpacing: '-0.03em', textTransform: 'uppercase', cursor: 'pointer', marginBottom: '10px' }}
                 >
                   {copied ? 'Link copied!' : 'Invite a friend'}
+                </button>
+              )}
+              {!welcomeBack && (
+                <button
+                  onClick={() => setDismissed(true)}
+                  style={{ display: 'block', width: '100%', height: '52px', background: 'none', border: 'none', fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: '16px', letterSpacing: '-0.03em', textTransform: 'uppercase', color: '#EDFF00', cursor: 'pointer', opacity: 0.6 }}
+                >
+                  Skip
                 </button>
               )}
             </div>
@@ -363,7 +380,7 @@ function HomeMobile() {
             </div>
 
           )}
-        </div>
+        </div>}
 
         <div style={{ display: 'flex', alignItems: 'flex-end', marginTop: '32px', width: '100%' }}>
           <img src="/bottle-1.png" alt="" style={{ width: '130px', height: 'auto', display: 'block', flexShrink: 0 }} />
@@ -390,6 +407,7 @@ function HomeInner() {
   const [stepIn, setStepIn]           = useState(true)
   const [inviteCode, setInviteCode]   = useState<string | null>(null)
   const [copied, setCopied]           = useState(false)
+  const [dismissed, setDismissed]     = useState(false)
   const yellowRef                     = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -608,7 +626,7 @@ function HomeInner() {
           Capsule 01
         </h1>
 
-        <div style={{
+        {!dismissed && <div style={{
           backgroundColor: '#FF3C00',
           maxWidth: 'clamp(340px, 36vw, 622px)',
           width: '100%',
@@ -621,17 +639,32 @@ function HomeInner() {
             /* Screen 3: share / confirmed */
             <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease' }}>
               <StepDots step={3} size={7} />
-              <p style={{
-                fontFamily: 'Vulf Sans, sans-serif',
-                fontWeight: 700,
-                fontSize: 'clamp(1rem, 1.45vw, 25px)',
-                color: '#EDFF00',
-                letterSpacing: '-0.01em',
-                lineHeight: 1.1,
-                marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
-              }}>
-                {welcomeBack ? `Welcome back${name ? `, ${name.split(' ')[0]}` : ''}.` : 'You\'re on the list.'}
-              </p>
+              {welcomeBack ? (
+                <p style={{
+                  fontFamily: 'Vulf Sans, sans-serif',
+                  fontWeight: 700,
+                  fontSize: 'clamp(1rem, 1.45vw, 25px)',
+                  color: '#EDFF00',
+                  letterSpacing: '-0.01em',
+                  lineHeight: 1.1,
+                  marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
+                }}>
+                  {`Welcome back${name ? `, ${name.split(' ')[0]}` : ''}.`}
+                </p>
+              ) : (
+                <p style={{
+                  fontFamily: 'Vulf Sans, sans-serif',
+                  fontWeight: 700,
+                  fontSize: 'clamp(1rem, 1.45vw, 25px)',
+                  color: '#EDFF00',
+                  letterSpacing: '-0.01em',
+                  lineHeight: 1.1,
+                  marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
+                  textTransform: 'uppercase',
+                }}>
+                  Claim Early Bird Access
+                </p>
+              )}
               <p style={{
                 fontFamily: 'Vulf Sans, sans-serif',
                 fontWeight: 300,
@@ -640,7 +673,9 @@ function HomeInner() {
                 color: '#EDFF00',
                 marginBottom: 'clamp(0.75rem, 1.2vw, 21px)',
               }}>
-                Invite a friend — if they sign up, you&apos;ll both get early access before the general list.
+                {welcomeBack
+                  ? 'Invite a friend — if they sign up, you\'ll both get early access before the general list.'
+                  : 'Successfully refer one friend to join Capsule 01 to get access 24 hours early.'}
               </p>
               {inviteCode && (
                 <button
@@ -660,11 +695,37 @@ function HomeInner() {
                     textTransform: 'uppercase',
                     cursor: 'pointer',
                     transition: 'opacity 0.15s ease',
+                    marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
                   }}
                   onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
                   onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
                 >
                   {copied ? 'Link copied!' : 'Invite a friend'}
+                </button>
+              )}
+              {!welcomeBack && (
+                <button
+                  onClick={() => setDismissed(true)}
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    height: 'clamp(52px, 4.05vw, 70px)',
+                    background: 'none',
+                    border: 'none',
+                    fontFamily: 'Vulf Sans, sans-serif',
+                    fontWeight: 300,
+                    fontSize: 'clamp(0.9rem, 1.45vw, 25px)',
+                    letterSpacing: '-0.03em',
+                    textTransform: 'uppercase',
+                    color: '#EDFF00',
+                    cursor: 'pointer',
+                    opacity: 0.6,
+                    transition: 'opacity 0.15s ease',
+                  }}
+                  onMouseOver={e => { e.currentTarget.style.opacity = '1' }}
+                  onMouseOut={e => { e.currentTarget.style.opacity = '0.6' }}
+                >
+                  Skip
                 </button>
               )}
             </div>
@@ -839,7 +900,7 @@ function HomeInner() {
 
             </div>
           )}
-        </div>
+        </div>}
 
         <OtherLogoGif />
 
