@@ -340,10 +340,10 @@ function HomeMobile() {
             <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease' }}>
               <div style={{ textAlign: 'center', marginBottom: '20px' }}>
                 <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.3, marginBottom: '1em' }}>
-                  An amphora aged grenache ros&eacute;, grown by Berber farmers in northern Morocco. Available exclusively as part of Capsule 01.
+                  An amphora aged grenache ros&eacute;, grown by Berber farmers in northern Morocco.
                 </p>
                 <p style={{ ...TEXT, fontWeight: 400, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.3 }}>
-                  Register to get access to the sale on 23 June.
+                  Register to get access to Capsule 01 on 23 June.
                 </p>
               </div>
 
@@ -356,7 +356,7 @@ function HomeMobile() {
                     style={{ width: '100%', height: '100%', background: 'transparent', border: 'none', outline: 'none', padding: '0 1rem', fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: '16px', letterSpacing: '-0.01em', color: '#EDFF00', textAlign: 'center' }}
                   />
                 </div>
-                <button type="submit" style={{ display: 'block', width: '100%', maxWidth: '240px', margin: '0 auto', height: '52px', backgroundColor: '#EDFF00', color: '#00006A', border: '2px solid #00006A', borderRadius: '999px', fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: '16px', letterSpacing: '-0.03em', textTransform: 'uppercase', cursor: 'pointer' }}>
+                <button type="submit" style={{ display: 'block', width: '100%', height: '52px', backgroundColor: '#EDFF00', color: '#00006A', border: '2px solid #00006A', borderRadius: '999px', fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: '16px', letterSpacing: '-0.03em', textTransform: 'uppercase', cursor: 'pointer' }}>
                   Register for Access
                 </button>
               </form>
@@ -762,7 +762,7 @@ function HomeInner() {
                     color: '#EDFF00',
                     marginBottom: '1.29em',
                   }}>
-                    An amphora aged grenache ros&eacute;, grown by Berber farmers in northern Morocco. Available exclusively as part of Capsule 01.
+                    An amphora aged grenache ros&eacute;, grown by Berber farmers in northern Morocco.
                   </p>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
@@ -773,7 +773,7 @@ function HomeInner() {
                     color: '#EDFF00',
                     marginBottom: 0,
                   }}>
-                    Register to get access to the sale on 23 June.
+                    Register to get access to Capsule 01 on 23 June.
                   </p>
                 </div>
 
@@ -812,7 +812,7 @@ function HomeInner() {
                     type="submit"
                     style={{
                       display: 'block',
-                      width: 'clamp(180px, 17.42vw, 301px)',
+                      width: '100%',
                       margin: '0 auto',
                       height: 'clamp(52px, 4.05vw, 70px)',
                       backgroundColor: '#EDFF00',
