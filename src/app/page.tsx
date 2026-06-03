@@ -12,67 +12,26 @@ const TIFINAGH_SVG  = '/figma/tifinagh.svg'
 const SUNFLOWER_SVG = '/figma/sunflower.svg'
 const STAR_SVG      = '/figma/star.svg'
 const DIAMONDS_SVG      = '/figma/polygon-diamonds.svg'
-const OTHER_VIDEO       = '/Other_alt3_yellow_red.mp4'
-const OTHER_VIDEO_6K    = '/Other_alt3_yellow_red_6k.mp4'
+const OTHER_VIDEO       = '/other-logo-cropped.mp4'
+const OTHER_VIDEO_6K    = '/other-logo-cropped-6k.mp4'
 const FARMER_LEFT       = '/farmer-left.mp4'
 const FARMER_RIGHT      = '/farmer-right.mp4'
 
-// Canvas draws the letter band from a hidden video each frame
 function OtherLogoVideo({ src = OTHER_VIDEO }: { src?: string }) {
-  const videoRef  = useRef<HTMLVideoElement>(null)
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const rafRef    = useRef<number>(0)
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
-    const video  = videoRef.current
-    const canvas = canvasRef.current
-    if (!video || !canvas) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
-    video.muted = true
-    video.play().catch(() => {})
-
-    const v = video, c = canvas, x = ctx
-    function draw() {
-      if (v.readyState >= 2) {
-        const vw = v.videoWidth  || 2000
-        const vh = v.videoHeight || 2000
-        const sx    = Math.round(0.15 * vw)
-        const sw    = Math.round(0.70 * vw)
-        const cropH = Math.round(sw * c.height / c.width)
-        const sy    = Math.round(0.51 * vh - cropH / 2)
-        x.drawImage(v, sx, sy, sw, cropH, 0, 0, c.width, c.height)
-      }
-      rafRef.current = requestAnimationFrame(draw)
-    }
-    rafRef.current = requestAnimationFrame(draw)
-    return () => { cancelAnimationFrame(rafRef.current); video.pause() }
+    const v = videoRef.current
+    if (!v) return
+    v.muted = true
+    v.play().catch(() => {})
   }, [])
 
   return (
-    <div style={{
-      width: 'min(104.1vw, calc(38dvh * 469 / 103))',
-      alignSelf: 'center',
-      aspectRatio: '469 / 103',
-      overflow: 'hidden',
-      position: 'relative',
-      lineHeight: 0,
-      flexShrink: 0,
-    }}>
-      <video
-        ref={videoRef}
-        loop playsInline preload="auto"
-        style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', width: '100%', height: '100%' }}
-      >
+    <div style={{ width: 'min(104.1vw, calc(38dvh * 469 / 103))', alignSelf: 'center', flexShrink: 0 }}>
+      <video ref={videoRef} loop playsInline preload="auto" style={{ width: '100%', display: 'block' }}>
         <source src={src} type="video/mp4" />
       </video>
-      <canvas
-        ref={canvasRef}
-        width={2000}
-        height={440}
-        style={{ width: '100%', height: '100%', display: 'block' }}
-      />
     </div>
   )
 }
@@ -93,7 +52,7 @@ function OtherLogoGif() {
   )
 }
 
-function FarmerVideo({ src, label, muted }: { src: string; label: string; muted: boolean }) {
+function FarmerVideo({ src, label }: { src: string; label: string }) {
   const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
@@ -102,10 +61,6 @@ function FarmerVideo({ src, label, muted }: { src: string; label: string; muted:
     v.muted = true
     v.play().catch(() => {})
   }, [])
-
-  useEffect(() => {
-    if (videoRef.current) videoRef.current.muted = muted
-  }, [muted])
 
   return (
     <div style={{
@@ -251,10 +206,10 @@ function HomeMobile() {
         {/* Two video ovals — fixed aspect ratio */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '8px' }}>
           <div style={{ marginLeft: '7px', width: 'calc(100% - 13px)', aspectRatio: '380 / 214' }}>
-            <FarmerVideo src={FARMER_LEFT}  label="Moroccan farmers in the vineyard" muted />
+            <FarmerVideo src={FARMER_LEFT}  label="Moroccan farmers in the vineyard" />
           </div>
           <div style={{ marginLeft: '7px', width: 'calc(100% - 13px)', aspectRatio: '380 / 214' }}>
-            <FarmerVideo src={FARMER_RIGHT} label="Berber farmers working in the Atlas mountains" muted />
+            <FarmerVideo src={FARMER_RIGHT} label="Berber farmers working in the Atlas mountains" />
           </div>
         </div>
 
@@ -428,7 +383,6 @@ function HomeInner() {
   const [stepIn, setStepIn]           = useState(true)
   const [inviteCode, setInviteCode]   = useState<string | null>(null)
   const [copied, setCopied]           = useState(false)
-  const [soundOn, setSoundOn]         = useState(false)
   const yellowRef                     = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -522,12 +476,7 @@ function HomeInner() {
   return (
     <div style={{ backgroundColor: '#FF3C00', overflow: 'hidden' }}>
 
-      <Nav
-        color="#00006A"
-        showSound
-        soundOn={soundOn}
-        onSoundToggle={() => setSoundOn(s => !s)}
-      />
+      <Nav color="#00006A" />
 
       <section style={{
         backgroundColor: '#FF3C00',
@@ -551,8 +500,8 @@ function HomeInner() {
           flex: 1,
           minHeight: 0,
         }}>
-          <FarmerVideo src={FARMER_LEFT}  label="Moroccan farmers in the vineyard" muted={!soundOn} />
-          <FarmerVideo src={FARMER_RIGHT} label="Berber farmers working in the Atlas mountains" muted={!soundOn} />
+          <FarmerVideo src={FARMER_LEFT}  label="Moroccan farmers in the vineyard" />
+          <FarmerVideo src={FARMER_RIGHT} label="Berber farmers working in the Atlas mountains" />
         </div>
 
         <div style={{

@@ -6,12 +6,9 @@ import React from 'react'
 
 interface NavProps {
   color?: string
-  showSound?: boolean
-  soundOn?: boolean
-  onSoundToggle?: () => void
 }
 
-export default function Nav({ color = '#00006A', showSound = false, soundOn = false, onSoundToggle }: NavProps) {
+export default function Nav({ color = '#00006A' }: NavProps) {
   const pathname = usePathname()
 
   function activePill(href: string): React.CSSProperties {
@@ -35,11 +32,6 @@ export default function Nav({ color = '#00006A', showSound = false, soundOn = fa
         <Link href="/how-it-works" className="pill-btn" style={activePill('/how-it-works')}>How it Works</Link>
       </div>
       <div style={{ display: 'flex', gap: 0, pointerEvents: 'all' }}>
-        {showSound && (
-          <button className="pill-btn" onClick={onSoundToggle} style={{ color }}>
-            {soundOn ? 'Sound Off' : 'Sound On'}
-          </button>
-        )}
         <Link href="/faq" className="pill-btn" style={activePill('/faq')}>FAQ</Link>
         <a href="https://otherwine.co.uk" className="pill-btn" target="_blank" rel="noopener noreferrer">
           Otherwine.co.uk

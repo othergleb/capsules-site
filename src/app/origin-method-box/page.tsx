@@ -5,47 +5,22 @@ import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import { useIsMobile } from '@/hooks/useIsMobile'
 
-// ── Animated yellow-on-red logo (canvas crop) ──────────────────
+// ── Animated yellow-on-red logo ────────────────────────────────
 function OtherLogoVideo() {
-  const videoRef  = useRef<HTMLVideoElement>(null)
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const rafRef    = useRef<number>(0)
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
-    const video  = videoRef.current
-    const canvas = canvasRef.current
-    if (!video || !canvas) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
-    video.muted = true
-    video.play().catch(() => {})
-
-    const v = video, c = canvas, x = ctx
-    function draw() {
-      if (v.readyState >= 2) {
-        const vw = v.videoWidth  || 2000
-        const vh = v.videoHeight || 2000
-        const sx    = Math.round(0.15 * vw)
-        const sw    = Math.round(0.70 * vw)
-        const cropH = Math.round(sw * c.height / c.width)
-        const sy    = Math.round(0.51 * vh - cropH / 2)
-        x.drawImage(v, sx, sy, sw, cropH, 0, 0, c.width, c.height)
-      }
-      rafRef.current = requestAnimationFrame(draw)
-    }
-    rafRef.current = requestAnimationFrame(draw)
-    return () => { cancelAnimationFrame(rafRef.current); video.pause() }
+    const v = videoRef.current
+    if (!v) return
+    v.muted = true
+    v.play().catch(() => {})
   }, [])
 
   return (
-    <div style={{ width: '100%', aspectRatio: '469 / 103', overflow: 'hidden', position: 'relative', lineHeight: 0, flexShrink: 0 }}>
-      <video ref={videoRef} loop playsInline preload="auto"
-        style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', width: '100%', height: '100%' }}>
-        <source src="/Other_alt3_yellow_red.mp4" type="video/mp4" />
+    <div style={{ width: '100%', flexShrink: 0 }}>
+      <video ref={videoRef} loop playsInline preload="auto" style={{ width: '100%', display: 'block' }}>
+        <source src="/other-logo-cropped.mp4" type="video/mp4" />
       </video>
-      <canvas ref={canvasRef} width={2000} height={440}
-        style={{ width: '100%', height: '100%', display: 'block' }} />
     </div>
   )
 }

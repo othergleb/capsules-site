@@ -23,9 +23,8 @@ export default function RootLayout({
         {/* Preload above-the-fold videos on the homepage */}
         <link rel="preload" href="/farmer-left.mp4"         as="video" type="video/mp4" />
         <link rel="preload" href="/farmer-right.mp4"        as="video" type="video/mp4" />
-        <link rel="preload" href="/Other_alt3_yellow_red.mp4"    as="video" type="video/mp4" />
-        <link rel="preload" href="/Other_alt3_yellow_red_6k.mp4" as="video" type="video/mp4" />
-        <link rel="preload" href="/logo-animated-v3.mp4"   as="video" type="video/mp4" />
+        <link rel="preload" href="/other-logo-cropped.mp4"    as="video" type="video/mp4" />
+        <link rel="preload" href="/other-logo-cropped-6k.mp4" as="video" type="video/mp4" />
       </head>
       <body>{children}</body>
     </html>

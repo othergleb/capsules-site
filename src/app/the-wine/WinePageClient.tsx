@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 import Nav from '@/components/Nav'
 import MobileNav from '@/components/MobileNav'
 import { useIsMobile } from '@/hooks/useIsMobile'
@@ -152,7 +152,6 @@ const sectionHeading = (text: string, leftLabel: string, rightLabel: string) => 
 
 export default function WinePageClient() {
   const isMobile = useIsMobile()
-  const [soundOn, setSoundOn] = useState(false)
   const video1Ref = useRef<HTMLVideoElement>(null)
   const video2Ref = useRef<HTMLVideoElement>(null)
 
@@ -163,16 +162,11 @@ export default function WinePageClient() {
     if (v2) { v2.muted = true; v2.play().catch(() => {}) }
   }, [])
 
-  useEffect(() => {
-    if (video1Ref.current) video1Ref.current.muted = !soundOn
-    if (video2Ref.current) video2Ref.current.muted = !soundOn
-  }, [soundOn])
-
   if (isMobile) return <WinePageMobile />
 
   return (
     <div style={{ backgroundColor: 'var(--red)' }}>
-      <Nav color="#00006A" showSound soundOn={soundOn} onSoundToggle={() => setSoundOn(s => !s)} />
+      <Nav color="#00006A" />
 
       {/* Cream top: bottles + yellow info card */}
       <section style={{
