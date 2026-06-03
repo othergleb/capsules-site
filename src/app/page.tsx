@@ -209,8 +209,10 @@ function HomeMobile() {
 
         <OtherLogoVideo src={OTHER_VIDEO} />
 
+        <div style={{ flex: 8 }} />
+
         {/* Two video ovals — fixed aspect ratio */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '8px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <div style={{ marginLeft: '7px', width: 'calc(100% - 13px)', aspectRatio: '380 / 214' }}>
             <FarmerVideo src={FARMER_LEFT}  label="Moroccan farmers in the vineyard" />
           </div>
@@ -219,7 +221,7 @@ function HomeMobile() {
           </div>
         </div>
 
-        <div style={{ flex: 1, minHeight: '8px' }} />
+        <div style={{ flex: 50 }} />
 
         {/* MAROC / script text — pinned to bottom of viewport */}
         <div style={{ padding: '0 12px 13px' }}>
