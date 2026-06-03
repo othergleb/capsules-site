@@ -200,11 +200,10 @@ function HomeMobile() {
 
       <section style={{
         backgroundColor: '#FF3C00',
-        minHeight: '100svh',
+        minHeight: 'calc(100svh - 41px - env(safe-area-inset-bottom, 0px))',
         display: 'flex',
         flexDirection: 'column',
         paddingTop: 'calc(env(safe-area-inset-top, 0px) + 7px)',
-        paddingBottom: 0,
       }}>
 
         <OtherLogoVideo src={OTHER_VIDEO} />
@@ -224,7 +223,7 @@ function HomeMobile() {
         <div style={{ flex: 50 }} />
 
         {/* MAROC / script text — pinned to bottom of viewport */}
-        <div style={{ padding: '0 12px calc(13px + 41px + env(safe-area-inset-bottom, 0px))' }}>
+        <div style={{ padding: '0 12px 13px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '5px' }}>
             <img src={TIFINAGH_SVG} alt="ⵍⵎⵖⵔⵉⴱ" style={{ width: '13.74vw', height: 'auto' }} />
             <img src={ARABIC_SVG}   alt="المغرب"   style={{ width: '12.98vw', height: 'auto', transform: 'scaleX(-1)' }} />
