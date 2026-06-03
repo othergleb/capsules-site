@@ -340,30 +340,11 @@ function HomeMobile() {
             <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease' }}>
               <div style={{ textAlign: 'center', marginBottom: '20px' }}>
                 <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.3, marginBottom: '1em' }}>
-                  An amphora aged grenache ros&eacute;, grown by Berber farmers in northern Morocco.
+                  An amphora aged grenache ros&eacute;, grown by Berber farmers in northern Morocco. Available exclusively as part of Capsule 01.
                 </p>
                 <p style={{ ...TEXT, fontWeight: 400, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.3 }}>
-                  480 bottles of their 2023 vintage remain. Available as part of Capsule 01 to members only.
+                  Register to get access to the sale on 23 June.
                 </p>
-              </div>
-
-              {/* Info table */}
-              <div style={{ width: '100%', marginBottom: '20px' }}>
-                <div style={{ width: '100%', height: '1px', backgroundColor: '#EDFF00' }} />
-                {[
-                  ['On Sale',             '23 June'],
-                  ['Membership Status',   'Open'],
-                  ['Capsules Available',  '480'],
-                  ['Pricing',             '£87'],
-                ].map(([label, value]) => (
-                  <div key={label}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '4px 16px', fontFamily: 'Vulf Sans, sans-serif', fontSize: 'clamp(0.7rem,3.5vw,14px)', lineHeight: 1, letterSpacing: '-0.2px', color: '#EDFF00', textTransform: 'uppercase' }}>
-                      <span style={{ fontWeight: 300 }}>{label}</span>
-                      <span style={{ fontWeight: 400 }}>{value}</span>
-                    </div>
-                    <div style={{ width: '100%', height: '1px', backgroundColor: '#EDFF00' }} />
-                  </div>
-                ))}
               </div>
 
               <form onSubmit={advanceToName}>
@@ -781,7 +762,7 @@ function HomeInner() {
                     color: '#EDFF00',
                     marginBottom: '1.29em',
                   }}>
-                    An amphora aged grenache ros&eacute;, grown by Berber farmers in northern Morocco.
+                    An amphora aged grenache ros&eacute;, grown by Berber farmers in northern Morocco. Available exclusively as part of Capsule 01.
                   </p>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
@@ -792,37 +773,8 @@ function HomeInner() {
                     color: '#EDFF00',
                     marginBottom: 0,
                   }}>
-                    480 bottles of their 2023 vintage remain. Available as part of Capsule 01 to members only.
+                    Register to get access to the sale on 23 June.
                   </p>
-                </div>
-
-                <div style={{ width: '100%', marginBottom: 'clamp(0.75rem, 3.31vw, 57px)' }}>
-                  <div style={{ width: '100%', height: '1px', backgroundColor: '#EDFF00' }} />
-                  {[
-                    ['On Sale',            '23 June'],
-                    ['Membership Status',  'Open'],
-                    ['Capsules Available', '480'],
-                    ['Pricing',            '£87'],
-                  ].map(([label, value]) => (
-                    <div key={label}>
-                      <div style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        padding: 'clamp(4px, 0.33vw, 6px) clamp(18px, 2.79vw, 48px)',
-                        fontFamily: 'Vulf Sans, sans-serif',
-                        fontSize: 'clamp(0.75rem, 1.16vw, 20px)',
-                        lineHeight: 1,
-                        letterSpacing: '-0.2px',
-                        color: '#EDFF00',
-                        textTransform: 'uppercase',
-                      }}>
-                        <span style={{ fontWeight: 300 }}>{label}</span>
-                        <span style={{ fontWeight: 400 }}>{value}</span>
-                      </div>
-                      <div style={{ width: '100%', height: '1px', backgroundColor: '#EDFF00' }} />
-                    </div>
-                  ))}
                 </div>
 
                 <form onSubmit={advanceToName}>
