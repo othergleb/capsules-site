@@ -115,6 +115,26 @@ function StepDots({ step, size = 6 }: { step: 2 | 3; size?: number }) {
 function HomeMobile() {
   const searchParams = useSearchParams()
   const refCode      = searchParams.get('ref') ?? undefined
+  const yellowRef    = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      const target = yellowRef.current
+      if (!target) return
+      const start = window.scrollY
+      const end = target.getBoundingClientRect().top + window.scrollY
+      const duration = 1000
+      const startTime = performance.now()
+      function step(now: number) {
+        const p = Math.min((now - startTime) / duration, 1)
+        const ease = 1 - Math.pow(1 - p, 4)
+        window.scrollTo(0, start + (end - start) * ease)
+        if (p < 1) requestAnimationFrame(step)
+      }
+      requestAnimationFrame(step)
+    }, 3000)
+    return () => clearTimeout(t)
+  }, [])
 
   const [email, setEmail]             = useState('')
   const [name, setName]               = useState('')
@@ -236,7 +256,7 @@ function HomeMobile() {
 
       </section>
 
-      <section style={{
+      <section ref={yellowRef} style={{
         backgroundColor: '#EDFF00',
         display: 'flex',
         flexDirection: 'column',
@@ -397,13 +417,11 @@ function HomeInner() {
       if (!target) return
       const start = window.scrollY
       const end = target.getBoundingClientRect().top + window.scrollY
-      const duration = 1100
+      const duration = 1000
       const startTime = performance.now()
       function step(now: number) {
         const p = Math.min((now - startTime) / duration, 1)
-        const c1 = 1.70158
-        const c3 = c1 + 1
-        const ease = 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2)
+        const ease = 1 - Math.pow(1 - p, 4)
         window.scrollTo(0, start + (end - start) * ease)
         if (p < 1) requestAnimationFrame(step)
       }
