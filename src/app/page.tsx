@@ -204,7 +204,7 @@ function HomeMobile() {
         display: 'flex',
         flexDirection: 'column',
         paddingTop: 'env(safe-area-inset-top, 0px)',
-        paddingBottom: 'env(safe-area-inset-bottom, 0px)',
+        paddingBottom: 'calc(41px + env(safe-area-inset-bottom, 0px))',
       }}>
 
         <OtherLogoVideo src={OTHER_VIDEO} />
