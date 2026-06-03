@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import { useIsMobile } from '@/hooks/useIsMobile'
@@ -8,19 +8,25 @@ import { useIsMobile } from '@/hooks/useIsMobile'
 // ── Animated yellow-on-red logo ────────────────────────────────
 function OtherLogoVideo() {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [showGif, setShowGif] = useState(false)
 
   useEffect(() => {
     const v = videoRef.current
     if (!v) return
     v.muted = true
-    v.play().catch(() => {})
+    v.play().catch((err) => {
+      if (err.name === 'NotAllowedError') setShowGif(true)
+    })
   }, [])
 
   return (
     <div style={{ width: '100%', flexShrink: 0 }}>
-      <video ref={videoRef} autoPlay loop muted playsInline preload="auto" style={{ width: '100%', display: 'block' }}>
-        <source src="/other-logo-cropped.mp4" type="video/mp4" />
-      </video>
+      {showGif
+        ? <img src="/other-logo.gif" alt="OTHER" style={{ width: '100%', display: 'block' }} />
+        : <video ref={videoRef} autoPlay loop muted playsInline preload="auto" style={{ width: '100%', display: 'block' }}>
+            <source src="/other-logo-cropped.mp4" type="video/mp4" />
+          </video>
+      }
     </div>
   )
 }
