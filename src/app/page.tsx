@@ -397,11 +397,13 @@ function HomeInner() {
       if (!target) return
       const start = window.scrollY
       const end = target.getBoundingClientRect().top + window.scrollY
-      const duration = 1000
+      const duration = 1100
       const startTime = performance.now()
       function step(now: number) {
         const p = Math.min((now - startTime) / duration, 1)
-        const ease = 1 - Math.pow(1 - p, 4)
+        const c1 = 1.70158
+        const c3 = c1 + 1
+        const ease = 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2)
         window.scrollTo(0, start + (end - start) * ease)
         if (p < 1) requestAnimationFrame(step)
       }
