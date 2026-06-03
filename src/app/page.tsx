@@ -29,7 +29,7 @@ function OtherLogoVideo({ src = OTHER_VIDEO }: { src?: string }) {
 
   return (
     <div style={{ width: 'min(104.1vw, calc(38dvh * 469 / 103))', alignSelf: 'center', flexShrink: 0 }}>
-      <video ref={videoRef} loop playsInline preload="auto" style={{ width: '100%', display: 'block' }}>
+      <video ref={videoRef} autoPlay loop muted playsInline preload="auto" style={{ width: '100%', display: 'block' }}>
         <source src={src} type="video/mp4" />
       </video>
     </div>
@@ -74,7 +74,7 @@ function FarmerVideo({ src, label }: { src: string; label: string }) {
     }}>
       <video
         ref={videoRef}
-        loop playsInline preload="auto"
+        autoPlay loop muted playsInline preload="auto"
         aria-label={label}
         style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', backgroundColor: '#FF3C00' }}
       >
