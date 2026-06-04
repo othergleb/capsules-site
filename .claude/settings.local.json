@@ -56,7 +56,9 @@
       "Bash(mdls -name kMDItemCodecs /Users/gleb/Documents/CLAUDE/capsules-site/public/Other_alt3_yellow_red.mp4)",
       "Read(//Users/gleb/.claude/**)",
       "Bash(claude mcp *)",
-      "Bash(identify /Users/gleb/Documents/CLAUDE/capsules-site/public/home-photo.jpg)"
+      "Bash(identify /Users/gleb/Documents/CLAUDE/capsules-site/public/home-photo.jpg)",
+      "Bash(ffmpeg -i /Users/gleb/Documents/CLAUDE/capsules-site/public/other-logo-cropped.mp4 -vf 'fps=20,scale=700:-1:flags=lanczos,split[s0][s1];[s0]palettegen=max_colors=64:stats_mode=full[p];[s1][p]paletteuse=dither=bayer' /Users/gleb/Documents/CLAUDE/capsules-site/public/other-logo.gif -y)",
+      "WebFetch(domain:www.333southwabash.com)"
     ]
   }
 }

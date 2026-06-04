@@ -32,7 +32,6 @@ export default function Nav({ color = '#00006A' }: NavProps) {
         <Link href="/how-it-works" className="pill-btn" style={activePill('/how-it-works')}>How it Works</Link>
       </div>
       <div style={{ display: 'flex', gap: 0, pointerEvents: 'all' }}>
-        <Link href="/faq" className="pill-btn" style={activePill('/faq')}>FAQ</Link>
         <a href="https://otherwine.co.uk" className="pill-btn" target="_blank" rel="noopener noreferrer">
           Otherwine.co.uk
         </a>

@@ -7,7 +7,6 @@ const PAGES = [
   { label: 'THE WINE',            href: '/the-wine'           },
   { label: 'ORIGIN, METHOD, BOX', href: '/origin-method-box'  },
   { label: 'HOW IT WORKS',        href: '/how-it-works'       },
-  { label: 'FAQS',                href: '/faq'                },
 ]
 
 const NAV_TEXT: React.CSSProperties = {
