@@ -342,10 +342,10 @@ function HomeMobile() {
             <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease' }}>
               <div style={{ textAlign: 'center', marginBottom: '20px' }}>
                 <p style={{ ...TEXT, fontWeight: 700, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.3, marginBottom: '1em' }}>
-                  An amphora aged grenache ros&eacute;, grown by Berber farmers in northern Morocco. Included as part of Capsule 01.
+                  We&apos;ve been given access to the last remaining bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco — a ros&eacute; so pale it enters a new classification.
                 </p>
                 <p style={{ ...TEXT, fontWeight: 400, fontSize: 'clamp(0.85rem,4vw,16px)', lineHeight: 1.3 }}>
-                  Register for exclusive access on 23 June.
+                  Available to Capsule members only. 23 June.
                 </p>
               </div>
 
@@ -812,7 +812,7 @@ function HomeInner() {
                     color: '#EDFF00',
                     marginBottom: '1.29em',
                   }}>
-                    An amphora aged grenache ros&eacute;, grown by Berber farmers in northern Morocco. Included as part of Capsule 01.
+                    We&apos;ve been given access to the last remaining bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco — a ros&eacute; so pale it enters a new classification.
                   </p>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
@@ -823,7 +823,7 @@ function HomeInner() {
                     color: '#EDFF00',
                     marginBottom: 0,
                   }}>
-                    Register for exclusive access on 23 June.
+                    Available to Capsule members only. 23 June.
                   </p>
                 </div>
 
