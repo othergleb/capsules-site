@@ -517,7 +517,7 @@ function HomeInner() {
             <img src={TIFINAGH_SVG} alt="ⵍⵎⵖⵔⵉⴱ"
               style={{ height: 'clamp(10px, 1.97vw, 34px)', width: 'auto', aspectRatio: '171 / 34' }} />
             <img src={ARABIC_SVG} alt="المغرب"
-              style={{ height: 'clamp(16px, 3.18vw, 55px)', width: 'auto', aspectRatio: '161 / 55', transform: 'scaleX(-1)', marginBottom: '0.5vw' }} />
+              style={{ height: 'clamp(16px, 3.18vw, 55px)', width: 'auto', aspectRatio: '161 / 55', marginBottom: '0.5vw' }} />
           </div>
 
           <div style={{
