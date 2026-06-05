@@ -923,12 +923,12 @@ function HomeInner() {
           </div>
         )}
 
-        {/* Left large bottle */}
+        {/* Left large bottle — cam 1: 590×922 */}
         <img src={CAM1} alt="" style={{
           position: 'absolute',
           left: '-1%',
           top: '3%',
-          width: 'clamp(180px, 22vw, 380px)',
+          width: 'clamp(180px, 21vw, 362px)',
           height: 'auto',
           pointerEvents: 'none',
           zIndex: 0,
@@ -947,24 +947,24 @@ function HomeInner() {
           userSelect: 'none',
         }} />
 
-        {/* Right large bottle */}
+        {/* Right large bottle — cam 3: 682×1066, naturally 15% larger than cam 1 */}
         <img src={CAM3} alt="" style={{
           position: 'absolute',
           right: '1%',
           top: '3%',
-          width: 'clamp(160px, 18vw, 310px)',
+          width: 'clamp(208px, 24vw, 415px)',
           height: 'auto',
           pointerEvents: 'none',
           zIndex: 0,
           userSelect: 'none',
         }} />
 
-        {/* Right smaller bottle */}
+        {/* Right smaller bottle — cam 2 */}
         <img src={CAM2} alt="" style={{
           position: 'absolute',
-          right: '17%',
+          right: '18%',
           top: '7%',
-          width: 'clamp(140px, 15vw, 258px)',
+          width: 'clamp(160px, 18vw, 310px)',
           height: 'auto',
           pointerEvents: 'none',
           zIndex: 0,
