@@ -596,16 +596,16 @@ function HomeInner() {
         {/* Large outlined heading */}
         <h1 style={{
           fontFamily: 'Vulf Sans, sans-serif',
-          fontSize: 'clamp(2rem, 4.17vw, 72px)',
-          fontWeight: 900,
-          lineHeight: 1.05,
-          letterSpacing: '-0.01em',
+          fontSize: 'clamp(1.5rem, 2.7vw, 46px)',
+          fontWeight: 400,
+          lineHeight: 1.1,
+          letterSpacing: '0.01em',
           color: 'transparent',
-          WebkitTextStroke: '2px #00006A',
+          WebkitTextStroke: '1.5px #00006A',
           textAlign: 'center',
           marginBottom: 'clamp(1.5rem, 2.5vw, 44px)',
           textTransform: 'uppercase',
-          maxWidth: '65%',
+          maxWidth: '52%',
         }}>
           Register for Exclusive Access on 23 June
         </h1>
