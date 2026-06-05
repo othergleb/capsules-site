@@ -961,13 +961,15 @@ function HomeInner() {
           userSelect: 'none',
         }} />
 
-        {/* Right smaller bottle — cam 2 */}
+        {/* Right smaller bottle — cam 2: 658×878 rotated -172.144deg */}
         <img src={CAM2} alt="" style={{
           position: 'absolute',
           right: '18%',
           top: '7%',
-          width: 'clamp(160px, 18vw, 310px)',
-          height: 'auto',
+          width: 'clamp(200px, 38.08vw, 658px)',
+          aspectRatio: '329 / 439',
+          objectFit: 'cover',
+          transform: 'rotate(-172.144deg)',
           pointerEvents: 'none',
           zIndex: 0,
           userSelect: 'none',
