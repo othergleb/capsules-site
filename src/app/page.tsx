@@ -923,13 +923,15 @@ function HomeInner() {
           </div>
         )}
 
-        {/* Left large bottle — cam 1: 590×922 */}
+        {/* Left large bottle — cam 1: 658×878 rotated 10.247deg */}
         <img src={CAM1} alt="" style={{
           position: 'absolute',
           left: '-1%',
           top: '3%',
-          width: 'clamp(180px, 21vw, 362px)',
-          height: 'auto',
+          width: 'clamp(200px, 38.08vw, 658px)',
+          aspectRatio: '329 / 439',
+          objectFit: 'cover',
+          transform: 'rotate(10.247deg)',
           pointerEvents: 'none',
           zIndex: 0,
           userSelect: 'none',
