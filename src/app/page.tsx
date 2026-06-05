@@ -11,7 +11,10 @@ const ARABIC_SVG    = '/figma/arabic.svg'
 const TIFINAGH_SVG  = '/figma/tifinagh.svg'
 const SUNFLOWER_SVG = '/figma/sunflower.svg'
 const STAR_SVG      = '/figma/star.svg'
-const DIAMONDS_SVG      = '/figma/polygon-diamonds.svg'
+const CAM1          = '/cam 1.png'
+const CAM2          = '/cam 2.png'
+const CAM3          = '/cam 3.png'
+const BOTTLE1       = '/bottle-1.png'
 const OTHER_VIDEO       = '/other-logo-cropped.mp4'
 const OTHER_VIDEO_6K    = '/other-logo-cropped-6k.mp4'
 const FARMER_LEFT       = '/farmer-left.mp4'
@@ -97,13 +100,13 @@ function FarmerVideo({ src, label }: { src: string; label: string }) {
   )
 }
 
-function StepDots({ step, size = 6 }: { step: 2 | 3; size?: number }) {
+function StepDots({ step, size = 6, color = '#EDFF00' }: { step: 2 | 3; size?: number; color?: string }) {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', gap: '7px', marginBottom: '18px' }}>
       {[1, 2, 3].map(n => (
         <div key={n} style={{
           width: size, height: size, borderRadius: '50%',
-          backgroundColor: n === step ? '#EDFF00' : 'rgba(237,255,0,0.28)',
+          backgroundColor: n === step ? color : color + '44',
           transition: 'background-color 0.3s ease',
           flexShrink: 0,
         }} />
@@ -565,46 +568,56 @@ function HomeInner() {
 
       <section ref={yellowRef} style={{
         backgroundColor: '#EDFF00',
+        borderTop: '2px solid #FF3C00',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         minHeight: '100dvh',
-        paddingTop: 'clamp(2.5rem, 3.5vw, 60px)',
+        paddingTop: 'clamp(2rem, 3vw, 52px)',
         paddingLeft: 'clamp(1.5rem, 5vw, 4rem)',
         paddingRight: 'clamp(1.5rem, 5vw, 4rem)',
-        paddingBottom: 'clamp(2rem, 14.64vw, 253px)',
+        paddingBottom: 'clamp(4rem, 6vw, 100px)',
         position: 'relative',
+        overflow: 'hidden',
       }}>
 
-        <h1
-          style={{
-            fontFamily: 'Vulf Sans, sans-serif',
-            fontSize: 'clamp(3rem, 5.52vw, 95.484px)',
-            fontStyle: 'normal',
-            fontWeight: 900,
-            lineHeight: 1.47,
-            letterSpacing: '1.91px',
-            color: 'transparent',
-            WebkitTextStroke: '2.22px #00006A',
-            textAlign: 'center',
-            marginBottom: 'clamp(1rem, 2.03vw, 35px)',
-          }}
-        >
-          Capsule 01
+        {/* Section label */}
+        <p style={{
+          fontFamily: 'Vulf Sans, sans-serif',
+          fontWeight: 700,
+          fontSize: 'clamp(0.6rem, 0.75vw, 13px)',
+          letterSpacing: '0.1em',
+          color: '#00006A',
+          textTransform: 'uppercase',
+          textAlign: 'center',
+          marginBottom: 'clamp(0.25rem, 0.4vw, 7px)',
+        }}>Capsule 01</p>
+
+        {/* Large outlined heading */}
+        <h1 style={{
+          fontFamily: 'Vulf Sans, sans-serif',
+          fontSize: 'clamp(2rem, 4.17vw, 72px)',
+          fontWeight: 900,
+          lineHeight: 1.05,
+          letterSpacing: '-0.01em',
+          color: 'transparent',
+          WebkitTextStroke: '2px #00006A',
+          textAlign: 'center',
+          marginBottom: 'clamp(1.5rem, 2.5vw, 44px)',
+          textTransform: 'uppercase',
+          maxWidth: '65%',
+        }}>
+          Register for Exclusive Access on 23 June
         </h1>
 
+        {/* Form — directly on yellow */}
         {dismissed ? (
-          <div style={{
-            backgroundColor: '#FF3C00',
-            maxWidth: 'clamp(340px, 36vw, 622px)',
-            width: '100%',
-            padding: 'clamp(1rem, 1.5vw, 26px)',
-          }}>
+          <div style={{ maxWidth: 'clamp(340px, 36vw, 622px)', width: '100%', position: 'relative', zIndex: 1 }}>
             <p style={{
               fontFamily: 'Vulf Sans, sans-serif',
               fontWeight: 700,
               fontSize: 'clamp(1rem, 1.45vw, 25px)',
-              color: '#EDFF00',
+              color: '#00006A',
               letterSpacing: '-0.01em',
               lineHeight: 1.1,
               marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
@@ -617,7 +630,7 @@ function HomeInner() {
               fontWeight: 300,
               fontSize: 'clamp(0.85rem, 1.2vw, 21px)',
               lineHeight: 1.4,
-              color: '#EDFF00',
+              color: '#00006A',
               marginBottom: '1em',
             }}>
               Purchase link drops on 23 June, keep an eye on your emails.
@@ -627,207 +640,110 @@ function HomeInner() {
               fontWeight: 300,
               fontSize: 'clamp(0.85rem, 1.2vw, 21px)',
               lineHeight: 1.4,
-              color: '#EDFF00',
+              color: '#00006A',
             }}>
-              <a href="/the-wine" style={{ color: '#EDFF00', textDecoration: 'underline' }}>What&apos;s in the box</a>
+              <a href="/the-wine" style={{ color: '#FF3C00', textDecoration: 'underline' }}>What&apos;s in the box</a>
             </p>
           </div>
-        ) : <div style={{
-          backgroundColor: '#FF3C00',
-          maxWidth: 'clamp(340px, 36vw, 622px)',
-          width: '100%',
-          padding: 'clamp(1rem, 1.5vw, 26px)',
-          position: 'relative',
-        }}>
+        ) : (
+          <div style={{ maxWidth: 'clamp(340px, 36vw, 622px)', width: '100%', position: 'relative', zIndex: 1 }}>
 
-          {formStep === 'invite' ? (
+            {formStep === 'invite' ? (
 
-            /* Screen 3: share / confirmed */
-            <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease' }}>
-              <StepDots step={3} size={7} />
-              <p style={{
-                fontFamily: 'Vulf Sans, sans-serif',
-                fontWeight: 700,
-                fontSize: 'clamp(1rem, 1.45vw, 25px)',
-                color: '#EDFF00',
-                letterSpacing: '-0.01em',
-                lineHeight: 1.1,
-                marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
-                textTransform: 'uppercase',
-              }}>
-                Claim Early Bird Access
-              </p>
-              <p style={{
-                fontFamily: 'Vulf Sans, sans-serif',
-                fontWeight: 300,
-                fontSize: 'clamp(0.78rem, 1.014vw, 17.5px)',
-                lineHeight: 1.4,
-                color: '#EDFF00',
-                marginBottom: 'clamp(0.75rem, 1.2vw, 21px)',
-              }}>
-                Successfully refer one friend to join Capsule 01 and get access 24 hours early.
-              </p>
-              {inviteCode && (
+              /* Screen 3: share */
+              <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease' }}>
+                <StepDots step={3} size={7} color="#00006A" />
+                <p style={{
+                  fontFamily: 'Vulf Sans, sans-serif',
+                  fontWeight: 700,
+                  fontSize: 'clamp(1rem, 1.45vw, 25px)',
+                  color: '#00006A',
+                  letterSpacing: '-0.01em',
+                  lineHeight: 1.1,
+                  marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
+                  textTransform: 'uppercase',
+                }}>
+                  Claim Early Bird Access
+                </p>
+                <p style={{
+                  fontFamily: 'Vulf Sans, sans-serif',
+                  fontWeight: 300,
+                  fontSize: 'clamp(0.78rem, 1.014vw, 17.5px)',
+                  lineHeight: 1.4,
+                  color: '#00006A',
+                  marginBottom: 'clamp(0.75rem, 1.2vw, 21px)',
+                }}>
+                  Successfully refer one friend to join Capsule 01 and get access 24 hours early.
+                </p>
+                {inviteCode && (
+                  <button
+                    onClick={handleShare}
+                    style={{
+                      display: 'block',
+                      width: '100%',
+                      height: 'clamp(52px, 4.05vw, 70px)',
+                      backgroundColor: '#00006A',
+                      color: '#EDFF00',
+                      border: 'none',
+                      borderRadius: '999px',
+                      fontFamily: 'Vulf Sans, sans-serif',
+                      fontWeight: 300,
+                      fontSize: 'clamp(0.9rem, 1.45vw, 25px)',
+                      letterSpacing: '-0.03em',
+                      textTransform: 'uppercase',
+                      cursor: 'pointer',
+                      transition: 'opacity 0.15s ease',
+                      marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
+                    }}
+                    onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
+                    onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
+                  >
+                    {copied ? 'Link copied!' : 'Invite a friend'}
+                  </button>
+                )}
                 <button
-                  onClick={handleShare}
+                  onClick={() => setDismissed(true)}
                   style={{
                     display: 'block',
                     width: '100%',
                     height: 'clamp(52px, 4.05vw, 70px)',
-                    backgroundColor: '#EDFF00',
-                    color: '#00006A',
-                    border: '2px solid #00006A',
+                    background: 'none',
+                    border: hasShared ? '2px solid #00006A' : 'none',
                     borderRadius: '999px',
                     fontFamily: 'Vulf Sans, sans-serif',
-                    fontWeight: 300,
+                    fontWeight: hasShared ? 500 : 300,
                     fontSize: 'clamp(0.9rem, 1.45vw, 25px)',
                     letterSpacing: '-0.03em',
                     textTransform: 'uppercase',
-                    cursor: 'pointer',
-                    transition: 'opacity 0.15s ease',
-                    marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
-                  }}
-                  onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
-                  onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
-                >
-                  {copied ? 'Link copied!' : 'Invite a friend'}
-                </button>
-              )}
-              <button
-                onClick={() => setDismissed(true)}
-                style={{
-                  display: 'block',
-                  width: '100%',
-                  height: 'clamp(52px, 4.05vw, 70px)',
-                  background: 'none',
-                  border: hasShared ? '2px solid #EDFF00' : 'none',
-                  borderRadius: '999px',
-                  fontFamily: 'Vulf Sans, sans-serif',
-                  fontWeight: hasShared ? 500 : 300,
-                  fontSize: 'clamp(0.9rem, 1.45vw, 25px)',
-                  letterSpacing: '-0.03em',
-                  textTransform: 'uppercase',
-                  color: '#EDFF00',
-                  cursor: 'pointer',
-                  opacity: hasShared ? 1 : 0.6,
-                  transition: 'opacity 0.15s ease',
-                }}
-                onMouseOver={e => { if (!hasShared) e.currentTarget.style.opacity = '1' }}
-                onMouseOut={e => { if (!hasShared) e.currentTarget.style.opacity = '0.6' }}
-              >
-                {hasShared ? 'Complete' : 'Skip'}
-              </button>
-            </div>
-
-          ) : formStep === 'name' ? (
-
-            /* Screen 2: name */
-            <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease' }}>
-              <StepDots step={2} size={7} />
-              <p style={{
-                fontFamily: 'Vulf Sans, sans-serif',
-                fontWeight: 700,
-                fontSize: 'clamp(1rem, 1.45vw, 25px)',
-                color: '#EDFF00',
-                textAlign: 'center',
-                marginBottom: 'clamp(1rem, 1.5vw, 26px)',
-                lineHeight: 1.2,
-              }}>
-                What&apos;s your name?
-              </p>
-              <form onSubmit={advanceToInvite}>
-                <div style={{
-                  borderBottom: '1.5px solid #00006A',
-                  height: 'clamp(28px, 2.3vw, 40px)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  marginBottom: 'clamp(0.5rem, 1.79vw, 31px)',
-                }}>
-                  <input
-                    type="text"
-                    name="name"
-                    autoComplete="name"
-                    required
-                    placeholder="Your name"
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                    className="form-input-cream"
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      background: 'transparent',
-                      border: 'none',
-                      outline: 'none',
-                      padding: '0 1rem',
-                      fontFamily: 'Vulf Sans, sans-serif',
-                      fontWeight: 300,
-                      fontSize: 'clamp(0.8rem, 1.2vw, 21px)',
-                      letterSpacing: '-0.01em',
-                      color: '#EDFF00',
-                      textAlign: 'center',
-                    }}
-                  />
-                </div>
-                <button
-                  type="submit"
-                  style={{
-                    display: 'block',
-                    width: 'clamp(180px, 17.42vw, 301px)',
-                    margin: '0 auto',
-                    height: 'clamp(52px, 4.05vw, 70px)',
-                    backgroundColor: '#EDFF00',
                     color: '#00006A',
-                    border: '2px solid #00006A',
-                    borderRadius: '999px',
-                    fontFamily: 'Vulf Sans, sans-serif',
-                    fontWeight: 300,
-                    fontSize: 'clamp(0.9rem, 1.45vw, 25px)',
-                    letterSpacing: '-0.03em',
-                    textTransform: 'uppercase',
                     cursor: 'pointer',
+                    opacity: hasShared ? 1 : 0.6,
                     transition: 'opacity 0.15s ease',
-                    fontFeatureSettings: "'cv10', 'ss03', 'ss05', 'case', 'ordn', 'dlig'",
                   }}
-                  onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
-                  onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
+                  onMouseOver={e => { if (!hasShared) e.currentTarget.style.opacity = '1' }}
+                  onMouseOut={e => { if (!hasShared) e.currentTarget.style.opacity = '0.6' }}
                 >
-                  Continue
+                  {hasShared ? 'Complete' : 'Skip'}
                 </button>
-              </form>
-            </div>
+              </div>
 
-          ) : (
+            ) : formStep === 'name' ? (
 
-            /* Screen 1: email */
-            <div style={{ position: 'relative' }}>
+              /* Screen 2: name */
               <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease' }}>
-
-                        <div style={{ textAlign: 'center', marginBottom: 'clamp(0.75rem, 2.54vw, 44px)' }}>
-                  <p style={{
-                    fontFamily: 'Vulf Sans, sans-serif',
-                    fontWeight: 700,
-                    fontSize: 'clamp(0.9rem, 1.331vw, 23px)',
-                    lineHeight: 1.29,
-                    letterSpacing: '0.23px',
-                    color: '#EDFF00',
-                    marginBottom: '1.29em',
-                  }}>
-                    We&apos;ve been given access to the last remaining bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco — a ros&eacute; so pale it enters a new classification.
-                  </p>
-                  <p style={{
-                    fontFamily: 'Vulf Sans, sans-serif',
-                    fontWeight: 400,
-                    fontSize: 'clamp(0.9rem, 1.331vw, 23px)',
-                    lineHeight: 1.29,
-                    letterSpacing: '0.23px',
-                    color: '#EDFF00',
-                    marginBottom: 0,
-                  }}>
-                    Available to Capsule members only. 23 June. 10AM.
-                  </p>
-                </div>
-
-                <form onSubmit={advanceToName}>
+                <StepDots step={2} size={7} color="#00006A" />
+                <p style={{
+                  fontFamily: 'Vulf Sans, sans-serif',
+                  fontWeight: 700,
+                  fontSize: 'clamp(1rem, 1.45vw, 25px)',
+                  color: '#00006A',
+                  textAlign: 'center',
+                  marginBottom: 'clamp(1rem, 1.5vw, 26px)',
+                  lineHeight: 1.2,
+                }}>
+                  What&apos;s your name?
+                </p>
+                <form onSubmit={advanceToInvite}>
                   <div style={{
                     borderBottom: '1.5px solid #00006A',
                     height: 'clamp(28px, 2.3vw, 40px)',
@@ -836,11 +752,13 @@ function HomeInner() {
                     marginBottom: 'clamp(0.5rem, 1.79vw, 31px)',
                   }}>
                     <input
-                      type="email"
+                      type="text"
+                      name="name"
+                      autoComplete="name"
                       required
-                      placeholder="Your Email Here"
-                      value={email}
-                      onChange={e => setEmail(e.target.value)}
+                      placeholder="Your name"
+                      value={name}
+                      onChange={e => setName(e.target.value)}
                       className="form-input-cream"
                       style={{
                         width: '100%',
@@ -853,7 +771,7 @@ function HomeInner() {
                         fontWeight: 300,
                         fontSize: 'clamp(0.8rem, 1.2vw, 21px)',
                         letterSpacing: '-0.01em',
-                        color: '#EDFF00',
+                        color: '#00006A',
                         textAlign: 'center',
                       }}
                     />
@@ -862,12 +780,12 @@ function HomeInner() {
                     type="submit"
                     style={{
                       display: 'block',
-                      width: '100%',
+                      width: 'clamp(180px, 17.42vw, 301px)',
                       margin: '0 auto',
                       height: 'clamp(52px, 4.05vw, 70px)',
-                      backgroundColor: '#EDFF00',
-                      color: '#00006A',
-                      border: '2px solid #00006A',
+                      backgroundColor: '#00006A',
+                      color: '#FFFFF5',
+                      border: 'none',
                       borderRadius: '999px',
                       fontFamily: 'Vulf Sans, sans-serif',
                       fontWeight: 300,
@@ -881,41 +799,197 @@ function HomeInner() {
                     onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
                     onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
                   >
-                    Claim your place
+                    Continue
                   </button>
                 </form>
               </div>
 
+            ) : (
 
-            </div>
-          )}
-        </div>}
+              /* Screen 1: email */
+              <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease' }}>
+                <div style={{ textAlign: 'center', marginBottom: 'clamp(0.75rem, 1.5vw, 26px)' }}>
+                  <p style={{
+                    fontFamily: 'Vulf Sans, sans-serif',
+                    fontWeight: 700,
+                    fontSize: 'clamp(0.9rem, 1.1vw, 19px)',
+                    lineHeight: 1.35,
+                    color: '#FF3C00',
+                    marginBottom: '0.75em',
+                  }}>
+                    We&apos;ve been given access to the last remaining bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco — a ros&eacute; so pale it enters a new classification.
+                  </p>
+                  <p style={{
+                    fontFamily: 'Vulf Sans, sans-serif',
+                    fontWeight: 400,
+                    fontSize: 'clamp(0.9rem, 1.1vw, 19px)',
+                    lineHeight: 1.35,
+                    color: '#FF3C00',
+                  }}>
+                    Available to Capsule members only. 23 June. 10AM.
+                  </p>
+                </div>
 
-        <OtherLogoGif />
+                {/* Contents table */}
+                <div style={{ marginBottom: 'clamp(0.75rem, 1.5vw, 26px)' }}>
+                  <p style={{
+                    fontFamily: 'Vulf Sans, sans-serif',
+                    fontWeight: 400,
+                    fontSize: 'clamp(0.6rem, 0.7vw, 12px)',
+                    letterSpacing: '0.07em',
+                    color: '#00006A',
+                    textAlign: 'center',
+                    marginBottom: '6px',
+                    textTransform: 'uppercase',
+                  }}>Inside Capsule 01 (£89)</p>
+                  <div style={{ borderTop: '1px solid #00006A' }}>
+                    {([
+                      ['1 x Bottle',  'Amphora Aged Grenache, 2023'],
+                      ['2 x Bottles', 'Estate Moroccan Rosé'],
+                      ['1 x Vial',    'Award-winning Olive Oil'],
+                    ] as [string, string][]).map(([qty, item]) => (
+                      <div key={qty} style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        padding: '5px 0',
+                        borderBottom: '1px solid #00006A',
+                      }}>
+                        <span style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: 'clamp(0.6rem, 0.7vw, 12px)', color: '#00006A', letterSpacing: '0.05em', textTransform: 'uppercase' }}>{qty}</span>
+                        <span style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: 'clamp(0.6rem, 0.7vw, 12px)', color: '#00006A', letterSpacing: '0.05em', textTransform: 'uppercase' }}>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
-        <img src={DIAMONDS_SVG} alt="" style={{
+                <form onSubmit={advanceToName}>
+                  <div style={{
+                    border: '1.5px solid #00006A',
+                    height: 'clamp(44px, 3.2vw, 55px)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginBottom: 'clamp(0.4rem, 0.6vw, 10px)',
+                    backgroundColor: '#FFFFF5',
+                  }}>
+                    <input
+                      type="email"
+                      required
+                      placeholder="Your email here"
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
+                      className="form-input-cream"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        background: 'transparent',
+                        border: 'none',
+                        outline: 'none',
+                        padding: '0 1rem',
+                        fontFamily: 'Vulf Sans, sans-serif',
+                        fontWeight: 300,
+                        fontSize: 'clamp(0.8rem, 1vw, 17px)',
+                        letterSpacing: '-0.01em',
+                        color: '#00006A',
+                        textAlign: 'center',
+                      }}
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    style={{
+                      display: 'block',
+                      width: '100%',
+                      height: 'clamp(44px, 3.2vw, 55px)',
+                      backgroundColor: '#00006A',
+                      color: '#FFFFF5',
+                      border: 'none',
+                      borderRadius: '999px',
+                      fontFamily: 'Vulf Sans, sans-serif',
+                      fontWeight: 300,
+                      fontSize: 'clamp(0.9rem, 1.1vw, 19px)',
+                      letterSpacing: '-0.03em',
+                      textTransform: 'uppercase',
+                      cursor: 'pointer',
+                      transition: 'opacity 0.15s ease',
+                      fontFeatureSettings: "'cv10', 'ss03', 'ss05', 'case', 'ordn', 'dlig'",
+                    }}
+                    onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
+                    onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
+                  >
+                    Claim your place
+                  </button>
+                </form>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Left large bottle */}
+        <img src={CAM1} alt="" style={{
           position: 'absolute',
-          right: '7.58vw',
-          bottom: '11.35vw',
-          width: '8.68vw',
+          left: '-1%',
+          top: '3%',
+          width: 'clamp(180px, 22vw, 380px)',
           height: 'auto',
+          pointerEvents: 'none',
+          zIndex: 0,
+          userSelect: 'none',
         }} />
 
-        <img src="/figma/villa-text.svg" alt="" style={{
+        {/* Left small bottle */}
+        <img src={BOTTLE1} alt="" style={{
           position: 'absolute',
-          right: '16.32vw',
-          bottom: '4.63vw',
-          width: '13.95vw',
+          left: '17%',
+          bottom: '14%',
+          width: 'clamp(45px, 5vw, 86px)',
           height: 'auto',
+          pointerEvents: 'none',
+          zIndex: 0,
+          userSelect: 'none',
         }} />
 
-        <img src="/figma/villa-volubilia-text.svg" alt="Villa Volubilia" style={{
+        {/* Right large bottle */}
+        <img src={CAM3} alt="" style={{
           position: 'absolute',
-          right: '1.39vw',
-          bottom: '1.27vw',
-          width: '23.84vw',
+          right: '1%',
+          top: '3%',
+          width: 'clamp(160px, 18vw, 310px)',
           height: 'auto',
+          pointerEvents: 'none',
+          zIndex: 0,
+          userSelect: 'none',
         }} />
+
+        {/* Right smaller bottle */}
+        <img src={CAM2} alt="" style={{
+          position: 'absolute',
+          right: '17%',
+          top: '7%',
+          width: 'clamp(140px, 15vw, 258px)',
+          height: 'auto',
+          pointerEvents: 'none',
+          zIndex: 0,
+          userSelect: 'none',
+        }} />
+
+        {/* Pagination dots */}
+        <div style={{
+          position: 'absolute',
+          bottom: 'clamp(1.5rem, 2.5vw, 44px)',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          display: 'flex',
+          gap: 'clamp(10px, 1vw, 16px)',
+          alignItems: 'center',
+        }}>
+          {[0, 1, 2].map(i => (
+            <div key={i} style={{
+              width: 'clamp(10px, 0.87vw, 15px)',
+              height: 'clamp(10px, 0.87vw, 15px)',
+              borderRadius: '50%',
+              backgroundColor: '#00006A',
+            }} />
+          ))}
+        </div>
 
       </section>
 
