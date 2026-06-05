@@ -230,7 +230,7 @@ function HomeMobile() {
         <div style={{ padding: '0 12px 13px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '5px' }}>
             <img src={TIFINAGH_SVG} alt="ⵍⵎⵖⵔⵉⴱ" style={{ width: '13.74vw', height: 'auto' }} />
-            <img src={ARABIC_SVG}   alt="المغرب"   style={{ width: '12.98vw', height: 'auto', transform: 'scaleX(-1)' }} />
+            <img src={ARABIC_SVG}   alt="المغرب"   style={{ width: '12.98vw', height: 'auto' }} />
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <img src={MAROC_SVG} alt="MAROC" style={{ width: '34.47vw', height: 'auto' }} />
