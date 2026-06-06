@@ -253,7 +253,7 @@ function HomeMobile() {
           textAlign: 'center',
           textTransform: 'uppercase',
           maxWidth: '365px',
-          margin: '0 auto 90px',
+          margin: '12px auto 90px',
         }}>
           Register for exclusive<br />access on 23 June
         </h1>
@@ -337,12 +337,12 @@ function HomeMobile() {
 
           /* Screen 1: email */
           <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease', width: '100%', position: 'relative', zIndex: 1 }}>
-            <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, letterSpacing: '0.16px', color: '#FF3C00', textAlign: 'center', maxWidth: '320px', margin: '0 auto 16px' }}>
+            <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, letterSpacing: '0.16px', color: '#FF3C00', textAlign: 'center', maxWidth: '320px', margin: '-32px auto 48px' }}>
               We&apos;ve been given access to the last remaining bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco — a ros&eacute; so pale it enters a new classification.
             </p>
 
-            <div style={{ padding: '0 14px', marginBottom: '16px', width: '100%', boxSizing: 'border-box' }}>
-              <p style={{ ...FONT, fontWeight: 400, fontSize: '12px', lineHeight: '17.738px', letterSpacing: '-0.12px', color: '#FF3C00', textAlign: 'center', marginBottom: '12px', textTransform: 'uppercase' }}>
+            <div style={{ padding: '0 14px 16px', marginTop: '-16px', marginBottom: '16px', width: '100%', boxSizing: 'border-box' }}>
+              <p style={{ ...FONT, fontWeight: 400, fontSize: '12px', lineHeight: '17.738px', letterSpacing: '-0.12px', color: '#FF3C00', textAlign: 'center', marginTop: '10px', marginBottom: '7px', textTransform: 'uppercase' }}>
                 Inside Capsule 01 (£89)
               </p>
               <div style={{ borderTop: '0.633px solid #FF3C00' }}>
@@ -351,9 +351,9 @@ function HomeMobile() {
                   ['2 x Bottles', 'Estate Moroccan Rosé'],
                   ['1 x Vial',    'Award-winning Olive Oil'],
                 ] as [string, string][]).map(([qty, item]) => (
-                  <div key={qty} style={{ display: 'grid', gridTemplateColumns: '31% 1fr', alignItems: 'center', padding: '2px 8px', borderBottom: '0.633px solid #FF3C00' }}>
-                    <span style={{ ...FONT, fontWeight: 300, fontSize: '12px', lineHeight: '17.738px', color: '#FF3C00', letterSpacing: '-0.12px', textTransform: 'uppercase', paddingLeft: '8px' }}>{qty}</span>
-                    <span style={{ ...FONT, fontWeight: 400, fontSize: '12px', lineHeight: '17.738px', color: '#FF3C00', letterSpacing: '-0.12px', textTransform: 'uppercase', textAlign: 'left' }}>{item}</span>
+                  <div key={qty} style={{ display: 'grid', gridTemplateColumns: '31% 1fr', alignItems: 'center', padding: '2px 0', borderBottom: '0.633px solid #FF3C00' }}>
+                    <span style={{ ...FONT, fontWeight: 300, fontSize: '12px', lineHeight: '17.738px', color: '#FF3C00', letterSpacing: '-0.12px', textTransform: 'uppercase', paddingLeft: '40px' }}>{qty}</span>
+                    <span style={{ ...FONT, fontWeight: 400, fontSize: '12px', lineHeight: '17.738px', color: '#FF3C00', letterSpacing: '-0.12px', textTransform: 'uppercase', textAlign: 'left', paddingLeft: '36px' }}>{item}</span>
                   </div>
                 ))}
               </div>
@@ -426,30 +426,30 @@ function HomeMobile() {
         {/* All tops = Figma frame y − 653 (yellow section top); lefts are direct from Figma */}
 
         {/* cam 1 — bbox 492.711×601.124 at (-144, 479) */}
-        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'-144px', top:'479px', width:'492.711px', height:'601.124px', pointerEvents:'none', userSelect:'none', zIndex:0 }}>
-          <div style={{ transform:'rotate(10.25deg)', flexShrink:0 }}>
-            <img src={CAM1} alt="" style={{ width:'403.448px', height:'537.931px', objectFit:'cover', display:'block' }} />
+        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'-84px', top:'479px', width:'492.711px', height:'601.124px', pointerEvents:'none', userSelect:'none', zIndex:0 }}>
+          <div style={{ transform:'scaleX(-1) rotate(0deg)', flexShrink:0 }}>
+            <img src={CAM2} alt="" style={{ width:'484.138px', height:'645.517px', objectFit:'cover', display:'block' }} />
           </div>
         </div>
 
         {/* cam 2 — bbox 473.191×588.029 at (-48.54, 510.87) */}
-        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'-48.54px', top:'510.87px', width:'473.191px', height:'588.029px', pointerEvents:'none', userSelect:'none', zIndex:1 }}>
-          <div style={{ transform:'scaleY(-1) rotate(172.14deg)', flexShrink:0 }}>
-            <img src={CAM2} alt="" style={{ width:'403.448px', height:'537.931px', objectFit:'cover', display:'block' }} />
+        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'24.46px', top:'505.87px', width:'473.191px', height:'588.029px', pointerEvents:'none', userSelect:'none', zIndex:1 }}>
+          <div style={{ transform:'rotate(0deg)', flexShrink:0 }}>
+            <img src={CAM2} alt="" style={{ width:'484.138px', height:'645.517px', objectFit:'cover', display:'block' }} />
           </div>
         </div>
 
         {/* cam 3 — bbox 582.055×653.043 at (5.49, 503.64) */}
-        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'5.49px', top:'503.64px', width:'582.055px', height:'653.043px', pointerEvents:'none', userSelect:'none', zIndex:2 }}>
-          <div style={{ transform:'scaleY(-1) rotate(156.92deg)', flexShrink:0 }}>
-            <img src={CAM3} alt="" style={{ width:'403.448px', height:'537.931px', objectFit:'cover', display:'block' }} />
+        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'-4.51px', top:'503.64px', width:'582.055px', height:'653.043px', pointerEvents:'none', userSelect:'none', zIndex:2 }}>
+          <div style={{ transform:'rotate(0deg)', flexShrink:0 }}>
+            <img src={CAM3} alt="" style={{ width:'484.138px', height:'645.517px', objectFit:'cover', display:'block' }} />
           </div>
         </div>
 
         {/* vial — bbox 123.221×153.639 at (-9.77, 865.12) */}
-        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'-9.77px', top:'865.12px', width:'123.221px', height:'153.639px', pointerEvents:'none', userSelect:'none', zIndex:3 }}>
-          <div style={{ transform:'rotate(-25.45deg)', flexShrink:0 }}>
-            <img src="/b9f0e9393dc291355495125a98e814a8 1.png" alt="" style={{ width:'71.741px', height:'136.009px', objectFit:'cover', display:'block' }} />
+        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'49.23px', top:'885.12px', width:'123.221px', height:'153.639px', pointerEvents:'none', userSelect:'none', zIndex:3 }}>
+          <div style={{ transform:'scaleX(-1) rotate(20deg)', flexShrink:0 }}>
+            <img src="/b9f0e9393dc291355495125a98e814a8 1.png" alt="" style={{ width:'86.089px', height:'163.211px', objectFit:'cover', display:'block' }} />
           </div>
         </div>
 
