@@ -223,7 +223,7 @@ function HomeMobile() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        paddingTop: '14px',
+        paddingTop: '41px',
         position: 'relative',
         minHeight: '1200px',
         overflow: 'hidden',
@@ -253,7 +253,7 @@ function HomeMobile() {
           textAlign: 'center',
           textTransform: 'uppercase',
           maxWidth: '365px',
-          margin: '0 auto 32px',
+          margin: '0 auto 90px',
         }}>
           Register for exclusive<br />access on 23 June
         </h1>
@@ -426,7 +426,7 @@ function HomeMobile() {
         <img src={CAM1} alt="" style={{
           position: 'absolute',
           left: '-25.3vw',
-          top: '451px',
+          top: '511px',
           width: '102.7vw',
           aspectRatio: '329 / 439',
           objectFit: 'cover',
@@ -439,7 +439,7 @@ function HomeMobile() {
         <img src={CAM2} alt="" style={{
           position: 'absolute',
           left: '-3.47vw',
-          top: '476px',
+          top: '536px',
           width: '102.7vw',
           aspectRatio: '329 / 439',
           objectFit: 'cover',
@@ -452,7 +452,7 @@ function HomeMobile() {
         <img src={CAM3} alt="" style={{
           position: 'absolute',
           left: '24.12vw',
-          top: '501px',
+          top: '561px',
           width: '102.7vw',
           aspectRatio: '329 / 439',
           objectFit: 'cover',
@@ -465,7 +465,7 @@ function HomeMobile() {
         <img src="/b9f0e9393dc291355495125a98e814a8 1.png" alt="" style={{
           position: 'absolute',
           left: '4.06vw',
-          top: '814px',
+          top: '874px',
           width: '18.3vw',
           aspectRatio: '72 / 136',
           transform: 'rotate(-25.45deg)',
