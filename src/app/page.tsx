@@ -451,12 +451,12 @@ function HomeMobile() {
 
         <img src={CAM3} alt="" style={{
           position: 'absolute',
-          left: '24.12vw',
-          top: '561px',
+          left: '1.4vw',
+          top: '504px',
           width: '102.7vw',
           aspectRatio: '329 / 439',
           objectFit: 'cover',
-          transform: 'scaleY(-1) rotate(156.92deg)',
+          transform: 'rotate(-156.92deg)',
           pointerEvents: 'none',
           userSelect: 'none',
           zIndex: 2,
