@@ -251,7 +251,7 @@ export default function WinePageClient() {
         </div>
       </section>
 
-      {marqueeStrip('var(--red)', 'ORIGIN')}
+      {marqueeStrip('var(--blue)', 'ORIGIN')}
 
       <section style={{
         backgroundColor: 'var(--red)',
@@ -298,10 +298,11 @@ export default function WinePageClient() {
           ].map((t, i) => (
             <p key={i} style={{
               fontFamily: 'Vulf Sans, sans-serif',
-              fontWeight: 300,
-              fontSize: 'clamp(0.8rem, 1vw, 17px)',
+              fontWeight: 400,
+              fontSize: 'clamp(12px, 1.33vw, 23px)',
               color: 'var(--cream)',
-              lineHeight: 1.65,
+              lineHeight: 1.29,
+              letterSpacing: '0.23px',
             }}>{t}</p>
           ))}
         </div>
@@ -354,10 +355,11 @@ export default function WinePageClient() {
           ].map((t, i) => (
             <p key={i} style={{
               fontFamily: 'Vulf Sans, sans-serif',
-              fontWeight: 300,
-              fontSize: 'clamp(0.8rem, 1vw, 17px)',
+              fontWeight: 400,
+              fontSize: 'clamp(12px, 1.33vw, 23px)',
               color: 'var(--cream)',
-              lineHeight: 1.65,
+              lineHeight: 1.29,
+              letterSpacing: '0.23px',
             }}>{t}</p>
           ))}
         </div>

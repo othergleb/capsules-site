@@ -28,7 +28,7 @@ export default function Nav({ color = '#00006A' }: NavProps) {
         {pathname !== '/' && (
           <Link href="/" className="pill-btn">Home</Link>
         )}
-        <Link href="/the-wine" className="pill-btn" style={activePill('/the-wine')}>The Wine</Link>
+        <Link href="/the-wine" className="pill-btn" style={activePill('/the-wine')}>Capsule 01</Link>
         <Link href="/how-it-works" className="pill-btn" style={activePill('/how-it-works')}>How it Works</Link>
       </div>
       <div style={{ display: 'flex', gap: 0, pointerEvents: 'all' }}>
