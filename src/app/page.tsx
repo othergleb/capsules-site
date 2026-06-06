@@ -426,30 +426,30 @@ function HomeMobile() {
         {/* All tops = Figma frame y − 653 (yellow section top); lefts are direct from Figma */}
 
         {/* cam 1 — bbox 492.711×601.124 at (-144, 479) */}
-        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'-84px', top:'479px', width:'492.711px', height:'601.124px', pointerEvents:'none', userSelect:'none', zIndex:0 }}>
+        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'-143px', top:'479px', width:'492.711px', height:'601.124px', pointerEvents:'none', userSelect:'none', zIndex:0 }}>
           <div style={{ transform:'scaleX(-1) rotate(0deg)', flexShrink:0 }}>
-            <img src={CAM2} alt="" style={{ width:'484.138px', height:'645.517px', objectFit:'cover', display:'block' }} />
+            <img src={CAM2} alt="" style={{ width:'532.552px', height:'710.069px', objectFit:'cover', display:'block' }} />
           </div>
         </div>
 
         {/* cam 2 — bbox 473.191×588.029 at (-48.54, 510.87) */}
-        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'24.46px', top:'505.87px', width:'473.191px', height:'588.029px', pointerEvents:'none', userSelect:'none', zIndex:1 }}>
+        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'-34.54px', top:'505.87px', width:'473.191px', height:'588.029px', pointerEvents:'none', userSelect:'none', zIndex:1 }}>
           <div style={{ transform:'rotate(0deg)', flexShrink:0 }}>
-            <img src={CAM2} alt="" style={{ width:'484.138px', height:'645.517px', objectFit:'cover', display:'block' }} />
+            <img src={CAM2} alt="" style={{ width:'532.552px', height:'710.069px', objectFit:'cover', display:'block' }} />
           </div>
         </div>
 
         {/* cam 3 — bbox 582.055×653.043 at (5.49, 503.64) */}
-        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'-4.51px', top:'503.64px', width:'582.055px', height:'653.043px', pointerEvents:'none', userSelect:'none', zIndex:2 }}>
+        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'-63.51px', top:'503.64px', width:'582.055px', height:'653.043px', pointerEvents:'none', userSelect:'none', zIndex:2 }}>
           <div style={{ transform:'rotate(0deg)', flexShrink:0 }}>
-            <img src={CAM3} alt="" style={{ width:'484.138px', height:'645.517px', objectFit:'cover', display:'block' }} />
+            <img src={CAM3} alt="" style={{ width:'532.552px', height:'710.069px', objectFit:'cover', display:'block' }} />
           </div>
         </div>
 
         {/* vial — bbox 123.221×153.639 at (-9.77, 865.12) */}
-        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'49.23px', top:'885.12px', width:'123.221px', height:'153.639px', pointerEvents:'none', userSelect:'none', zIndex:3 }}>
+        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'-9.77px', top:'885.12px', width:'123.221px', height:'153.639px', pointerEvents:'none', userSelect:'none', zIndex:3 }}>
           <div style={{ transform:'scaleX(-1) rotate(20deg)', flexShrink:0 }}>
-            <img src="/b9f0e9393dc291355495125a98e814a8 1.png" alt="" style={{ width:'86.089px', height:'163.211px', objectFit:'cover', display:'block' }} />
+            <img src="/b9f0e9393dc291355495125a98e814a8 1.png" alt="" style={{ width:'94.698px', height:'179.532px', objectFit:'cover', display:'block' }} />
           </div>
         </div>
 
