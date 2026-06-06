@@ -426,7 +426,7 @@ function HomeMobile() {
         <img src={CAM1} alt="" style={{
           position: 'absolute',
           left: '-25.3vw',
-          top: '511px',
+          top: '451px',
           width: '102.7vw',
           aspectRatio: '329 / 439',
           objectFit: 'cover',
@@ -439,7 +439,7 @@ function HomeMobile() {
         <img src={CAM2} alt="" style={{
           position: 'absolute',
           left: '-3.47vw',
-          top: '536px',
+          top: '476px',
           width: '102.7vw',
           aspectRatio: '329 / 439',
           objectFit: 'cover',
@@ -452,7 +452,7 @@ function HomeMobile() {
         <img src={CAM3} alt="" style={{
           position: 'absolute',
           left: '24.12vw',
-          top: '561px',
+          top: '501px',
           width: '102.7vw',
           aspectRatio: '329 / 439',
           objectFit: 'cover',
@@ -465,7 +465,7 @@ function HomeMobile() {
         <img src="/b9f0e9393dc291355495125a98e814a8 1.png" alt="" style={{
           position: 'absolute',
           left: '4.06vw',
-          top: '874px',
+          top: '814px',
           width: '18.3vw',
           aspectRatio: '72 / 136',
           transform: 'rotate(-25.45deg)',
