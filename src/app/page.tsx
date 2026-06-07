@@ -426,7 +426,7 @@ function HomeMobile() {
         {/* All tops = Figma frame y − 653 (yellow section top); lefts are direct from Figma */}
 
         {/* cam 1 — bbox 492.711×601.124 at (-144, 479) */}
-        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'-128px', top:'529px', width:'492.711px', height:'601.124px', pointerEvents:'none', userSelect:'none', zIndex:0 }}>
+        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'-128px', top:'504px', width:'492.711px', height:'601.124px', pointerEvents:'none', userSelect:'none', zIndex:0 }}>
           <div style={{ transform:'scaleX(-1) rotate(0deg)', flexShrink:0 }}>
             <img src={CAM2} alt="" style={{ width:'556.517px', height:'742.022px', objectFit:'cover', display:'block' }} />
           </div>
@@ -447,7 +447,7 @@ function HomeMobile() {
         </div>
 
         {/* vial — bbox 123.221×153.639 at (-9.77, 865.12) */}
-        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'5.23px', top:'935.12px', width:'123.221px', height:'153.639px', pointerEvents:'none', userSelect:'none', zIndex:3 }}>
+        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'-4.77px', top:'935.12px', width:'123.221px', height:'153.639px', pointerEvents:'none', userSelect:'none', zIndex:3 }}>
           <div style={{ transform:'scaleX(-1) rotate(15deg)', flexShrink:0 }}>
             <img src="/b9f0e9393dc291355495125a98e814a8 1.png" alt="" style={{ width:'98.96px', height:'187.611px', objectFit:'cover', display:'block' }} />
           </div>
