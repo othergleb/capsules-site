@@ -105,7 +105,7 @@ function WinePageMobile() {
                     <img
                       src="/Screenshot 2026-05-14 at 13.15.48 4.png"
                       alt={PRODUCTS[i].name}
-                      style={{ width: '46%', height: 'auto', display: 'block', pointerEvents: 'none' }}
+                      style={{ width: '41.4%', height: 'auto', display: 'block', pointerEvents: 'none' }}
                     />
                   )}
                   {i === 2 && (
