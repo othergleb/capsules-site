@@ -187,7 +187,7 @@ function OriginMethodBoxMobile() {
           justifyContent: 'center',
           pointerEvents: 'none',
         }}>
-          <div style={{ transform: 'scaleY(-1) rotate(-178.11deg)', flexShrink: 0 }}>
+          <div style={{ transform: 'scaleX(-1) scaleY(-1) rotate(-178.11deg)', flexShrink: 0 }}>
             <img
               src="/cam 3.png"
               alt=""
