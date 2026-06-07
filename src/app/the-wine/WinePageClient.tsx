@@ -246,7 +246,6 @@ export default function WinePageClient() {
             top: '-5vw',
             width: '65vw',
             height: 'auto',
-            aspectRatio: '3 / 4',
             transform: 'scaleX(-1) scaleY(-1) rotate(-160.51deg)',
             transformOrigin: 'center center',
             pointerEvents: 'none',
