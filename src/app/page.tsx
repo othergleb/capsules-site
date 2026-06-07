@@ -282,11 +282,11 @@ function HomeMobile() {
           /* Screen 2: share */
           <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease', width: '100%', position: 'relative', zIndex: 1 }}>
             <div style={{ textAlign: 'center', maxWidth: '85%', margin: '0 auto 24px' }}>
-              <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00', textTransform: 'uppercase', marginBottom: '0.75em' }}>
-                CLAIM YOUR EARLY BIRD ACCESS
+              <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00', textTransform: 'uppercase', marginBottom: '1.75em' }}>
+                GET ACCESS EARLY
               </p>
               <p style={{ ...FONT, fontWeight: 300, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00' }}>
-                Successfully refer one friend to join Capsule 01<br />and get access one hour early.
+                Successfully refer one friend to join Capsule 01 and get access one hour early.
               </p>
             </div>
             <div style={{ padding: '0 14px' }}>
@@ -653,10 +653,10 @@ function HomeInner() {
                     lineHeight: 1.27,
                     letterSpacing: '0.23px',
                     color: '#FF3C00',
-                    marginBottom: '0.75em',
+                    marginBottom: '1.75em',
                     textTransform: 'uppercase',
                   }}>
-                    Claim Your Early Bird Access
+                    GET ACCESS EARLY
                   </p>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
@@ -666,7 +666,7 @@ function HomeInner() {
                     letterSpacing: '0.23px',
                     color: '#FF3C00',
                   }}>
-                    Successfully refer one friend to join Capsule 01<br />and get access one hour early.
+                    Successfully refer one friend to join Capsule 01 and get access one hour early.
                   </p>
                 </div>
                 <div style={{ padding: '0 8.5%', marginTop: 'clamp(4rem, 8vw, 130px)' }}>
