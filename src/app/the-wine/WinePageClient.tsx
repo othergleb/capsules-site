@@ -70,7 +70,7 @@ function WinePageMobile() {
   const rows = [[0, 1], [2, 3]] as const
 
   return (
-    <div style={{ backgroundColor: '#FF3C00', minHeight: '100svh', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ backgroundColor: '#FF3C00', minHeight: '100svh', display: 'flex', flexDirection: 'column', paddingTop: 'calc(env(safe-area-inset-top, 0px) + 7px)' }}>
 
       {/* OTHER animated logo — same size as homepage mobile */}
       <div style={{ width: 'min(104.1vw, calc(38dvh * 469 / 103))', alignSelf: 'center', flexShrink: 0 }}>
