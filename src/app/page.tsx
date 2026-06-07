@@ -770,10 +770,13 @@ function HomeInner() {
 
                 <form onSubmit={advanceToInvite} style={{ padding: '0 8.5%' }}>
                   <div style={{
-                    border: '1px solid #00006A',
+                    border: '2px solid #00006A',
+                    borderRadius: '100px',
+                    backgroundColor: '#EDFF00',
                     height: 'clamp(44px, 2.95vw, 51px)',
                     display: 'flex',
                     alignItems: 'center',
+                    overflow: 'hidden',
                     marginBottom: 'clamp(0.4rem, 0.6vw, 10px)',
                   }}>
                     <input
