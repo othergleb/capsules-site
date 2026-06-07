@@ -274,19 +274,23 @@ function HomeMobile() {
               Purchase link drops on 23 June, keep an eye on your emails.
             </p>
             <a href="/the-wine" style={{
-              display: 'inline-block',
+              display: 'block',
+              width: '100%',
+              height: '45px',
+              lineHeight: '45px',
               marginTop: '8px',
-              padding: '10px 28px',
-              backgroundColor: '#EDFF00',
-              border: '2px solid #00006A',
-              borderRadius: '100px',
+              backgroundColor: 'transparent',
+              border: '1px solid #00006A',
+              borderRadius: '999px',
               ...FONT,
-              fontWeight: 700,
+              fontWeight: 300,
               fontSize: '16px',
-              letterSpacing: '0.16px',
-              lineHeight: 1.27,
+              letterSpacing: '-0.48px',
+              textTransform: 'uppercase',
               color: '#00006A',
               textDecoration: 'none',
+              textAlign: 'center',
+              boxSizing: 'border-box',
             }}>What&apos;s in the Capsule</a>
           </div>
 
@@ -642,19 +646,23 @@ function HomeInner() {
               Purchase link drops on 23 June, keep an eye on your emails.
             </p>
             <a href="/the-wine" style={{
-              display: 'inline-block',
+              display: 'block',
+              width: '100%',
+              height: 'clamp(44px, 2.95vw, 51px)',
+              lineHeight: 'clamp(44px, 2.95vw, 51px)',
               marginTop: '8px',
-              padding: '10px 28px',
-              backgroundColor: '#EDFF00',
-              border: '2px solid #00006A',
-              borderRadius: '100px',
+              backgroundColor: 'transparent',
+              border: '1px solid #00006A',
+              borderRadius: '999px',
               fontFamily: 'Vulf Sans, sans-serif',
-              fontWeight: 700,
-              fontSize: '16px',
-              letterSpacing: '0.16px',
-              lineHeight: 1.27,
+              fontWeight: 300,
+              fontSize: 'clamp(12px, 1.45vw, 25px)',
+              letterSpacing: '-0.75px',
+              textTransform: 'uppercase',
               color: '#00006A',
               textDecoration: 'none',
+              textAlign: 'center',
+              boxSizing: 'border-box',
             }}>What&apos;s in the Capsule</a>
           </div>
         ) : (
