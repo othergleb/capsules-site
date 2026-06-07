@@ -233,7 +233,7 @@ export default function WinePageClient() {
       <section style={{
         backgroundColor: 'var(--cream)',
         position: 'relative',
-        height: 'clamp(400px, 63.6vw, 1099px)',
+        height: '100svh',
         overflow: 'hidden',
       }}>
         {/* cam 3 — large rotated bottle */}
