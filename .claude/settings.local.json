@@ -58,7 +58,18 @@
       "Bash(claude mcp *)",
       "Bash(identify /Users/gleb/Documents/CLAUDE/capsules-site/public/home-photo.jpg)",
       "Bash(ffmpeg -i /Users/gleb/Documents/CLAUDE/capsules-site/public/other-logo-cropped.mp4 -vf 'fps=20,scale=700:-1:flags=lanczos,split[s0][s1];[s0]palettegen=max_colors=64:stats_mode=full[p];[s1][p]paletteuse=dither=bayer' /Users/gleb/Documents/CLAUDE/capsules-site/public/other-logo.gif -y)",
-      "WebFetch(domain:www.333southwabash.com)"
+      "WebFetch(domain:www.333southwabash.com)",
+      "Bash(ffprobe -v quiet -print_format json -show_streams \"/Users/gleb/Documents/CLAUDE/capsules-site/public/Homepage_OTHER_VIDEO_02_v03_1920x1080.mp4\")",
+      "Bash(ffprobe -v quiet -print_format json -show_streams \"/Users/gleb/Documents/CLAUDE/capsules-site/public/farmer-left.mp4\")",
+      "Bash(ffprobe -v quiet -print_format json -show_format \"/Users/gleb/Documents/CLAUDE/capsules-site/public/Homepage_OTHER_VIDEO_02_v03_1920x1080.mp4\")",
+      "Bash(ffprobe -v quiet -print_format json -show_format \"/Users/gleb/Documents/CLAUDE/capsules-site/public/farmer-left.mp4\")",
+      "Bash(ffprobe -v quiet -print_format json -show_streams -show_format \"/Users/gleb/Documents/CLAUDE/capsules-site/public/farmer-right.mp4\")",
+      "Bash(ffmpeg -i /Users/gleb/Documents/CLAUDE/capsules-site/public/Homepage_OTHER_VIDEO_02_v03_1920x1080.mp4 -c:v libx265 -preset fast -crf 28 -tag:v hvc1 -pix_fmt yuv420p10le -c:a aac -b:a 128k -movflags faststart /Users/gleb/Documents/CLAUDE/capsules-site/public/Homepage_OTHER_VIDEO_02_web.mp4 -y)",
+      "Bash(ffprobe -v quiet -print_format json -show_format \"/Users/gleb/Documents/CLAUDE/capsules-site/public/Homepage_OTHER_VIDEO_02_web.mp4\")",
+      "Bash(ffmpeg -i /Users/gleb/Documents/CLAUDE/capsules-site/public/Homepage_OTHER_VIDEO_08_v03_1920x1080.mp4 -c:v libx265 -preset fast -crf 28 -tag:v hvc1 -pix_fmt yuv420p10le -c:a aac -b:a 128k -movflags faststart /Users/gleb/Documents/CLAUDE/capsules-site/public/Homepage_OTHER_VIDEO_08_web.mp4 -y)",
+      "Bash(ffmpeg -i /Users/gleb/Documents/CLAUDE/capsules-site/public/CapsulesPage_OTHER_VIDEO_04_v03_1920x1080.mp4 -c:v libx265 -preset fast -crf 28 -tag:v hvc1 -pix_fmt yuv420p10le -c:a aac -b:a 128k -movflags faststart /Users/gleb/Documents/CLAUDE/capsules-site/public/CapsulesPage_OTHER_VIDEO_04_web.mp4 -y)",
+      "Bash(ffmpeg -i /Users/gleb/Documents/CLAUDE/capsules-site/public/CapsulesPage_OTHER_VIDEO_05_v03_1920x1080.mp4 -c:v libx265 -preset fast -crf 28 -tag:v hvc1 -pix_fmt yuv420p10le -c:a aac -b:a 128k -movflags faststart /Users/gleb/Documents/CLAUDE/capsules-site/public/CapsulesPage_OTHER_VIDEO_05_web.mp4 -y)",
+      "Bash(wait)"
     ]
   }
 }
