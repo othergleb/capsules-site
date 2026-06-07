@@ -272,9 +272,21 @@ function HomeMobile() {
             <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', letterSpacing: '0.16px', lineHeight: 1.27, color: '#FF3C00', marginBottom: '1em' }}>
               Purchase link drops on 23 June, keep an eye on your emails.
             </p>
-            <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', letterSpacing: '0.16px', lineHeight: 1.27, color: '#FF3C00' }}>
-              <a href="/the-wine" style={{ color: '#FF3C00', textDecoration: 'underline' }}>What&apos;s in the box</a>
-            </p>
+            <a href="/the-wine" style={{
+              display: 'inline-block',
+              marginTop: '8px',
+              padding: '10px 28px',
+              backgroundColor: '#EDFF00',
+              border: '2px solid #00006A',
+              borderRadius: '100px',
+              ...FONT,
+              fontWeight: 700,
+              fontSize: '16px',
+              letterSpacing: '0.16px',
+              lineHeight: 1.27,
+              color: '#00006A',
+              textDecoration: 'none',
+            }}>What&apos;s in the Capsule</a>
           </div>
 
         ) : formStep === 'invite' ? (
@@ -628,16 +640,21 @@ function HomeInner() {
             }}>
               Purchase link drops on 23 June, keep an eye on your emails.
             </p>
-            <p style={{
+            <a href="/the-wine" style={{
+              display: 'inline-block',
+              marginTop: '8px',
+              padding: '10px 28px',
+              backgroundColor: '#EDFF00',
+              border: '2px solid #00006A',
+              borderRadius: '100px',
               fontFamily: 'Vulf Sans, sans-serif',
               fontWeight: 700,
               fontSize: '16px',
-              lineHeight: 1.27,
               letterSpacing: '0.16px',
-              color: '#FF3C00',
-            }}>
-              <a href="/the-wine" style={{ color: '#FF3C00', textDecoration: 'underline' }}>What&apos;s in the box</a>
-            </p>
+              lineHeight: 1.27,
+              color: '#00006A',
+              textDecoration: 'none',
+            }}>What&apos;s in the Capsule</a>
           </div>
         ) : (
           <div style={{ maxWidth: 'clamp(340px, 36vw, 622px)', width: '100%', position: 'relative', zIndex: 1 }}>
@@ -770,13 +787,10 @@ function HomeInner() {
 
                 <form onSubmit={advanceToInvite} style={{ padding: '0 8.5%' }}>
                   <div style={{
-                    border: '2px solid #00006A',
-                    borderRadius: '100px',
-                    backgroundColor: '#EDFF00',
+                    border: '1px solid #00006A',
                     height: 'clamp(44px, 2.95vw, 51px)',
                     display: 'flex',
                     alignItems: 'center',
-                    overflow: 'hidden',
                     marginBottom: 'clamp(0.4rem, 0.6vw, 10px)',
                   }}>
                     <input
