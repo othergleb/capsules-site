@@ -167,7 +167,7 @@ function OriginMethodBoxMobile() {
       <section style={{
         backgroundColor: '#fffff5',
         position: 'relative',
-        height: '100svh',
+        height: 'calc(100svh - 41px - env(safe-area-inset-bottom, 0px))',
         overflow: 'hidden',
       }}>
         {/* Red OTHER logo — large, bleeds top-left */}
