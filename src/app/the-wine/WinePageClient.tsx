@@ -197,7 +197,7 @@ export default function WinePageClient() {
                 justifyContent: 'center',
                 alignItems: 'flex-end',
                 paddingBottom: 'clamp(12px, 2.03vw, 35px)',
-                aspectRatio: '568 / 800',
+                height: 'clamp(240px, max(31.5vw, 45vh), 520px)',
               }}>
                 <img src={item.img} alt={item.name} style={{ width: '43%', height: 'auto', display: 'block' }} />
               </div>
