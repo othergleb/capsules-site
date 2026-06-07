@@ -201,7 +201,7 @@ export default function WinePageClient() {
                 height: 'clamp(260px, max(calc(42vw - 25px), calc(50vh - 25px)), 695px)',
               }}>
                 {i === 3 ? (
-                  <div style={{ width: '75%', border: '14px solid #fffff5', display: 'block', overflow: 'hidden', marginBottom: '40px' }}>
+                  <div style={{ width: '75%', border: '14px solid #fffff5', display: 'block', overflow: 'hidden', marginBottom: '20px' }}>
                     <img src={item.img} alt={item.name} style={{ width: '100%', height: 'auto', display: 'block' }} />
                   </div>
                 ) : (
