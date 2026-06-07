@@ -192,14 +192,20 @@ export default function WinePageClient() {
                 border: '2.22px solid #00006A',
                 borderRadius: 'clamp(100px, 16.44vw, 284px) clamp(100px, 16.44vw, 284px) 0 0',
                 backgroundColor: 'var(--red)',
-                overflow: 'hidden',
+                overflow: 'visible',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'flex-end',
                 paddingBottom: 'clamp(12px, 2.03vw, 35px)',
-                height: 'clamp(255px, max(calc(31.5vw + 15px), calc(45vh + 15px)), 535px)',
+                height: 'clamp(280px, max(42vw, 50vh), 720px)',
               }}>
-                <img src={item.img} alt={item.name} style={{ width: '43%', height: 'auto', display: 'block' }} />
+                {i === 3 ? (
+                  <div style={{ width: '75%', border: '14px solid #fffff5', display: 'block', overflow: 'hidden' }}>
+                    <img src={item.img} alt={item.name} style={{ width: '100%', height: 'auto', display: 'block' }} />
+                  </div>
+                ) : (
+                  <img src={item.img} alt={item.name} style={{ width: '46%', height: 'auto', display: 'block' }} />
+                )}
               </div>
               <div style={{
                 flex: 1,
