@@ -243,7 +243,7 @@ export default function WinePageClient() {
           style={{
             position: 'absolute',
             left: 'calc(-9.7vw + 150px)',
-            top: 'calc(-5vw - 450px)',
+            top: 'calc(-5vw - 420px)',
             width: '58.5vw',
             height: 'auto',
             transform: 'scaleX(-1) scaleY(-1) rotate(-135.51deg)',
@@ -257,7 +257,7 @@ export default function WinePageClient() {
         <div style={{
           position: 'absolute',
           left: '55.67vw',
-          top: '13vw',
+          top: 'calc(13vw + 30px)',
           width: '30.03vw',
           backgroundColor: 'var(--yellow)',
           paddingTop: '1.27vw',
