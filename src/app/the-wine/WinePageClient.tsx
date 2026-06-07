@@ -179,7 +179,7 @@ export default function WinePageClient() {
       <section style={{
         backgroundColor: 'var(--red)',
         position: 'relative',
-        paddingTop: 'clamp(calc(4rem - 20px), calc(16.5vh - 20px), calc(12rem - 20px))',
+        paddingTop: 'clamp(calc(4rem - 35px), calc(16.5vh - 35px), calc(12rem - 35px))',
         minHeight: '100svh',
         display: 'flex',
         flexDirection: 'column',
@@ -197,7 +197,7 @@ export default function WinePageClient() {
                 justifyContent: 'center',
                 alignItems: 'flex-end',
                 paddingBottom: 'clamp(12px, 2.03vw, 35px)',
-                height: 'clamp(240px, max(31.5vw, 45vh), 520px)',
+                height: 'clamp(255px, max(calc(31.5vw + 15px), calc(45vh + 15px)), 535px)',
               }}>
                 <img src={item.img} alt={item.name} style={{ width: '43%', height: 'auto', display: 'block' }} />
               </div>
