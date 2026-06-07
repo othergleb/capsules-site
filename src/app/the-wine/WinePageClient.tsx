@@ -246,26 +246,12 @@ export default function WinePageClient() {
             top: '-5vw',
             width: '45.5vw',
             height: 'auto',
-            transform: 'scaleX(-1) scaleY(-1) rotate(-160.51deg)',
+            transform: 'scaleX(-1) scaleY(-1) rotate(-190.51deg)',
             transformOrigin: 'center center',
             pointerEvents: 'none',
           }}
         />
 
-        {/* Vial */}
-        <img
-          src="/b9f0e9393dc291355495125a98e814a8 1.png"
-          alt=""
-          style={{
-            position: 'absolute',
-            left: '55vw',
-            top: '28vw',
-            width: '9vw',
-            height: 'auto',
-            transform: 'rotate(-0.19deg)',
-            pointerEvents: 'none',
-          }}
-        />
 
         {/* Wine detail table card */}
         <div style={{
