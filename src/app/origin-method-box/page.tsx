@@ -95,6 +95,15 @@ const BOX_ITEMS = [
   },
 ]
 
+const WINE_DETAILS = [
+  ['Producer', 'Domaine de la Zouina'],
+  ['Region',   'Meknes, Morocco'],
+  ['Grape',    'Grenache Gris'],
+  ['Vintage',  '2023'],
+  ['Method',   'Amphora aged'],
+  ['Format',   '75cl · natural cork'],
+]
+
 // ── Mobile page ────────────────────────────────────────────────
 function OriginMethodBoxMobile() {
   const video1Ref = useRef<HTMLVideoElement>(null)
@@ -108,28 +117,29 @@ function OriginMethodBoxMobile() {
   const BODY: React.CSSProperties = {
     fontFamily: 'Vulf Sans, sans-serif',
     fontWeight: 400,
-    fontSize: '16px',
+    fontSize: '16.5px',
     color: '#fffff5',
     lineHeight: '18px',
-    letterSpacing: '0.16px',
+    letterSpacing: '0.165px',
     margin: 0,
   }
 
   const HEADING: React.CSSProperties = {
     fontFamily: 'Vulf Sans, sans-serif',
     fontWeight: 900,
-    fontSize: '30px',
+    fontSize: '32px',
     color: 'transparent',
     WebkitTextStrokeWidth: '0.75px',
     WebkitTextStrokeColor: '#00006A',
-    letterSpacing: '1.2px',
+    letterSpacing: '1.28px',
     textAlign: 'center',
     margin: '25px 0 18px',
   }
 
   const VIDEO_OVAL: React.CSSProperties = {
-    width: '100%',
-    aspectRatio: '393 / 221',
+    width: 'calc(100% - 22px)',
+    margin: '0 11px',
+    aspectRatio: '371 / 209',
     borderRadius: '486.5px',
     overflow: 'hidden',
     border: '1px solid #EDFF00',
@@ -137,32 +147,88 @@ function OriginMethodBoxMobile() {
     marginTop: '-1px',
   }
 
-  const CAPTION_NAME: React.CSSProperties = {
+  const ROW_STYLE: React.CSSProperties = {
     fontFamily: 'Vulf Sans, sans-serif',
-    fontWeight: 400,
-    fontSize: '12px',
+    fontSize: '16px',
     color: '#00006A',
     textTransform: 'uppercase',
-    letterSpacing: '-0.36px',
-    lineHeight: '14px',
-    margin: '0 0 4px',
-  }
-
-  const CAPTION_DESC: React.CSSProperties = {
-    fontFamily: 'Vulf Sans, sans-serif',
-    fontWeight: 300,
-    fontSize: '12px',
-    color: '#00006A',
-    textTransform: 'uppercase',
-    letterSpacing: '-0.36px',
-    lineHeight: '14px',
+    letterSpacing: '-0.16px',
+    lineHeight: '28px',
     margin: 0,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   }
 
   return (
-    <div style={{ backgroundColor: '#FF3C00', paddingBottom: '41px' }}>
+    <div style={{ backgroundColor: '#FF3C00', paddingBottom: 'calc(41px + env(safe-area-inset-bottom, 0px))' }}>
 
-      <OtherLogoVideo />
+      {/* ── Cream hero section ── */}
+      <section style={{
+        backgroundColor: '#fffff5',
+        position: 'relative',
+        height: '761px',
+        overflow: 'hidden',
+      }}>
+        {/* Red OTHER logo — large, bleeds top-left */}
+        <img
+          src="/figma/other-logo-red.png"
+          alt="OTHER"
+          style={{
+            position: 'absolute',
+            left: '-22.4vw',
+            top: '-60.3vw',
+            width: '144.8vw',
+            height: '144.8vw',
+            pointerEvents: 'none',
+          }}
+        />
+
+        {/* Cam 3 bottle — flipped vertically, rotated */}
+        <div style={{
+          position: 'absolute',
+          left: '-3.05vw',
+          top: '24px',
+          width: '107.6vw',
+          height: '141vw',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          pointerEvents: 'none',
+        }}>
+          <div style={{ transform: 'scaleY(-1) rotate(-178.11deg)', flexShrink: 0 }}>
+            <img
+              src="/cam 3.png"
+              alt=""
+              style={{ width: '103.2vw', height: '137.7vw', objectFit: 'cover', display: 'block' }}
+            />
+          </div>
+        </div>
+
+        {/* Wine details table */}
+        <div style={{
+          position: 'absolute',
+          left: '11px',
+          right: '11px',
+          top: '533px',
+          backgroundColor: '#EDFF00',
+        }}>
+          {WINE_DETAILS.map(([label, val], i) => (
+            <div key={label} style={{
+              display: 'grid',
+              gridTemplateColumns: '130px 1fr',
+              borderTop: i === 0 ? '1px solid #00006A' : 'none',
+              borderBottom: '1px solid #00006A',
+              padding: '0 20px',
+              height: '28px',
+              alignItems: 'center',
+            }}>
+              <span style={{ ...ROW_STYLE, fontWeight: 300 }}>{label}</span>
+              <span style={{ ...ROW_STYLE, fontWeight: 400 }}>{val}</span>
+            </div>
+          ))}
+        </div>
+      </section>
 
       {/* ── ORIGIN ── */}
       <Strip label="ORIGIN" />
@@ -200,73 +266,7 @@ function OriginMethodBoxMobile() {
         </div>
       </section>
 
-      {/* ── BOX ── */}
-      <Strip label="BOX" />
-
-      <section style={{ backgroundColor: '#FF3C00', paddingTop: '13px', paddingBottom: '32px' }}>
-        {[BOX_ITEMS.slice(0, 2), BOX_ITEMS.slice(2, 4)].map((rowItems, rowIdx) => (
-          <div key={rowIdx} style={{ marginTop: rowIdx > 0 ? '9px' : 0, padding: '0 9px' }}>
-            {/* Card frames row — separate grid so heights lock across columns */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
-              {rowItems.map((item, colIdx) => (
-                <div key={item.name} style={{
-                  borderTop: '1px solid #00006A',
-                  borderLeft: '1px solid #00006A',
-                  borderRight: '1px solid #00006A',
-                  borderBottom: 'none',
-                  borderRadius: '284px 284px 0 0',
-                  overflow: 'hidden',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: item.artwork ? 'center' : 'flex-end',
-                  paddingBottom: item.artwork ? '0' : '10px',
-                  aspectRatio: '185 / 259',
-                  backgroundColor: '#FF3C00',
-                  marginLeft: colIdx > 0 ? '-1px' : 0,
-                }}>
-                  {item.artwork ? (
-                    <div style={{
-                      border: '1px solid #fffff5',
-                      width: '65%',
-                      aspectRatio: '121 / 156',
-                      overflow: 'hidden',
-                      flexShrink: 0,
-                    }}>
-                      <img src={item.img} alt={item.name}
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                    </div>
-                  ) : (
-                    <img src={item.img} alt={item.name} style={{ width: '41%', height: 'auto', display: 'block' }} />
-                  )}
-                </div>
-              ))}
-            </div>
-            {/* Caption row — separate grid, always bottom-aligned with cards above */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
-              {rowItems.map((item, colIdx) => (
-                <div key={item.name} style={{
-                  backgroundColor: '#EDFF00',
-                  border: '1px solid #00006A',
-                  marginLeft: colIdx > 0 ? '-1px' : 0,
-                  padding: '8px 8px 10px',
-                  aspectRatio: '185 / 113',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                }}>
-                  <div>
-                    <p style={CAPTION_NAME}>{item.name}</p>
-                    <p style={CAPTION_DESC}>{item.desc}</p>
-                  </div>
-                  <p style={{ ...CAPTION_DESC, textTransform: 'uppercase' }}>{item.qty}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </section>
-
-      <MobileNav />
+      <MobileNav bg="#FF3C00" />
     </div>
   )
 }
