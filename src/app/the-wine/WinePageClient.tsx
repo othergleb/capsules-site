@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import Nav from '@/components/Nav'
 import MobileNav from '@/components/MobileNav'
 import { useIsMobile } from '@/hooks/useIsMobile'
@@ -24,12 +24,15 @@ const PRODUCTS = [
 // ── Mobile wine page ───────────────────────────────────────────
 function WinePageMobile() {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [showGif, setShowGif] = useState(false)
 
   useEffect(() => {
     const v = videoRef.current
     if (!v) return
     v.muted = true
-    v.play().catch(() => {})
+    v.play().catch((err) => {
+      if (err.name === 'NotAllowedError') setShowGif(true)
+    })
   }, [])
 
   const TEXT: React.CSSProperties = {
@@ -69,13 +72,15 @@ function WinePageMobile() {
   return (
     <div style={{ backgroundColor: '#FF3C00', minHeight: '100svh', display: 'flex', flexDirection: 'column' }}>
 
-      {/* OTHER animated logo */}
-      <video
-        ref={videoRef}
-        autoPlay loop muted playsInline preload="auto"
-        style={{ width: '100%', display: 'block', flexShrink: 0 }}
-        src="/Other_alt3_yellow_red.mp4"
-      />
+      {/* OTHER animated logo — same size as homepage mobile */}
+      <div style={{ width: 'min(104.1vw, calc(38dvh * 469 / 103))', alignSelf: 'center', flexShrink: 0 }}>
+        {showGif
+          ? <img src="/other-logo.gif" alt="OTHER" style={{ width: '100%', display: 'block' }} />
+          : <video ref={videoRef} autoPlay loop muted playsInline preload="auto" style={{ width: '100%', display: 'block' }}>
+              <source src="/other-logo-cropped.mp4" type="video/mp4" />
+            </video>
+        }
+      </div>
 
       {/* "In the box" heading */}
       <h2 className="capsules-wordmark" style={{
