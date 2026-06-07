@@ -139,29 +139,21 @@ function HomeMobile() {
   }, [])
 
   const [email, setEmail]             = useState('')
-  const [name, setName]               = useState('')
   const [friendEmail, setFriendEmail] = useState('')
-  const [formStep, setFormStep]       = useState<'email' | 'name' | 'invite'>('email')
+  const [formStep, setFormStep]       = useState<'email' | 'invite'>('email')
   const [stepIn, setStepIn]           = useState(true)
   const [inviteCode, setInviteCode]   = useState<string | null>(null)
   const [dismissed, setDismissed]     = useState(false)
 
-  async function advanceToName(e: React.FormEvent) {
-    e.preventDefault()
-    if (!email) return
-    setStepIn(false)
-    setTimeout(() => setFormStep('name'), 220)
-  }
-
   async function advanceToInvite(e: React.FormEvent) {
     e.preventDefault()
-    if (!name) return
+    if (!email) return
     setStepIn(false)
     try {
       const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, name, refCode }),
+        body: JSON.stringify({ email, refCode }),
       })
       if (res.ok) {
         const data = await res.json()
@@ -282,7 +274,7 @@ function HomeMobile() {
                 CLAIM EARLY BIRD ACCESS
               </p>
               <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00' }}>
-                Successfully refer one friend to join Capsule 01 and get access 24 hours early.
+                Successfully refer one friend to join Capsule 01 and get access 1 hour early.
               </p>
             </div>
             <form onSubmit={e => { e.preventDefault(); setDismissed(true) }} style={{ padding: '0 14px' }}>
@@ -302,30 +294,6 @@ function HomeMobile() {
                 >
                   Skip
                 </button>
-              </div>
-              <button type="submit" style={{ display: 'block', width: '100%', height: '45px', backgroundColor: '#00006A', color: '#EDFF00', border: 'none', borderRadius: '999px', ...FONT, fontWeight: 300, fontSize: '16px', letterSpacing: '-0.48px', textTransform: 'uppercase', cursor: 'pointer' }}>
-                Next
-              </button>
-            </form>
-          </div>
-
-        ) : formStep === 'name' ? (
-
-          /* Screen 2: name */
-          <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease', width: '100%', position: 'relative', zIndex: 1 }}>
-            <form onSubmit={advanceToInvite} style={{ padding: '0 14px', marginTop: '80px' }}>
-              <div style={{ border: '1px solid #00006A', height: '44px', display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
-                <input
-                  type="text"
-                  name="name"
-                  autoComplete="name"
-                  required
-                  placeholder="What's your name?"
-                  value={name}
-                  onChange={e => setName(e.target.value)}
-                  className="form-input-cream"
-                  style={{ width: '100%', height: '100%', background: 'transparent', border: 'none', outline: 'none', padding: '0 1rem', ...FONT, fontWeight: 300, fontSize: '16px', letterSpacing: '-0.48px', color: '#00006A', textAlign: 'center' }}
-                />
               </div>
               <button type="submit" style={{ display: 'block', width: '100%', height: '45px', backgroundColor: '#00006A', color: '#EDFF00', border: 'none', borderRadius: '999px', ...FONT, fontWeight: 300, fontSize: '16px', letterSpacing: '-0.48px', textTransform: 'uppercase', cursor: 'pointer' }}>
                 Next
@@ -359,7 +327,7 @@ function HomeMobile() {
               </div>
             </div>
 
-            <form onSubmit={advanceToName} style={{ padding: '0 14px' }}>
+            <form onSubmit={advanceToInvite} style={{ padding: '0 14px' }}>
               <div style={{ border: '0.633px solid #00006A', height: '32px', display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
                 <input
                   type="email"
@@ -391,12 +359,10 @@ function HomeMobile() {
           position: 'relative',
           zIndex: 2,
         }}>
-          {[0, 1, 2].map(i => {
-            const stepOrder = ['email', 'name', 'invite'] as const
-            const currentIndex = dismissed ? 3 : stepOrder.indexOf(formStep)
-            const isActive =
-              (formStep === 'name' && i === 1) ||
-              ((formStep === 'invite' || dismissed) && i === 2)
+          {[0, 1].map(i => {
+            const stepOrder = ['email', 'invite'] as const
+            const currentIndex = dismissed ? 2 : stepOrder.indexOf(formStep)
+            const isActive = (formStep === 'invite' || dismissed) && i === 1
             const isClickable = i < currentIndex
             return (
               <div
@@ -466,8 +432,7 @@ function HomeInner() {
   const isMobile                      = useIsMobile()
 
   const [email, setEmail]             = useState('')
-  const [name, setName]               = useState('')
-  const [formStep, setFormStep]       = useState<'email' | 'name' | 'invite'>('email')
+  const [formStep, setFormStep]       = useState<'email' | 'invite'>('email')
   const [stepIn, setStepIn]           = useState(true)
   const [inviteCode, setInviteCode]   = useState<string | null>(null)
   const [copied, setCopied]           = useState(false)
@@ -495,22 +460,15 @@ function HomeInner() {
     return () => clearTimeout(t)
   }, [])
 
-  async function advanceToName(e: React.FormEvent) {
-    e.preventDefault()
-    if (!email) return
-    setStepIn(false)
-    setTimeout(() => setFormStep('name'), 220)
-  }
-
   async function advanceToInvite(e: React.FormEvent) {
     e.preventDefault()
-    if (!name) return
+    if (!email) return
     setStepIn(false)
     try {
       const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, name, refCode }),
+        body: JSON.stringify({ email, refCode }),
       })
       if (res.ok) {
         const data = await res.json()
@@ -748,7 +706,7 @@ function HomeInner() {
                     letterSpacing: '0.23px',
                     color: '#FF3C00',
                   }}>
-                    Successfully refer one friend to join Capsule 01 and get access 24 hours early.
+                    Successfully refer one friend to join Capsule 01 and get access 1 hour early.
                   </p>
                 </div>
                 <form
@@ -828,70 +786,6 @@ function HomeInner() {
                 </form>
               </div>
 
-            ) : formStep === 'name' ? (
-
-              /* Screen 2: name */
-              <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease' }}>
-                <form onSubmit={advanceToInvite} style={{ padding: '0 8.5%', marginTop: 'clamp(9rem, 15vw, 240px)' }}>
-                  <div style={{
-                    border: '1px solid #00006A',
-                    height: 'clamp(44px, 2.95vw, 51px)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginBottom: 'clamp(0.4rem, 0.6vw, 10px)',
-                  }}>
-                    <input
-                      type="text"
-                      name="name"
-                      autoComplete="name"
-                      required
-                      placeholder="What's your name?"
-                      value={name}
-                      onChange={e => setName(e.target.value)}
-                      className="form-input-cream"
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        background: 'transparent',
-                        border: 'none',
-                        outline: 'none',
-                        padding: '0 1rem',
-                        fontFamily: 'Vulf Sans, sans-serif',
-                        fontWeight: 300,
-                        fontSize: 'clamp(12px, 1.45vw, 25px)',
-                        letterSpacing: '-0.75px',
-                        color: '#00006A',
-                        textAlign: 'center',
-                      }}
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    style={{
-                      display: 'block',
-                      width: '100%',
-                      height: 'clamp(44px, 2.95vw, 51px)',
-                      backgroundColor: '#00006A',
-                      color: '#EDFF00',
-                      border: 'none',
-                      borderRadius: '999px',
-                      fontFamily: 'Vulf Sans, sans-serif',
-                      fontWeight: 300,
-                      fontSize: 'clamp(12px, 1.45vw, 25px)',
-                      letterSpacing: '-0.75px',
-                      textTransform: 'uppercase',
-                      cursor: 'pointer',
-                      transition: 'opacity 0.15s ease',
-                      fontFeatureSettings: "'cv10', 'ss03', 'ss05', 'case', 'ordn', 'dlig'",
-                    }}
-                    onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
-                    onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
-                  >
-                    Next
-                  </button>
-                </form>
-              </div>
-
             ) : (
 
               /* Screen 1: email */
@@ -944,7 +838,7 @@ function HomeInner() {
                   </div>
                 </div>
 
-                <form onSubmit={advanceToName} style={{ padding: '0 8.5%' }}>
+                <form onSubmit={advanceToInvite} style={{ padding: '0 8.5%' }}>
                   <div style={{
                     border: '1px solid #00006A',
                     height: 'clamp(44px, 2.95vw, 51px)',
@@ -1073,12 +967,10 @@ function HomeInner() {
           opacity: formStep === 'email' && !dismissed ? 0 : 1,
           transition: 'opacity 0.6s ease',
         }}>
-          {[0, 1, 2].map(i => {
-            const stepOrder = ['email', 'name', 'invite'] as const
-            const currentIndex = dismissed ? 3 : stepOrder.indexOf(formStep)
-            const isActive =
-              (formStep === 'name' && i === 1) ||
-              ((formStep === 'invite' || dismissed) && i === 2)
+          {[0, 1].map(i => {
+            const stepOrder = ['email', 'invite'] as const
+            const currentIndex = dismissed ? 2 : stepOrder.indexOf(formStep)
+            const isActive = (formStep === 'invite' || dismissed) && i === 1
             const isClickable = i < currentIndex
             return (
               <div
