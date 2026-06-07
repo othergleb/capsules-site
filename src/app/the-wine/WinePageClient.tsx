@@ -17,7 +17,7 @@ const DETAILS = [
 const PRODUCTS = [
   { img: '/bottle-box-1.png', name: 'Amphora Aged Grenache', qty: '1 bottle · 75cl',       desc: 'The centrepiece. Gris de grenache, 2023 vintage. Copper-coloured, textured, alive.' },
   { img: '/bottle-box-2.png', name: 'Estate Rosé',           qty: '2 bottles · 75cl each', desc: 'Made from the same vines, same harvest. A paler, more delicate expression of the same fruit.' },
-  { img: '/bottle-box-3.png', name: 'Estate Olive Oil',       qty: '1 vial · 100ml',        desc: 'Cold-pressed from olive trees that share the same soil as the vines. A companion to the wine.' },
+  { img: '/b9f0e9393dc291355495125a98e814a8 1.png', name: 'Estate Olive Oil', qty: '1 vial · 100ml', desc: 'Cold-pressed from olive trees that share the same soil as the vines. A companion to the wine.' },
   { img: '/poster-artwork.png', name: 'Illustration',         qty: '1 poster · 100 × 70cm', desc: 'A photographic print from the estate by Mehdi Amini.' },
 ]
 
@@ -201,7 +201,7 @@ export default function WinePageClient() {
                 height: 'clamp(260px, max(calc(42vw - 25px), calc(50vh - 25px)), 695px)',
               }}>
                 {i === 3 ? (
-                  <div style={{ width: '75%', border: '14px solid #fffff5', display: 'block', overflow: 'hidden' }}>
+                  <div style={{ width: '75%', border: '14px solid #fffff5', display: 'block', overflow: 'hidden', marginBottom: '40px' }}>
                     <img src={item.img} alt={item.name} style={{ width: '100%', height: 'auto', display: 'block' }} />
                   </div>
                 ) : (
