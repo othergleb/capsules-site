@@ -142,7 +142,7 @@ function HomeMobile() {
   const [formStep, setFormStep]       = useState<'email' | 'invite'>('email')
   const [stepIn, setStepIn]           = useState(true)
   const [inviteCode, setInviteCode]   = useState<string | null>(null)
-  const [copied, setCopied]           = useState(false)
+  const [shared, setShared]           = useState(false)
   const [dismissed, setDismissed]     = useState(false)
 
   async function handleShare() {
@@ -151,12 +151,10 @@ function HomeMobile() {
     const shareData = { title: 'Other Wine — Capsule 01', text: `I've registered for Other Wine's first capsule drop. Join the list:\n${url}` }
     if (navigator.share) {
       try { await navigator.share(shareData) } catch { /* dismissed */ }
-      setDismissed(true)
     } else {
       await navigator.clipboard.writeText(url)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
     }
+    setShared(true)
   }
 
   async function advanceToInvite(e: React.FormEvent) {
@@ -284,19 +282,19 @@ function HomeMobile() {
           /* Screen 2: share */
           <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease', width: '100%', position: 'relative', zIndex: 1 }}>
             <div style={{ textAlign: 'center', maxWidth: '85%', margin: '0 auto 24px' }}>
-              <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00', textTransform: 'uppercase', marginBottom: '0.25em' }}>
+              <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00', textTransform: 'uppercase', marginBottom: '0.75em' }}>
                 CLAIM YOUR EARLY BIRD ACCESS
               </p>
-              <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00' }}>
+              <p style={{ ...FONT, fontWeight: 300, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00' }}>
                 Successfully refer one friend to join Capsule 01<br />and get access one hour early.
               </p>
             </div>
             <div style={{ padding: '0 14px' }}>
               <button
-                onClick={handleShare}
+                onClick={shared ? () => setDismissed(true) : handleShare}
                 style={{ display: 'block', width: '100%', height: '45px', backgroundColor: '#00006A', color: '#EDFF00', border: 'none', borderRadius: '999px', ...FONT, fontWeight: 300, fontSize: '16px', letterSpacing: '-0.48px', textTransform: 'uppercase', cursor: 'pointer', marginBottom: '12px' }}
               >
-                {copied ? 'Copied!' : 'Share your link'}
+                {shared ? 'Complete' : 'Share your link'}
               </button>
               <button
                 onClick={() => setDismissed(true)}
@@ -401,10 +399,8 @@ function HomeInner() {
   const [formStep, setFormStep]       = useState<'email' | 'invite'>('email')
   const [stepIn, setStepIn]           = useState(true)
   const [inviteCode, setInviteCode]   = useState<string | null>(null)
-  const [copied, setCopied]           = useState(false)
+  const [shared, setShared]           = useState(false)
   const [dismissed, setDismissed]     = useState(false)
-  const [hasShared, setHasShared]     = useState(false)
-  const [friendEmail, setFriendEmail] = useState('')
   const yellowRef                     = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -460,10 +456,8 @@ function HomeInner() {
       try { await navigator.share(shareData) } catch { /* dismissed */ }
     } else {
       await navigator.clipboard.writeText(url)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
     }
-    setHasShared(true)
+    setShared(true)
   }
 
   if (isMobile) return <HomeMobile />
@@ -659,14 +653,14 @@ function HomeInner() {
                     lineHeight: 1.27,
                     letterSpacing: '0.23px',
                     color: '#FF3C00',
-                    marginBottom: '0.25em',
+                    marginBottom: '0.75em',
                     textTransform: 'uppercase',
                   }}>
                     Claim Your Early Bird Access
                   </p>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
-                    fontWeight: 700,
+                    fontWeight: 300,
                     fontSize: '23px',
                     lineHeight: 1.27,
                     letterSpacing: '0.23px',
@@ -677,7 +671,7 @@ function HomeInner() {
                 </div>
                 <div style={{ padding: '0 8.5%', marginTop: 'clamp(4rem, 8vw, 130px)' }}>
                   <button
-                    onClick={handleShare}
+                    onClick={shared ? () => setDismissed(true) : handleShare}
                     style={{
                       display: 'block',
                       width: '100%',
@@ -698,7 +692,7 @@ function HomeInner() {
                     onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
                     onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
                   >
-                    {copied ? 'Copied!' : 'Share your link'}
+                    {shared ? 'Complete' : 'Share your link'}
                   </button>
                   <button
                     onClick={() => setDismissed(true)}
