@@ -274,7 +274,7 @@ function HomeMobile() {
                 CLAIM EARLY BIRD ACCESS
               </p>
               <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00' }}>
-                Successfully refer one friend to join Capsule 01 and get access 1 hour early.
+                Successfully refer one friend to join Capsule 01<br />and get access one hour early.
               </p>
             </div>
             <form onSubmit={e => { e.preventDefault(); setDismissed(true) }} style={{ padding: '0 14px' }}>
@@ -347,46 +347,6 @@ function HomeMobile() {
 
         )}
 
-        {/* Pagination dots — fade in after email step */}
-        <div style={{
-          display: 'flex',
-          gap: '10px',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginTop: '16px',
-          opacity: formStep === 'email' && !dismissed ? 0 : 1,
-          transition: 'opacity 0.6s ease',
-          position: 'relative',
-          zIndex: 2,
-        }}>
-          {[0, 1].map(i => {
-            const stepOrder = ['email', 'invite'] as const
-            const currentIndex = dismissed ? 2 : stepOrder.indexOf(formStep)
-            const isActive = (formStep === 'invite' || dismissed) && i === 1
-            const isClickable = i < currentIndex
-            return (
-              <div
-                key={i}
-                onClick={() => {
-                  if (!isClickable) return
-                  setStepIn(false)
-                  setTimeout(() => {
-                    if (dismissed) setDismissed(false)
-                    setFormStep(stepOrder[i])
-                  }, 220)
-                }}
-                style={{
-                  width: '13px',
-                  height: '13px',
-                  borderRadius: '50%',
-                  backgroundColor: isActive ? '#FF3C00' : '#00006A',
-                  cursor: isClickable ? 'pointer' : 'default',
-                  transition: 'background-color 0.3s ease',
-                }}
-              />
-            )
-          })}
-        </div>
 
         {/* Bottles — two-div bounding-box pattern from Figma (outer = bbox, inner = transform, img = natural size) */}
         {/* All tops = Figma frame y − 653 (yellow section top); lefts are direct from Figma */}
@@ -706,7 +666,7 @@ function HomeInner() {
                     letterSpacing: '0.23px',
                     color: '#FF3C00',
                   }}>
-                    Successfully refer one friend to join Capsule 01 and get access 1 hour early.
+                    Successfully refer one friend to join Capsule 01<br />and get access one hour early.
                   </p>
                 </div>
                 <form
@@ -955,46 +915,6 @@ function HomeInner() {
           userSelect: 'none',
         }} />
 
-        {/* Pagination dots — fade in after email submitted */}
-        <div style={{
-          position: 'absolute',
-          bottom: 'clamp(1.5rem, 2.5vw, 44px)',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          display: 'flex',
-          gap: 'clamp(10px, 1vw, 16px)',
-          alignItems: 'center',
-          opacity: formStep === 'email' && !dismissed ? 0 : 1,
-          transition: 'opacity 0.6s ease',
-        }}>
-          {[0, 1].map(i => {
-            const stepOrder = ['email', 'invite'] as const
-            const currentIndex = dismissed ? 2 : stepOrder.indexOf(formStep)
-            const isActive = (formStep === 'invite' || dismissed) && i === 1
-            const isClickable = i < currentIndex
-            return (
-              <div
-                key={i}
-                onClick={() => {
-                  if (!isClickable) return
-                  setStepIn(false)
-                  setTimeout(() => {
-                    if (dismissed) setDismissed(false)
-                    setFormStep(stepOrder[i])
-                  }, 220)
-                }}
-                style={{
-                  width: 'clamp(10px, 0.87vw, 15px)',
-                  height: 'clamp(10px, 0.87vw, 15px)',
-                  borderRadius: '50%',
-                  backgroundColor: isActive ? '#FF3C00' : '#00006A',
-                  transition: 'background-color 0.3s ease',
-                  cursor: isClickable ? 'pointer' : 'default',
-                }}
-              />
-            )
-          })}
-        </div>
 
       </section>
 
