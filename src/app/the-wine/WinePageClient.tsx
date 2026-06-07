@@ -23,83 +23,108 @@ const PRODUCTS = [
 
 // ── Mobile wine page ───────────────────────────────────────────
 function WinePageMobile() {
-  const CELL: React.CSSProperties = {
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    const v = videoRef.current
+    if (!v) return
+    v.muted = true
+    v.play().catch(() => {})
+  }, [])
+
+  const TEXT: React.CSSProperties = {
     fontFamily: 'Vulf Sans, sans-serif',
-    fontSize: '18px',
+    fontSize: '12px',
     color: '#00006A',
     textTransform: 'uppercase',
-    letterSpacing: '-0.18px',
-    lineHeight: 1,
-    whiteSpace: 'nowrap',
+    letterSpacing: '-0.36px',
+    lineHeight: '14px',
+    margin: 0,
   }
 
+  const ARCH: React.CSSProperties = {
+    border: '1px solid #00006A',
+    borderRadius: '9999px 9999px 0 0',
+    height: '66vw',
+    backgroundColor: '#FF3C00',
+    overflow: 'visible',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
+
+  const YELLOW: React.CSSProperties = {
+    backgroundColor: '#EDFF00',
+    border: '1px solid #00006A',
+    marginTop: '-1px',
+    padding: '10px 8px 8px',
+    minHeight: '29vw',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  }
+
+  const rows = [[0, 1], [2, 3]] as const
+
   return (
-    <div style={{
-      backgroundColor: '#fffff5',
-      height: '100svh',
-      display: 'flex',
-      flexDirection: 'column',
-      overflow: 'hidden',
-      paddingBottom: '41px',
-      position: 'relative',
-    }}>
+    <div style={{ backgroundColor: '#FF3C00', minHeight: '100svh', display: 'flex', flexDirection: 'column' }}>
 
-      {/* Large red OTHER logo – bleeds from top-left, sized in vw to stay proportional */}
-      <div style={{
-        position: 'absolute',
-        left: '-23.15vw',
-        top: '-60.3vw',
-        width: '144.8vw',
-        height: '144.8vw',
-        pointerEvents: 'none',
-        zIndex: 0,
+      {/* OTHER animated logo */}
+      <video
+        ref={videoRef}
+        autoPlay loop muted playsInline preload="auto"
+        style={{ width: '100%', display: 'block', flexShrink: 0 }}
+        src="/Other_alt3_yellow_red.mp4"
+      />
+
+      {/* "In the box" heading */}
+      <h2 className="capsules-wordmark" style={{
+        fontSize: '32px',
+        fontWeight: 900,
+        letterSpacing: '1.28px',
+        textAlign: 'center',
+        margin: '0 0 14px',
       }}>
-        <img src="/figma/other-logo-red.png" alt="" style={{ width: '100%', height: '100%' }} />
-      </div>
+        In the box
+      </h2>
 
-      {/* Bottles – centred, fill remaining space, aligned to bottom */}
-      <div style={{
-        flex: 1,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'flex-end',
-        paddingBottom: '8px',
-        minHeight: 0,
-        position: 'relative',
-        zIndex: 1,
-      }}>
-        <img
-          src="/bottle-1.png"
-          alt="Amphora aged Grenache"
-          style={{ width: '32.3%', height: 'auto', display: 'block', flexShrink: 0 }}
-        />
-        <img
-          src="/bottle-2.png"
-          alt="Estate Rosé"
-          style={{ width: '32.3%', height: 'auto', display: 'block', flexShrink: 0, marginLeft: '-5.6%' }}
-        />
-      </div>
-
-      {/* Wine spec table */}
-      <div style={{ margin: '0 11px', backgroundColor: '#EDFF00', flexShrink: 0, position: 'relative', zIndex: 1 }}>
-        <div style={{ height: '1px', backgroundColor: '#00006A' }} />
-        {DETAILS.map(([label, val]) => (
-          <div key={label} style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            height: '28px',
-            padding: '0 20px',
-            borderBottom: '1px solid #00006A',
-          }}>
-            <span style={{ ...CELL, fontWeight: 300 }}>{label}</span>
-            <span style={{ ...CELL, fontWeight: 400, textAlign: 'right' }}>{val}</span>
+      {/* 2×2 product grid */}
+      <div style={{ padding: '0 12px', flex: 1, display: 'flex', flexDirection: 'column', gap: '9px' }}>
+        {rows.map((pair, rowIdx) => (
+          <div key={rowIdx} style={{ display: 'flex' }}>
+            {pair.map((i, colIdx) => (
+              <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', marginLeft: colIdx > 0 ? '-1px' : 0 }}>
+                {/* Arch */}
+                <div style={ARCH}>
+                  {i === 2 && (
+                    <img
+                      src={PRODUCTS[2].img}
+                      alt={PRODUCTS[2].name}
+                      style={{ width: '29%', height: 'auto', display: 'block', pointerEvents: 'none' }}
+                    />
+                  )}
+                  {i === 3 && (
+                    <div style={{ width: '65%', border: '3px solid #fffff5', overflow: 'hidden' }}>
+                      <img src={PRODUCTS[3].img} alt={PRODUCTS[3].name} style={{ width: '100%', height: 'auto', display: 'block' }} />
+                    </div>
+                  )}
+                </div>
+                {/* Yellow info card */}
+                <div style={YELLOW}>
+                  <div>
+                    <p style={{ ...TEXT, fontWeight: 400 }}>{PRODUCTS[i].name}</p>
+                    <p style={{ ...TEXT, fontWeight: 300, marginTop: '2px' }}>{PRODUCTS[i].desc}</p>
+                  </div>
+                  <p style={{ ...TEXT, fontWeight: 300 }}>{PRODUCTS[i].qty}</p>
+                </div>
+              </div>
+            ))}
           </div>
         ))}
-        <div style={{ height: '22px' }} />
       </div>
 
-      <MobileNav bg="#ff3c00" />
+      <div style={{ height: '9px', flexShrink: 0 }} />
+      <MobileNav bg="#fffff5" />
     </div>
   )
 }
