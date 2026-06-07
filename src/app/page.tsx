@@ -266,32 +266,35 @@ function HomeMobile() {
         {/* Form steps — directly on yellow */}
         {dismissed ? (
 
-          <div style={{ padding: '0 14px', width: '100%', position: 'relative', zIndex: 1, textAlign: 'center' }}>
-            <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', letterSpacing: '0.16px', lineHeight: 1.27, color: '#FF3C00', marginBottom: '12px' }}>
-              You&apos;ve registered.
-            </p>
-            <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', letterSpacing: '0.16px', lineHeight: 1.27, color: '#FF3C00', marginBottom: '1em' }}>
-              Purchase link drops on 23 June, keep an eye on your emails.
-            </p>
-            <a href="/the-wine" style={{
-              display: 'block',
-              width: '100%',
-              height: '45px',
-              lineHeight: '45px',
-              marginTop: '8px',
-              backgroundColor: 'transparent',
-              border: '1px solid #00006A',
-              borderRadius: '999px',
-              ...FONT,
-              fontWeight: 300,
-              fontSize: '16px',
-              letterSpacing: '-0.48px',
-              textTransform: 'uppercase',
-              color: '#00006A',
-              textDecoration: 'none',
-              textAlign: 'center',
-              boxSizing: 'border-box',
-            }}>What&apos;s in the Capsule</a>
+          <div style={{ width: '100%', position: 'relative', zIndex: 1 }}>
+            <div style={{ textAlign: 'center', maxWidth: '85%', margin: '0 auto 24px' }}>
+              <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00', textTransform: 'uppercase', marginBottom: '1.75em' }}>
+                You&apos;ve registered.
+              </p>
+              <p style={{ ...FONT, fontWeight: 300, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00' }}>
+                Purchase link drops on 23 June, keep an eye on your emails.
+              </p>
+            </div>
+            <div style={{ padding: '0 14px' }}>
+              <a href="/the-wine" style={{
+                display: 'block',
+                width: '100%',
+                height: '45px',
+                lineHeight: '45px',
+                backgroundColor: 'transparent',
+                border: '1px solid #00006A',
+                borderRadius: '999px',
+                ...FONT,
+                fontWeight: 300,
+                fontSize: '16px',
+                letterSpacing: '-0.48px',
+                textTransform: 'uppercase',
+                color: '#00006A',
+                textDecoration: 'none',
+                textAlign: 'center',
+                boxSizing: 'border-box',
+              }}>What&apos;s in the Capsule</a>
+            </div>
           </div>
 
         ) : formStep === 'invite' ? (
@@ -622,48 +625,51 @@ function HomeInner() {
 
         {/* Form — directly on yellow */}
         {dismissed ? (
-          <div style={{ maxWidth: 'clamp(340px, 36vw, 622px)', width: '100%', position: 'relative', zIndex: 1, textAlign: 'center' }}>
-            <p style={{
-              fontFamily: 'Vulf Sans, sans-serif',
-              fontWeight: 700,
-              fontSize: '16px',
-              color: '#FF3C00',
-              letterSpacing: '0.16px',
-              lineHeight: 1.27,
-              marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
-            }}>
-              You&apos;ve registered.
-            </p>
-            <p style={{
-              fontFamily: 'Vulf Sans, sans-serif',
-              fontWeight: 700,
-              fontSize: '16px',
-              lineHeight: 1.27,
-              letterSpacing: '0.16px',
-              color: '#FF3C00',
-              marginBottom: '1em',
-            }}>
-              Purchase link drops on 23 June, keep an eye on your emails.
-            </p>
-            <a href="/the-wine" style={{
-              display: 'block',
-              width: '100%',
-              height: 'clamp(44px, 2.95vw, 51px)',
-              lineHeight: 'clamp(44px, 2.95vw, 51px)',
-              marginTop: '8px',
-              backgroundColor: 'transparent',
-              border: '1px solid #00006A',
-              borderRadius: '999px',
-              fontFamily: 'Vulf Sans, sans-serif',
-              fontWeight: 300,
-              fontSize: 'clamp(12px, 1.45vw, 25px)',
-              letterSpacing: '-0.75px',
-              textTransform: 'uppercase',
-              color: '#00006A',
-              textDecoration: 'none',
-              textAlign: 'center',
-              boxSizing: 'border-box',
-            }}>What&apos;s in the Capsule</a>
+          <div style={{ maxWidth: 'clamp(340px, 36vw, 622px)', width: '100%', position: 'relative', zIndex: 1 }}>
+            <div style={{ textAlign: 'center', maxWidth: '85%', margin: '0 auto clamp(0.75rem, 1.5vw, 26px)' }}>
+              <p style={{
+                fontFamily: 'Vulf Sans, sans-serif',
+                fontWeight: 700,
+                fontSize: '23px',
+                lineHeight: 1.27,
+                letterSpacing: '0.23px',
+                color: '#FF3C00',
+                textTransform: 'uppercase',
+                marginBottom: '0.75em',
+              }}>
+                You&apos;ve registered.
+              </p>
+              <p style={{
+                fontFamily: 'Vulf Sans, sans-serif',
+                fontWeight: 300,
+                fontSize: '23px',
+                lineHeight: 1.27,
+                letterSpacing: '0.23px',
+                color: '#FF3C00',
+              }}>
+                Purchase link drops on 23 June, keep an eye on your emails.
+              </p>
+            </div>
+            <div style={{ padding: '0 8.5%' }}>
+              <a href="/the-wine" style={{
+                display: 'block',
+                width: '100%',
+                height: 'clamp(44px, 2.95vw, 51px)',
+                lineHeight: 'clamp(44px, 2.95vw, 51px)',
+                backgroundColor: 'transparent',
+                border: '1px solid #00006A',
+                borderRadius: '999px',
+                fontFamily: 'Vulf Sans, sans-serif',
+                fontWeight: 300,
+                fontSize: 'clamp(12px, 1.45vw, 25px)',
+                letterSpacing: '-0.75px',
+                textTransform: 'uppercase',
+                color: '#00006A',
+                textDecoration: 'none',
+                textAlign: 'center',
+                boxSizing: 'border-box',
+              }}>What&apos;s in the Capsule</a>
+            </div>
           </div>
         ) : (
           <div style={{ maxWidth: 'clamp(340px, 36vw, 622px)', width: '100%', position: 'relative', zIndex: 1 }}>
