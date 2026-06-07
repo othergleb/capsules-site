@@ -139,11 +139,25 @@ function HomeMobile() {
   }, [])
 
   const [email, setEmail]             = useState('')
-  const [friendEmail, setFriendEmail] = useState('')
   const [formStep, setFormStep]       = useState<'email' | 'invite'>('email')
   const [stepIn, setStepIn]           = useState(true)
   const [inviteCode, setInviteCode]   = useState<string | null>(null)
+  const [copied, setCopied]           = useState(false)
   const [dismissed, setDismissed]     = useState(false)
+
+  async function handleShare() {
+    const siteUrl = window.location.origin
+    const url = inviteCode ? `${siteUrl}/?ref=${inviteCode}` : siteUrl
+    const shareData = { title: 'Other Wine — Capsule 01', text: `I've registered for Other Wine's first capsule drop. Join the list:\n${url}` }
+    if (navigator.share) {
+      try { await navigator.share(shareData) } catch { /* dismissed */ }
+      setDismissed(true)
+    } else {
+      await navigator.clipboard.writeText(url)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }
+  }
 
   async function advanceToInvite(e: React.FormEvent) {
     e.preventDefault()
@@ -267,38 +281,30 @@ function HomeMobile() {
 
         ) : formStep === 'invite' ? (
 
-          /* Screen 3: referral */
+          /* Screen 2: share */
           <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease', width: '100%', position: 'relative', zIndex: 1 }}>
             <div style={{ textAlign: 'center', maxWidth: '85%', margin: '0 auto 24px' }}>
               <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00', textTransform: 'uppercase', marginBottom: '0.25em' }}>
-                CLAIM EARLY BIRD ACCESS
+                CLAIM YOUR EARLY BIRD ACCESS
               </p>
               <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00' }}>
                 Successfully refer one friend to join Capsule 01<br />and get access one hour early.
               </p>
             </div>
-            <form onSubmit={e => { e.preventDefault(); setDismissed(true) }} style={{ padding: '0 14px' }}>
-              <div style={{ border: '1px solid #00006A', height: '44px', display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
-                <input
-                  type="email"
-                  placeholder="Friends Email"
-                  value={friendEmail}
-                  onChange={e => setFriendEmail(e.target.value)}
-                  className="form-input-cream"
-                  style={{ flex: 1, height: '100%', background: 'transparent', border: 'none', outline: 'none', padding: '0 1rem', ...FONT, fontWeight: 300, fontSize: '16px', letterSpacing: '-0.48px', color: '#00006A' }}
-                />
-                <button
-                  type="button"
-                  onClick={() => setDismissed(true)}
-                  style={{ background: 'none', border: 'none', padding: '0 1rem', ...FONT, fontWeight: 300, fontSize: '16px', letterSpacing: '-0.48px', color: '#FF3C00', textTransform: 'uppercase', cursor: 'pointer', flexShrink: 0 }}
-                >
-                  Skip
-                </button>
-              </div>
-              <button type="submit" style={{ display: 'block', width: '100%', height: '45px', backgroundColor: '#00006A', color: '#EDFF00', border: 'none', borderRadius: '999px', ...FONT, fontWeight: 300, fontSize: '16px', letterSpacing: '-0.48px', textTransform: 'uppercase', cursor: 'pointer' }}>
-                Next
+            <div style={{ padding: '0 14px' }}>
+              <button
+                onClick={handleShare}
+                style={{ display: 'block', width: '100%', height: '45px', backgroundColor: '#00006A', color: '#EDFF00', border: 'none', borderRadius: '999px', ...FONT, fontWeight: 300, fontSize: '16px', letterSpacing: '-0.48px', textTransform: 'uppercase', cursor: 'pointer', marginBottom: '12px' }}
+              >
+                {copied ? 'Copied!' : 'Share your link'}
               </button>
-            </form>
+              <button
+                onClick={() => setDismissed(true)}
+                style={{ display: 'block', width: '100%', background: 'none', border: 'none', ...FONT, fontWeight: 300, fontSize: '16px', letterSpacing: '-0.48px', color: '#FF3C00', textTransform: 'uppercase', cursor: 'pointer' }}
+              >
+                Skip
+              </button>
+            </div>
           </div>
 
         ) : (
@@ -643,7 +649,7 @@ function HomeInner() {
 
             {formStep === 'invite' ? (
 
-              /* Screen 3: referral */
+              /* Screen 2: share */
               <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease' }}>
                 <div style={{ textAlign: 'center', maxWidth: '85%', margin: '0 auto clamp(0.75rem, 1.5vw, 26px)' }}>
                   <p style={{
@@ -656,7 +662,7 @@ function HomeInner() {
                     marginBottom: '0.25em',
                     textTransform: 'uppercase',
                   }}>
-                    Claim Early Bird Access
+                    Claim Your Early Bird Access
                   </p>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
@@ -669,59 +675,9 @@ function HomeInner() {
                     Successfully refer one friend to join Capsule 01<br />and get access one hour early.
                   </p>
                 </div>
-                <form
-                  onSubmit={e => { e.preventDefault(); setHasShared(true); setDismissed(true) }}
-                  style={{ padding: '0 8.5%', marginTop: 'clamp(4rem, 8vw, 130px)' }}
-                >
-                  <div style={{
-                    border: '1px solid #00006A',
-                    height: 'clamp(44px, 2.95vw, 51px)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginBottom: 'clamp(0.4rem, 0.6vw, 10px)',
-                  }}>
-                    <input
-                      type="email"
-                      placeholder="Friends Email"
-                      value={friendEmail}
-                      onChange={e => setFriendEmail(e.target.value)}
-                      className="form-input-cream"
-                      style={{
-                        flex: 1,
-                        height: '100%',
-                        background: 'transparent',
-                        border: 'none',
-                        outline: 'none',
-                        padding: '0 1rem',
-                        fontFamily: 'Vulf Sans, sans-serif',
-                        fontWeight: 300,
-                        fontSize: 'clamp(12px, 1.45vw, 25px)',
-                        letterSpacing: '-0.75px',
-                        color: '#00006A',
-                      }}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setDismissed(true)}
-                      style={{
-                        background: 'none',
-                        border: 'none',
-                        padding: '0 1rem',
-                        fontFamily: 'Vulf Sans, sans-serif',
-                        fontWeight: 300,
-                        fontSize: 'clamp(12px, 1.45vw, 25px)',
-                        letterSpacing: '-0.75px',
-                        color: '#FF3C00',
-                        textTransform: 'uppercase',
-                        cursor: 'pointer',
-                        flexShrink: 0,
-                      }}
-                    >
-                      Skip
-                    </button>
-                  </div>
+                <div style={{ padding: '0 8.5%', marginTop: 'clamp(4rem, 8vw, 130px)' }}>
                   <button
-                    type="submit"
+                    onClick={handleShare}
                     style={{
                       display: 'block',
                       width: '100%',
@@ -737,13 +693,32 @@ function HomeInner() {
                       textTransform: 'uppercase',
                       cursor: 'pointer',
                       transition: 'opacity 0.15s ease',
+                      marginBottom: 'clamp(0.4rem, 0.6vw, 10px)',
                     }}
                     onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
                     onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
                   >
-                    Next
+                    {copied ? 'Copied!' : 'Share your link'}
                   </button>
-                </form>
+                  <button
+                    onClick={() => setDismissed(true)}
+                    style={{
+                      display: 'block',
+                      width: '100%',
+                      background: 'none',
+                      border: 'none',
+                      fontFamily: 'Vulf Sans, sans-serif',
+                      fontWeight: 300,
+                      fontSize: 'clamp(12px, 1.45vw, 25px)',
+                      letterSpacing: '-0.75px',
+                      color: '#FF3C00',
+                      textTransform: 'uppercase',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Skip
+                  </button>
+                </div>
               </div>
 
             ) : (
