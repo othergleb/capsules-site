@@ -169,7 +169,7 @@ function OriginMethodBoxMobile() {
 
       <section style={{ backgroundColor: '#FF3C00', paddingBottom: '32px' }}>
         <div style={VIDEO_OVAL}>
-          <video ref={video1Ref} src="/farmer-right.mp4" autoPlay loop muted playsInline
+          <video ref={video1Ref} src="/CapsulesPage_OTHER_VIDEO_04_web.mp4" autoPlay loop muted playsInline
             style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           <div style={{ position: 'absolute', inset: 0, borderRadius: 'inherit', boxShadow: '15px 4px 15px 0 rgba(0,0,0,0.42) inset', pointerEvents: 'none' }} />
         </div>
@@ -187,7 +187,7 @@ function OriginMethodBoxMobile() {
 
       <section style={{ backgroundColor: '#FF3C00', paddingBottom: '32px' }}>
         <div style={VIDEO_OVAL}>
-          <video ref={video2Ref} src="/farmer-left.mp4" autoPlay loop muted playsInline
+          <video ref={video2Ref} src="/CapsulesPage_OTHER_VIDEO_05_web.mp4" autoPlay loop muted playsInline
             style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           <div style={{ position: 'absolute', inset: 0, borderRadius: 'inherit', boxShadow: '15px 4px 15px 0 rgba(0,0,0,0.42) inset', pointerEvents: 'none' }} />
         </div>
@@ -350,7 +350,7 @@ function OriginMethodBoxDesktop() {
 
       <section style={{ backgroundColor: 'var(--red)', display: 'flex', flexDirection: 'column', alignItems: 'center', paddingBottom: 'clamp(2rem, 5vw, 86px)' }}>
         <div style={videoOvalStyle}>
-          <video ref={video1Ref} src="/farmer-right.mp4" autoPlay loop muted playsInline
+          <video ref={video1Ref} src="/CapsulesPage_OTHER_VIDEO_04_web.mp4" autoPlay loop muted playsInline
             style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           <div style={{ position: 'absolute', inset: 0, borderRadius: 'inherit', boxShadow: '15px 4px 15px 0 rgba(0,0,0,0.42) inset', pointerEvents: 'none' }} />
         </div>
@@ -367,7 +367,7 @@ function OriginMethodBoxDesktop() {
 
       <section style={{ backgroundColor: 'var(--red)', display: 'flex', flexDirection: 'column', alignItems: 'center', paddingBottom: 'clamp(2rem, 5vw, 86px)' }}>
         <div style={videoOvalStyle}>
-          <video ref={video2Ref} src="/farmer-left.mp4" autoPlay loop muted playsInline
+          <video ref={video2Ref} src="/CapsulesPage_OTHER_VIDEO_05_web.mp4" autoPlay loop muted playsInline
             style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           <div style={{ position: 'absolute', inset: 0, borderRadius: 'inherit', boxShadow: '15px 4px 15px 0 rgba(0,0,0,0.42) inset', pointerEvents: 'none' }} />
         </div>
