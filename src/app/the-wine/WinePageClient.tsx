@@ -179,7 +179,7 @@ export default function WinePageClient() {
       <section style={{
         backgroundColor: 'var(--red)',
         position: 'relative',
-        paddingTop: 'clamp(4rem, 16.5vh, 12rem)',
+        paddingTop: 'clamp(calc(4rem - 20px), calc(16.5vh - 20px), calc(12rem - 20px))',
         minHeight: '100svh',
         display: 'flex',
         flexDirection: 'column',
