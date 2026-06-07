@@ -246,7 +246,7 @@ export default function WinePageClient() {
             top: 'calc(-5vw - 450px)',
             width: '65vw',
             height: 'auto',
-            transform: 'scaleX(-1) scaleY(-1) rotate(-135.51deg)',
+            transform: 'scaleX(-1) scaleY(-1) rotate(0deg)',
             transformOrigin: 'center center',
             pointerEvents: 'none',
           }}
