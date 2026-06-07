@@ -272,7 +272,7 @@ export default function WinePageClient() {
         }}>
           <video
             ref={video1Ref}
-            src="/farmer-right.mp4"
+            src="/CapsulesPage_OTHER_VIDEO_04_web.mp4"
             autoPlay loop muted playsInline preload="auto"
             style={{ width: '100%', height: '100%', objectFit: 'cover', backgroundColor: 'var(--red)' }}
           />
@@ -329,7 +329,7 @@ export default function WinePageClient() {
         }}>
           <video
             ref={video2Ref}
-            src="/farmer-left.mp4"
+            src="/CapsulesPage_OTHER_VIDEO_05_web.mp4"
             autoPlay loop muted playsInline preload="auto"
             style={{ width: '100%', height: '100%', objectFit: 'cover', backgroundColor: 'var(--red)' }}
           />
