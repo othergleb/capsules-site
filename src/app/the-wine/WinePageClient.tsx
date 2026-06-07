@@ -227,7 +227,7 @@ export default function WinePageClient() {
                     {item.desc}
                   </p>
                 </div>
-                <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(13px, 1.33vw, 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0, marginTop: i === 3 ? '2.5em' : '1.25em', marginBottom: '3px', textTransform: 'uppercase' }}>
+                <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(13px, 1.33vw, 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0, marginTop: i === 3 ? '2.5em' : '1.25em', marginBottom: '5px', textTransform: 'uppercase' }}>
                   {item.qty}
                 </p>
               </div>
