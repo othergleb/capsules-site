@@ -205,7 +205,7 @@ export default function WinePageClient() {
                     <img src={item.img} alt={item.name} style={{ width: '100%', height: 'auto', display: 'block' }} />
                   </div>
                 ) : (
-                  <img src={item.img} alt={item.name} style={{ width: '46%', height: 'auto', display: 'block' }} />
+                  <img src={item.img} alt={item.name} style={{ width: '46%', height: 'auto', display: 'block', transform: i === 2 ? 'rotate(0deg)' : 'none' }} />
                 )}
               </div>
               <div style={{
