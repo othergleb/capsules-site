@@ -298,7 +298,7 @@ function HomeMobile() {
               </button>
               <button
                 onClick={() => setDismissed(true)}
-                style={{ display: 'block', width: '100%', background: 'none', border: 'none', ...FONT, fontWeight: 300, fontSize: '16px', letterSpacing: '-0.48px', color: '#FF3C00', textTransform: 'uppercase', cursor: 'pointer' }}
+                style={{ display: 'block', width: '100%', background: 'none', border: 'none', ...FONT, fontWeight: 300, fontSize: '12.8px', letterSpacing: '-0.48px', color: '#FF3C00', textTransform: 'uppercase', cursor: 'pointer' }}
               >
                 Skip
               </button>
@@ -703,7 +703,7 @@ function HomeInner() {
                       border: 'none',
                       fontFamily: 'Vulf Sans, sans-serif',
                       fontWeight: 300,
-                      fontSize: 'clamp(12px, 1.45vw, 25px)',
+                      fontSize: 'clamp(9.6px, 1.16vw, 20px)',
                       letterSpacing: '-0.75px',
                       color: '#FF3C00',
                       textTransform: 'uppercase',
