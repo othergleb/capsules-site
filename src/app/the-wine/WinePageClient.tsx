@@ -101,6 +101,13 @@ function WinePageMobile() {
               <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', marginLeft: colIdx > 0 ? '-1px' : 0 }}>
                 {/* Arch */}
                 <div style={ARCH}>
+                  {(i === 0 || i === 1) && (
+                    <img
+                      src="/Screenshot 2026-05-14 at 13.15.48 4.png"
+                      alt={PRODUCTS[i].name}
+                      style={{ width: '46%', height: 'auto', display: 'block', pointerEvents: 'none' }}
+                    />
+                  )}
                   {i === 2 && (
                     <img
                       src={PRODUCTS[2].img}
