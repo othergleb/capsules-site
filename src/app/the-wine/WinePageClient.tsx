@@ -197,7 +197,7 @@ export default function WinePageClient() {
                 justifyContent: 'center',
                 alignItems: 'flex-end',
                 paddingBottom: 'clamp(12px, 2.03vw, 35px)',
-                height: 'clamp(250px, max(calc(42vw - 30px), calc(50vh - 30px)), 690px)',
+                height: 'clamp(220px, max(calc(42vw - 60px), calc(50vh - 60px)), 660px)',
               }}>
                 {i === 3 ? (
                   <div style={{ width: '75%', border: '14px solid #fffff5', display: 'block', overflow: 'hidden' }}>
