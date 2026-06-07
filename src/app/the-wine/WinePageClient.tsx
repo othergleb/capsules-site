@@ -116,7 +116,7 @@ const marqueeStrip = (bg: string, word: string) => (
     borderTop: '2.22px solid #EDFF00',
     borderBottom: '2.22px solid #EDFF00',
   }}>
-    {Array.from({ length: 12 }, (_, i) => (
+    {Array.from({ length: 10 }, (_, i) => (
       <span key={i} style={{
         fontFamily: 'Vulf Sans, sans-serif',
         fontWeight: 300,
@@ -172,7 +172,7 @@ export default function WinePageClient() {
   if (isMobile) return <WinePageMobile />
 
   return (
-    <div style={{ backgroundColor: 'var(--red)' }}>
+    <div style={{ backgroundColor: 'var(--red)', overflowX: 'hidden' }}>
       <Nav color="#00006A" />
 
       {/* In the Capsule — 4 arch product columns */}
@@ -246,7 +246,7 @@ export default function WinePageClient() {
             left: '0',
             width: 'auto',
             height: '180svh',
-            transform: 'translate(calc(-9.7vw + 150px), calc(-40vh - 350px)) scaleX(-1) scaleY(-1) rotate(-135.51deg)',
+            transform: 'translate(clamp(-120px, calc(-9.7vw + 120px), -20px), calc(-40vh - 195px)) scaleX(-1) scaleY(-1) rotate(-135.51deg)',
             transformOrigin: 'center center',
             pointerEvents: 'none',
           }}
@@ -257,28 +257,28 @@ export default function WinePageClient() {
         <div style={{
           position: 'absolute',
           left: '55.67vw',
-          top: '50%',
+          top: '45%',
           transform: 'translateY(-50%)',
-          width: '30.03vw',
+          width: 'clamp(220px, 30.03vw, 520px)',
           backgroundColor: 'var(--yellow)',
-          paddingTop: '1.27vw',
-          paddingBottom: '1.79vw',
+          paddingTop: 'clamp(10px, 1.27vw, 22px)',
+          paddingBottom: 'clamp(12px, 1.79vw, 31px)',
         }}>
-          <div style={{ margin: '0 1.16vw' }}>
+          <div style={{ margin: '0 clamp(10px, 1.16vw, 20px)' }}>
             <div style={{ height: '1.5px', backgroundColor: 'var(--blue)' }} />
             {DETAILS.map(([label, val]) => (
               <div key={label} style={{
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                height: '1.79vw',
-                padding: '0 1.1vw',
+                height: 'clamp(26px, 1.79vw, 31px)',
+                padding: '0 clamp(8px, 1.1vw, 19px)',
                 borderBottom: '1.5px solid var(--blue)',
               }}>
                 <span style={{
                   fontFamily: 'Vulf Sans, sans-serif',
                   fontWeight: 300,
-                  fontSize: 'clamp(0.65rem, 1.16vw, 20px)',
+                  fontSize: 'clamp(11px, 1.16vw, 20px)',
                   color: 'var(--blue)',
                   textTransform: 'uppercase',
                   letterSpacing: '-0.2px',
@@ -290,7 +290,7 @@ export default function WinePageClient() {
                 <span style={{
                   fontFamily: 'Vulf Sans, sans-serif',
                   fontWeight: 400,
-                  fontSize: 'clamp(0.65rem, 1.16vw, 20px)',
+                  fontSize: 'clamp(11px, 1.16vw, 20px)',
                   color: 'var(--blue)',
                   textAlign: 'right',
                   textTransform: 'uppercase',
