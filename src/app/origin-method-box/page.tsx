@@ -203,6 +203,8 @@ function OriginMethodBoxMobile() {
           right: '11px',
           top: '533px',
           backgroundColor: '#EDFF00',
+          paddingTop: '10px',
+          paddingBottom: '10px',
         }}>
           {WINE_DETAILS.map(([label, val], i) => (
             <div key={label} style={{
