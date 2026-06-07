@@ -1010,7 +1010,7 @@ function HomeInner() {
           position: 'absolute',
           left: '-2vw',
           bottom: '0',
-          width: 'clamp(184px, 36.8vw, 637px)',
+          width: 'clamp(165.6px, 33.12vw, 573.3px)',
           aspectRatio: '329 / 439',
           objectFit: 'cover',
           transform: 'rotate(0deg)',
