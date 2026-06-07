@@ -14,6 +14,13 @@ const DETAILS = [
   ['Format',   '75cl · natural cork'],
 ]
 
+const PRODUCTS = [
+  { img: '/bottle-box-1.png', name: 'Amphora Aged Grenache', qty: '1 bottle · 75cl',       desc: 'The centrepiece. Gris de grenache, 2023 vintage. Copper-coloured, textured, alive.' },
+  { img: '/bottle-box-2.png', name: 'Estate Rosé',           qty: '2 bottles · 75cl each', desc: 'Made from the same vines, same harvest. A paler, more delicate expression of the same fruit.' },
+  { img: '/bottle-box-3.png', name: 'Estate Olive Oil',       qty: '1 vial · 100ml',        desc: 'Cold-pressed from olive trees that share the same soil as the vines. A companion to the wine.' },
+  { img: '/poster-artwork.png', name: 'Illustration',         qty: '1 poster · 100 × 70cm', desc: 'A photographic print from the estate by Mehdi Amini.' },
+]
+
 // ── Mobile wine page ───────────────────────────────────────────
 function WinePageMobile() {
   const CELL: React.CSSProperties = {
@@ -168,41 +175,103 @@ export default function WinePageClient() {
     <div style={{ backgroundColor: 'var(--red)' }}>
       <Nav color="#00006A" />
 
-      {/* Cream top: bottles + yellow info card */}
+      {/* In the Capsule — 4 arch product columns */}
+      <section style={{
+        backgroundColor: 'var(--red)',
+        position: 'relative',
+        paddingTop: 'clamp(2rem, 3vw, 52px)',
+      }}>
+        {sectionHeading('In the Capsule', 'PRODUCT', 'PRODUCT')}
+        <div style={{ width: '100%', display: 'flex', padding: '0 clamp(7px, 0.81vw, 14px)' }}>
+          {PRODUCTS.map((item, i) => (
+            <div key={item.name} style={{ flex: 1, display: 'flex', flexDirection: 'column', marginLeft: i > 0 ? '-2.22px' : 0 }}>
+              <div style={{
+                border: '2.22px solid #00006A',
+                borderRadius: 'clamp(100px, 16.44vw, 284px) clamp(100px, 16.44vw, 284px) 0 0',
+                backgroundColor: 'var(--red)',
+                overflow: 'hidden',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'flex-end',
+                paddingBottom: 'clamp(12px, 2.03vw, 35px)',
+                aspectRatio: '568 / 715',
+              }}>
+                <img src={item.img} alt={item.name} style={{ width: '37%', height: 'auto', display: 'block' }} />
+              </div>
+              <div style={{
+                flex: 1,
+                backgroundColor: 'var(--yellow)',
+                border: '2.22px solid #00006A',
+                marginTop: '-2.22px',
+                padding: 'clamp(14px, 1.79vw, 31px)',
+                paddingBottom: 'clamp(20px, 2.5vw, 43px)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                minHeight: 'clamp(120px, 16vw, 276px)',
+              }}>
+                <div>
+                  <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: 'clamp(11px, 1.33vw, 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0, textTransform: 'uppercase' }}>
+                    {item.name}
+                  </p>
+                  <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(11px, 1.33vw, 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0 }}>
+                    {item.desc}
+                  </p>
+                </div>
+                <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(11px, 1.33vw, 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0, textTransform: 'uppercase' }}>
+                  {item.qty}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {marqueeStrip('var(--blue)', 'THE WINE')}
+
+      {/* Cream section: cam 3 bottle + vial + wine detail table */}
       <section style={{
         backgroundColor: 'var(--cream)',
         position: 'relative',
-        height: 'clamp(500px, 63.6vw, 1100px)',
+        height: 'clamp(400px, 63.6vw, 1099px)',
         overflow: 'hidden',
       }}>
-        <div style={{
-          position: 'absolute',
-          left: 'clamp(1rem, 9.38vw, 162px)',
-          bottom: 'clamp(24px, 4.75vw, 82px)',
-          display: 'flex',
-          alignItems: 'flex-end',
-        }}>
-          <img
-            src="/bottle-1.png"
-            alt="Capsule 01 wine bottle"
-            style={{ width: 'clamp(80px, 16.7vw, 289px)', height: 'auto', display: 'block' }}
-          />
-          <img
-            src="/bottle-2.png"
-            alt="Capsule 01 wine bottle"
-            style={{
-              width: 'clamp(80px, 16.7vw, 289px)',
-              height: 'auto',
-              display: 'block',
-              marginLeft: 'clamp(-1.5rem, -2.84vw, -49px)',
-            }}
-          />
-        </div>
+        {/* cam 3 — large rotated bottle */}
+        <img
+          src="/cam 3.png"
+          alt=""
+          style={{
+            position: 'absolute',
+            left: '-9.7vw',
+            top: '-5vw',
+            width: '75vw',
+            height: 'auto',
+            transform: 'scaleY(-1) rotate(-160.51deg)',
+            transformOrigin: 'center center',
+            pointerEvents: 'none',
+          }}
+        />
 
+        {/* Vial */}
+        <img
+          src="/b9f0e9393dc291355495125a98e814a8 1.png"
+          alt=""
+          style={{
+            position: 'absolute',
+            left: '55vw',
+            top: '28vw',
+            width: '9vw',
+            height: 'auto',
+            transform: 'rotate(-0.19deg)',
+            pointerEvents: 'none',
+          }}
+        />
+
+        {/* Wine detail table card */}
         <div style={{
           position: 'absolute',
           left: '55.67vw',
-          top: '22.86vw',
+          top: '13vw',
           width: '30.03vw',
           backgroundColor: 'var(--yellow)',
           paddingTop: '1.27vw',
@@ -245,8 +314,6 @@ export default function WinePageClient() {
                 </span>
               </div>
             ))}
-            <div style={{ height: '7vw' }} />
-            <div style={{ height: '1.5px', backgroundColor: 'var(--blue)' }} />
           </div>
         </div>
       </section>
@@ -361,66 +428,6 @@ export default function WinePageClient() {
               lineHeight: 1.29,
               letterSpacing: '0.23px',
             }}>{t}</p>
-          ))}
-        </div>
-      </section>
-
-      {marqueeStrip('var(--blue)', 'BOX')}
-
-      <section style={{
-        backgroundColor: 'var(--red)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        paddingTop: 'clamp(2rem, 3vw, 52px)',
-        paddingBottom: 'clamp(4rem, 7vw, 120px)',
-      }}>
-        {sectionHeading('In the Box', 'PRODUCT', 'PRODUCT')}
-        <div style={{ width: '100%', display: 'flex', padding: '0 clamp(7px, 0.81vw, 14px)' }}>
-          {[
-            { img: '/bottle-box-1.png', name: 'Amphora Aged Grenache', qty: '1 bottle · 75cl',      desc: 'The centrepiece. Gris de grenache, 2023 vintage. Copper-coloured, textured, alive.' },
-            { img: '/bottle-box-2.png', name: 'Estate Rosé',           qty: '2 bottles · 75cl each', desc: 'Made from the same vines, same harvest. A paler, more delicate expression of the same fruit.' },
-            { img: '/bottle-box-3.png', name: 'Estate Olive Oil',       qty: '1 vial · 100ml',        desc: 'Cold-pressed from olive trees that share the same soil as the vines. A companion to the wine.' },
-          ].map((item, i) => (
-            <div key={item.name} style={{ flex: 1, display: 'flex', flexDirection: 'column', marginLeft: i > 0 ? '-2.22px' : 0 }}>
-              <div style={{
-                border: '2.22px solid #00006A',
-                borderRadius: 'clamp(100px, 16.44vw, 284px) clamp(100px, 16.44vw, 284px) 0 0',
-                backgroundColor: 'var(--red)',
-                overflow: 'hidden',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'flex-end',
-                paddingBottom: 'clamp(12px, 2.03vw, 35px)',
-                aspectRatio: '568 / 715',
-              }}>
-                <img src={item.img} alt={item.name} style={{ width: '37%', height: 'auto', display: 'block' }} />
-              </div>
-              <div style={{
-                flex: 1,
-                backgroundColor: 'var(--yellow)',
-                border: '2.22px solid #00006A',
-                marginTop: '-2.22px',
-                padding: 'clamp(14px, 1.79vw, 31px)',
-                paddingBottom: 'clamp(20px, 2.5vw, 43px)',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                minHeight: 'clamp(120px, 16vw, 276px)',
-              }}>
-                <div>
-                  <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: 'clamp(11px, 1.33vw, 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0, textTransform: 'uppercase' }}>
-                    {item.name}
-                  </p>
-                  <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(11px, 1.33vw, 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0 }}>
-                    {item.desc}
-                  </p>
-                </div>
-                <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(11px, 1.33vw, 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0, textTransform: 'uppercase' }}>
-                  {item.qty}
-                </p>
-              </div>
-            </div>
           ))}
         </div>
       </section>
