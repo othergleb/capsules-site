@@ -127,11 +127,11 @@ function OriginMethodBoxMobile() {
   const HEADING: React.CSSProperties = {
     fontFamily: 'Vulf Sans, sans-serif',
     fontWeight: 900,
-    fontSize: '32px',
+    fontSize: '39.6px',
     color: 'transparent',
     WebkitTextStrokeWidth: '0.75px',
     WebkitTextStrokeColor: '#00006A',
-    letterSpacing: '1.28px',
+    letterSpacing: '1.2px',
     textAlign: 'center',
     margin: '25px 0 18px',
   }
