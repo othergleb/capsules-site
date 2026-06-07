@@ -180,6 +180,7 @@ export default function WinePageClient() {
         backgroundColor: 'var(--red)',
         position: 'relative',
         paddingTop: 'clamp(calc(4rem - 35px), calc(16.5vh - 35px), calc(12rem - 35px))',
+        paddingBottom: 'clamp(16px, 1.5vw, 27px)',
         minHeight: '100svh',
         display: 'flex',
         flexDirection: 'column',
@@ -197,7 +198,7 @@ export default function WinePageClient() {
                 justifyContent: 'center',
                 alignItems: 'flex-end',
                 paddingBottom: 'clamp(12px, 2.03vw, 35px)',
-                height: 'clamp(220px, max(calc(42vw - 60px), calc(50vh - 60px)), 660px)',
+                height: 'clamp(280px, max(42vw, 50vh), 720px)',
               }}>
                 {i === 3 ? (
                   <div style={{ width: '75%', border: '14px solid #fffff5', display: 'block', overflow: 'hidden' }}>
@@ -208,7 +209,6 @@ export default function WinePageClient() {
                 )}
               </div>
               <div style={{
-                flex: 1,
                 backgroundColor: 'var(--yellow)',
                 border: '2.22px solid #00006A',
                 marginTop: '-2.22px',
@@ -217,7 +217,7 @@ export default function WinePageClient() {
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                minHeight: 'clamp(120px, 16vw, 276px)',
+                height: 'clamp(120px, 12.5vw, 216px)',
               }}>
                 <div>
                   <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: 'clamp(13px, 1.33vw, 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0, textTransform: 'uppercase' }}>
