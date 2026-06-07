@@ -179,7 +179,7 @@ function OriginMethodBoxMobile() {
         <div style={{
           position: 'absolute',
           left: 'calc(-3.05vw - 75px)',
-          top: '9px',
+          top: '-21px',
           width: '107.6vw',
           height: '141vw',
           display: 'flex',
