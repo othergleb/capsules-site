@@ -140,7 +140,7 @@ const sideLabel: React.CSSProperties = {
   transform: 'translateY(-50%)',
   fontFamily: 'Vulf Sans, sans-serif',
   fontWeight: 300,
-  fontSize: 'clamp(10px, 1.45vw, 25px)',
+  fontSize: 'clamp(14px, 1.45vw, 25px)',
   color: 'var(--yellow)',
   textTransform: 'uppercase',
   letterSpacing: '-0.03em',
@@ -150,7 +150,7 @@ const sideLabel: React.CSSProperties = {
 const sectionHeading = (text: string, leftLabel: string, rightLabel: string) => (
   <div style={{ position: 'relative', width: '100%', textAlign: 'center', marginBottom: 'clamp(1.5rem, 2.5vw, 43px)' }}>
     <span style={{ ...sideLabel, left: 'clamp(1rem, 3.47vw, 60px)' }}>{leftLabel}</span>
-    <h2 className="capsules-wordmark" style={{ fontSize: 'clamp(2.5rem, 5.53vw, 95px)', fontWeight: 900, letterSpacing: '0.02em' }}>
+    <h2 className="capsules-wordmark" style={{ fontSize: 'clamp(3.5rem, 5.53vw, 95px)', fontWeight: 900, letterSpacing: '0.02em' }}>
       {text}
     </h2>
     <span style={{ ...sideLabel, right: 'clamp(1rem, 3.47vw, 60px)' }}>{rightLabel}</span>
@@ -179,7 +179,7 @@ export default function WinePageClient() {
       <section style={{
         backgroundColor: 'var(--red)',
         position: 'relative',
-        paddingTop: 'clamp(3rem, 15vh, 12rem)',
+        paddingTop: 'clamp(5rem, 18vh, 12rem)',
         minHeight: '100svh',
         display: 'flex',
         flexDirection: 'column',
@@ -199,7 +199,7 @@ export default function WinePageClient() {
                 paddingBottom: 'clamp(12px, 2.03vw, 35px)',
                 aspectRatio: '568 / 715',
               }}>
-                <img src={item.img} alt={item.name} style={{ width: '37%', height: 'auto', display: 'block' }} />
+                <img src={item.img} alt={item.name} style={{ width: '43%', height: 'auto', display: 'block' }} />
               </div>
               <div style={{
                 flex: 1,
@@ -214,14 +214,14 @@ export default function WinePageClient() {
                 minHeight: 'clamp(120px, 16vw, 276px)',
               }}>
                 <div>
-                  <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: 'clamp(11px, 1.33vw, 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0, textTransform: 'uppercase' }}>
+                  <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: 'clamp(13px, 1.33vw, 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0, textTransform: 'uppercase' }}>
                     {item.name}
                   </p>
-                  <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(11px, 1.33vw, 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0 }}>
+                  <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(13px, 1.33vw, 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0 }}>
                     {item.desc}
                   </p>
                 </div>
-                <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(11px, 1.33vw, 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0, textTransform: 'uppercase' }}>
+                <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(13px, 1.33vw, 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0, textTransform: 'uppercase' }}>
                   {item.qty}
                 </p>
               </div>
