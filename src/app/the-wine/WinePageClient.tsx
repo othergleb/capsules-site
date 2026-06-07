@@ -185,7 +185,7 @@ export default function WinePageClient() {
         flexDirection: 'column',
       }}>
         {sectionHeading('In the Capsule', 'PRODUCT', 'PRODUCT')}
-        <div style={{ width: '100%', display: 'flex', padding: '0 clamp(7px, 0.81vw, 14px)', flex: 1 }}>
+        <div style={{ width: '100%', display: 'flex', padding: '0 clamp(7px, 0.81vw, 14px)', marginTop: 'auto' }}>
           {PRODUCTS.map((item, i) => (
             <div key={item.name} style={{ flex: 1, display: 'flex', flexDirection: 'column', marginLeft: i > 0 ? '-2.22px' : 0 }}>
               <div style={{
@@ -197,11 +197,12 @@ export default function WinePageClient() {
                 justifyContent: 'center',
                 alignItems: 'flex-end',
                 paddingBottom: 'clamp(12px, 2.03vw, 35px)',
-                flex: 1,
+                aspectRatio: '568 / 715',
               }}>
                 <img src={item.img} alt={item.name} style={{ width: '37%', height: 'auto', display: 'block' }} />
               </div>
               <div style={{
+                flex: 1,
                 backgroundColor: 'var(--yellow)',
                 border: '2.22px solid #00006A',
                 marginTop: '-2.22px',
