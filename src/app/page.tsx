@@ -149,7 +149,7 @@ function HomeMobile() {
   async function handleShare() {
     const siteUrl = window.location.origin
     const url = inviteCode ? `${siteUrl}/?ref=${inviteCode}` : siteUrl
-    const shareData = { title: 'Other Wine — Capsule 01', text: `I've registered for Other Wine's first capsule drop. Join the list:\n${url}` }
+    const shareData = { title: 'Other Wine — Capsule 01', text: `OTHER are dropping a limited edition rosé, grown by Berber farmers in Morocco. I'm interested, are you?\n${url}` }
     if (navigator.share) {
       try { await navigator.share(shareData) } catch { /* dismissed */ }
     } else {
@@ -264,9 +264,10 @@ function HomeMobile() {
         </h1>
 
         {/* Form steps — directly on yellow */}
+        <div style={{ width: '100%', position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '330px' }}>
         {dismissed ? (
 
-          <div style={{ width: '100%', position: 'relative', zIndex: 1 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
             <div style={{ textAlign: 'center', maxWidth: '85%', margin: '0 auto 24px' }}>
               <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00', textTransform: 'uppercase', marginBottom: '1.75em' }}>
                 You&apos;ve registered.
@@ -275,7 +276,7 @@ function HomeMobile() {
                 Purchase link drops on 23 June, keep an eye on your emails.
               </p>
             </div>
-            <div style={{ padding: '0 14px', marginTop: '40px' }}>
+            <div style={{ padding: '0 14px', marginTop: 'auto' }}>
               <a href="/the-wine" style={{
                 display: 'block',
                 width: '100%',
@@ -300,7 +301,7 @@ function HomeMobile() {
         ) : formStep === 'invite' ? (
 
           /* Screen 2: share */
-          <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease', width: '100%', position: 'relative', zIndex: 1 }}>
+          <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease', display: 'flex', flexDirection: 'column', flex: 1 }}>
             <div style={{ textAlign: 'center', maxWidth: '85%', margin: '0 auto 24px' }}>
               <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00', textTransform: 'uppercase', marginBottom: '1.75em' }}>
                 CONFIRM EARLY BIRD ACCESS
@@ -309,7 +310,7 @@ function HomeMobile() {
                 Successfully refer one friend and get access to Capsule 01 early.
               </p>
             </div>
-            <div style={{ padding: '0 14px' }}>
+            <div style={{ padding: '0 14px', marginTop: 'auto' }}>
               <button
                 onClick={shared ? () => setDismissed(true) : handleShare}
                 style={{ display: 'block', width: '100%', height: '45px', backgroundColor: '#00006A', color: '#EDFF00', border: 'none', borderRadius: '999px', ...FONT, fontWeight: 300, fontSize: '16px', letterSpacing: '-0.48px', textTransform: 'uppercase', cursor: 'pointer', marginBottom: '12px' }}
@@ -328,7 +329,7 @@ function HomeMobile() {
         ) : (
 
           /* Screen 1: email */
-          <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease', width: '100%', position: 'relative', zIndex: 1 }}>
+          <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease', display: 'flex', flexDirection: 'column', flex: 1 }}>
             <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, letterSpacing: '0.16px', color: '#FF3C00', textAlign: 'center', maxWidth: '320px', margin: '-32px auto 48px' }}>
               We&apos;ve been given access to the last remaining bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco — a ros&eacute; so pale it enters a new classification.
             </p>
@@ -351,7 +352,7 @@ function HomeMobile() {
               </div>
             </div>
 
-            <form onSubmit={advanceToInvite} style={{ padding: '0 14px' }}>
+            <form onSubmit={advanceToInvite} style={{ padding: '0 14px', marginTop: 'auto' }}>
               <div style={{ border: '0.633px solid #00006A', height: '32px', display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
                 <input
                   type="email"
@@ -370,6 +371,7 @@ function HomeMobile() {
           </div>
 
         )}
+        </div>
 
 
         {/* Bottles — two-div bounding-box pattern from Figma (outer = bbox, inner = transform, img = natural size) */}
@@ -470,7 +472,7 @@ function HomeInner() {
     const url = inviteCode ? `${siteUrl}/?ref=${inviteCode}` : siteUrl
     const shareData = {
       title: 'Other Wine — Capsule 01',
-      text:  `I've registered for Other Wine's first capsule drop. Join the list:\n${url}`,
+      text:  `OTHER are dropping a limited edition rosé, grown by Berber farmers in Morocco. I'm interested, are you?\n${url}`,
     }
     if (navigator.share) {
       try { await navigator.share(shareData) } catch { /* dismissed */ }
@@ -624,8 +626,9 @@ function HomeInner() {
         </h1>
 
         {/* Form — directly on yellow */}
+        <div style={{ maxWidth: 'clamp(340px, 36vw, 622px)', width: '100%', position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '420px' }}>
         {dismissed ? (
-          <div style={{ maxWidth: 'clamp(340px, 36vw, 622px)', width: '100%', position: 'relative', zIndex: 1 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
             <div style={{ textAlign: 'center', maxWidth: '85%', margin: '0 auto clamp(0.75rem, 1.5vw, 26px)' }}>
               <p style={{
                 fontFamily: 'Vulf Sans, sans-serif',
@@ -650,7 +653,7 @@ function HomeInner() {
                 Purchase link drops on 23 June, keep an eye on your emails.
               </p>
             </div>
-            <div style={{ padding: '0 8.5%', marginTop: '40px' }}>
+            <div style={{ padding: '0 8.5%', marginTop: 'auto' }}>
               <a href="/the-wine" style={{
                 display: 'block',
                 width: '100%',
@@ -671,13 +674,10 @@ function HomeInner() {
               }}>What&apos;s in the Capsule</a>
             </div>
           </div>
-        ) : (
-          <div style={{ maxWidth: 'clamp(340px, 36vw, 622px)', width: '100%', position: 'relative', zIndex: 1 }}>
-
-            {formStep === 'invite' ? (
+        ) : formStep === 'invite' ? (
 
               /* Screen 2: share */
-              <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease' }}>
+              <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease', display: 'flex', flexDirection: 'column', flex: 1 }}>
                 <div style={{ textAlign: 'center', maxWidth: '85%', margin: '0 auto clamp(0.75rem, 1.5vw, 26px)' }}>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
@@ -702,7 +702,7 @@ function HomeInner() {
                     Successfully refer one friend and get access to Capsule 01 early.
                   </p>
                 </div>
-                <div style={{ padding: '0 8.5%', marginTop: 'clamp(4rem, 8vw, 130px)' }}>
+                <div style={{ padding: '0 8.5%', marginTop: 'auto' }}>
                   <button
                     onClick={shared ? () => setDismissed(true) : handleShare}
                     style={{
@@ -751,7 +751,7 @@ function HomeInner() {
             ) : (
 
               /* Screen 1: email */
-              <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease' }}>
+              <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease', display: 'flex', flexDirection: 'column', flex: 1 }}>
                 <div style={{ textAlign: 'center', marginBottom: 'clamp(0.75rem, 1.5vw, 26px)' }}>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
@@ -800,7 +800,7 @@ function HomeInner() {
                   </div>
                 </div>
 
-                <form onSubmit={advanceToInvite} style={{ padding: '0 8.5%' }}>
+                <form onSubmit={advanceToInvite} style={{ padding: '0 8.5%', marginTop: 'auto' }}>
                   <div style={{
                     border: '1px solid #00006A',
                     height: 'clamp(44px, 2.95vw, 51px)',
@@ -857,9 +857,8 @@ function HomeInner() {
                   </button>
                 </form>
               </div>
-            )}
-          </div>
         )}
+        </div>
 
         {/* Left large bottle — cam 1: 658×878, rotate(10.247deg) */}
         <img src={CAM1} alt="" style={{
