@@ -286,7 +286,7 @@ function HomeMobile() {
                 GET ACCESS EARLY
               </p>
               <p style={{ ...FONT, fontWeight: 300, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00' }}>
-                Successfully refer one friend to join Capsule 01 and get access one hour early.
+                Successfully refer one friend and get access to Capsule 01 early.
               </p>
             </div>
             <div style={{ padding: '0 14px' }}>
@@ -666,7 +666,7 @@ function HomeInner() {
                     letterSpacing: '0.23px',
                     color: '#FF3C00',
                   }}>
-                    Successfully refer one friend to join Capsule 01 and get access one hour early.
+                    Successfully refer one friend and get access to Capsule 01 early.
                   </p>
                 </div>
                 <div style={{ padding: '0 8.5%', marginTop: 'clamp(4rem, 8vw, 130px)' }}>
