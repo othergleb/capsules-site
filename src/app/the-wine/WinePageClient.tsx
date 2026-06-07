@@ -257,7 +257,8 @@ export default function WinePageClient() {
         <div style={{
           position: 'absolute',
           left: '55.67vw',
-          top: 'calc(13vw + 30px)',
+          top: '50%',
+          transform: 'translateY(-50%)',
           width: '30.03vw',
           backgroundColor: 'var(--yellow)',
           paddingTop: '1.27vw',
