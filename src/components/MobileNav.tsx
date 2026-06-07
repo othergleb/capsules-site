@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation'
 
 const PAGES = [
   { label: 'IN THE BOX',           href: '/the-wine'           },
-  { label: 'ORIGIN, METHOD, BOX', href: '/origin-method-box'  },
+  { label: 'THE WINE',            href: '/origin-method-box'  },
   { label: 'HOW IT WORKS',        href: '/how-it-works'       },
 ]
 
