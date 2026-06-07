@@ -17,7 +17,7 @@ const DETAILS = [
 const PRODUCTS = [
   { img: '/bottle-box-1.png', name: 'Amphora Aged Grenache', qty: '1 bottle · 75cl',       desc: 'The centrepiece. Gris de grenache, 2023 vintage. Copper-coloured, textured, alive.' },
   { img: '/bottle-box-2.png', name: 'Estate Rosé',           qty: '2 bottles · 75cl each', desc: 'Made from the same vines, same harvest. A paler, more delicate expression of the same fruit.' },
-  { img: '/b9f0e9393dc291355495125a98e814a8 1.png', name: 'Estate Olive Oil', qty: '1 vial · 100ml', desc: 'Cold-pressed from olive trees that share the same soil as the vines. A companion to the wine.' },
+  { img: '/c1ea69027894b2a6f3f51b7e04a8c08c0986dd71.png', name: 'Estate Olive Oil', qty: '1 vial · 100ml', desc: 'Cold-pressed from olive trees that share the same soil as the vines. A companion to the wine.' },
   { img: '/poster-artwork.png', name: 'Illustration',         qty: '1 poster · 100 × 70cm', desc: 'A photographic print from the estate by Mehdi Amini.' },
 ]
 
@@ -190,7 +190,7 @@ export default function WinePageClient() {
           {PRODUCTS.map((item, i) => (
             <div key={item.name} style={{ flex: 1, display: 'flex', flexDirection: 'column', marginLeft: i > 0 ? '-2.22px' : 0 }}>
               <div style={{
-                border: '2.22px solid #00006A',
+                position: 'relative',
                 borderRadius: 'clamp(100px, 16.44vw, 284px) clamp(100px, 16.44vw, 284px) 0 0',
                 backgroundColor: 'var(--red)',
                 overflow: 'visible',
@@ -198,14 +198,26 @@ export default function WinePageClient() {
                 justifyContent: 'center',
                 alignItems: 'flex-end',
                 paddingBottom: 'clamp(12px, 2.03vw, 35px)',
-                height: 'clamp(260px, max(calc(42vw - 25px), calc(50vh - 25px)), 695px)',
+                height: 'clamp(240px, max(calc(42vw - 45px), calc(50vh - 45px)), 675px)',
               }}>
+                <div style={{ position: 'absolute', inset: 0, border: '2.22px solid #00006A', borderRadius: 'clamp(100px, 16.44vw, 284px) clamp(100px, 16.44vw, 284px) 0 0', pointerEvents: 'none', zIndex: 10 }} />
                 {i === 3 ? (
                   <div style={{ width: '75%', border: '14px solid #fffff5', display: 'block', overflow: 'hidden', marginBottom: '20px' }}>
                     <img src={item.img} alt={item.name} style={{ width: '100%', height: 'auto', display: 'block' }} />
                   </div>
+                ) : i === 2 ? (
+                  <div style={{
+                    position: 'absolute',
+                    left: '50%',
+                    bottom: 'calc(clamp(12px, 2.03vw, 35px) + 20px)',
+                    transform: 'translateX(-50%) rotate(0.19deg)',
+                    width: 'clamp(80px, 9.03vw, 156px)',
+                    height: 'clamp(150px, 17.01vw, 294px)',
+                  }}>
+                    <img src={item.img} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', pointerEvents: 'none', transform: 'none' }} />
+                  </div>
                 ) : (
-                  <img src={item.img} alt={item.name} style={{ width: '46%', height: 'auto', display: 'block', transform: i === 2 ? 'rotate(0deg)' : 'none' }} />
+                  <img src={item.img} alt={item.name} style={{ width: '46%', height: 'auto', display: 'block' }} />
                 )}
               </div>
               <div style={{
@@ -213,11 +225,11 @@ export default function WinePageClient() {
                 border: '2.22px solid #00006A',
                 marginTop: '-2.22px',
                 padding: 'clamp(14px, 1.79vw, 31px)',
-                paddingBottom: 'clamp(20px, 2.5vw, 43px)',
+                paddingBottom: 'clamp(28px, 3.2vw, 55px)',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                height: 'clamp(120px, 12.5vw, 216px)',
+                height: 'clamp(125px, 13vw, 225px)',
               }}>
                 <div>
                   <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: 'clamp(13px, 1.33vw, 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0, textTransform: 'uppercase' }}>
@@ -325,8 +337,8 @@ export default function WinePageClient() {
       }}>
         <div style={{
           width: '100%',
-          aspectRatio: '857 / 482',
-          borderRadius: '486.5px',
+          height: 'clamp(300px, calc(100svh - 110px), 820px)',
+          borderRadius: '9999px',
           overflow: 'hidden',
           border: '2.22px solid #EDFF00',
           position: 'relative',
@@ -342,7 +354,7 @@ export default function WinePageClient() {
           <div style={{
             position: 'absolute',
             inset: 0,
-            borderRadius: '486.5px',
+            borderRadius: '9999px',
             boxShadow: '15px 4px 15px 0 rgba(0,0,0,0.42) inset',
             pointerEvents: 'none',
           }} />
@@ -382,8 +394,8 @@ export default function WinePageClient() {
       }}>
         <div style={{
           width: '100%',
-          aspectRatio: '857 / 482',
-          borderRadius: '486.5px',
+          height: 'clamp(300px, calc(100svh - 110px), 820px)',
+          borderRadius: '9999px',
           overflow: 'hidden',
           border: '2.22px solid #EDFF00',
           position: 'relative',
@@ -399,7 +411,7 @@ export default function WinePageClient() {
           <div style={{
             position: 'absolute',
             inset: 0,
-            borderRadius: '486.5px',
+            borderRadius: '9999px',
             boxShadow: '15px 4px 15px 0 rgba(0,0,0,0.42) inset',
             pointerEvents: 'none',
           }} />
