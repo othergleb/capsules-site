@@ -179,7 +179,7 @@ export default function WinePageClient() {
       <section style={{
         backgroundColor: 'var(--red)',
         position: 'relative',
-        paddingTop: 'clamp(5rem, 18vh, 12rem)',
+        paddingTop: 'clamp(4rem, 16.5vh, 12rem)',
         minHeight: '100svh',
         display: 'flex',
         flexDirection: 'column',
@@ -197,7 +197,7 @@ export default function WinePageClient() {
                 justifyContent: 'center',
                 alignItems: 'flex-end',
                 paddingBottom: 'clamp(12px, 2.03vw, 35px)',
-                aspectRatio: '568 / 715',
+                aspectRatio: '568 / 800',
               }}>
                 <img src={item.img} alt={item.name} style={{ width: '43%', height: 'auto', display: 'block' }} />
               </div>
