@@ -85,7 +85,8 @@ function WinePageMobile() {
       {/* "In the box" heading */}
       <h2 className="capsules-wordmark" style={{
         fontSize: '32px',
-        fontWeight: 900,
+        fontWeight: 800,
+        lineHeight: 1,
         letterSpacing: '1.28px',
         textAlign: 'center',
         margin: '0 0 14px',
