@@ -171,18 +171,9 @@ function OriginMethodBoxMobile() {
         overflow: 'hidden',
       }}>
         {/* Red OTHER logo — large, bleeds top-left */}
-        <img
-          src="/figma/other-logo-red.png"
-          alt="OTHER"
-          style={{
-            position: 'absolute',
-            left: '-22.4vw',
-            top: '-60.3vw',
-            width: '144.8vw',
-            height: '144.8vw',
-            pointerEvents: 'none',
-          }}
-        />
+        <div style={{ position: 'absolute', left: '-23.15vw', top: '-60.3vw', width: '144.8vw', height: '144.8vw', pointerEvents: 'none', zIndex: 0 }}>
+          <img src="/figma/other-logo-red.png" alt="" style={{ width: '100%', height: '100%' }} />
+        </div>
 
         {/* Cam 3 bottle — flipped vertically, rotated */}
         <div style={{
