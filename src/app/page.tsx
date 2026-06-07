@@ -17,7 +17,7 @@ const CAM3          = '/cam 3.png'
 const OTHER_VIDEO       = '/other-logo-cropped.mp4'
 const OTHER_VIDEO_6K    = '/other-logo-cropped-6k.mp4'
 const FARMER_LEFT       = '/Homepage_OTHER_VIDEO_02_web.mp4'
-const FARMER_RIGHT      = '/farmer-right.mp4'
+const FARMER_RIGHT      = '/Homepage_OTHER_VIDEO_08_web.mp4'
 
 function OtherLogoVideo({ src = OTHER_VIDEO }: { src?: string }) {
   const videoRef = useRef<HTMLVideoElement>(null)
