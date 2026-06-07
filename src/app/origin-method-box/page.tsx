@@ -178,7 +178,7 @@ function OriginMethodBoxMobile() {
         {/* Cam 3 bottle — flipped vertically, rotated */}
         <div style={{
           position: 'absolute',
-          left: 'calc(-3.05vw - 75px)',
+          left: 'calc(-3.05vw - 90px)',
           top: '-41px',
           width: '107.6vw',
           height: '141vw',
