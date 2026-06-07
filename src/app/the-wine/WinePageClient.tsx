@@ -61,7 +61,7 @@ function WinePageMobile() {
     border: '1px solid #00006A',
     marginTop: '-1px',
     padding: '10px 8px 8px',
-    minHeight: '29vw',
+    minHeight: 'calc(29vw - 28px)',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
