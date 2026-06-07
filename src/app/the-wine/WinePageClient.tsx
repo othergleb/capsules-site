@@ -86,7 +86,7 @@ function WinePageMobile() {
       <h2 style={{
         fontFamily: 'Vulf Sans, sans-serif',
         fontWeight: 900,
-        fontSize: '30px',
+        fontSize: '33px',
         color: 'transparent',
         WebkitTextStrokeWidth: '0.75px',
         WebkitTextStrokeColor: '#00006A',
