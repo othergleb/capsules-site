@@ -180,9 +180,12 @@ export default function WinePageClient() {
         backgroundColor: 'var(--red)',
         position: 'relative',
         paddingTop: 'clamp(2rem, 3vw, 52px)',
+        minHeight: '100svh',
+        display: 'flex',
+        flexDirection: 'column',
       }}>
         {sectionHeading('In the Capsule', 'PRODUCT', 'PRODUCT')}
-        <div style={{ width: '100%', display: 'flex', padding: '0 clamp(7px, 0.81vw, 14px)' }}>
+        <div style={{ width: '100%', display: 'flex', padding: '0 clamp(7px, 0.81vw, 14px)', flex: 1 }}>
           {PRODUCTS.map((item, i) => (
             <div key={item.name} style={{ flex: 1, display: 'flex', flexDirection: 'column', marginLeft: i > 0 ? '-2.22px' : 0 }}>
               <div style={{
@@ -194,12 +197,11 @@ export default function WinePageClient() {
                 justifyContent: 'center',
                 alignItems: 'flex-end',
                 paddingBottom: 'clamp(12px, 2.03vw, 35px)',
-                aspectRatio: '568 / 715',
+                flex: 1,
               }}>
                 <img src={item.img} alt={item.name} style={{ width: '37%', height: 'auto', display: 'block' }} />
               </div>
               <div style={{
-                flex: 1,
                 backgroundColor: 'var(--yellow)',
                 border: '2.22px solid #00006A',
                 marginTop: '-2.22px',
@@ -246,7 +248,7 @@ export default function WinePageClient() {
             left: '0',
             width: 'auto',
             height: '180svh',
-            transform: 'translate(clamp(-120px, calc(-9.7vw + 120px), -20px), calc(-40vh - 195px)) scaleX(-1) scaleY(-1) rotate(-135.51deg)',
+            transform: 'translate(calc(4vw - 120px), calc(-40vh - 195px)) scaleX(-1) scaleY(-1) rotate(-135.51deg)',
             transformOrigin: 'center center',
             pointerEvents: 'none',
           }}
