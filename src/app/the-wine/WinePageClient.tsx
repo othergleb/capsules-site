@@ -244,7 +244,7 @@ export default function WinePageClient() {
             position: 'absolute',
             left: 'calc(-9.7vw + 300px)',
             top: 'calc(-5vw - 300px)',
-            width: '45.5vw',
+            width: '65vw',
             height: 'auto',
             transform: 'scaleX(-1) scaleY(-1) rotate(-135.51deg)',
             transformOrigin: 'center center',
