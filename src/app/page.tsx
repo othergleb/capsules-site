@@ -265,14 +265,14 @@ function HomeMobile() {
         {/* Form steps — directly on yellow */}
         {dismissed ? (
 
-          <div style={{ padding: '0 14px', width: '100%', position: 'relative', zIndex: 1 }}>
-            <p style={{ ...FONT, fontWeight: 700, fontSize: '18px', letterSpacing: '-0.01em', lineHeight: 1.1, color: '#00006A', marginBottom: '12px', textTransform: 'uppercase' }}>
+          <div style={{ padding: '0 14px', width: '100%', position: 'relative', zIndex: 1, textAlign: 'center' }}>
+            <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', letterSpacing: '0.16px', lineHeight: 1.27, color: '#FF3C00', marginBottom: '12px' }}>
               You&apos;ve registered.
             </p>
-            <p style={{ ...FONT, fontWeight: 300, fontSize: '16px', lineHeight: 1.4, color: '#00006A', marginBottom: '1em' }}>
+            <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', letterSpacing: '0.16px', lineHeight: 1.27, color: '#FF3C00', marginBottom: '1em' }}>
               Purchase link drops on 23 June, keep an eye on your emails.
             </p>
-            <p style={{ ...FONT, fontWeight: 300, fontSize: '16px', lineHeight: 1.4, color: '#00006A' }}>
+            <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', letterSpacing: '0.16px', lineHeight: 1.27, color: '#FF3C00' }}>
               <a href="/the-wine" style={{ color: '#FF3C00', textDecoration: 'underline' }}>What&apos;s in the box</a>
             </p>
           </div>
@@ -605,35 +605,36 @@ function HomeInner() {
 
         {/* Form — directly on yellow */}
         {dismissed ? (
-          <div style={{ maxWidth: 'clamp(340px, 36vw, 622px)', width: '100%', position: 'relative', zIndex: 1 }}>
+          <div style={{ maxWidth: 'clamp(340px, 36vw, 622px)', width: '100%', position: 'relative', zIndex: 1, textAlign: 'center' }}>
             <p style={{
               fontFamily: 'Vulf Sans, sans-serif',
               fontWeight: 700,
-              fontSize: 'clamp(1rem, 1.45vw, 25px)',
-              color: '#00006A',
-              letterSpacing: '-0.01em',
-              lineHeight: 1.1,
+              fontSize: '16px',
+              color: '#FF3C00',
+              letterSpacing: '0.16px',
+              lineHeight: 1.27,
               marginBottom: 'clamp(0.5rem, 0.7vw, 12px)',
-              textTransform: 'uppercase',
             }}>
               You&apos;ve registered.
             </p>
             <p style={{
               fontFamily: 'Vulf Sans, sans-serif',
-              fontWeight: 300,
-              fontSize: 'clamp(0.85rem, 1.2vw, 21px)',
-              lineHeight: 1.4,
-              color: '#00006A',
+              fontWeight: 700,
+              fontSize: '16px',
+              lineHeight: 1.27,
+              letterSpacing: '0.16px',
+              color: '#FF3C00',
               marginBottom: '1em',
             }}>
               Purchase link drops on 23 June, keep an eye on your emails.
             </p>
             <p style={{
               fontFamily: 'Vulf Sans, sans-serif',
-              fontWeight: 300,
-              fontSize: 'clamp(0.85rem, 1.2vw, 21px)',
-              lineHeight: 1.4,
-              color: '#00006A',
+              fontWeight: 700,
+              fontSize: '16px',
+              lineHeight: 1.27,
+              letterSpacing: '0.16px',
+              color: '#FF3C00',
             }}>
               <a href="/the-wine" style={{ color: '#FF3C00', textDecoration: 'underline' }}>What&apos;s in the box</a>
             </p>
