@@ -1008,7 +1008,7 @@ function HomeInner() {
         {/* Left large bottle — cam 1: 658×878, rotate(10.247deg) */}
         <img src={CAM1} alt="" style={{
           position: 'absolute',
-          left: '-2vw',
+          left: 'calc(-2vw + 20px)',
           bottom: '0',
           width: 'clamp(165.6px, 33.12vw, 573.3px)',
           aspectRatio: '329 / 439',
