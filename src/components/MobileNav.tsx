@@ -49,18 +49,16 @@ export default function MobileNav({ bg = '#fffff5' }: { bg?: string }) {
       {/* Expanded menu panel */}
       {open && (
         <div style={{ backgroundColor: bg }}>
-          {!isHome && (
-            <div>
-              <Link
-                href="/"
-                onClick={() => setOpen(false)}
-                style={{ ...NAV_TEXT, display: 'block', textAlign: 'center', padding: '5px 24px', textDecoration: 'none' }}
-              >
-                HOME
-              </Link>
-              <div style={{ height: '1px', backgroundColor: '#00006a', margin: '0 24px' }} />
-            </div>
-          )}
+          <div>
+            <Link
+              href="/"
+              onClick={() => setOpen(false)}
+              style={{ ...NAV_TEXT, display: 'block', textAlign: 'center', padding: '5px 24px', textDecoration: 'none', fontWeight: isHome ? 700 : 300 }}
+            >
+              HOME
+            </Link>
+            <div style={{ height: '1px', backgroundColor: '#00006a', margin: '0 24px' }} />
+          </div>
           {PAGES.map((page, i) => (
             <div key={page.href}>
               {i > 0 && (
