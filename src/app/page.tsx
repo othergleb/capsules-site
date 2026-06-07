@@ -434,7 +434,7 @@ function HomeMobile() {
 
         {/* cam 2 — bbox 473.191×588.029 at (-48.54, 510.87) */}
         <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'-29.54px', top:'550.87px', width:'473.191px', height:'588.029px', pointerEvents:'none', userSelect:'none', zIndex:1 }}>
-          <div style={{ transform:'rotate(-8deg)', flexShrink:0 }}>
+          <div style={{ transform:'rotate(-4deg)', flexShrink:0 }}>
             <img src={CAM2} alt="" style={{ width:'556.517px', height:'742.022px', objectFit:'cover', display:'block' }} />
           </div>
         </div>
