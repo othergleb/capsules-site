@@ -135,7 +135,7 @@ function WinePageMobile() {
         ))}
       </div>
 
-      <div style={{ height: '9px', flexShrink: 0 }} />
+      <div style={{ height: 'calc(41px + env(safe-area-inset-bottom, 0px) + 24px)', flexShrink: 0 }} />
       <MobileNav bg="#fffff5" />
     </div>
   )
