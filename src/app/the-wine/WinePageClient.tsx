@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useEffect, useState } from 'react'
+import Link from 'next/link'
 import Nav from '@/components/Nav'
 import MobileNav from '@/components/MobileNav'
 import { useIsMobile } from '@/hooks/useIsMobile'
@@ -73,14 +74,14 @@ function WinePageMobile() {
     <div style={{ backgroundColor: '#FF3C00', minHeight: '100svh', display: 'flex', flexDirection: 'column', paddingTop: 'calc(env(safe-area-inset-top, 0px) + 7px)' }}>
 
       {/* OTHER animated logo — same size as homepage mobile */}
-      <div style={{ width: 'min(104.1vw, calc(38dvh * 469 / 103))', alignSelf: 'center', flexShrink: 0 }}>
+      <Link href="/" style={{ width: 'min(104.1vw, calc(38dvh * 469 / 103))', alignSelf: 'center', flexShrink: 0, display: 'block' }}>
         {showGif
           ? <img src="/other-logo.gif" alt="OTHER" style={{ width: '100%', display: 'block' }} />
           : <video ref={videoRef} autoPlay loop muted playsInline preload="auto" style={{ width: '100%', display: 'block' }}>
               <source src="/other-logo-cropped.mp4" type="video/mp4" />
             </video>
         }
-      </div>
+      </Link>
 
       {/* "In the box" heading */}
       <h2 style={{

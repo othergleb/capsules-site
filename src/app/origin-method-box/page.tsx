@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useEffect, useState } from 'react'
+import Link from 'next/link'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import { useIsMobile } from '@/hooks/useIsMobile'
@@ -20,14 +21,14 @@ function OtherLogoVideo() {
   }, [])
 
   return (
-    <div style={{ width: '100%', flexShrink: 0 }}>
+    <Link href="/" style={{ width: '100%', flexShrink: 0, display: 'block' }}>
       {showGif
         ? <img src="/other-logo.gif" alt="OTHER" style={{ width: '100%', display: 'block' }} />
         : <video ref={videoRef} autoPlay loop muted playsInline preload="auto" style={{ width: '100%', display: 'block' }}>
             <source src="/other-logo-cropped.mp4" type="video/mp4" />
           </video>
       }
-    </div>
+    </Link>
   )
 }
 
@@ -171,9 +172,9 @@ function OriginMethodBoxMobile() {
         overflow: 'hidden',
       }}>
         {/* Red OTHER logo — large, bleeds top-left */}
-        <div style={{ position: 'absolute', left: '-23.15vw', top: '-60.3vw', width: '144.8vw', height: '144.8vw', pointerEvents: 'none', zIndex: 0 }}>
+        <Link href="/" style={{ position: 'absolute', left: '-23.15vw', top: '-60.3vw', width: '144.8vw', height: '144.8vw', zIndex: 1, display: 'block' }}>
           <img src="/figma/other-logo-red.png" alt="" style={{ width: '100%', height: '100%' }} />
-        </div>
+        </Link>
 
         {/* Cam 3 bottle — flipped vertically, rotated */}
         <div style={{

@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
+import Link from 'next/link'
 import Nav from '@/components/Nav'
 import MobileNav from '@/components/MobileNav'
 import { useIsMobile } from '@/hooks/useIsMobile'
@@ -33,14 +34,14 @@ function OtherLogoVideo({ src = OTHER_VIDEO }: { src?: string }) {
   }, [])
 
   return (
-    <div style={{ width: 'min(104.1vw, calc(38dvh * 469 / 103))', alignSelf: 'center', flexShrink: 0 }}>
+    <Link href="/" style={{ width: 'min(104.1vw, calc(38dvh * 469 / 103))', alignSelf: 'center', flexShrink: 0, display: 'block' }}>
       {showGif
         ? <img src="/other-logo.gif" alt="OTHER" style={{ width: '100%', display: 'block' }} />
         : <video ref={videoRef} autoPlay loop muted playsInline preload="auto" style={{ width: '100%', display: 'block' }}>
             <source src={src} type="video/mp4" />
           </video>
       }
-    </div>
+    </Link>
   )
 }
 
