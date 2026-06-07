@@ -275,7 +275,7 @@ function HomeMobile() {
                 Purchase link drops on 23 June, keep an eye on your emails.
               </p>
             </div>
-            <div style={{ padding: '0 14px' }}>
+            <div style={{ padding: '0 14px', marginTop: '40px' }}>
               <a href="/the-wine" style={{
                 display: 'block',
                 width: '100%',
@@ -650,7 +650,7 @@ function HomeInner() {
                 Purchase link drops on 23 June, keep an eye on your emails.
               </p>
             </div>
-            <div style={{ padding: '0 8.5%' }}>
+            <div style={{ padding: '0 8.5%', marginTop: '40px' }}>
               <a href="/the-wine" style={{
                 display: 'block',
                 width: '100%',
