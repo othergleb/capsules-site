@@ -286,14 +286,14 @@ function HomeMobile() {
         <h1 style={{
           ...FONT,
           fontWeight: 300,
-          fontSize: '25px',
-          lineHeight: '24.677px',
+          fontSize: '30px',
+          lineHeight: '29px',
           letterSpacing: '0.5px',
           color: '#00006A',
           textAlign: 'center',
           textTransform: 'uppercase',
-          maxWidth: '365px',
-          margin: '12px auto 90px',
+          width: 'calc(100% - 20px)',
+          margin: '12px auto 70px',
         }}>
           Register for access:<br />23 June, 10am
         </h1>
@@ -311,7 +311,7 @@ function HomeMobile() {
                 Purchase link drops on 23 June, keep an eye on your emails.
               </p>
             </div>
-            <div style={{ padding: '0 14px', marginTop: 'auto' }}>
+            <div style={{ padding: '0 10px', marginTop: 'auto' }}>
               <a href="/the-wine" style={{
                 display: 'block',
                 width: '100%',
@@ -345,7 +345,7 @@ function HomeMobile() {
                 Successfully refer one friend and get access to Capsule 01 early.
               </p>
             </div>
-            <div style={{ padding: '0 14px', marginTop: 'auto' }}>
+            <div style={{ padding: '0 10px', marginTop: 'auto' }}>
               <button
                 onClick={shared ? () => setDismissed(true) : handleShare}
                 style={{ display: 'block', width: '100%', height: '45px', backgroundColor: '#00006A', color: '#EDFF00', border: 'none', borderRadius: '999px', ...FONT, fontWeight: 300, fontSize: '16px', letterSpacing: '-0.48px', textTransform: 'uppercase', cursor: 'pointer', marginBottom: '12px' }}
@@ -365,11 +365,11 @@ function HomeMobile() {
 
           /* Screen 1: email */
           <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease', display: 'flex', flexDirection: 'column', flex: 1 }}>
-            <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, letterSpacing: '0.16px', color: '#FF3C00', textAlign: 'center', maxWidth: '320px', margin: '-32px auto 48px' }}>
+            <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, letterSpacing: '0.16px', color: '#FF3C00', textAlign: 'center', width: 'calc(100% - 74px)', margin: '-32px auto 48px' }}>
               We&apos;ve been given access to the last remaining bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco — a ros&eacute; so pale it enters a new classification.
             </p>
 
-            <div style={{ padding: '0 14px 16px', marginTop: '-16px', marginBottom: '16px', width: '100%', boxSizing: 'border-box' }}>
+            <div style={{ padding: '0 10px 16px', marginTop: '-16px', marginBottom: '16px', width: '100%', boxSizing: 'border-box' }}>
               <p style={{ ...FONT, fontWeight: 400, fontSize: '12px', lineHeight: '17.738px', letterSpacing: '-0.12px', color: '#FF3C00', textAlign: 'center', marginTop: '10px', marginBottom: '7px', textTransform: 'uppercase' }}>
                 Inside Capsule 01 (£89)
               </p>
@@ -379,15 +379,15 @@ function HomeMobile() {
                   ['2 x Bottles', 'Estate Moroccan Rosé'],
                   ['1 x Vial',    'Award-winning Olive Oil'],
                 ] as [string, string][]).map(([qty, item]) => (
-                  <div key={qty} style={{ display: 'grid', gridTemplateColumns: '31% 1fr', alignItems: 'center', padding: '2px 0', borderBottom: '0.633px solid #FF3C00' }}>
-                    <span style={{ ...FONT, fontWeight: 300, fontSize: '12px', lineHeight: '17.738px', color: '#FF3C00', letterSpacing: '-0.12px', textTransform: 'uppercase', paddingLeft: '40px', whiteSpace: 'nowrap' }}>{qty}</span>
-                    <span style={{ ...FONT, fontWeight: 400, fontSize: '12px', lineHeight: '17.738px', color: '#FF3C00', letterSpacing: '-0.12px', textTransform: 'uppercase', textAlign: 'left', paddingLeft: '36px' }}>{item}</span>
+                  <div key={qty} style={{ display: 'grid', gridTemplateColumns: '38% 1fr', alignItems: 'center', padding: '2px 0', borderBottom: '0.633px solid #FF3C00' }}>
+                    <span style={{ ...FONT, fontWeight: 300, fontSize: '12px', lineHeight: '17.738px', color: '#FF3C00', letterSpacing: '-0.12px', textTransform: 'uppercase', paddingLeft: '14px', whiteSpace: 'nowrap' }}>{qty}</span>
+                    <span style={{ ...FONT, fontWeight: 400, fontSize: '12px', lineHeight: '17.738px', color: '#FF3C00', letterSpacing: '-0.12px', textTransform: 'uppercase', textAlign: 'left' }}>{item}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <form onSubmit={advanceToInvite} style={{ padding: '0 14px', marginTop: 'auto' }}>
+            <form onSubmit={advanceToInvite} style={{ padding: '0 10px', marginTop: 'auto' }}>
               <div style={{ border: '0.633px solid #00006A', height: '32px', display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
                 <input
                   type="email"
