@@ -193,11 +193,12 @@ function HomeMobile() {
 
       <section style={{
         backgroundColor: '#FF3C00',
-        minHeight: 'calc(100svh - 41px - env(safe-area-inset-bottom, 0px))',
+        height: 'calc(100svh - 41px - env(safe-area-inset-bottom, 0px))',
         display: 'flex',
         flexDirection: 'column',
         paddingTop: 'calc(env(safe-area-inset-top, 0px) + 7px)',
         position: 'relative',
+        overflow: 'hidden',
       }}>
 
         <OtherLogoVideo src={OTHER_VIDEO} />
