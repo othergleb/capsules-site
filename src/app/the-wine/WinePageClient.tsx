@@ -332,7 +332,7 @@ export default function WinePageClient() {
           alt=""
           style={{
             position: 'absolute',
-            top: '50%',
+            top: 'calc(50% - 10px)',
             left: 'calc(50% - 130px)',
             transform: 'translate(-50%, -50%) rotate(11deg)',
             width: 'auto',
