@@ -235,7 +235,7 @@ function HomeMobile() {
 
         <div style={{ padding: '0 12px 13px' }}>
           <div style={{ textAlign: 'center', marginBottom: '12px' }}>
-            <span style={{ ...FONT, fontWeight: 400, fontSize: '13px', letterSpacing: '0.39px', color: '#EDFF00', whiteSpace: 'nowrap' }}>
+            <span style={{ ...FONT, fontWeight: 400, fontSize: '17px', letterSpacing: '0.51px', color: '#EDFF00', whiteSpace: 'nowrap' }}>
               Limited Edition Capsules
             </span>
           </div>
