@@ -336,7 +336,7 @@ export default function WinePageClient() {
             left: '50%',
             transform: 'translate(-50%, -50%) rotate(10deg)',
             width: 'auto',
-            height: '99svh',
+            height: '119svh',
             pointerEvents: 'none',
           }}
         />
