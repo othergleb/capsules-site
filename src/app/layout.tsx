@@ -9,7 +9,6 @@ export const metadata: Metadata = {
   description: DESC,
   icons: { icon: '/FAVICON.png' },
   openGraph: {
-    title: '',
     description: DESC,
     url: 'https://capsules.otherwine.co.uk',
     type: 'website',
