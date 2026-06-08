@@ -278,11 +278,12 @@ export default function WinePageClient() {
                     position: 'absolute',
                     left: '50%',
                     bottom: 'calc(clamp(12px, 2.03vw, 35px) - 105px)',
-                    transform: 'translateX(-50%) rotate(0.19deg)',
+                    transform: 'translateX(-50%) rotate(0.19deg) scale(3)',
                     width: '80vw',
                     height: 'auto',
                     display: 'block',
                     pointerEvents: 'none',
+                    transformOrigin: 'center bottom',
                   }} />
                 ) : (
                   <img src={item.img} alt={item.name} style={{ width: i === 0 ? '56%' : '53%', height: 'auto', display: 'block', marginBottom: i === 0 ? '-23px' : undefined }} />
