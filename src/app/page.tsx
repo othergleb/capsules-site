@@ -149,7 +149,7 @@ function HomeMobile() {
   async function handleShare() {
     const siteUrl = window.location.origin
     const url = inviteCode ? `${siteUrl}/?ref=${inviteCode}` : siteUrl
-    const shareData = { title: 'Other Wine — Capsule 01', text: `Just registered for Capsule 01 by OTHER - 480 bottles of a Moroccan Berber-made amphora rosé, open to members only on 23 June. Here's my referral link: ${url}` }
+    const shareData = { text: `Just registered for Capsule 01 by OTHER - 480 bottles of a Moroccan amphora rosé, grown by Berber farmers. Open to members only on 23 June. Here's my referral link: ${url}` }
     if (navigator.share) {
       try { await navigator.share(shareData) } catch { /* dismissed */ }
     } else {
@@ -197,6 +197,15 @@ function HomeMobile() {
 
         <OtherLogoVideo src={OTHER_VIDEO} />
 
+        {/* Constrain all content to the logo's visible width */}
+        <div style={{
+          width: 'min(100%, calc(38dvh * 469 / 103))',
+          margin: '0 auto',
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+        }}>
+
         <div style={{ flex: 8 }} />
 
         {/* Two video ovals */}
@@ -221,6 +230,8 @@ function HomeMobile() {
             <img src={MAROC_SVG} alt="MAROC" style={{ width: '34.47vw', height: 'auto' }} />
           </div>
         </div>
+
+        </div>{/* end logo-width wrapper */}
 
         <button
           onClick={() => yellowRef.current?.scrollIntoView({ behavior: 'smooth' })}
@@ -481,8 +492,7 @@ function HomeInner() {
     const siteUrl = window.location.origin
     const url = inviteCode ? `${siteUrl}/?ref=${inviteCode}` : siteUrl
     const shareData = {
-      title: 'Other Wine — Capsule 01',
-      text:  `Just registered for Capsule 01 by OTHER - 480 bottles of a Moroccan Berber-made amphora rosé, open to members only on 23 June. Here's my referral link: ${url}`,
+      text: `Just registered for Capsule 01 by OTHER - 480 bottles of a Moroccan amphora rosé, grown by Berber farmers. Open to members only on 23 June. Here's my referral link: ${url}`,
     }
     if (navigator.share) {
       try { await navigator.share(shareData) } catch { /* dismissed */ }
@@ -511,6 +521,17 @@ function HomeInner() {
       }}>
 
         <OtherLogoVideo src={OTHER_VIDEO_6K} />
+
+        {/* Constrain all content to the logo's visible width */}
+        <div style={{
+          width: 'min(100%, calc(38dvh * 469 / 103))',
+          margin: '0 auto',
+          position: 'relative',
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: 0,
+        }}>
 
         <div style={{
           display: 'grid',
@@ -589,6 +610,8 @@ function HomeInner() {
             </div>
           </div>
         </div>
+
+        </div>{/* end logo-width wrapper */}
 
         <button
           onClick={() => yellowRef.current?.scrollIntoView({ behavior: 'smooth' })}
