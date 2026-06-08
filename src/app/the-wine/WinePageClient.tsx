@@ -334,7 +334,7 @@ export default function WinePageClient() {
             position: 'absolute',
             top: 'calc(50% - 10px)',
             left: 'calc(50% - 130px)',
-            transform: 'translate(-50%, -50%) rotate(11deg)',
+            transform: 'translate(-50%, -50%) rotate(16deg)',
             width: 'auto',
             height: '112svh',
             pointerEvents: 'none',
