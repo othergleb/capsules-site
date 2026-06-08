@@ -420,6 +420,29 @@ function HomeMobile() {
           </div>
         </div>
 
+        {/* Contact info */}
+        <p style={{
+          position: 'absolute',
+          bottom: 'calc(41px + env(safe-area-inset-bottom, 0px) + 16px)',
+          left: 0,
+          right: 0,
+          textAlign: 'center',
+          fontFamily: 'Vulf Sans, sans-serif',
+          fontWeight: 900,
+          fontSize: '14px',
+          letterSpacing: '0.42px',
+          textTransform: 'uppercase',
+          color: '#000',
+          margin: 0,
+          whiteSpace: 'nowrap',
+          zIndex: 5,
+        }}>
+          Contact:{' '}
+          <a href="mailto:info@otherwine.co.uk" style={{ color: 'inherit', textDecoration: 'underline' }}>
+            info@otherwine.co.uk
+          </a>
+        </p>
+
       </section>
 
       <MobileNav />
@@ -627,7 +650,8 @@ function HomeInner() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        minHeight: '100dvh',
+        minHeight: 'min(max(100dvh, 69.6vw), 1210px)',
+        boxSizing: 'border-box',
         paddingTop: 'clamp(2rem, 3vw, 52px)',
         paddingLeft: 'clamp(1.5rem, 5vw, 4rem)',
         paddingRight: 'clamp(1.5rem, 5vw, 4rem)',
@@ -635,6 +659,41 @@ function HomeInner() {
         position: 'relative',
         overflow: 'hidden',
       }}>
+
+        {/* White amphora bottle — right background decoration */}
+        <img
+          src="/WhiteBottomTiltes 1.png"
+          alt=""
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            left: '36.17vw',
+            bottom: 0,
+            width: '65vw',
+            height: 'auto',
+            pointerEvents: 'none',
+            userSelect: 'none',
+          }}
+        />
+
+        {/* Rosé bottle — left background decoration */}
+        <img
+          src="/rose-bottom-tilted-2.png"
+          alt=""
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            left: '-15.5vw',
+            top: '-6vw',
+            width: '72.3vw',
+            height: '72.3vw',
+            aspectRatio: '1/1',
+            transform: 'rotate(-9.959deg)',
+            pointerEvents: 'none',
+            userSelect: 'none',
+          }}
+        />
+
 
         {/* Section label */}
         <p style={{
@@ -646,6 +705,8 @@ function HomeInner() {
           textTransform: 'uppercase',
           textAlign: 'center',
           marginBottom: 'clamp(0.25rem, 0.4vw, 7px)',
+          position: 'relative',
+          zIndex: 1,
         }}>Capsule 01</p>
 
         {/* Large heading */}
@@ -660,6 +721,8 @@ function HomeInner() {
           marginBottom: 'clamp(1.5rem, 7vw, 120px)',
           textTransform: 'uppercase',
           maxWidth: '52%',
+          position: 'relative',
+          zIndex: 1,
         }}>
           Register for access:<br />23 June, 10am
         </h1>
@@ -899,7 +962,62 @@ function HomeInner() {
         )}
         </div>
 
+        {/* Diamonds — top right (Figma: x=1342, y=1235, frame=1748px, yellow top=1112) */}
+        <img
+          src="/Group 47.svg"
+          alt=""
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            right: '15.2vw',
+            top: '7vw',
+            width: '140px',
+            height: '146px',
+            pointerEvents: 'none',
+            userSelect: 'none',
+            zIndex: 2,
+          }}
+        />
 
+        {/* Diamonds — bottom left (Figma: x=430, y=2036, section bottom=2315) */}
+        <img
+          src="/Group 47.svg"
+          alt=""
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            left: '24.6vw',
+            bottom: '7.6vw',
+            width: '140px',
+            height: '146px',
+            pointerEvents: 'none',
+            userSelect: 'none',
+            zIndex: 4,
+          }}
+        />
+
+        {/* Contact info (Figma: y=2204, section bottom=2315 → 91px from bottom) */}
+        <p style={{
+          position: 'absolute',
+          bottom: '5.2vw',
+          left: 0,
+          right: 0,
+          textAlign: 'center',
+          fontFamily: 'Vulf Sans, sans-serif',
+          fontWeight: 900,
+          fontSize: '14px',
+          letterSpacing: '0.42px',
+          textTransform: 'uppercase',
+          color: '#000',
+          margin: 0,
+          whiteSpace: 'nowrap',
+          zIndex: 5,
+        }}>
+          Contact:{' '}
+          <a href="mailto:info@otherwine.co.uk" style={{ color: 'inherit', textDecoration: 'underline' }}>
+            info@otherwine.co.uk
+          </a>
+        </p>
 
       </section>
 
