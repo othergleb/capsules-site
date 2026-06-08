@@ -429,7 +429,7 @@ function HomeMobile() {
           alt="" aria-hidden="true"
           style={{
             position: 'absolute',
-            left: '4vw',
+            left: '8vw',
             bottom: 0,
             width: '88vw',
             height: 'auto',
