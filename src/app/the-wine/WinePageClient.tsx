@@ -261,7 +261,7 @@ export default function WinePageClient() {
                     <img src={item.img} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', pointerEvents: 'none', transform: 'none' }} />
                   </div>
                 ) : (
-                  <img src={item.img} alt={item.name} style={{ width: i === 0 ? '54%' : '46%', height: 'auto', display: 'block', marginBottom: i === 0 ? '-10px' : undefined }} />
+                  <img src={item.img} alt={item.name} style={{ width: i === 0 ? '54%' : '46%', height: 'auto', display: 'block', marginBottom: i === 0 ? '-30px' : undefined }} />
                 )}
               </div>
               <div style={{
