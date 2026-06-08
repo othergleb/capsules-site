@@ -190,7 +190,7 @@ const sideLabel: React.CSSProperties = {
 }
 
 const sectionHeading = (text: string, leftLabel: string, rightLabel: string) => (
-  <div style={{ position: 'relative', width: '100%', textAlign: 'center', marginBottom: 'clamp(1.5rem, 2.5vw, 43px)' }}>
+  <div style={{ position: 'relative', width: '100%', textAlign: 'center', marginBottom: 'clamp(12px, 1.5svh, 43px)' }}>
     <span style={{ ...sideLabel, left: 'clamp(1rem, 3.47vw, 60px)' }}>{leftLabel}</span>
     <h2 className="capsules-wordmark" style={{ fontSize: 'clamp(3.5rem, 5.53vw, 95px)', fontWeight: 900, letterSpacing: '0.02em' }}>
       {text}
@@ -221,15 +221,15 @@ export default function WinePageClient() {
       <section style={{
         backgroundColor: 'var(--red)',
         position: 'relative',
-        paddingTop: 'clamp(calc(4rem - 35px), calc(16.5vh - 35px), calc(12rem - 35px))',
-        paddingBottom: 'clamp(16px, 1.5vw, 27px)',
+        paddingTop: 'clamp(50px, 9svh, 110px)',
+        paddingBottom: 'clamp(10px, 2svh, 27px)',
         height: '100svh',
         overflow: 'clip',
         display: 'flex',
         flexDirection: 'column',
       }}>
         {sectionHeading('In the Capsule', 'PRODUCT', 'PRODUCT')}
-        <div style={{ width: '100%', display: 'flex', padding: '0 clamp(7px, 0.81vw, 14px)', marginTop: 'clamp(1rem, 3vh, 3rem)', flex: 1, minHeight: 0 }}>
+        <div style={{ width: '100%', display: 'flex', padding: '0 clamp(7px, 0.81vw, 14px)', marginTop: 'clamp(8px, 1.5svh, 32px)', flex: 1, minHeight: 0 }}>
           {PRODUCTS.map((item, i) => (
             <div key={item.name} style={{ flex: 1, display: 'flex', flexDirection: 'column', marginLeft: i > 0 ? '-2.22px' : 0, minHeight: 0 }}>
               <div style={{
@@ -268,23 +268,23 @@ export default function WinePageClient() {
                 backgroundColor: 'var(--yellow)',
                 border: '2.22px solid #00006A',
                 marginTop: '-2.22px',
-                padding: 'clamp(14px, 1.79vw, 31px)',
-                paddingBottom: 'clamp(12px, 1.54vw, 26px)',
+                padding: 'clamp(10px, 1.3svh, 31px)',
+                paddingBottom: 'clamp(8px, 1.1svh, 26px)',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                minHeight: 'clamp(110px, 11.3vw, 196px)',
-                flex: 1,
+                height: 'clamp(90px, 16svh, 196px)',
+                flexShrink: 0,
               }}>
                 <div>
-                  <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: 'clamp(13px, 1.33vw, 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0, textTransform: 'uppercase' }}>
+                  <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: 'clamp(11px, min(1.33vw, 1.8svh), 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0, textTransform: 'uppercase' }}>
                     {item.name}
                   </p>
-                  <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(13px, 1.33vw, 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0 }}>
+                  <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(11px, min(1.33vw, 1.8svh), 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0 }}>
                     {item.desc}
                   </p>
                 </div>
-                <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(13px, 1.33vw, 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0, marginTop: i === 3 ? '2.5em' : '1.25em', marginBottom: '10px', textTransform: 'uppercase' }}>
+                <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(11px, min(1.33vw, 1.8svh), 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0, marginTop: i === 3 ? '2.5em' : '1.25em', marginBottom: '10px', textTransform: 'uppercase' }}>
                   {item.qty}
                 </p>
               </div>
