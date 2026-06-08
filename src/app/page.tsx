@@ -365,7 +365,7 @@ function HomeMobile() {
 
           /* Screen 1: email */
           <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease', display: 'flex', flexDirection: 'column', flex: 1 }}>
-            <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, letterSpacing: '0.16px', color: '#FF3C00', textAlign: 'center', width: 'calc(100% - 74px)', margin: '-32px auto 48px' }}>
+            <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, letterSpacing: '0.16px', color: '#FF3C00', textAlign: 'center', width: 'calc(100% - 20px)', margin: '-32px auto 48px' }}>
               We&apos;ve been given access to the last remaining bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco — a ros&eacute; so pale it enters a new classification.
             </p>
 
