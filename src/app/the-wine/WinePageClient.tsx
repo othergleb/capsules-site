@@ -223,14 +223,15 @@ export default function WinePageClient() {
         position: 'relative',
         paddingTop: 'clamp(calc(4rem - 35px), calc(16.5vh - 35px), calc(12rem - 35px))',
         paddingBottom: 'clamp(16px, 1.5vw, 27px)',
-        minHeight: '100svh',
+        height: '100svh',
+        overflow: 'clip',
         display: 'flex',
         flexDirection: 'column',
       }}>
         {sectionHeading('In the Capsule', 'PRODUCT', 'PRODUCT')}
-        <div style={{ width: '100%', display: 'flex', padding: '0 clamp(7px, 0.81vw, 14px)', marginTop: 'clamp(1rem, 3vh, 3rem)' }}>
+        <div style={{ width: '100%', display: 'flex', padding: '0 clamp(7px, 0.81vw, 14px)', marginTop: 'clamp(1rem, 3vh, 3rem)', flex: 1, minHeight: 0 }}>
           {PRODUCTS.map((item, i) => (
-            <div key={item.name} style={{ flex: 1, display: 'flex', flexDirection: 'column', marginLeft: i > 0 ? '-2.22px' : 0 }}>
+            <div key={item.name} style={{ flex: 1, display: 'flex', flexDirection: 'column', marginLeft: i > 0 ? '-2.22px' : 0, minHeight: 0 }}>
               <div style={{
                 position: 'relative',
                 borderRadius: 'clamp(100px, 16.44vw, 284px) clamp(100px, 16.44vw, 284px) 0 0',
@@ -240,7 +241,8 @@ export default function WinePageClient() {
                 justifyContent: 'center',
                 alignItems: 'flex-end',
                 paddingBottom: 'clamp(12px, 2.03vw, 35px)',
-                height: 'clamp(240px, max(calc(42vw - 45px), calc(50vh - 45px)), 675px)',
+                flex: 1,
+                minHeight: 0,
               }}>
                 <div style={{ position: 'absolute', inset: 0, border: '2.22px solid #00006A', borderRadius: 'clamp(100px, 16.44vw, 284px) clamp(100px, 16.44vw, 284px) 0 0', pointerEvents: 'none', zIndex: 10 }} />
                 {i === 3 ? (
