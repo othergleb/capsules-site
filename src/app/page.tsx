@@ -650,7 +650,7 @@ function HomeInner() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        minHeight: 'min(max(100dvh, 69.6vw), 1210px)',
+        height: '100dvh',
         boxSizing: 'border-box',
         paddingTop: 'clamp(2rem, 3vw, 52px)',
         paddingLeft: 'clamp(1.5rem, 5vw, 4rem)',
@@ -667,12 +667,13 @@ function HomeInner() {
           aria-hidden="true"
           style={{
             position: 'absolute',
-            left: '36.17vw',
+            right: 'calc(-2vw + 20px)',
             bottom: 0,
-            width: '65vw',
+            width: '51.1068vw',
             height: 'auto',
             pointerEvents: 'none',
             userSelect: 'none',
+            zIndex: 5,
           }}
         />
 
@@ -681,14 +682,15 @@ function HomeInner() {
           src="/rose-bottom-tilted-2.png"
           alt=""
           aria-hidden="true"
+          className="rose-bottle-deco"
           style={{
             position: 'absolute',
-            left: '-15.5vw',
-            top: '-6vw',
-            width: '72.3vw',
-            height: '72.3vw',
+            left: 'calc(-10.6802vw + 25px)',
+            top: 'calc(-1.1802vw - 35px)',
+            width: '62.6603vw',
+            height: '62.6603vw',
             aspectRatio: '1/1',
-            transform: 'rotate(-9.959deg)',
+            transform: 'rotate(-8deg)',
             pointerEvents: 'none',
             userSelect: 'none',
           }}
@@ -712,9 +714,9 @@ function HomeInner() {
         {/* Large heading */}
         <h1 style={{
           fontFamily: 'Vulf Sans, sans-serif',
-          fontSize: 'clamp(22px, 3.2vw, 42px)',
+          fontSize: 'clamp(12px, 2.4vw, 42px)',
           fontWeight: 300,
-          lineHeight: 1.1,
+          lineHeight: 0.88,
           letterSpacing: '0.84px',
           color: '#00006A',
           textAlign: 'center',
@@ -728,14 +730,14 @@ function HomeInner() {
         </h1>
 
         {/* Form — directly on yellow */}
-        <div style={{ maxWidth: 'clamp(340px, 36vw, 622px)', width: '100%', position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', minHeight: '420px' }}>
+        <div style={{ maxWidth: 'clamp(340px, 36vw, 622px)', width: '100%', position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', minHeight: 'clamp(200px, 24vw, 420px)' }}>
         {dismissed ? (
           <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
             <div style={{ textAlign: 'center', maxWidth: '85%', margin: '0 auto clamp(0.75rem, 1.5vw, 26px)' }}>
               <p style={{
                 fontFamily: 'Vulf Sans, sans-serif',
                 fontWeight: 700,
-                fontSize: 'clamp(14px, 1.74vw, 23px)',
+                fontSize: 'clamp(14px, 1.14vw, 20px)',
                 lineHeight: 1.27,
                 letterSpacing: '0.23px',
                 color: '#FF3C00',
@@ -747,7 +749,7 @@ function HomeInner() {
               <p style={{
                 fontFamily: 'Vulf Sans, sans-serif',
                 fontWeight: 300,
-                fontSize: 'clamp(14px, 1.74vw, 23px)',
+                fontSize: 'clamp(14px, 1.14vw, 20px)',
                 lineHeight: 1.27,
                 letterSpacing: '0.23px',
                 color: '#FF3C00',
@@ -759,8 +761,8 @@ function HomeInner() {
               <a href="/the-wine" style={{
                 display: 'block',
                 width: '100%',
-                height: 'clamp(44px, 2.95vw, 51px)',
-                lineHeight: 'clamp(44px, 2.95vw, 51px)',
+                height: 'clamp(32px, 2.95vw, 51px)',
+                lineHeight: 'clamp(32px, 2.95vw, 51px)',
                 backgroundColor: 'transparent',
                 border: '1px solid #00006A',
                 borderRadius: '999px',
@@ -784,7 +786,7 @@ function HomeInner() {
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
                     fontWeight: 700,
-                    fontSize: 'clamp(14px, 1.74vw, 23px)',
+                    fontSize: 'clamp(11px, 1.14vw, 20px)',
                     lineHeight: 1.27,
                     letterSpacing: '0.23px',
                     color: '#FF3C00',
@@ -796,7 +798,7 @@ function HomeInner() {
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
                     fontWeight: 300,
-                    fontSize: 'clamp(14px, 1.74vw, 23px)',
+                    fontSize: 'clamp(11px, 1.14vw, 20px)',
                     lineHeight: 1.27,
                     letterSpacing: '0.23px',
                     color: '#FF3C00',
@@ -810,7 +812,7 @@ function HomeInner() {
                     style={{
                       display: 'block',
                       width: '100%',
-                      height: 'clamp(44px, 2.95vw, 51px)',
+                      height: 'clamp(32px, 2.95vw, 51px)',
                       backgroundColor: '#00006A',
                       color: '#EDFF00',
                       border: 'none',
@@ -858,12 +860,12 @@ function HomeInner() {
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
                     fontWeight: 700,
-                    fontSize: 'clamp(14px, 1.74vw, 23px)',
+                    fontSize: 'clamp(11px, 1.14vw, 20px)',
                     lineHeight: 1.27,
                     letterSpacing: '0.23px',
                     color: '#FF3C00',
                     marginBottom: '0.75em',
-                    maxWidth: '85%',
+                    maxWidth: '83%',
                     margin: '0 auto 0.75em',
                   }}>
                     We&apos;ve been given access to the last remaining bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco — a ros&eacute; so pale it enters a new classification.
@@ -882,7 +884,7 @@ function HomeInner() {
                     marginBottom: '12px',
                     textTransform: 'uppercase',
                   }}>Inside Capsule 01 (£89)</p>
-                  <div style={{ borderTop: '1px solid #FF3C00' }}>
+                  <div style={{ borderTop: '1px solid #FF3C00', overflow: 'hidden' }}>
                     {([
                       ['1 x Bottle',  'Amphora Aged Grenache, 2023'],
                       ['2 x Bottles', 'Estate Moroccan Rosé'],
@@ -890,22 +892,24 @@ function HomeInner() {
                     ] as [string, string][]).map(([qty, item]) => (
                       <div key={qty} style={{
                         display: 'grid',
-                        gridTemplateColumns: '31% 1fr',
+                        gridTemplateColumns: '32% 1fr',
                         alignItems: 'center',
+                        textAlign: 'left',
                         padding: '2px 8px',
                         borderBottom: '1px solid #FF3C00',
                       }}>
-                        <span style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(11px, 1.3vw, 18px)', lineHeight: 1.15, color: '#FF3C00', letterSpacing: '-0.18px', textTransform: 'uppercase', paddingLeft: '8px' }}>{qty}</span>
-                        <span style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: 'clamp(11px, 1.3vw, 18px)', lineHeight: 1.15, color: '#FF3C00', letterSpacing: '-0.18px', textTransform: 'uppercase', textAlign: 'left', paddingLeft: '0px' }}>{item}</span>
+                        <span style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(9px, 1.04vw, 18px)', lineHeight: 1.15, color: '#FF3C00', letterSpacing: '-0.18px', textTransform: 'uppercase', paddingLeft: '8px', paddingRight: '16px', whiteSpace: 'nowrap' }}>{qty}</span>
+                        <span style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: 'clamp(9px, 1.04vw, 18px)', lineHeight: 1.15, color: '#FF3C00', letterSpacing: '-0.18px', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>{item}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <form onSubmit={advanceToInvite} style={{ padding: '0 8.5%', marginTop: 'auto' }}>
+                <div style={{ flex: 1 }} />
+                <form onSubmit={advanceToInvite} style={{ padding: '0 8.5%' }}>
                   <div style={{
                     border: '1px solid #00006A',
-                    height: 'clamp(44px, 2.95vw, 51px)',
+                    height: 'clamp(32px, 2.95vw, 51px)',
                     display: 'flex',
                     alignItems: 'center',
                     marginBottom: 'clamp(0.4rem, 0.6vw, 10px)',
@@ -938,7 +942,7 @@ function HomeInner() {
                     style={{
                       display: 'block',
                       width: '100%',
-                      height: 'clamp(44px, 2.95vw, 51px)',
+                      height: 'clamp(32px, 2.95vw, 51px)',
                       backgroundColor: '#00006A',
                       color: '#EDFF00',
                       border: 'none',
@@ -958,6 +962,7 @@ function HomeInner() {
                     Claim your place
                   </button>
                 </form>
+                <div style={{ flex: 3 }} />
               </div>
         )}
         </div>
@@ -971,8 +976,8 @@ function HomeInner() {
             position: 'absolute',
             right: '15.2vw',
             top: '7vw',
-            width: '140px',
-            height: '146px',
+            width: 'clamp(70px, 8vw, 140px)',
+            height: 'auto',
             pointerEvents: 'none',
             userSelect: 'none',
             zIndex: 2,
@@ -987,9 +992,9 @@ function HomeInner() {
           style={{
             position: 'absolute',
             left: '24.6vw',
-            bottom: '7.6vw',
-            width: '140px',
-            height: '146px',
+            bottom: 'calc(7.6vw - 50px)',
+            width: 'clamp(70px, 8vw, 140px)',
+            height: 'auto',
             pointerEvents: 'none',
             userSelect: 'none',
             zIndex: 4,
@@ -999,13 +1004,13 @@ function HomeInner() {
         {/* Contact info (Figma: y=2204, section bottom=2315 → 91px from bottom) */}
         <p style={{
           position: 'absolute',
-          bottom: '5.2vw',
+          bottom: '10px',
           left: 0,
           right: 0,
           textAlign: 'center',
           fontFamily: 'Vulf Sans, sans-serif',
           fontWeight: 900,
-          fontSize: '14px',
+          fontSize: 'clamp(9px, 0.8vw, 14px)',
           letterSpacing: '0.42px',
           textTransform: 'uppercase',
           color: '#000',
