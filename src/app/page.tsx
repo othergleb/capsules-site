@@ -151,7 +151,7 @@ function HomeMobile() {
     const siteUrl = window.location.origin
     const url = inviteCode ? `${siteUrl}/?ref=${inviteCode}` : siteUrl
     const shareData = { text: `Just registered for Capsule 01 by OTHER - 480 bottles of a Moroccan amphora rosé, grown by Berber farmers. Open to members only on 23 June. Here's my referral link: ${url}` }
-    if (navigator.share && /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
+    if (navigator.share && /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) && !/Windows/i.test(navigator.userAgent)) {
       try { await navigator.share(shareData) } catch { /* dismissed */ }
       setShared(true)
     } else {
@@ -489,7 +489,7 @@ function HomeInner() {
     const shareData = {
       text: `Just registered for Capsule 01 by OTHER - 480 bottles of a Moroccan amphora rosé, grown by Berber farmers. Open to members only on 23 June. Here's my referral link: ${url}`,
     }
-    if (navigator.share && /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
+    if (navigator.share && /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) && !/Windows/i.test(navigator.userAgent)) {
       try { await navigator.share(shareData) } catch { /* dismissed */ }
       setShared(true)
     } else {
