@@ -411,6 +411,38 @@ function HomeMobile() {
         </div>
 
 
+        {/* Rose bottle — bottom decoration */}
+        <img
+          src="/Rose8 1.png"
+          alt="" aria-hidden="true"
+          style={{
+            position: 'absolute',
+            left: '39.9vw',
+            bottom: 0,
+            width: '105.6vw',
+            height: 'auto',
+            pointerEvents: 'none',
+            userSelect: 'none',
+            zIndex: 1,
+          }}
+        />
+
+        {/* White bottle — bottom decoration, in front */}
+        <img
+          src="/WhiteBottomTilted3-1-Topaz-Gigapixel-2x-scale 1.png"
+          alt="" aria-hidden="true"
+          style={{
+            position: 'absolute',
+            left: '56.8vw',
+            bottom: 0,
+            width: '104.8vw',
+            height: 'auto',
+            pointerEvents: 'none',
+            userSelect: 'none',
+            zIndex: 2,
+          }}
+        />
+
         {/* Contact info */}
         <p style={{
           position: 'absolute',
