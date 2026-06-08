@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 
 const PAGES = [
-  { label: 'IN THE BOX',           href: '/the-wine'           },
+  { label: 'CAPSULE 01',            href: '/the-wine'           },
   { label: 'THE WINE',            href: '/origin-method-box'  },
   { label: 'HOW IT WORKS',        href: '/how-it-works'       },
 ]
