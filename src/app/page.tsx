@@ -119,6 +119,22 @@ function HomeMobile() {
   const searchParams = useSearchParams()
   const refCode      = searchParams.get('ref') ?? undefined
   const yellowRef    = useRef<HTMLElement>(null)
+  const [sectionH, setSectionH] = useState<string>('calc(100svh - 41px - env(safe-area-inset-bottom, 0px))')
+
+  useEffect(() => {
+    const compute = () => {
+      const vh = window.visualViewport?.height ?? window.innerHeight
+      setSectionH(`${Math.floor(vh) - 41}px`)
+    }
+    compute()
+    const vp = window.visualViewport
+    if (vp) {
+      vp.addEventListener('resize', compute)
+      return () => vp.removeEventListener('resize', compute)
+    }
+    window.addEventListener('resize', compute)
+    return () => window.removeEventListener('resize', compute)
+  }, [])
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -193,7 +209,7 @@ function HomeMobile() {
 
       <section style={{
         backgroundColor: '#FF3C00',
-        height: 'calc(100svh - 41px - env(safe-area-inset-bottom, 0px))',
+        height: sectionH,
         display: 'flex',
         flexDirection: 'column',
         paddingTop: 'calc(env(safe-area-inset-top, 0px) + 7px)',
