@@ -253,7 +253,7 @@ export default function WinePageClient() {
                   <div style={{
                     position: 'absolute',
                     left: '50%',
-                    bottom: 'calc(clamp(12px, 2.03vw, 35px) + 20px)',
+                    bottom: 'calc(clamp(12px, 2.03vw, 35px) - 30px)',
                     transform: 'translateX(-50%) rotate(0.19deg)',
                     width: 'clamp(208px, 23.48vw, 406px)',
                     height: 'clamp(390px, 44.23vw, 764px)',
