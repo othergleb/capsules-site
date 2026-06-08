@@ -135,7 +135,7 @@ function HomeMobile() {
         if (p < 1) requestAnimationFrame(step)
       }
       requestAnimationFrame(step)
-    }, 3000)
+    }, 4000)
     return () => clearTimeout(t)
   }, [])
 
@@ -450,7 +450,7 @@ function HomeInner() {
         if (p < 1) requestAnimationFrame(step)
       }
       requestAnimationFrame(step)
-    }, 3000)
+    }, 4000)
     return () => clearTimeout(t)
   }, [])
 
@@ -506,7 +506,7 @@ function HomeInner() {
         overflow: 'hidden',
         position: 'relative',
         paddingTop: '0.58vw',
-        paddingBottom: 'clamp(1rem, 2.5vw, 44px)',
+        paddingBottom: 'clamp(8px, 1vw, 16px)',
       }}>
 
         <OtherLogoVideo src={OTHER_VIDEO_6K} />
@@ -537,12 +537,12 @@ function HomeInner() {
 
         <div style={{
           position: 'absolute',
-          top: '15vw',
+          top: '-100px',
           left: '17px',
           pointerEvents: 'none',
         }}>
           <img src={STAR_SVG} alt=""
-            style={{ height: 'clamp(50px, 7vw, 121px)', width: 'auto', aspectRatio: '1 / 1', display: 'block' }} />
+            style={{ height: 'clamp(38px, 5.25vw, 91px)', width: 'auto', aspectRatio: '1 / 1', display: 'block' }} />
         </div>
 
         <div style={{ marginTop: 'clamp(0.25rem, 1.5vw, 26px)', flexShrink: 0 }}>
@@ -554,9 +554,9 @@ function HomeInner() {
             padding: '0 1.5%',
           }}>
             <img src={TIFINAGH_SVG} alt="ⵍⵎⵖⵔⵉⴱ"
-              style={{ height: 'clamp(10px, 1.97vw, 34px)', width: 'auto', aspectRatio: '171 / 34' }} />
+              style={{ height: 'clamp(8px, 1.48vw, 26px)', width: 'auto', aspectRatio: '171 / 34' }} />
             <img src={ARABIC_SVG} alt="المغرب"
-              style={{ height: 'clamp(16px, 3.18vw, 55px)', width: 'auto', aspectRatio: '161 / 55', marginBottom: '0.5vw' }} />
+              style={{ height: 'clamp(12px, 2.39vw, 41px)', width: 'auto', aspectRatio: '161 / 55', marginBottom: '0.5vw' }} />
           </div>
 
           <div style={{
@@ -567,12 +567,12 @@ function HomeInner() {
             padding: '0 1.5%',
           }}>
             <img src={MAROC_SVG} alt="MAROC"
-              style={{ height: 'clamp(40px, 5.61vw, 97px)', width: 'auto', aspectRatio: '431 / 99', display: 'block' }} />
+              style={{ height: 'clamp(30px, 4.21vw, 73px)', width: 'auto', aspectRatio: '431 / 99', display: 'block' }} />
 
             <span style={{
               fontFamily: 'Vulf Sans, sans-serif',
               fontWeight: 400,
-              fontSize: 'clamp(0.5rem, 1.74vw, 30px)',
+              fontSize: 'clamp(0.375rem, 1.3vw, 22px)',
               letterSpacing: '0.052em',
               color: '#EDFF00',
               whiteSpace: 'nowrap',
@@ -587,7 +587,7 @@ function HomeInner() {
                   position: 'absolute',
                   top: '-45%',
                   left: '-9%',
-                  height: 'clamp(24px, 4.6vw, 80px)',
+                  height: 'clamp(18px, 3.45vw, 60px)',
                   width: 'auto',
                   aspectRatio: '114 / 113',
                   display: 'block',
@@ -595,7 +595,7 @@ function HomeInner() {
                   zIndex: 1,
                 }} />
               <img src={MAROC_SVG} alt="MAROC"
-                style={{ height: 'clamp(40px, 5.61vw, 97px)', width: 'auto', aspectRatio: '431 / 99', display: 'block' }} />
+                style={{ height: 'clamp(30px, 4.21vw, 73px)', width: 'auto', aspectRatio: '431 / 99', display: 'block' }} />
             </div>
           </div>
         </div>
@@ -605,7 +605,7 @@ function HomeInner() {
         <button
           onClick={() => yellowRef.current?.scrollIntoView({ behavior: 'smooth' })}
           className="scroll-arrow"
-          style={{ position: 'absolute', bottom: '18px', left: 0, right: 0, margin: '0 auto', width: 'fit-content', background: 'none', border: 'none', cursor: 'pointer', padding: '8px', display: 'flex' }}
+          style={{ position: 'absolute', bottom: '63px', left: 0, right: 0, margin: '0 auto', width: 'fit-content', background: 'none', border: 'none', cursor: 'pointer', padding: '8px', display: 'flex' }}
           aria-label="Scroll down"
         >
           <svg width="26" height="15" viewBox="0 0 26 15" fill="none"><path d="M1.5 1.5L13 13L24.5 1.5" stroke="#EDFF00" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -643,13 +643,13 @@ function HomeInner() {
         {/* Large heading */}
         <h1 style={{
           fontFamily: 'Vulf Sans, sans-serif',
-          fontSize: '42px',
+          fontSize: 'clamp(22px, 3.2vw, 42px)',
           fontWeight: 300,
-          lineHeight: '37px',
+          lineHeight: 1.1,
           letterSpacing: '0.84px',
           color: '#00006A',
           textAlign: 'center',
-          marginBottom: 'clamp(4rem, 7vw, 120px)',
+          marginBottom: 'clamp(1.5rem, 7vw, 120px)',
           textTransform: 'uppercase',
           maxWidth: '52%',
         }}>
@@ -657,14 +657,14 @@ function HomeInner() {
         </h1>
 
         {/* Form — directly on yellow */}
-        <div style={{ maxWidth: 'clamp(340px, 36vw, 622px)', width: '100%', position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '420px' }}>
+        <div style={{ maxWidth: 'clamp(340px, 36vw, 622px)', width: '100%', position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', minHeight: '420px' }}>
         {dismissed ? (
           <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
             <div style={{ textAlign: 'center', maxWidth: '85%', margin: '0 auto clamp(0.75rem, 1.5vw, 26px)' }}>
               <p style={{
                 fontFamily: 'Vulf Sans, sans-serif',
                 fontWeight: 700,
-                fontSize: '23px',
+                fontSize: 'clamp(14px, 1.74vw, 23px)',
                 lineHeight: 1.27,
                 letterSpacing: '0.23px',
                 color: '#FF3C00',
@@ -676,7 +676,7 @@ function HomeInner() {
               <p style={{
                 fontFamily: 'Vulf Sans, sans-serif',
                 fontWeight: 300,
-                fontSize: '23px',
+                fontSize: 'clamp(14px, 1.74vw, 23px)',
                 lineHeight: 1.27,
                 letterSpacing: '0.23px',
                 color: '#FF3C00',
@@ -713,7 +713,7 @@ function HomeInner() {
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
                     fontWeight: 700,
-                    fontSize: '23px',
+                    fontSize: 'clamp(14px, 1.74vw, 23px)',
                     lineHeight: 1.27,
                     letterSpacing: '0.23px',
                     color: '#FF3C00',
@@ -725,7 +725,7 @@ function HomeInner() {
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
                     fontWeight: 300,
-                    fontSize: '23px',
+                    fontSize: 'clamp(14px, 1.74vw, 23px)',
                     lineHeight: 1.27,
                     letterSpacing: '0.23px',
                     color: '#FF3C00',
@@ -787,7 +787,7 @@ function HomeInner() {
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
                     fontWeight: 700,
-                    fontSize: '23px',
+                    fontSize: 'clamp(14px, 1.74vw, 23px)',
                     lineHeight: 1.27,
                     letterSpacing: '0.23px',
                     color: '#FF3C00',
@@ -824,8 +824,8 @@ function HomeInner() {
                         padding: '2px 8px',
                         borderBottom: '1px solid #FF3C00',
                       }}>
-                        <span style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: '18px', lineHeight: '20px', color: '#FF3C00', letterSpacing: '-0.18px', textTransform: 'uppercase', paddingLeft: '8px' }}>{qty}</span>
-                        <span style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: '18px', lineHeight: '18.5px', color: '#FF3C00', letterSpacing: '-0.18px', textTransform: 'uppercase', textAlign: 'left', paddingLeft: '0px' }}>{item}</span>
+                        <span style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(11px, 1.3vw, 18px)', lineHeight: 1.15, color: '#FF3C00', letterSpacing: '-0.18px', textTransform: 'uppercase', paddingLeft: '8px' }}>{qty}</span>
+                        <span style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: 'clamp(11px, 1.3vw, 18px)', lineHeight: 1.15, color: '#FF3C00', letterSpacing: '-0.18px', textTransform: 'uppercase', textAlign: 'left', paddingLeft: '0px' }}>{item}</span>
                       </div>
                     ))}
                   </div>
@@ -910,8 +910,8 @@ function HomeInner() {
           position: 'absolute',
           left: '20.83vw',
           top: '33vw',
-          width: '117px',
-          height: '222px',
+          width: 'clamp(60px, 8.5vw, 117px)',
+          height: 'auto',
           aspectRatio: '39 / 74',
           transform: 'rotate(0deg)',
           pointerEvents: 'none',
