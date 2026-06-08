@@ -270,7 +270,7 @@ function HomeMobile() {
           maxWidth: '365px',
           margin: '12px auto 90px',
         }}>
-          Register for exclusive<br />access on 23 June
+          Register for access<br />at 10am on 23 June
         </h1>
 
         {/* Form steps — directly on yellow */}
@@ -341,12 +341,12 @@ function HomeMobile() {
           /* Screen 1: email */
           <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease', display: 'flex', flexDirection: 'column', flex: 1 }}>
             <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, letterSpacing: '0.16px', color: '#FF3C00', textAlign: 'center', maxWidth: '320px', margin: '-32px auto 48px' }}>
-              We&apos;re sharing access to the last remaining bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco — a ros&eacute; so pale it enters a new classification.
+              We&apos;ve been given access to the last remaining bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco — a ros&eacute; so pale it enters a new classification.
             </p>
 
             <div style={{ padding: '0 14px 16px', marginTop: '-16px', marginBottom: '16px', width: '100%', boxSizing: 'border-box' }}>
               <p style={{ ...FONT, fontWeight: 400, fontSize: '12px', lineHeight: '17.738px', letterSpacing: '-0.12px', color: '#FF3C00', textAlign: 'center', marginTop: '10px', marginBottom: '7px', textTransform: 'uppercase' }}>
-                Inside Capsule 01 (£88)
+                Inside Capsule 01 (£89)
               </p>
               <div style={{ borderTop: '0.633px solid #FF3C00' }}>
                 {([
@@ -641,7 +641,7 @@ function HomeInner() {
           textTransform: 'uppercase',
           maxWidth: '52%',
         }}>
-          Register for exclusive<br />access on 23 June
+          Register for access<br />at 10am on 23 June
         </h1>
 
         {/* Form — directly on yellow */}
@@ -783,7 +783,7 @@ function HomeInner() {
                     maxWidth: '85%',
                     margin: '0 auto 0.75em',
                   }}>
-                    We&apos;re sharing access to the last remaining bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco — a ros&eacute; so pale it enters a new classification.
+                    We&apos;ve been given access to the last remaining bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco — a ros&eacute; so pale it enters a new classification.
                   </p>
                 </div>
 
@@ -798,7 +798,7 @@ function HomeInner() {
                     textAlign: 'center',
                     marginBottom: '12px',
                     textTransform: 'uppercase',
-                  }}>Inside Capsule 01 (£88)</p>
+                  }}>Inside Capsule 01 (£89)</p>
                   <div style={{ borderTop: '1px solid #FF3C00' }}>
                     {([
                       ['1 x Bottle',  'Amphora Aged Grenache, 2023'],
