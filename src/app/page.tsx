@@ -346,7 +346,7 @@ function HomeMobile() {
 
             <div style={{ padding: '0 14px 16px', marginTop: '-16px', marginBottom: '16px', width: '100%', boxSizing: 'border-box' }}>
               <p style={{ ...FONT, fontWeight: 400, fontSize: '12px', lineHeight: '17.738px', letterSpacing: '-0.12px', color: '#FF3C00', textAlign: 'center', marginTop: '10px', marginBottom: '7px', textTransform: 'uppercase' }}>
-                Inside Capsule 01 (£89)
+                Inside Capsule 01 (£88)
               </p>
               <div style={{ borderTop: '0.633px solid #FF3C00' }}>
                 {([
@@ -798,7 +798,7 @@ function HomeInner() {
                     textAlign: 'center',
                     marginBottom: '12px',
                     textTransform: 'uppercase',
-                  }}>Inside Capsule 01 (£89)</p>
+                  }}>Inside Capsule 01 (£88)</p>
                   <div style={{ borderTop: '1px solid #FF3C00' }}>
                     {([
                       ['1 x Bottle',  'Amphora Aged Grenache, 2023'],
