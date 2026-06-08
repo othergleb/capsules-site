@@ -18,8 +18,8 @@ const DETAILS = [
 const PRODUCTS = [
   { img: '/bottle-box-1.png', name: 'Amphora Aged Grenache', qty: '1 bottle · 75cl',       desc: 'The centrepiece. Gris de grenache, 2023 vintage. Copper-coloured, textured, alive.' },
   { img: '/bottle-box-2.png', name: 'Estate Rosé',           qty: '2 bottles · 75cl each', desc: 'Made from the same vines, same harvest. A paler, more delicate expression of the same fruit.' },
-  { img: '/c1ea69027894b2a6f3f51b7e04a8c08c0986dd71.png', name: 'Estate Olive Oil', qty: '1 vial · 100ml', desc: 'Cold-pressed from olive trees that share the same soil as the vines. A companion to the wine.' },
-  { img: '/poster-artwork.png', name: 'Illustration',         qty: '1 poster · 100 × 70cm', desc: 'A photographic print from the estate by Mehdi Amini.' },
+  { img: '/c1ea69027894b2a6f3f51b7e04a8c08c0986dd71.png', name: 'Estate Olive Oil', qty: '1 vial · 60ml', desc: 'Cold-pressed from olive trees that share the same soil as the vines. A companion to the wine.' },
+  { img: '/poster-artwork.png', name: 'Illustration',         qty: '1 poster · 35 × 20cm', desc: 'A photographic print from the estate by Mehdi Amini.' },
 ]
 
 // ── Mobile wine page ───────────────────────────────────────────
@@ -267,11 +267,12 @@ export default function WinePageClient() {
                 border: '2.22px solid #00006A',
                 marginTop: '-2.22px',
                 padding: 'clamp(14px, 1.79vw, 31px)',
-                paddingBottom: 'clamp(28px, 3.2vw, 55px)',
+                paddingBottom: 'clamp(12px, 1.54vw, 26px)',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                height: 'clamp(125px, 13vw, 225px)',
+                minHeight: 'clamp(110px, 11.3vw, 196px)',
+                flex: 1,
               }}>
                 <div>
                   <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: 'clamp(13px, 1.33vw, 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0, textTransform: 'uppercase' }}>

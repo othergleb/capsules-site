@@ -84,14 +84,14 @@ const BOX_ITEMS = [
     img: '/bottle-box-3.png',
     name: 'Estate Olive Oil',
     desc: 'Cold-pressed from olive trees that share the same soil as the vines. A companion to the wine.',
-    qty: '1 vial · 100ml',
+    qty: '1 vial · 60ml',
     artwork: false,
   },
   {
     img: '/poster-artwork.png',
     name: 'Illustrator Name',
     desc: 'The centrepiece. Gris de grenache, 2023 vintage. Copper-coloured, textured, alive.',
-    qty: '1 poster · 100 x 70 cm',
+    qty: '1 poster · 35 × 20cm',
     artwork: true,
   },
 ]
