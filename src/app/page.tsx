@@ -184,7 +184,7 @@ function HomeMobile() {
   const FONT: React.CSSProperties = { fontFamily: 'Vulf Sans, sans-serif' }
 
   return (
-    <div style={{ backgroundColor: '#FF3C00', overflowX: 'hidden' }}>
+    <div style={{ backgroundColor: '#FF3C00', overflowX: 'clip' }}>
 
       <section style={{
         backgroundColor: '#FF3C00',
@@ -240,8 +240,8 @@ function HomeMobile() {
         alignItems: 'center',
         paddingTop: '41px',
         position: 'relative',
-        minHeight: '305vw',
-        overflow: 'hidden',
+        minHeight: '1200px',
+        overflow: 'clip',
       }}>
 
         {/* "Capsule 01" label */}
@@ -384,33 +384,34 @@ function HomeMobile() {
         </div>
 
 
-        {/* Bottles — vw-scaled from 393px reference so they fit any phone width */}
+        {/* Bottles — two-div bounding-box pattern from Figma (outer = bbox, inner = transform, img = natural size) */}
+        {/* All tops = Figma frame y − 653 (yellow section top); lefts are direct from Figma */}
 
-        {/* cam 1 */}
-        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'-32.57vw', top:'133.33vw', width:'125.37vw', height:'152.96vw', pointerEvents:'none', userSelect:'none', zIndex:0 }}>
+        {/* cam 1 — bbox 492.711×601.124 at (-144, 479) */}
+        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'-128px', top:'524px', width:'492.711px', height:'601.124px', pointerEvents:'none', userSelect:'none', zIndex:0 }}>
           <div style={{ transform:'scaleX(-1) rotate(0deg)', flexShrink:0 }}>
-            <img src={CAM2} alt="" style={{ width:'141.61vw', height:'188.81vw', objectFit:'cover', display:'block' }} />
+            <img src={CAM2} alt="" style={{ width:'556.517px', height:'742.022px', objectFit:'cover', display:'block' }} />
           </div>
         </div>
 
-        {/* cam 2 */}
-        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'-7.52vw', top:'145.26vw', width:'120.40vw', height:'149.62vw', pointerEvents:'none', userSelect:'none', zIndex:1 }}>
+        {/* cam 2 — bbox 473.191×588.029 at (-48.54, 510.87) */}
+        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'-29.54px', top:'570.87px', width:'473.191px', height:'588.029px', pointerEvents:'none', userSelect:'none', zIndex:1 }}>
           <div style={{ transform:'rotate(1deg)', flexShrink:0 }}>
-            <img src={CAM2} alt="" style={{ width:'141.61vw', height:'188.81vw', objectFit:'cover', display:'block' }} />
+            <img src={CAM2} alt="" style={{ width:'556.517px', height:'742.022px', objectFit:'cover', display:'block' }} />
           </div>
         </div>
 
-        {/* cam 3 */}
-        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'-12.34vw', top:'145.96vw', width:'148.11vw', height:'166.17vw', pointerEvents:'none', userSelect:'none', zIndex:2 }}>
+        {/* cam 3 — bbox 582.055×653.043 at (5.49, 503.64) */}
+        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'-48.51px', top:'573.64px', width:'582.055px', height:'653.043px', pointerEvents:'none', userSelect:'none', zIndex:2 }}>
           <div style={{ transform:'rotate(0deg)', flexShrink:0 }}>
-            <img src={CAM3} alt="" style={{ width:'141.61vw', height:'188.81vw', objectFit:'cover', display:'block' }} />
+            <img src={CAM3} alt="" style={{ width:'556.517px', height:'742.022px', objectFit:'cover', display:'block' }} />
           </div>
         </div>
 
-        {/* vial */}
-        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'-1.21vw', top:'242.93vw', width:'31.35vw', height:'39.09vw', pointerEvents:'none', userSelect:'none', zIndex:3 }}>
+        {/* vial — bbox 123.221×153.639 at (-9.77, 865.12) */}
+        <div style={{ position:'absolute', display:'flex', alignItems:'center', justifyContent:'center', left:'-4.77px', top:'955.12px', width:'123.221px', height:'153.639px', pointerEvents:'none', userSelect:'none', zIndex:3 }}>
           <div style={{ transform:'scaleX(-1) rotate(15deg)', flexShrink:0 }}>
-            <img src="/b9f0e9393dc291355495125a98e814a8 1.png" alt="" style={{ width:'25.18vw', height:'47.74vw', objectFit:'cover', display:'block' }} />
+            <img src="/b9f0e9393dc291355495125a98e814a8 1.png" alt="" style={{ width:'98.96px', height:'187.611px', objectFit:'cover', display:'block' }} />
           </div>
         </div>
 
