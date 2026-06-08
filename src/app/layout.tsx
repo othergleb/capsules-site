@@ -7,7 +7,7 @@ const DESC = "We've been given access to the last remaining bottles of an amphor
 export const metadata: Metadata = {
   title: 'Capsules by OTHER',
   description: DESC,
-  icons: { icon: '/favicon.png' },
+  icons: { icon: '/FAVICON.png' },
   openGraph: {
     title: '',
     description: DESC,
