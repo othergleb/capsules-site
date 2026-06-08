@@ -1,9 +1,23 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
+const DESC = "We've been given access to the last remaining bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco — a rosé so pale it enters a new classification. Available to Capsule members only. 23 June, 10AM BST."
+
 export const metadata: Metadata = {
   title: 'Capsules by OTHER',
-  description: 'A limited edition wine series. Capsule 01.',
+  description: DESC,
+  icons: { icon: '/favicon.png' },
+  openGraph: {
+    description: DESC,
+    url: 'https://capsules.otherwine.co.uk',
+    type: 'website',
+    images: [{ url: '/og-image.png' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    description: DESC,
+    images: ['/og-image.png'],
+  },
 }
 
 export const viewport: Viewport = {
