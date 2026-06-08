@@ -150,13 +150,13 @@ function HomeMobile() {
   async function handleShare() {
     const siteUrl = window.location.origin
     const url = inviteCode ? `${siteUrl}/?ref=${inviteCode}` : siteUrl
-    const shareData = { text: `Just registered for Capsule 01 by OTHER - 480 bottles of a Moroccan amphora rosé, grown by Berber farmers. Open to members only on 23 June. Here's my referral link: ${url}` }
+    const text = `Just registered for Capsule 01 by OTHER - 480 bottles of a Moroccan amphora rosé, grown by Berber farmers. Open to members only on 23 June. Here's my referral link: ${url}`
     if (navigator.share && /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) && !/Windows/i.test(navigator.userAgent)) {
-      try { await navigator.share(shareData) } catch { /* dismissed */ }
+      try { await navigator.share({ text }) } catch { /* dismissed */ }
       setShared(true)
     } else {
       try {
-        await navigator.clipboard.writeText(url)
+        await navigator.clipboard.writeText(text)
         setCopiedToClipboard(true)
         setTimeout(() => setDismissed(true), 2000)
       } catch { /* clipboard unavailable */ }
@@ -486,15 +486,13 @@ function HomeInner() {
   async function handleShare() {
     const siteUrl = window.location.origin
     const url = inviteCode ? `${siteUrl}/?ref=${inviteCode}` : siteUrl
-    const shareData = {
-      text: `Just registered for Capsule 01 by OTHER - 480 bottles of a Moroccan amphora rosé, grown by Berber farmers. Open to members only on 23 June. Here's my referral link: ${url}`,
-    }
+    const text = `Just registered for Capsule 01 by OTHER - 480 bottles of a Moroccan amphora rosé, grown by Berber farmers. Open to members only on 23 June. Here's my referral link: ${url}`
     if (navigator.share && /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) && !/Windows/i.test(navigator.userAgent)) {
-      try { await navigator.share(shareData) } catch { /* dismissed */ }
+      try { await navigator.share({ text }) } catch { /* dismissed */ }
       setShared(true)
     } else {
       try {
-        await navigator.clipboard.writeText(url)
+        await navigator.clipboard.writeText(text)
         setCopiedToClipboard(true)
         setTimeout(() => setDismissed(true), 2000)
       } catch { /* clipboard unavailable */ }
