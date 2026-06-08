@@ -251,7 +251,7 @@ export default function WinePageClient() {
                     top: '28%',
                     left: '50%',
                     transform: 'translateX(-50%)',
-                    width: '74%',
+                    width: '80%',
                     maxHeight: '65%',
                     aspectRatio: '5 / 8',
                     backgroundColor: 'white',
@@ -277,7 +277,7 @@ export default function WinePageClient() {
                   <img src={item.img} alt={item.name} style={{
                     position: 'absolute',
                     left: '50%',
-                    bottom: 'calc(clamp(12px, 2.03vw, 35px) - 22svh)',
+                    bottom: 'calc(clamp(12px, 2.03vw, 35px) - 22svh + 20px)',
                     transform: 'translateX(-50%) rotate(0.19deg) scale(2)',
                     width: '80vw',
                     height: 'auto',
@@ -286,7 +286,7 @@ export default function WinePageClient() {
                     transformOrigin: 'center bottom',
                   }} />
                 ) : (
-                  <img src={item.img} alt={item.name} style={{ width: i === 0 ? '56%' : '53%', height: 'auto', display: 'block', marginBottom: i === 0 ? '-23px' : undefined }} />
+                  <img src={item.img} alt={item.name} style={{ width: i === 0 ? '63%' : '60%', height: 'auto', display: 'block', marginBottom: i === 0 ? '-23px' : undefined }} />
                 )}
               </div>
               <div style={{
