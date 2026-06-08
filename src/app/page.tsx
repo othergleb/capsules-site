@@ -417,9 +417,9 @@ function HomeMobile() {
           alt="" aria-hidden="true"
           style={{
             position: 'absolute',
-            left: '39.9vw',
+            left: '5vw',
             bottom: 0,
-            width: '105.6vw',
+            width: '97vw',
             height: 'auto',
             pointerEvents: 'none',
             userSelect: 'none',
@@ -433,9 +433,9 @@ function HomeMobile() {
           alt="" aria-hidden="true"
           style={{
             position: 'absolute',
-            left: '56.8vw',
+            left: '22vw',
             bottom: 0,
-            width: '104.8vw',
+            width: '88vw',
             height: 'auto',
             pointerEvents: 'none',
             userSelect: 'none',
