@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: DESC,
     url: 'https://capsules.otherwine.co.uk',
     type: 'website',
-    images: [{ url: 'https://capsules.otherwine.co.uk/og-image.png' }],
+    images: [{ url: 'https://capsules.otherwine.co.uk/og-image.png', width: 1200, height: 630, alt: 'Capsule 01 by OTHER' }],
   },
   twitter: {
     card: 'summary_large_image',
