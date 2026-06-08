@@ -360,7 +360,7 @@ function HomeMobile() {
                   ['1 x Vial',    'Award-winning Olive Oil'],
                 ] as [string, string][]).map(([qty, item]) => (
                   <div key={qty} style={{ display: 'grid', gridTemplateColumns: '31% 1fr', alignItems: 'center', padding: '2px 0', borderBottom: '0.633px solid #FF3C00' }}>
-                    <span style={{ ...FONT, fontWeight: 300, fontSize: '12px', lineHeight: '17.738px', color: '#FF3C00', letterSpacing: '-0.12px', textTransform: 'uppercase', paddingLeft: '40px' }}>{qty}</span>
+                    <span style={{ ...FONT, fontWeight: 300, fontSize: '12px', lineHeight: '17.738px', color: '#FF3C00', letterSpacing: '-0.12px', textTransform: 'uppercase', paddingLeft: '40px', whiteSpace: 'nowrap' }}>{qty}</span>
                     <span style={{ ...FONT, fontWeight: 400, fontSize: '12px', lineHeight: '17.738px', color: '#FF3C00', letterSpacing: '-0.12px', textTransform: 'uppercase', textAlign: 'left', paddingLeft: '36px' }}>{item}</span>
                   </div>
                 ))}
