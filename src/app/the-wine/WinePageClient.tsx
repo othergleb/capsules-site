@@ -252,6 +252,7 @@ export default function WinePageClient() {
                     left: '50%',
                     transform: 'translateX(-50%)',
                     width: '82%',
+                    maxHeight: '65%',
                     aspectRatio: '351 / 450',
                     backgroundColor: 'white',
                   }}>
@@ -273,18 +274,19 @@ export default function WinePageClient() {
                     </div>
                   </div>
                 ) : i === 2 ? (
-                  <div style={{
+                  <img src={item.img} alt={item.name} style={{
                     position: 'absolute',
                     left: '50%',
                     bottom: 'calc(clamp(12px, 2.03vw, 35px) - 160px)',
-                    transform: 'translateX(calc(-50% + 0px)) rotate(0.19deg)',
-                    width: 'clamp(208px, 23.48vw, 406px)',
-                    height: 'clamp(390px, 44.23vw, 764px)',
-                  }}>
-                    <img src={item.img} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', pointerEvents: 'none', transform: 'none' }} />
-                  </div>
+                    transform: 'translateX(-50%) rotate(0.19deg)',
+                    width: 'clamp(80px, 23.48vw, 406px)',
+                    maxWidth: '85%',
+                    height: 'auto',
+                    display: 'block',
+                    pointerEvents: 'none',
+                  }} />
                 ) : (
-                  <img src={item.img} alt={item.name} style={{ width: i === 0 ? '54%' : '53%', height: 'auto', display: 'block', marginBottom: i === 0 ? '-30px' : undefined }} />
+                  <img src={item.img} alt={item.name} style={{ width: i === 0 ? '54%' : '53%', maxHeight: '90%', height: 'auto', display: 'block', marginBottom: i === 0 ? '-30px' : undefined }} />
                 )}
               </div>
               <div style={{
