@@ -57,7 +57,7 @@ export default function RegistrationForm({ dark = false, minimal = false }: Regi
   }
 
   async function handleShare() {
-    const text = `Just registered for Capsule 01 by OTHER - 480 bottles of a Moroccan amphora rosé, available to members only on 23 June. Here's my referral link: ${referralUrl}`
+    const text = `Just registered for Capsule 01 by OTHER - 480 bottles of a Moroccan Berber-made amphora rosé, open to members only on 23 June. Here's my referral link: ${referralUrl}`
 
     if (typeof navigator !== 'undefined' && navigator.share) {
       try {
