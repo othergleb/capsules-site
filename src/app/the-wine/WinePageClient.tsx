@@ -246,8 +246,31 @@ export default function WinePageClient() {
               }}>
                 <div style={{ position: 'absolute', inset: 0, border: '2.22px solid #00006A', borderRadius: 'clamp(100px, 16.44vw, 284px) clamp(100px, 16.44vw, 284px) 0 0', pointerEvents: 'none', zIndex: 10 }} />
                 {i === 3 ? (
-                  <div style={{ width: '75%', border: '14px solid #fffff5', display: 'block', overflow: 'hidden', marginBottom: '20px' }}>
-                    <img src={item.img} alt={item.name} style={{ width: '100%', height: 'auto', display: 'block' }} />
+                  <div style={{
+                    position: 'absolute',
+                    top: '28%',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: '82%',
+                    aspectRatio: '351 / 450',
+                    backgroundColor: 'white',
+                  }}>
+                    <div style={{ position: 'absolute', inset: '1.6%', overflow: 'hidden' }}>
+                      <img src="/illustration-bg.png" alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                      <div style={{ position: 'absolute', top: 0, left: 0, right: '50%', bottom: '50%' }}>
+                        <img src="/illustration-vector-a.svg" alt="" style={{ width: '100%', height: '100%', display: 'block' }} />
+                      </div>
+                      <div style={{ position: 'absolute', bottom: 0, left: '50%', right: 0, top: '50%', transform: 'rotate(180deg)' }}>
+                        <img src="/illustration-vector-b.svg" alt="" style={{ width: '100%', height: '100%', display: 'block' }} />
+                      </div>
+                      <div style={{ position: 'absolute', top: 0, left: '50%', right: 0, bottom: '50%', transform: 'rotate(180deg)' }}>
+                        <img src="/illustration-vector-c.svg" alt="" style={{ width: '100%', height: '100%', display: 'block' }} />
+                      </div>
+                      <div style={{ position: 'absolute', bottom: 0, left: 0, right: '50%', top: '50%' }}>
+                        <img src="/illustration-vector-a.svg" alt="" style={{ width: '100%', height: '100%', display: 'block' }} />
+                      </div>
+                      <img src="/poster-overlay.svg" alt="" aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', pointerEvents: 'none' }} />
+                    </div>
                   </div>
                 ) : i === 2 ? (
                   <div style={{
