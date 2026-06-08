@@ -224,7 +224,7 @@ export default function WinePageClient() {
         paddingTop: 'clamp(50px, 9svh, 110px)',
         paddingBottom: 'clamp(10px, 2svh, 27px)',
         height: '100svh',
-        overflow: 'clip',
+        overflow: 'visible',
         display: 'flex',
         flexDirection: 'column',
       }}>
