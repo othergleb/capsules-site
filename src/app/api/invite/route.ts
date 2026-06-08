@@ -27,7 +27,7 @@ async function klaviyoTrackCompanionInvite(
         attributes: {
           metric: { data: { type: 'metric', attributes: { name: 'Companion Invited' } } },
           profile: { data: { type: 'profile', attributes: { email: referrerEmail } } },
-          properties: { companion_email: companionEmail, invite_link: inviteUrl },
+          properties: { invite_link: inviteUrl },
         },
       },
     }),
@@ -130,12 +130,6 @@ export async function POST(req: NextRequest) {
   if (member.companion_id) {
     return NextResponse.json({ error: 'You already have a confirmed companion.' }, { status: 409 })
   }
-
-  // Store companion email
-  await supabase
-    .from('members')
-    .update({ companion_email: inviteEmail.toLowerCase().trim() })
-    .eq('id', member.id)
 
   try {
     await klaviyoTrackCompanionInvite(email, inviteEmail, member.invite_code)
