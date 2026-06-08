@@ -300,16 +300,17 @@ export default function WinePageClient() {
                 justifyContent: 'space-between',
                 height: 'clamp(90px, 16svh, 196px)',
                 flexShrink: 0,
+                overflow: 'hidden',
               }}>
                 <div>
-                  <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: 'clamp(11px, min(1.33vw, 1.8svh), 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0, textTransform: 'uppercase' }}>
+                  <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: 'clamp(10px, min(1.33vw, 1.5svh), 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0, textTransform: 'uppercase' }}>
                     {item.name}
                   </p>
-                  <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(11px, min(1.33vw, 1.8svh), 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0 }}>
+                  <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(10px, min(1.33vw, 1.5svh), 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0 }}>
                     {item.desc}
                   </p>
                 </div>
-                <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(11px, min(1.33vw, 1.8svh), 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0, marginTop: i === 3 ? '2.5em' : '1.25em', marginBottom: '10px', textTransform: 'uppercase' }}>
+                <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(10px, min(1.33vw, 1.5svh), 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0, marginTop: i === 3 ? '2.5em' : '1.25em', marginBottom: '10px', textTransform: 'uppercase' }}>
                   {item.qty}
                 </p>
               </div>
