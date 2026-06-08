@@ -251,9 +251,9 @@ export default function WinePageClient() {
                     top: '28%',
                     left: '50%',
                     transform: 'translateX(-50%)',
-                    width: '82%',
+                    width: '74%',
                     maxHeight: '65%',
-                    aspectRatio: '351 / 450',
+                    aspectRatio: '5 / 8',
                     backgroundColor: 'white',
                   }}>
                     <div style={{ position: 'absolute', inset: '1.6%', overflow: 'hidden' }}>
@@ -286,7 +286,7 @@ export default function WinePageClient() {
                     pointerEvents: 'none',
                   }} />
                 ) : (
-                  <img src={item.img} alt={item.name} style={{ width: i === 0 ? '59%' : '53%', height: 'auto', display: 'block', marginBottom: i === 0 ? '-18px' : undefined }} />
+                  <img src={item.img} alt={item.name} style={{ width: i === 0 ? '56%' : '53%', height: 'auto', display: 'block', marginBottom: i === 0 ? '-23px' : undefined }} />
                 )}
               </div>
               <div style={{
