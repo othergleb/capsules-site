@@ -145,17 +145,22 @@ function HomeMobile() {
   const [inviteCode, setInviteCode]   = useState<string | null>(null)
   const [shared, setShared]           = useState(false)
   const [dismissed, setDismissed]     = useState(false)
+  const [copiedToClipboard, setCopiedToClipboard] = useState(false)
 
   async function handleShare() {
     const siteUrl = window.location.origin
     const url = inviteCode ? `${siteUrl}/?ref=${inviteCode}` : siteUrl
     const shareData = { text: `Just registered for Capsule 01 by OTHER - 480 bottles of a Moroccan amphora rosé, grown by Berber farmers. Open to members only on 23 June. Here's my referral link: ${url}` }
-    if (navigator.share && navigator.maxTouchPoints > 0) {
+    if (navigator.share && /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
       try { await navigator.share(shareData) } catch { /* dismissed */ }
+      setShared(true)
     } else {
-      await navigator.clipboard.writeText(url)
+      try {
+        await navigator.clipboard.writeText(url)
+        setCopiedToClipboard(true)
+        setTimeout(() => setDismissed(true), 2000)
+      } catch { /* clipboard unavailable */ }
     }
-    setShared(true)
   }
 
   async function advanceToInvite(e: React.FormEvent) {
@@ -325,7 +330,7 @@ function HomeMobile() {
                 onClick={shared ? () => setDismissed(true) : handleShare}
                 style={{ display: 'block', width: '100%', height: '45px', backgroundColor: '#00006A', color: '#EDFF00', border: 'none', borderRadius: '999px', ...FONT, fontWeight: 300, fontSize: '16px', letterSpacing: '-0.48px', textTransform: 'uppercase', cursor: 'pointer', marginBottom: '12px' }}
               >
-                {shared ? 'Complete' : 'Share your link'}
+                {copiedToClipboard ? 'Link copied!' : shared ? 'Complete' : 'Share your link'}
               </button>
               <button
                 onClick={() => setDismissed(true)}
@@ -433,6 +438,7 @@ function HomeInner() {
   const [inviteCode, setInviteCode]   = useState<string | null>(null)
   const [shared, setShared]           = useState(false)
   const [dismissed, setDismissed]     = useState(false)
+  const [copiedToClipboard, setCopiedToClipboard] = useState(false)
   const yellowRef                     = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -483,12 +489,16 @@ function HomeInner() {
     const shareData = {
       text: `Just registered for Capsule 01 by OTHER - 480 bottles of a Moroccan amphora rosé, grown by Berber farmers. Open to members only on 23 June. Here's my referral link: ${url}`,
     }
-    if (navigator.share && navigator.maxTouchPoints > 0) {
+    if (navigator.share && /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
       try { await navigator.share(shareData) } catch { /* dismissed */ }
+      setShared(true)
     } else {
-      await navigator.clipboard.writeText(url)
+      try {
+        await navigator.clipboard.writeText(url)
+        setCopiedToClipboard(true)
+        setTimeout(() => setDismissed(true), 2000)
+      } catch { /* clipboard unavailable */ }
     }
-    setShared(true)
   }
 
   if (isMobile) return <HomeMobile />
@@ -756,7 +766,7 @@ function HomeInner() {
                     onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
                     onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
                   >
-                    {shared ? 'Complete' : 'Share your link'}
+                    {copiedToClipboard ? 'Link copied!' : shared ? 'Complete' : 'Share your link'}
                   </button>
                   <button
                     onClick={() => setDismissed(true)}
