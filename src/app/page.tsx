@@ -240,7 +240,7 @@ function HomeMobile() {
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <img src={MAROC_SVG} alt="MAROC" style={{ width: '34.47vw', height: 'auto' }} />
-            <span style={{ ...FONT, fontWeight: 400, fontSize: '13px', letterSpacing: '0.39px', color: '#EDFF00', textAlign: 'center', whiteSpace: 'nowrap' }}>
+            <span style={{ ...FONT, fontWeight: 400, fontSize: '13px', letterSpacing: '0.39px', color: '#EDFF00', textAlign: 'center', whiteSpace: 'nowrap', position: 'relative', top: '-20px' }}>
               Limited Edition Capsules
             </span>
             <img src={MAROC_SVG} alt="MAROC" style={{ width: '34.47vw', height: 'auto' }} />
