@@ -277,7 +277,7 @@ export default function WinePageClient() {
                   <img src={item.img} alt={item.name} style={{
                     position: 'absolute',
                     left: '50%',
-                    bottom: 'calc(clamp(12px, 2.03vw, 35px) - 120px)',
+                    bottom: 'calc(clamp(12px, 2.03vw, 35px) - 90px)',
                     transform: 'translateX(-50%) rotate(0.19deg)',
                     width: 'clamp(160px, 46.96vw, 812px)',
                     maxWidth: '170%',
