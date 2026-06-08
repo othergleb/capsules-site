@@ -127,11 +127,7 @@ function HomeMobile() {
       setSectionH(`${Math.floor(vh) - 41}px`)
     }
     compute()
-    const vp = window.visualViewport
-    if (vp) {
-      vp.addEventListener('resize', compute)
-      return () => vp.removeEventListener('resize', compute)
-    }
+    // Use window resize only (not visualViewport resize) so keyboard open doesn't trigger a reflow
     window.addEventListener('resize', compute)
     return () => window.removeEventListener('resize', compute)
   }, [])
