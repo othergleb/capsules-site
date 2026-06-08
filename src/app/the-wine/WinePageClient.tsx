@@ -330,16 +330,15 @@ export default function WinePageClient() {
       }}>
         {/* cam 3 — large rotated bottle */}
         <img
-          src="/cam 3.png"
+          src="/WhiteBottomTiltes 1.png"
           alt=""
           style={{
             position: 'absolute',
-            top: '0',
-            left: '0',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
             width: 'auto',
-            height: '180svh',
-            transform: 'translate(calc(4vw - 120px), calc(-40vh - 195px)) scaleX(-1) scaleY(-1) rotate(-135.51deg)',
-            transformOrigin: 'center center',
+            height: '90svh',
             pointerEvents: 'none',
           }}
         />
