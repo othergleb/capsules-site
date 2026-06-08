@@ -368,7 +368,7 @@ function HomeMobile() {
           /* Screen 1: email */
           <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease', display: 'flex', flexDirection: 'column', flex: 1 }}>
             <p style={{ ...FONT, fontWeight: 700, fontSize: '18px', lineHeight: 1.27, letterSpacing: '0.16px', color: '#FF3C00', textAlign: 'center', width: 'calc(100% - 72px)', margin: '-32px auto 48px' }}>
-              We&apos;ve been given access to the last remaining bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco — a ros&eacute; so pale it enters a new classification.
+              We&apos;ve been given access to an amphora aged grenache, grown by Berber farmers in northern Morocco. The last 480 bottles of a ros&eacute; so pale, it enters a new classification.
             </p>
 
             <div style={{ padding: '0 10px 16px', marginTop: '-16px', marginBottom: '16px', width: '100%', boxSizing: 'border-box' }}>
@@ -891,7 +891,7 @@ function HomeInner() {
                     maxWidth: '83%',
                     margin: '0 auto 0.75em',
                   }}>
-                    We&apos;ve been given access to the last remaining bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco — a ros&eacute; so pale it enters a new classification.
+                    We&apos;ve been given access to an amphora aged grenache, grown by Berber farmers in northern Morocco. The last 480 bottles of a ros&eacute; so pale, it enters a new classification.
                   </p>
                 </div>
 
