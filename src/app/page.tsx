@@ -899,61 +899,6 @@ function HomeInner() {
         )}
         </div>
 
-        {/* Left large bottle — cam 1: 658×878, rotate(10.247deg) */}
-        <img src={CAM1} alt="" style={{
-          position: 'absolute',
-          left: 'calc(-2vw + 20px)',
-          bottom: '0',
-          width: 'clamp(165.6px, 33.12vw, 573.3px)',
-          aspectRatio: '329 / 439',
-          objectFit: 'cover',
-          transform: 'rotate(0deg)',
-          pointerEvents: 'none',
-          zIndex: 0,
-          userSelect: 'none',
-        }} />
-
-        {/* Olive oil vial — b9f0e9393, rotate(6.422deg) */}
-        <img src="/b9f0e9393dc291355495125a98e814a8 1.png" alt="" style={{
-          position: 'absolute',
-          left: '20.83vw',
-          top: '33vw',
-          width: 'clamp(60px, 8.5vw, 117px)',
-          height: 'auto',
-          aspectRatio: '39 / 74',
-          transform: 'rotate(0deg)',
-          pointerEvents: 'none',
-          zIndex: 1,
-          userSelect: 'none',
-        }} />
-
-        {/* Right back bottle — cam 2: 658×878, scaleY(-1) rotate(172.14deg) — rendered first so cam 3 sits on top */}
-        <img src={CAM2} alt="" style={{
-          position: 'absolute',
-          right: '5vw',
-          top: '0vw',
-          width: 'clamp(184px, 36.8vw, 637px)',
-          aspectRatio: '329 / 439',
-          objectFit: 'cover',
-          transform: 'rotate(0deg)',
-          pointerEvents: 'none',
-          zIndex: 0,
-          userSelect: 'none',
-        }} />
-
-        {/* Right front bottle — cam 3: 658×878, scaleY(-1) rotate(156.92deg) */}
-        <img src={CAM3} alt="" style={{
-          position: 'absolute',
-          right: '2vw',
-          top: '7vw',
-          width: 'clamp(184px, 36.8vw, 637px)',
-          aspectRatio: '329 / 439',
-          objectFit: 'cover',
-          transform: 'rotate(0deg)',
-          pointerEvents: 'none',
-          zIndex: 0,
-          userSelect: 'none',
-        }} />
 
 
       </section>
