@@ -57,19 +57,16 @@ export default function RegistrationForm({ dark = false, minimal = false }: Regi
   }
 
   async function handleShare() {
-    const shareData = {
-      title: 'Other Wine — Capsule 01',
-      text:  `I've registered for Other Wine's first capsule drop. Join the list:\n${referralUrl}`,
-    }
+    const text = `Just registered for Capsule 01 by OTHER - 480 bottles of a Moroccan amphora rosé, available to members only on 23 June. Here's my referral link: ${referralUrl}`
 
     if (typeof navigator !== 'undefined' && navigator.share) {
       try {
-        await navigator.share(shareData)
+        await navigator.share({ text })
       } catch {
         // User dismissed — that's fine
       }
     } else {
-      await navigator.clipboard.writeText(referralUrl)
+      await navigator.clipboard.writeText(text)
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     }
