@@ -204,3 +204,12 @@ details[open] > summary .faq-toggle {
 }
 details > summary { list-style: none; }
 details > summary::-webkit-details-marker { display: none; }
+
+/* ── Scroll arrow ───────────────────────────────────────────── */
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(4px); }
+}
+.scroll-arrow {
+  animation: scrollBounce 1.8s ease-in-out infinite;
+}

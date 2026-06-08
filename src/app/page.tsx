@@ -192,6 +192,7 @@ function HomeMobile() {
         display: 'flex',
         flexDirection: 'column',
         paddingTop: 'calc(env(safe-area-inset-top, 0px) + 7px)',
+        position: 'relative',
       }}>
 
         <OtherLogoVideo src={OTHER_VIDEO} />
@@ -220,6 +221,15 @@ function HomeMobile() {
             <img src={MAROC_SVG} alt="MAROC" style={{ width: '34.47vw', height: 'auto' }} />
           </div>
         </div>
+
+        <button
+          onClick={() => yellowRef.current?.scrollIntoView({ behavior: 'smooth' })}
+          className="scroll-arrow"
+          style={{ position: 'absolute', bottom: '14px', left: 0, right: 0, margin: '0 auto', width: 'fit-content', background: 'none', border: 'none', cursor: 'pointer', padding: '8px', display: 'flex' }}
+          aria-label="Scroll down"
+        >
+          <svg width="22" height="13" viewBox="0 0 22 13" fill="none"><path d="M1.5 1.5L11 11L20.5 1.5" stroke="#EDFF00" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+        </button>
 
       </section>
 
@@ -331,7 +341,7 @@ function HomeMobile() {
           /* Screen 1: email */
           <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease', display: 'flex', flexDirection: 'column', flex: 1 }}>
             <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, letterSpacing: '0.16px', color: '#FF3C00', textAlign: 'center', maxWidth: '320px', margin: '-32px auto 48px' }}>
-              We&apos;ve been given access to the last remaining bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco — a ros&eacute; so pale it enters a new classification.
+              We&apos;re sharing access to the last remaining bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco — a ros&eacute; so pale it enters a new classification.
             </p>
 
             <div style={{ padding: '0 14px 16px', marginTop: '-16px', marginBottom: '16px', width: '100%', boxSizing: 'border-box' }}>
@@ -580,6 +590,15 @@ function HomeInner() {
           </div>
         </div>
 
+        <button
+          onClick={() => yellowRef.current?.scrollIntoView({ behavior: 'smooth' })}
+          className="scroll-arrow"
+          style={{ position: 'absolute', bottom: '18px', left: 0, right: 0, margin: '0 auto', width: 'fit-content', background: 'none', border: 'none', cursor: 'pointer', padding: '8px', display: 'flex' }}
+          aria-label="Scroll down"
+        >
+          <svg width="26" height="15" viewBox="0 0 26 15" fill="none"><path d="M1.5 1.5L13 13L24.5 1.5" stroke="#EDFF00" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+        </button>
+
       </section>
 
       <section ref={yellowRef} style={{
@@ -764,7 +783,7 @@ function HomeInner() {
                     maxWidth: '85%',
                     margin: '0 auto 0.75em',
                   }}>
-                    We&apos;ve been given access to the last remaining bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco — a ros&eacute; so pale it enters a new classification.
+                    We&apos;re sharing access to the last remaining bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco — a ros&eacute; so pale it enters a new classification.
                   </p>
                 </div>
 
