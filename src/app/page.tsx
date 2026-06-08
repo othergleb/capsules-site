@@ -135,7 +135,7 @@ function HomeMobile() {
         if (p < 1) requestAnimationFrame(step)
       }
       requestAnimationFrame(step)
-    }, 4000)
+    }, 5000)
     return () => clearTimeout(t)
   }, [])
 
@@ -450,7 +450,7 @@ function HomeInner() {
         if (p < 1) requestAnimationFrame(step)
       }
       requestAnimationFrame(step)
-    }, 4000)
+    }, 5000)
     return () => clearTimeout(t)
   }, [])
 
