@@ -197,15 +197,6 @@ function HomeMobile() {
 
         <OtherLogoVideo src={OTHER_VIDEO} />
 
-        {/* Constrain all content to the logo's visible width */}
-        <div style={{
-          width: 'min(100%, calc(38dvh * 469 / 103))',
-          margin: '0 auto',
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-        }}>
-
         <div style={{ flex: 8 }} />
 
         {/* Two video ovals */}
@@ -230,8 +221,6 @@ function HomeMobile() {
             <img src={MAROC_SVG} alt="MAROC" style={{ width: '34.47vw', height: 'auto' }} />
           </div>
         </div>
-
-        </div>{/* end logo-width wrapper */}
 
         <button
           onClick={() => yellowRef.current?.scrollIntoView({ behavior: 'smooth' })}
