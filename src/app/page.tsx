@@ -270,7 +270,7 @@ function HomeMobile() {
           maxWidth: '365px',
           margin: '12px auto 90px',
         }}>
-          Register for access<br />at 10am on 23 June
+          Register for access:<br />23 June, 10am
         </h1>
 
         {/* Form steps — directly on yellow */}
@@ -641,7 +641,7 @@ function HomeInner() {
           textTransform: 'uppercase',
           maxWidth: '52%',
         }}>
-          Register for access<br />at 10am on 23 June
+          Register for access:<br />23 June, 10am
         </h1>
 
         {/* Form — directly on yellow */}
