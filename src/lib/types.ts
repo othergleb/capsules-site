@@ -13,6 +13,7 @@ export interface Member {
   companion_id:     string | null    // FK → members.id (set once companion registers)
   invited_by_id:    string | null    // FK → members.id (who invited them)
   tier:             number           // 1 = early access, 2 = standard waitlist
+  source:           string | null
   status:           MemberStatus
   klaviyo_id:       string | null
   is_admin:         boolean

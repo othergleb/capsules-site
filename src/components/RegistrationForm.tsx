@@ -15,6 +15,7 @@ export default function RegistrationForm({ dark = false, minimal = false }: Regi
   const [errorMsg, setErrorMsg]   = useState('')
   const [inviteCode, setInviteCode] = useState<string | null>(null)
   const [refCode, setRefCode]     = useState<string | null>(null)
+  const [srcCode, setSrcCode]     = useState<string | null>(null)
   const [copied, setCopied]       = useState(false)
 
   const textColor = dark ? 'var(--cream)' : 'var(--blue)'
@@ -24,6 +25,8 @@ export default function RegistrationForm({ dark = false, minimal = false }: Regi
     const params = new URLSearchParams(window.location.search)
     const ref = params.get('ref')
     if (ref) setRefCode(ref)
+    const src = params.get('src')
+    if (src) setSrcCode(src)
   }, [])
 
   const referralUrl = inviteCode
@@ -39,7 +42,7 @@ export default function RegistrationForm({ dark = false, minimal = false }: Regi
       const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, refCode }),
+        body: JSON.stringify({ email, refCode, srcCode }),
       })
       if (res.ok) {
         const data = await res.json()

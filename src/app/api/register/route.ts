@@ -108,7 +108,7 @@ async function klaviyoTrackCompanionAccepted(referrerEmail: string) {
 // ── Route handler ──────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
-  const { email, name, refCode } = await req.json()
+  const { email, name, refCode, srcCode } = await req.json()
 
   if (!email || typeof email !== 'string') {
     return NextResponse.json({ error: 'Email is required.' }, { status: 400 })
@@ -158,6 +158,7 @@ export async function POST(req: NextRequest) {
       name:          cleanName || null,
       status:        'registered',
       tier:          2,
+      source:        typeof srcCode === 'string' ? srcCode : null,
       invited_by_id: referrer?.id ?? null,
     })
     .select()
