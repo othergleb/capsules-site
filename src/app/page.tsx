@@ -365,12 +365,12 @@ function HomeMobile() {
 
           /* Screen 1: email */
           <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease', display: 'flex', flexDirection: 'column', flex: 1 }}>
-            <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, letterSpacing: '0.16px', color: '#FF3C00', textAlign: 'center', width: 'calc(100% - 20px)', margin: '-32px auto 48px' }}>
+            <p style={{ ...FONT, fontWeight: 700, fontSize: '18px', lineHeight: 1.27, letterSpacing: '0.16px', color: '#FF3C00', textAlign: 'center', width: 'calc(100% - 20px)', margin: '-32px auto 48px' }}>
               We&apos;ve been given access to the last remaining bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco — a ros&eacute; so pale it enters a new classification.
             </p>
 
             <div style={{ padding: '0 10px 16px', marginTop: '-16px', marginBottom: '16px', width: '100%', boxSizing: 'border-box' }}>
-              <p style={{ ...FONT, fontWeight: 400, fontSize: '12px', lineHeight: '17.738px', letterSpacing: '-0.12px', color: '#FF3C00', textAlign: 'center', marginTop: '10px', marginBottom: '7px', textTransform: 'uppercase' }}>
+              <p style={{ ...FONT, fontWeight: 400, fontSize: '14px', lineHeight: '20px', letterSpacing: '-0.12px', color: '#FF3C00', textAlign: 'center', marginTop: '10px', marginBottom: '7px', textTransform: 'uppercase' }}>
                 Inside Capsule 01 (£89)
               </p>
               <div style={{ borderTop: '0.633px solid #FF3C00' }}>
@@ -380,8 +380,8 @@ function HomeMobile() {
                   ['1 x Vial',    'Award-winning Olive Oil'],
                 ] as [string, string][]).map(([qty, item]) => (
                   <div key={qty} style={{ display: 'grid', gridTemplateColumns: '38% 1fr', alignItems: 'center', padding: '2px 0', borderBottom: '0.633px solid #FF3C00' }}>
-                    <span style={{ ...FONT, fontWeight: 300, fontSize: '12px', lineHeight: '17.738px', color: '#FF3C00', letterSpacing: '-0.12px', textTransform: 'uppercase', paddingLeft: '14px', whiteSpace: 'nowrap' }}>{qty}</span>
-                    <span style={{ ...FONT, fontWeight: 400, fontSize: '12px', lineHeight: '17.738px', color: '#FF3C00', letterSpacing: '-0.12px', textTransform: 'uppercase', textAlign: 'left' }}>{item}</span>
+                    <span style={{ ...FONT, fontWeight: 300, fontSize: '14px', lineHeight: '20px', color: '#FF3C00', letterSpacing: '-0.12px', textTransform: 'uppercase', paddingLeft: '14px', whiteSpace: 'nowrap' }}>{qty}</span>
+                    <span style={{ ...FONT, fontWeight: 400, fontSize: '14px', lineHeight: '20px', color: '#FF3C00', letterSpacing: '-0.12px', textTransform: 'uppercase', textAlign: 'left' }}>{item}</span>
                   </div>
                 ))}
               </div>
