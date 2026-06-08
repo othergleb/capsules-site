@@ -255,8 +255,8 @@ export default function WinePageClient() {
                     left: '50%',
                     bottom: 'calc(clamp(12px, 2.03vw, 35px) + 20px)',
                     transform: 'translateX(-50%) rotate(0.19deg)',
-                    width: 'clamp(160px, 18.06vw, 312px)',
-                    height: 'clamp(300px, 34.02vw, 588px)',
+                    width: 'clamp(208px, 23.48vw, 406px)',
+                    height: 'clamp(390px, 44.23vw, 764px)',
                   }}>
                     <img src={item.img} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', pointerEvents: 'none', transform: 'none' }} />
                   </div>
