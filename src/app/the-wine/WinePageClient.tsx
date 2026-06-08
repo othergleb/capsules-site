@@ -295,9 +295,7 @@ export default function WinePageClient() {
                 marginTop: '-2.22px',
                 padding: 'clamp(10px, 1.3svh, 31px)',
                 paddingBottom: 'clamp(8px, 1.1svh, 26px)',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
+                position: 'relative',
                 height: 'clamp(90px, 16svh, 196px)',
                 flexShrink: 0,
                 overflow: 'hidden',
@@ -310,7 +308,7 @@ export default function WinePageClient() {
                     {item.desc}
                   </p>
                 </div>
-                <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(10px, min(1.33vw, 1.5svh), 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0, marginTop: i === 3 ? '2.5em' : '1.25em', marginBottom: '10px', textTransform: 'uppercase' }}>
+                <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(10px, min(1.33vw, 1.5svh), 23px)', color: 'var(--blue)', letterSpacing: '-0.03em', lineHeight: 1.25, margin: 0, textTransform: 'uppercase', position: 'absolute', bottom: 'clamp(8px, 1.1svh, 26px)', left: 'clamp(10px, 1.3svh, 31px)', right: 'clamp(10px, 1.3svh, 31px)' }}>
                   {item.qty}
                 </p>
               </div>
