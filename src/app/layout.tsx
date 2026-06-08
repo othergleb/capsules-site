@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import { Analytics } from '@vercel/analytics/react'
 import './globals.css'
 
 const DESC = "We've been given access to the last remaining bottles of an amphora aged grenache, grown by Berber farmers in northern Morocco — a rosé so pale it enters a new classification. Available to Capsule members only. 23 June, 10AM BST."
@@ -41,7 +42,7 @@ export default function RootLayout({
         <link rel="preload" href="/other-logo-cropped.mp4"    as="video" type="video/mp4" />
         <link rel="preload" href="/other-logo-cropped-6k.mp4" as="video" type="video/mp4" />
       </head>
-      <body>{children}</body>
+      <body>{children}<Analytics /></body>
     </html>
   )
 }
