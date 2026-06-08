@@ -286,7 +286,7 @@ export default function WinePageClient() {
                     transformOrigin: 'center bottom',
                   }} />
                 ) : (
-                  <img src={item.img} alt={item.name} style={{ width: i === 0 ? '60%' : '60%', height: 'auto', display: 'block', marginBottom: i === 0 ? '-29px' : '-10px' }} />
+                  <img src={item.img} alt={item.name} style={{ width: i === 0 ? '60%' : '60%', height: 'auto', display: 'block', marginBottom: i === 0 ? '-33px' : '-10px' }} />
                 )}
               </div>
               <div style={{
