@@ -51,10 +51,11 @@ function WinePageMobile() {
     borderRadius: '9999px 9999px 0 0',
     height: '66vw',
     backgroundColor: '#FF3C00',
-    overflow: 'visible',
+    overflow: 'hidden',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-end',
+    position: 'relative',
   }
 
   const YELLOW: React.CSSProperties = {
@@ -62,10 +63,9 @@ function WinePageMobile() {
     border: '1px solid #00006A',
     marginTop: '-1px',
     padding: '10px 8px 8px',
-    minHeight: 'calc(29vw - 28px)',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+    height: '29vw',
+    position: 'relative',
+    overflow: 'hidden',
   }
 
   const rows = [[0, 1], [2, 3]] as const
@@ -73,7 +73,7 @@ function WinePageMobile() {
   return (
     <div style={{ backgroundColor: '#FF3C00', minHeight: '100svh', display: 'flex', flexDirection: 'column', paddingTop: 'calc(env(safe-area-inset-top, 0px) + 7px)' }}>
 
-      {/* OTHER animated logo — same size as homepage mobile */}
+      {/* OTHER animated logo */}
       <Link href="/" style={{ width: 'min(104.1vw, calc(38dvh * 469 / 103))', alignSelf: 'center', flexShrink: 0, display: 'block' }}>
         {showGif
           ? <img src="/other-logo.gif" alt="OTHER" style={{ width: '100%', display: 'block' }} />
@@ -87,11 +87,11 @@ function WinePageMobile() {
       <h2 style={{
         fontFamily: 'Vulf Sans, sans-serif',
         fontWeight: 900,
-        fontSize: '39.6px',
+        fontSize: '32px',
         color: 'transparent',
         WebkitTextStrokeWidth: '0.75px',
         WebkitTextStrokeColor: '#00006A',
-        letterSpacing: '1.2px',
+        letterSpacing: '1.28px',
         textAlign: 'center',
         margin: '0 0 14px',
       }}>
@@ -106,23 +106,52 @@ function WinePageMobile() {
               <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', marginLeft: colIdx > 0 ? '-1px' : 0 }}>
                 {/* Arch */}
                 <div style={ARCH}>
-                  {(i === 0 || i === 1) && (
+                  {i === 0 && (
                     <img
-                      src={PRODUCTS[i].img}
-                      alt={PRODUCTS[i].name}
-                      style={{ width: '41.4%', height: 'auto', display: 'block', pointerEvents: 'none' }}
+                      src="/WhiteFrontOther2-1 1.png"
+                      alt={PRODUCTS[0].name}
+                      style={{ width: '50%', height: 'auto', display: 'block', pointerEvents: 'none' }}
+                    />
+                  )}
+                  {i === 1 && (
+                    <img
+                      src="/Rose6 2.png"
+                      alt={PRODUCTS[1].name}
+                      style={{ width: '32%', height: 'auto', display: 'block', pointerEvents: 'none', marginBottom: '4vw' }}
                     />
                   )}
                   {i === 2 && (
                     <img
-                      src={PRODUCTS[2].img}
+                      src="/OilFront 1.png"
                       alt={PRODUCTS[2].name}
-                      style={{ width: '33.35%', height: 'auto', display: 'block', pointerEvents: 'none', alignSelf: 'flex-end', marginBottom: '50px' }}
+                      style={{ width: '76%', height: 'auto', display: 'block', pointerEvents: 'none', marginBottom: '2vw' }}
                     />
                   )}
                   {i === 3 && (
-                    <div style={{ width: '65%', border: '3px solid #fffff5', overflow: 'hidden' }}>
-                      <img src={PRODUCTS[3].img} alt={PRODUCTS[3].name} style={{ width: '100%', height: 'auto', display: 'block' }} />
+                    <div style={{
+                      position: 'absolute',
+                      top: '28%',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      width: '72%',
+                      aspectRatio: '133 / 170',
+                      backgroundColor: 'white',
+                    }}>
+                      <div style={{ position: 'absolute', inset: '1.5%', overflow: 'hidden' }}>
+                        <img src="/mobile-illustration-bg.png" alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                        <div style={{ position: 'absolute', top: 0, left: 0, right: '50%', bottom: '50%' }}>
+                          <img src="/mobile-vector-a.png" alt="" style={{ width: '100%', height: '100%', display: 'block' }} />
+                        </div>
+                        <div style={{ position: 'absolute', bottom: 0, left: '50%', right: 0, top: '50%', transform: 'rotate(180deg)' }}>
+                          <img src="/mobile-vector-b.png" alt="" style={{ width: '100%', height: '100%', display: 'block' }} />
+                        </div>
+                        <div style={{ position: 'absolute', top: 0, left: '50%', right: 0, bottom: '50%', transform: 'rotate(180deg)' }}>
+                          <img src="/mobile-vector-c.png" alt="" style={{ width: '100%', height: '100%', display: 'block' }} />
+                        </div>
+                        <div style={{ position: 'absolute', bottom: 0, left: 0, right: '50%', top: '50%' }}>
+                          <img src="/mobile-vector-a.png" alt="" style={{ width: '100%', height: '100%', display: 'block' }} />
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -132,7 +161,7 @@ function WinePageMobile() {
                     <p style={{ ...TEXT, fontWeight: 400 }}>{PRODUCTS[i].name}</p>
                     <p style={{ ...TEXT, fontWeight: 300, marginTop: '2px' }}>{PRODUCTS[i].desc}</p>
                   </div>
-                  <p style={{ ...TEXT, fontWeight: 300 }}>{PRODUCTS[i].qty}</p>
+                  <p style={{ ...TEXT, fontWeight: 300, position: 'absolute', bottom: '8px', left: '8px', right: '8px' }}>{PRODUCTS[i].qty}</p>
                 </div>
               </div>
             ))}
