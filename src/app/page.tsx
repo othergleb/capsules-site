@@ -430,8 +430,8 @@ function HomeMobile() {
           position: 'absolute',
           left: '-25vw',
           top: '499px',
-          width: '87vw',
-          height: '115vw',
+          width: '174vw',
+          height: '230vw',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -439,7 +439,7 @@ function HomeMobile() {
           userSelect: 'none',
           zIndex: 2,
         }}>
-          <BgBottleVideo src="/Rose360.mp4" rotation="15.77deg" width="61vw" />
+          <BgBottleVideo src="/Rose360.mp4" rotation="15.77deg" width="122vw" />
         </div>
 
         {/* WhiteTitled_v03 — right bottle video */}
@@ -447,8 +447,8 @@ function HomeMobile() {
           position: 'absolute',
           left: '12vw',
           top: '627px',
-          width: '109vw',
-          height: '119vw',
+          width: '125vw',
+          height: '137vw',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -456,7 +456,7 @@ function HomeMobile() {
           userSelect: 'none',
           zIndex: 1,
         }}>
-          <BgBottleVideo src="/WhiteTitled_v03.mp4" rotation="-10.82deg" width="92vw" />
+          <BgBottleVideo src="/WhiteTitled_v03.mp4" rotation="-10.82deg" width="106vw" />
         </div>
 
         {/* Contact info */}
