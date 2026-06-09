@@ -184,6 +184,7 @@ function OriginMethodBoxMobile() {
           width: '87vw',
           pointerEvents: 'none',
           zIndex: 1,
+          transform: 'rotate(-17deg)',
         }}>
           <video autoPlay loop muted playsInline preload="auto" style={{ width: '100%', height: 'auto', display: 'block' }}>
             <source src="/WhiteTitled_v02.mp4" type="video/mp4" />
