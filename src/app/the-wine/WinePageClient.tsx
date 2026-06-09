@@ -280,7 +280,7 @@ export default function WinePageClient() {
                     left: '50%',
                     transform: 'translateX(-50%)',
                     width: '80%',
-                    maxHeight: '74.75%',
+                    maxHeight: '67.3%',
                     aspectRatio: '5 / 8',
                     backgroundColor: 'white',
                   }}>
