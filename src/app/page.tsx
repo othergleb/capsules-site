@@ -323,9 +323,6 @@ function HomeMobile() {
               <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00', textTransform: 'uppercase', marginBottom: '1.75em' }}>
                 You&apos;ve registered.
               </p>
-              <p style={{ ...FONT, fontWeight: 300, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00' }}>
-                Purchase link drops on 23 June, keep an eye on your emails.
-              </p>
             </div>
             <div style={{ padding: '0 10px', marginTop: 'auto' }}>
               <a href="/the-wine" style={{
