@@ -303,16 +303,11 @@ export default function WinePageClient() {
                     </div>
                   </div>
                 ) : i === 2 ? (
-                  <img src={item.img} alt={item.name} style={{
-                    position: 'absolute',
-                    left: '50%',
-                    bottom: 'calc(clamp(12px, 2.03vw, 35px) - 22svh + 20px)',
-                    transform: 'translateX(-50%) rotate(0.19deg) scale(2)',
-                    width: '80vw',
+                  <img src="/oil-front.png" alt={item.name} style={{
+                    width: '72%',
                     height: 'auto',
                     display: 'block',
                     pointerEvents: 'none',
-                    transformOrigin: 'center bottom',
                   }} />
                 ) : (
                   <img src={item.img} alt={item.name} style={{ width: i === 0 ? '61%' : '60%', height: 'auto', display: 'block', marginBottom: i === 0 ? '-5.2svh' : '-1.1svh' }} />
