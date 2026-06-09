@@ -117,7 +117,7 @@ function WinePageMobile() {
                     <img
                       src="/52a8be1f462205b9d387a775e88e787e3ec36644.png"
                       alt={PRODUCTS[1].name}
-                      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: '70% 75%', transform: 'scale(1.05)', display: 'block', pointerEvents: 'none' }}
+                      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: '40% 50%', transform: 'scale(1.05) translateY(5%)', display: 'block', pointerEvents: 'none' }}
                     />
                   )}
                   {i === 2 && (
