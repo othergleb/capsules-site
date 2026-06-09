@@ -684,9 +684,9 @@ function HomeInner() {
         <div style={{
           position: 'absolute',
           left: '49vw',
-          top: 0,
-          width: '78vw',
-          height: '70.7vw',
+          top: '-4vw',
+          width: '74.1vw',
+          height: '67.2vw',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -694,7 +694,7 @@ function HomeInner() {
           userSelect: 'none',
           zIndex: 1,
         }}>
-          <div style={{ transform: 'rotate(-14.55deg)', flexShrink: 0, width: '66.2vw' }}>
+          <div style={{ transform: 'rotate(-14.55deg)', flexShrink: 0, width: '62.9vw' }}>
             <video autoPlay loop muted playsInline style={{ width: '100%', height: 'auto', display: 'block' }}>
               <source src="/WhiteTitled_v03.mp4" type="video/mp4" />
             </video>
