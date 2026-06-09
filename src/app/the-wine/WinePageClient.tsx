@@ -279,8 +279,8 @@ export default function WinePageClient() {
                     top: '28%',
                     left: '50%',
                     transform: 'translateX(-50%)',
-                    width: '80%',
-                    maxHeight: '65%',
+                    width: '92%',
+                    maxHeight: '74.75%',
                     aspectRatio: '5 / 8',
                     backgroundColor: 'white',
                   }}>
@@ -309,11 +309,11 @@ export default function WinePageClient() {
                     pointerEvents: 'none',
                   }} />
                 ) : i === 1 ? (
-                  <div style={{ position: 'absolute', bottom: 'clamp(12px, 2.03vw, 35px)', left: '50%', transform: 'translateX(-50%) translateY(13.75%)', width: '28.35vw', pointerEvents: 'none' }}>
+                  <div style={{ position: 'absolute', bottom: 'clamp(12px, 2.03vw, 35px)', left: '50%', transform: 'translateX(-50%) translateY(13.75%)', width: '32.6vw', pointerEvents: 'none' }}>
                     <img src={item.img} alt={item.name} style={{ width: '100%', height: 'auto', display: 'block' }} />
                   </div>
                 ) : (
-                  <img src={item.img} alt={item.name} style={{ width: '42.7%', height: 'auto', display: 'block', marginBottom: '-8svh' }} />
+                  <img src={item.img} alt={item.name} style={{ width: '49.1%', height: 'auto', display: 'block', marginBottom: '-8svh' }} />
                 )}
               </div>
               <div style={{
