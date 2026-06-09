@@ -713,7 +713,7 @@ function HomeInner() {
           justifyContent: 'center',
           pointerEvents: 'none',
           userSelect: 'none',
-          zIndex: 5,
+          zIndex: 1,
         }}>
           <div style={{ transform: 'rotate(-15.71deg)', flexShrink: 0, width: '53vw' }}>
             <video autoPlay loop muted playsInline style={{ width: '100%', height: 'auto', display: 'block' }}>
