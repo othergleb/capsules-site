@@ -436,7 +436,7 @@ function HomeMobile() {
           userSelect: 'none',
           zIndex: 1,
         }}>
-          <BgBottleVideo src="/ROSE%20ADJUSTED.mp4" rotation="0deg" width="100%" />
+          <BgBottleVideo src="/rose-adjusted.mp4" rotation="0deg" width="100%" />
         </div>
 
         {/* WhiteTitled_v03 — right bottle video */}
