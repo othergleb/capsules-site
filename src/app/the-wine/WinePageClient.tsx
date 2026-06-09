@@ -475,7 +475,7 @@ export default function WinePageClient() {
             lineHeight: 1.29,
             letterSpacing: '0.23px',
             gridColumn: '1 / -1',
-          }}>Grown in clay-sandy soil at 850m altitude, the grenache grapes are hand-picked in small parcels and pressed with as little as ten minutes of skin contact. The juice is then aged in amphora (75%) and oak barrels (25%) - a product of craft and of patience, ready to enjoy right away or age.</p>
+          }}>Grown in clay-sandy soil at 850m altitude, the grenache grapes are hand-picked in small parcels and pressed with as little as ten minutes of skin contact. The juice is then aged in amphora (75%) and oak barrels (25%) - a product of craft and of patience, ready to enjoy right away or age. Crispy, fresh, aromatic, and silky on the palate.</p>
         </div>
       </section>
 
