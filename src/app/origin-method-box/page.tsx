@@ -170,8 +170,8 @@ function OriginMethodBoxMobile() {
       <div style={{
         position: 'absolute',
         left: 'calc(-3.05vw - 90px + 30vw)',
-        top: 'calc(-41px + 8vw)',
-        width: '104.4vw',
+        top: 'calc(-41px + 8vw + 40px)',
+        width: '135.7vw',
         pointerEvents: 'none',
         zIndex: 1,
         transform: 'rotate(-17deg)',
