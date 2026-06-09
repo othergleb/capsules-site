@@ -108,7 +108,7 @@ function WinePageMobile() {
                 <div style={ARCH}>
                   {i === 0 && (
                     <img
-                      src="/WhiteFrontOther2-1 1.png"
+                      src="/e575fa80139bf20094d266a0b33893b1a86558e5.png"
                       alt={PRODUCTS[0].name}
                       style={{ width: '50%', height: 'auto', display: 'block', pointerEvents: 'none' }}
                     />
