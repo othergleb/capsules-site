@@ -474,6 +474,7 @@ function HomeInner() {
   const refCode                       = searchParams.get('ref') ?? undefined
   const isMobile                      = useIsMobile()
   const isNarrow                      = useIsMobile(900)
+  const isNarrowYellow                = useIsMobile(1280)
 
   const [email, setEmail]             = useState('')
   const [formStep, setFormStep]       = useState<'email' | 'invite'>('email')
@@ -670,7 +671,7 @@ function HomeInner() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        height: isNarrow ? 'auto' : '100dvh',
+        height: isNarrowYellow ? 'auto' : '100dvh',
         boxSizing: 'border-box',
         paddingTop: 'clamp(2rem, 3vw, 52px)',
         paddingLeft: 'clamp(1.5rem, 5vw, 4rem)',
