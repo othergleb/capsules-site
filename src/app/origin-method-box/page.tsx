@@ -181,7 +181,7 @@ function OriginMethodBoxMobile() {
           position: 'absolute',
           left: 'calc(-3.05vw - 90px + 25vw)',
           top: 'calc(-41px + 28vw)',
-          width: '70vw',
+          width: '85vw',
           pointerEvents: 'none',
           zIndex: 2,
         }}>
@@ -195,6 +195,7 @@ function OriginMethodBoxMobile() {
         {/* Wine details table */}
         <div style={{
           position: 'absolute',
+          zIndex: 3,
           left: '11px',
           right: '11px',
           bottom: '0',
