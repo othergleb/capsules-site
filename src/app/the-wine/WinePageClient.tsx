@@ -240,8 +240,6 @@ export default function WinePageClient() {
     if (v2) { v2.muted = true; v2.play().catch(() => {}) }
   }, [])
 
-  const [firstBottleHovered, setFirstBottleHovered] = useState(false)
-
   if (isMobile) return <WinePageMobile />
 
   return (
@@ -316,13 +314,7 @@ export default function WinePageClient() {
                     <img src={item.img} alt={item.name} style={{ width: '100%', height: 'auto', display: 'block' }} />
                   </div>
                 ) : (
-                  <img
-                    src={firstBottleHovered ? '/fd42a6851e69c4172d101549a57012240a29e863.png' : item.img}
-                    alt={item.name}
-                    style={{ width: '48.1%', height: 'auto', display: 'block', marginBottom: 'calc(-8svh - 5px)', cursor: 'pointer' }}
-                    onMouseEnter={() => setFirstBottleHovered(true)}
-                    onMouseLeave={() => setFirstBottleHovered(false)}
-                  />
+                  <img src={item.img} alt={item.name} style={{ width: '48.1%', height: 'auto', display: 'block', marginBottom: 'calc(-8svh - 5px)' }} />
                 )}
               </div>
               <div style={{
