@@ -109,10 +109,12 @@ const WINE_DETAILS = [
 function OriginMethodBoxMobile() {
   const video1Ref = useRef<HTMLVideoElement>(null)
   const video2Ref = useRef<HTMLVideoElement>(null)
+  const bottleVideoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
     if (video1Ref.current) { video1Ref.current.muted = true; video1Ref.current.play().catch(() => {}) }
     if (video2Ref.current) { video2Ref.current.muted = true; video2Ref.current.play().catch(() => {}) }
+    if (bottleVideoRef.current) { bottleVideoRef.current.muted = true; bottleVideoRef.current.play().catch(() => {}) }
   }, [])
 
   const BODY: React.CSSProperties = {
@@ -162,7 +164,22 @@ function OriginMethodBoxMobile() {
   }
 
   return (
-    <div style={{ backgroundColor: '#FF3C00', paddingBottom: 'calc(41px + env(safe-area-inset-bottom, 0px))' }}>
+    <div style={{ backgroundColor: '#FF3C00', paddingBottom: 'calc(41px + env(safe-area-inset-bottom, 0px))', position: 'relative' }}>
+
+      {/* Bottle video — outside cream section so overflow:hidden doesn't clip it */}
+      <div style={{
+        position: 'absolute',
+        left: 'calc(-3.05vw - 90px + 30vw)',
+        top: 'calc(-41px + 8vw)',
+        width: '104.4vw',
+        pointerEvents: 'none',
+        zIndex: 1,
+        transform: 'rotate(-17deg)',
+      }}>
+        <video ref={bottleVideoRef} autoPlay loop muted playsInline preload="auto" style={{ width: '100%', height: 'auto', display: 'block' }}>
+          <source src="/WhiteTitled_v02.mp4" type="video/mp4" />
+        </video>
+      </div>
 
       {/* ── Cream hero section ── */}
       <section style={{
@@ -175,21 +192,6 @@ function OriginMethodBoxMobile() {
         <Link href="/" style={{ position: 'absolute', left: '-23.15vw', top: '-60.3vw', width: '144.8vw', height: '144.8vw', zIndex: 3, display: 'block' }}>
           <img src="/figma/other-logo-red.png" alt="" style={{ width: '100%', height: '100%' }} />
         </Link>
-
-        {/* Cam 3 bottle — flipped vertically, rotated */}
-        <div style={{
-          position: 'absolute',
-          left: 'calc(-3.05vw - 90px + 30vw)',
-          top: 'calc(-41px + 8vw)',
-          width: '104.4vw',
-          pointerEvents: 'none',
-          zIndex: 1,
-          transform: 'rotate(-17deg)',
-        }}>
-          <video autoPlay loop muted playsInline preload="auto" style={{ width: '100%', height: 'auto', display: 'block' }}>
-            <source src="/WhiteTitled_v02.mp4" type="video/mp4" />
-          </video>
-        </div>
 
         {/* Wine details table */}
         <div style={{
