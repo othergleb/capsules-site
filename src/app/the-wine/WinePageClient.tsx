@@ -11,7 +11,7 @@ const DETAILS = [
   ['Region',   'Hauts Plateaux de Meknes AOC'],
   ['Grape',    'Grenache'],
   ['Vintage',  '2023'],
-  ['Method',   '75% stoneware amphora, 25% oak barrels'],
+  ['Terroir',  'Clay sandy soil'],
   ['Format',   '75cl bottle, natural cork'],
 ]
 
