@@ -429,7 +429,7 @@ function HomeMobile() {
         <div style={{
           position: 'absolute',
           left: '-38vw',
-          top: '499px',
+          top: 'calc(499px - 30vw)',
           width: '86.5vw',
           overflow: 'hidden',
           pointerEvents: 'none',
