@@ -725,7 +725,7 @@ function HomeInner() {
 
 
         {/* Centered content wrapper — sits above decorative bottles */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', position: 'relative', zIndex: 10 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', position: 'relative', zIndex: 10, top: '10px' }}>
 
         {/* Section label */}
         <p style={{
@@ -1019,7 +1019,7 @@ function HomeInner() {
           style={{
             position: 'absolute',
             left: '27vw',
-            top: 'calc(50% - 4vw)',
+            top: 'calc(50% - 4vw + 50px)',
             width: 'clamp(70px, 8vw, 140px)',
             height: 'auto',
             pointerEvents: 'none',
