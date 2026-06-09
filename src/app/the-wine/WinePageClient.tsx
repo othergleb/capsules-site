@@ -475,7 +475,7 @@ export default function WinePageClient() {
             lineHeight: 1.29,
             letterSpacing: '0.23px',
             gridColumn: '1 / -1',
-          }}>The vines are grown in a clay-sandy soil at 850m altitude. The Grenache grapes are hand-picked in small parcels and when pressed, the skins of the Grenache are left in contact for as little as ten minutes. The juice is aged in amphora (75%) and oak barrels (25%) in the Moroccan cellar for three years. The resultant wine is a product of craft and of patience - a deceptively complex 'almost white' made from red grapes.</p>
+          }}>Grown in clay-sandy soil at 850m altitude, the grenache grapes are hand-picked in small parcels and pressed with as little as ten minutes of skin contact. The juice is then aged in amphora (75%) and oak barrels (25%) - a product of craft and of patience, ready to enjoy right away or age.</p>
         </div>
       </section>
 
