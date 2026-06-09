@@ -16,8 +16,8 @@ const DETAILS = [
 ]
 
 const PRODUCTS = [
-  { img: '/WhiteFrontOther2-1 1.png', name: 'Amphora Aged Grenache', qty: '1 bottle · 75cl',       desc: 'The centrepiece. Gris de grenache, 2023 vintage. Copper-coloured, textured, alive.' },
-  { img: '/Rose6 2.png', name: 'Estate Rosé',           qty: '2 bottles · 75cl each', desc: 'Made from the same vines, same harvest. A paler, more delicate expression of the same fruit.' },
+  { img: '/WhiteFront 1.png', name: 'Amphora Aged Grenache', qty: '1 bottle · 75cl',       desc: 'The centrepiece. Gris de grenache, 2023 vintage. Copper-coloured, textured, alive.' },
+  { img: '/RoseFront 1.png', name: 'Estate Rosé',           qty: '2 bottles · 75cl each', desc: 'Made from the same vines, same harvest. A paler, more delicate expression of the same fruit.' },
   { img: '/OilTilted2 1.png', name: 'Estate Olive Oil', qty: '1 vial · 60ml', desc: 'Cold-pressed from olive trees that share the same soil as the vines. A companion to the wine.' },
   { img: '/poster-overlay.svg', name: 'Illustration',         qty: '1 poster · 35 × 20cm', desc: 'A photographic print from the estate by Mehdi Amini.' },
 ]
@@ -108,14 +108,14 @@ function WinePageMobile() {
                 <div style={ARCH}>
                   {i === 0 && (
                     <img
-                      src="/white-front-other2.png"
+                      src="/WhiteFrontOther2-1 1.png"
                       alt={PRODUCTS[0].name}
                       style={{ width: '50%', height: 'auto', display: 'block', pointerEvents: 'none' }}
                     />
                   )}
                   {i === 1 && (
                     <img
-                      src="/rose6.png"
+                      src="/Rose6 2.png"
                       alt={PRODUCTS[1].name}
                       style={{ width: '32%', height: 'auto', display: 'block', pointerEvents: 'none', marginBottom: '4vw' }}
                     />
