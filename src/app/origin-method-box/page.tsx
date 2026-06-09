@@ -182,19 +182,14 @@ function OriginMethodBoxMobile() {
           left: 'calc(-3.05vw - 90px + 25vw)',
           top: 'calc(-41px + 28vw)',
           width: '107.6vw',
-          height: '141vw',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
           pointerEvents: 'none',
+          zIndex: 2,
         }}>
-          <div style={{ transform: 'rotate(0deg)', flexShrink: 0 }}>
-            <img
-              src="/WhiteBottomTilted5-1-Topaz-Gigapixel-2x-scale 1.png"
-              alt=""
-              style={{ width: '103.2vw', height: '137.7vw', objectFit: 'cover', display: 'block' }}
-            />
-          </div>
+          <img
+            src="/WhiteBottomTilted5-1-Topaz-Gigapixel-2x-scale 1.png"
+            alt=""
+            style={{ width: '100%', height: 'auto', display: 'block' }}
+          />
         </div>
 
         {/* Wine details table */}
