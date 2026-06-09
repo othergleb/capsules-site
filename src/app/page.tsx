@@ -358,7 +358,7 @@ function HomeMobile() {
                 GET ACCESS EARLY
               </p>
               <p style={{ ...FONT, fontWeight: 300, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00' }}>
-                Successfully refer one friend and get access to Capsule 01 early.
+                Use the button below to share your referral link - if you refer a friend, you&apos;ll get the purchase link before everyone else.
               </p>
             </div>
             <div style={{ padding: '0 10px', marginTop: 'auto' }}>
@@ -816,7 +816,7 @@ function HomeInner() {
                     letterSpacing: '0.23px',
                     color: '#FF3C00',
                   }}>
-                    Successfully refer one friend and get access to Capsule 01 early.
+                    Use the button below to share your referral link - if you refer a friend, you&apos;ll get the purchase link before everyone else.
                   </p>
                 </div>
                 <div style={{ padding: '0 8.5%', marginTop: 'auto' }}>
