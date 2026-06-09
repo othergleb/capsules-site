@@ -428,7 +428,7 @@ function HomeMobile() {
         {/* Rose Adjusted — left bottle video, pre-cropped to Figma frame */}
         <div style={{
           position: 'absolute',
-          left: '-8vw',
+          left: '-38vw',
           top: '499px',
           width: '86.5vw',
           overflow: 'hidden',
