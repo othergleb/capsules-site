@@ -428,8 +428,8 @@ function HomeMobile() {
         {/* Rose360 — left bottle video */}
         <div style={{
           position: 'absolute',
-          left: '-45vw',
-          top: '341px',
+          left: '-55vw',
+          top: '262px',
           width: '174vw',
           height: '230vw',
           display: 'flex',
