@@ -1,5 +1,5 @@
 'use client'
-// updated
+
 import { useRef, useEffect, useState } from 'react'
 import Link from 'next/link'
 import MobileNav from '@/components/MobileNav'
