@@ -356,9 +356,12 @@ export default function WinePageClient() {
         overflow: 'hidden',
       }}>
         {/* cam 3 — large rotated bottle */}
-        <img
-          src="/WhiteBottomTiltes 1.png"
-          alt=""
+        <video
+          src="/WhiteTitled_v02.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
           style={{
             position: 'absolute',
             top: 'calc(50% - 5px)',
