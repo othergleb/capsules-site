@@ -706,8 +706,8 @@ function HomeInner() {
           position: 'absolute',
           left: '-2vw',
           top: '5.5vw',
-          width: '46.6vw',
-          height: '54.6vw',
+          width: '70vw',
+          height: '82vw',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -715,7 +715,7 @@ function HomeInner() {
           userSelect: 'none',
           zIndex: 1,
         }}>
-          <div style={{ transform: 'rotate(-15.71deg)', flexShrink: 0, width: '35.3vw' }}>
+          <div style={{ transform: 'rotate(-15.71deg)', flexShrink: 0, width: '53vw' }}>
             <video autoPlay loop muted playsInline style={{ width: '100%', height: 'auto', display: 'block' }}>
               <source src="/Rose360.mp4" type="video/mp4" />
             </video>
