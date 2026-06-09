@@ -16,8 +16,8 @@ const DETAILS = [
 ]
 
 const PRODUCTS = [
-  { img: '/1e4fa9e5cc3210ccbfbb034965ef75addc8a9e02.png', name: 'Amphora Aged Grenache', qty: '1 bottle · 75cl',       desc: 'The centrepiece. Gris de grenache, 2023 vintage. Copper-coloured, textured, alive.' },
-  { img: '/89ecb343c3619cf4f34ebe7de7cc6b6375ff39e7.png', name: 'Estate Rosé',           qty: '2 bottles · 75cl each', desc: 'Made from the same vines, same harvest. A paler, more delicate expression of the same fruit.' },
+  { img: '/WhiteFront 1.png', name: 'Amphora Aged Grenache', qty: '1 bottle · 75cl',       desc: 'The centrepiece. Gris de grenache, 2023 vintage. Copper-coloured, textured, alive.' },
+  { img: '/RoseFront 1.png', name: 'Estate Rosé',           qty: '2 bottles · 75cl each', desc: 'Made from the same vines, same harvest. A paler, more delicate expression of the same fruit.' },
   { img: '/OilTilted2 1.png', name: 'Estate Olive Oil', qty: '1 vial · 60ml', desc: 'Cold-pressed from olive trees that share the same soil as the vines. A companion to the wine.' },
   { img: '/poster-overlay.svg', name: 'Illustration',         qty: '1 poster · 35 × 20cm', desc: 'A photographic print from the estate by Mehdi Amini.' },
 ]
@@ -243,7 +243,7 @@ export default function WinePageClient() {
   if (isMobile) return <WinePageMobile />
 
   return (
-    <div style={{ backgroundColor: 'var(--red)', overflowX: 'clip' }}>
+    <div style={{ backgroundColor: 'var(--red)', overflowX: 'hidden' }}>
       <Nav color="#00006A" />
 
       {/* In the Capsule — 4 arch product columns */}
@@ -308,12 +308,8 @@ export default function WinePageClient() {
                     display: 'block',
                     pointerEvents: 'none',
                   }} />
-                ) : i === 1 ? (
-                  <div style={{ position: 'absolute', bottom: 'clamp(12px, 2.03vw, 35px)', left: '50%', transform: 'translateX(-50%)', width: '50vw', pointerEvents: 'none' }}>
-                    <img src={item.img} alt={item.name} style={{ width: '100%', height: 'auto', display: 'block' }} />
-                  </div>
                 ) : (
-                  <img src={item.img} alt={item.name} style={{ width: '12%', height: 'auto', display: 'block', marginBottom: '-5.2svh' }} />
+                  <img src={item.img} alt={item.name} style={{ width: i === 0 ? '61%' : '60%', height: 'auto', display: 'block', marginBottom: i === 0 ? '-5.2svh' : '-1.1svh' }} />
                 )}
               </div>
               <div style={{
