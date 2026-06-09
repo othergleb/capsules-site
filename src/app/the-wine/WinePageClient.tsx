@@ -8,11 +8,11 @@ import { useIsMobile } from '@/hooks/useIsMobile'
 
 const DETAILS = [
   ['Producer', 'Domaine de la Zouina'],
-  ['Region',   'Meknes, Morocco'],
-  ['Grape',    'Grenache Gris'],
+  ['Region',   'Hauts Plateaux de Meknes AOC'],
+  ['Grape',    'Grenache'],
   ['Vintage',  '2023'],
-  ['Method',   'Amphora aged'],
-  ['Format',   '75cl · natural cork'],
+  ['Method',   '75% stoneware amphora, 25% oak barrels'],
+  ['Format',   '75cl bottle, natural cork'],
 ]
 
 const PRODUCTS = [
