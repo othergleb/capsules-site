@@ -465,6 +465,7 @@ export default function WinePageClient() {
           gap: 'clamp(1.5rem, 3vw, 52px)',
           maxWidth: 'clamp(600px, 75vw, 1300px)',
           padding: '0 clamp(1.5rem, 4vw, 4rem)',
+          marginTop: 'clamp(1rem, 2svh, 36px)',
         }}>
           {[
             'Nestled at the foot of the Middle Atlas mountains, Meknes is one of the oldest wine-producing regions in the world. The high altitude and dramatic temperature swings between day and night preserve natural acidity, giving the wine a freshness that is rare in this latitude.',
@@ -522,6 +523,7 @@ export default function WinePageClient() {
           gap: 'clamp(1.5rem, 3vw, 52px)',
           maxWidth: 'clamp(600px, 75vw, 1300px)',
           padding: '0 clamp(1.5rem, 4vw, 4rem)',
+          marginTop: 'clamp(1rem, 2svh, 36px)',
         }}>
           {[
             'The wine rests in unlined clay vessels — qvevri-style amphorae — buried in the cellar floor. Clay is porous enough to allow a slow micro-oxidation but neutral enough to leave the fruit unmasked.',
