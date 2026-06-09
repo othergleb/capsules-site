@@ -456,28 +456,6 @@ function HomeMobile() {
           <BgBottleVideo src="/WhiteTitled_v03.mp4" rotation="-10.82deg" width="118.9vw" />
         </div>
 
-        {/* Contact info */}
-        <p style={{
-          position: 'absolute',
-          bottom: 'calc(41px + env(safe-area-inset-bottom, 0px) + 16px)',
-          left: 0,
-          right: 0,
-          textAlign: 'center',
-          fontFamily: 'Vulf Sans, sans-serif',
-          fontWeight: 900,
-          fontSize: '14px',
-          letterSpacing: '0.42px',
-          textTransform: 'uppercase',
-          color: '#000',
-          margin: 0,
-          whiteSpace: 'nowrap',
-          zIndex: 5,
-        }}>
-          Contact:{' '}
-          <a href="mailto:info@otherwine.co.uk" style={{ color: 'inherit', textDecoration: 'underline' }}>
-            info@otherwine.co.uk
-          </a>
-        </p>
 
       </section>
 
