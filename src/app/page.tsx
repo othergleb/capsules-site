@@ -428,7 +428,7 @@ function HomeMobile() {
         {/* Rose Adjusted — left bottle video, pre-cropped to Figma frame */}
         <div style={{
           position: 'absolute',
-          left: '2.5vw',
+          left: '-8vw',
           top: '499px',
           width: '86.5vw',
           overflow: 'hidden',
@@ -436,7 +436,7 @@ function HomeMobile() {
           userSelect: 'none',
           zIndex: 1,
         }}>
-          <BgBottleVideo src="/rose-adjusted.mp4" rotation="0deg" width="100%" />
+          <BgBottleVideo src="/rose-adjusted.mp4" rotation="-15deg" width="100%" />
         </div>
 
         {/* WhiteTitled_v03 — right bottle video */}
