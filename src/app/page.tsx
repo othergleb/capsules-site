@@ -473,6 +473,7 @@ function HomeInner() {
   const searchParams                  = useSearchParams()
   const refCode                       = searchParams.get('ref') ?? undefined
   const isMobile                      = useIsMobile()
+  const isNarrow                      = useIsMobile(900)
 
   const [email, setEmail]             = useState('')
   const [formStep, setFormStep]       = useState<'email' | 'invite'>('email')
@@ -552,7 +553,7 @@ function HomeInner() {
         backgroundColor: '#FF3C00',
         display: 'flex',
         flexDirection: 'column',
-        height: '100dvh',
+        height: isNarrow ? 'auto' : '100dvh',
         overflow: 'hidden',
         position: 'relative',
         paddingTop: '0.58vw',
@@ -669,7 +670,7 @@ function HomeInner() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        height: '100dvh',
+        height: isNarrow ? 'auto' : '100dvh',
         boxSizing: 'border-box',
         paddingTop: 'clamp(2rem, 3vw, 52px)',
         paddingLeft: 'clamp(1.5rem, 5vw, 4rem)',
@@ -688,8 +689,8 @@ function HomeInner() {
             position: 'absolute',
             right: 'calc(-2vw + 20px)',
             bottom: 0,
-            height: 'clamp(300px, 72dvh, 900px)',
-            width: 'auto',
+            width: '51.1068vw',
+            height: 'auto',
             pointerEvents: 'none',
             userSelect: 'none',
             zIndex: 5,
