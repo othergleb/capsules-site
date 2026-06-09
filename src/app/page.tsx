@@ -355,10 +355,10 @@ function HomeMobile() {
           <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease', display: 'flex', flexDirection: 'column', flex: 1 }}>
             <div style={{ textAlign: 'center', maxWidth: '85%', margin: '0 auto 24px' }}>
               <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00', textTransform: 'uppercase', marginBottom: '1.75em' }}>
-                GET ACCESS FIRST
+                GET EARLY ACCESS
               </p>
               <p style={{ ...FONT, fontWeight: 300, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00' }}>
-                Successfully invite a friend using your referral link to get early access.
+                Refer a friend and you&apos;ll get priority access on 23 June.
               </p>
             </div>
             <div style={{ padding: '0 10px', marginTop: 'auto' }}>
@@ -806,7 +806,7 @@ function HomeInner() {
                     marginBottom: '1.75em',
                     textTransform: 'uppercase',
                   }}>
-                    GET ACCESS FIRST
+                    GET EARLY ACCESS
                   </p>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
@@ -816,7 +816,7 @@ function HomeInner() {
                     letterSpacing: '0.23px',
                     color: '#FF3C00',
                   }}>
-                    Successfully invite a friend using your referral link to get early access.
+                    Refer a friend and you&apos;ll get priority access on 23 June.
                   </p>
                 </div>
                 <div style={{ padding: '0 8.5%', marginTop: 'auto' }}>
