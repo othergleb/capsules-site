@@ -315,7 +315,7 @@ function HomeMobile() {
         </h1>
 
         {/* Form steps — directly on yellow */}
-        <div style={{ width: '100%', position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '330px' }}>
+        <div style={{ width: '100%', position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', height: '330px' }}>
         {dismissed ? (
 
           <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
@@ -438,7 +438,7 @@ function HomeMobile() {
           overflow: 'hidden',
           pointerEvents: 'none',
           userSelect: 'none',
-          zIndex: 0,
+          zIndex: 1,
         }}>
           <BgBottleVideo src="/Rose360.mp4" rotation="15.77deg" width="122vw" />
         </div>
@@ -455,7 +455,7 @@ function HomeMobile() {
           justifyContent: 'center',
           pointerEvents: 'none',
           userSelect: 'none',
-          zIndex: 1,
+          zIndex: 0,
         }}>
           <BgBottleVideo src="/WhiteTitled_v03.mp4" rotation="-10.82deg" width="106vw" />
         </div>
