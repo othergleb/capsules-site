@@ -251,14 +251,13 @@ export default function WinePageClient() {
         backgroundColor: 'var(--red)',
         position: 'relative',
         paddingTop: 'clamp(50px, 9svh, 110px)',
-        paddingBottom: 'clamp(10px, 2svh, 27px)',
-        height: '100svh',
+        paddingBottom: 'clamp(20px, 5svh, 60px)',
         overflow: 'visible',
         display: 'flex',
         flexDirection: 'column',
       }}>
         {sectionHeading('Inside Capsule 01', 'PRODUCT', 'PRODUCT')}
-        <div style={{ width: '100%', display: 'flex', padding: '0 clamp(7px, 0.81vw, 14px)', marginTop: 'clamp(8px, 1.5svh, 32px)', flex: 1, minHeight: 0, maxHeight: 'max(55vw, calc(100svh - 150px))' }}>
+        <div style={{ width: '100%', display: 'flex', padding: '0 clamp(7px, 0.81vw, 14px)', marginTop: 'clamp(8px, 1.5svh, 32px)', flex: 1, minHeight: 0, maxHeight: '55vw' }}>
           {PRODUCTS.map((item, i) => (
             <div key={item.name} style={{ flex: 1, display: 'flex', flexDirection: 'column', marginLeft: i > 0 ? '-2.22px' : 0, minHeight: 0 }}>
               <div style={{
