@@ -190,7 +190,7 @@ function OriginMethodBoxMobile() {
         }}>
           <div style={{ transform: 'rotate(25deg)', flexShrink: 0 }}>
             <img
-              src="/cam 3.png"
+              src="/WhiteBottomTilted5-1-Topaz-Gigapixel-2x-scale 1.png"
               alt=""
               style={{ width: '103.2vw', height: '137.7vw', objectFit: 'cover', display: 'block' }}
             />

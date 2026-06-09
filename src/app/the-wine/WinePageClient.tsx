@@ -357,7 +357,7 @@ export default function WinePageClient() {
       }}>
         {/* cam 3 — large rotated bottle */}
         <img
-          src="/WhiteBottomTilted5-1-Topaz-Gigapixel-2x-scale 1.png"
+          src="/WhiteBottomTiltes 1.png"
           alt=""
           style={{
             position: 'absolute',
