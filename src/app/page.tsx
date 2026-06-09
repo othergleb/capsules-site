@@ -756,16 +756,6 @@ function HomeInner() {
               }}>
                 You&apos;ve registered.
               </p>
-              <p style={{
-                fontFamily: 'Vulf Sans, sans-serif',
-                fontWeight: 300,
-                fontSize: 'clamp(14px, 1.14vw, 20px)',
-                lineHeight: 1.27,
-                letterSpacing: '0.23px',
-                color: '#FF3C00',
-              }}>
-                Purchase link drops on 23 June, keep an eye on your emails.
-              </p>
             </div>
             <div style={{ padding: '0 8.5%', marginTop: 'auto' }}>
               <a href="/the-wine" style={{
