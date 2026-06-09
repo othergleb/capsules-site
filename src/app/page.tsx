@@ -1019,7 +1019,7 @@ function HomeInner() {
           style={{
             position: 'absolute',
             left: '27vw',
-            top: '52vw',
+            top: 'calc(50% - 4vw)',
             width: 'clamp(70px, 8vw, 140px)',
             height: 'auto',
             pointerEvents: 'none',
