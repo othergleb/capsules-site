@@ -521,19 +521,15 @@ export default function WinePageClient() {
           padding: '0 clamp(1.5rem, 4vw, 4rem)',
           marginTop: 'clamp(1rem, 2svh, 36px)',
         }}>
-          {[
-            'The wine rests in unlined clay vessels — qvevri-style amphorae — buried in the cellar floor. Clay is porous enough to allow a slow micro-oxidation but neutral enough to leave the fruit unmasked.',
-            'The result has a texture and minerality that glass and steel cannot replicate.\nNo fining. No filtration. 480 bottles filled by hand.',
-          ].map((t, i) => (
-            <p key={i} style={{
-              fontFamily: 'Vulf Sans, sans-serif',
-              fontWeight: 400,
-              fontSize: 'clamp(12px, 1.33vw, 23px)',
-              color: 'var(--cream)',
-              lineHeight: 1.29,
-              letterSpacing: '0.23px',
-            }}>{t}</p>
-          ))}
+          <p style={{
+            fontFamily: 'Vulf Sans, sans-serif',
+            fontWeight: 400,
+            fontSize: 'clamp(12px, 1.33vw, 23px)',
+            color: 'var(--cream)',
+            lineHeight: 1.29,
+            letterSpacing: '0.23px',
+            gridColumn: '1 / -1',
+          }}>The estate is in the foothills of the mid-atlas mountains, close to the ancient city of Volubilis, where winemaking techniques in amphora were discovered dating back to 2000 years BCE. It is the birthplace of Moroccan viticultural practices and home to the Hauts Plateaux de Meknes AOC - Morocco's most prestigious wine appellation. The 850m altitude, iron-rich soils, and year-round sunshine produce wines of exceptional tension, freshness and minerality.</p>
         </div>
       </section>
     </div>
