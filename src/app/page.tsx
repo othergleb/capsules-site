@@ -1001,7 +1001,7 @@ function HomeInner() {
           aria-hidden="true"
           style={{
             position: 'absolute',
-            right: '15.2vw',
+            right: '20.2vw',
             top: '7vw',
             width: 'clamp(70px, 8vw, 140px)',
             height: 'auto',
