@@ -685,7 +685,7 @@ function HomeInner() {
         <div style={{
           position: 'absolute',
           left: '49vw',
-          top: '-4vw',
+          top: 'calc(50% - 33.6vw)',
           width: '74.1vw',
           height: '67.2vw',
           display: 'flex',
