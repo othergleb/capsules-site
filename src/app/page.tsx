@@ -355,7 +355,7 @@ function HomeMobile() {
           <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease', display: 'flex', flexDirection: 'column', flex: 1 }}>
             <div style={{ textAlign: 'center', maxWidth: '85%', margin: '0 auto 24px' }}>
               <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00', textTransform: 'uppercase', marginBottom: '1.75em' }}>
-                GET ACCESS EARLY
+                GET ACCESS FIRST
               </p>
               <p style={{ ...FONT, fontWeight: 300, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00' }}>
                 Use the button below to share your referral link - if you refer a friend, you&apos;ll get the purchase link before everyone else.
@@ -806,7 +806,7 @@ function HomeInner() {
                     marginBottom: '1.75em',
                     textTransform: 'uppercase',
                   }}>
-                    GET ACCESS EARLY
+                    GET ACCESS FIRST
                   </p>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
