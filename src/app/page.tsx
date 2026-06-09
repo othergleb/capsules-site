@@ -61,6 +61,24 @@ function OtherLogoGif() {
   )
 }
 
+function BgBottleVideo({ src, rotation, width }: { src: string; rotation: string; width: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  useEffect(() => {
+    const v = videoRef.current
+    if (!v) return
+    v.muted = true
+    v.play().catch(() => {})
+  }, [])
+  return (
+    <div style={{ transform: `rotate(${rotation})`, flexShrink: 0, width }}>
+      <video ref={videoRef} autoPlay loop muted playsInline preload="auto"
+        style={{ width: '100%', height: 'auto', display: 'block' }}>
+        <source src={src} type="video/mp4" />
+      </video>
+    </div>
+  )
+}
+
 function FarmerVideo({ src, label }: { src: string; label: string }) {
   const videoRef = useRef<HTMLVideoElement>(null)
 
@@ -421,11 +439,7 @@ function HomeMobile() {
           userSelect: 'none',
           zIndex: 1,
         }}>
-          <div style={{ transform: 'rotate(15.77deg)', flexShrink: 0, width: '61vw' }}>
-            <video autoPlay loop muted playsInline style={{ width: '100%', height: 'auto', display: 'block' }}>
-              <source src="/Rose360.mp4" type="video/mp4" />
-            </video>
-          </div>
+          <BgBottleVideo src="/Rose360.mp4" rotation="15.77deg" width="61vw" />
         </div>
 
         {/* WhiteTitled_v03 — right bottle video */}
@@ -442,11 +456,7 @@ function HomeMobile() {
           userSelect: 'none',
           zIndex: 2,
         }}>
-          <div style={{ transform: 'rotate(-10.82deg)', flexShrink: 0, width: '92vw' }}>
-            <video autoPlay loop muted playsInline style={{ width: '100%', height: 'auto', display: 'block' }}>
-              <source src="/WhiteTitled_v03.mp4" type="video/mp4" />
-            </video>
-          </div>
+          <BgBottleVideo src="/WhiteTitled_v03.mp4" rotation="-10.82deg" width="92vw" />
         </div>
 
         {/* Contact info */}
@@ -705,11 +715,7 @@ function HomeInner() {
           userSelect: 'none',
           zIndex: 1,
         }}>
-          <div style={{ transform: 'rotate(-14.55deg)', flexShrink: 0, width: '62.9vw' }}>
-            <video autoPlay loop muted playsInline style={{ width: '100%', height: 'auto', display: 'block' }}>
-              <source src="/WhiteTitled_v03.mp4" type="video/mp4" />
-            </video>
-          </div>
+          <BgBottleVideo src="/WhiteTitled_v03.mp4" rotation="-14.55deg" width="62.9vw" />
         </div>
 
         {/* Rosé bottle video — left background decoration */}
@@ -726,11 +732,7 @@ function HomeInner() {
           userSelect: 'none',
           zIndex: 1,
         }}>
-          <div style={{ transform: 'rotate(-15.71deg)', flexShrink: 0, width: '53vw' }}>
-            <video autoPlay loop muted playsInline style={{ width: '100%', height: 'auto', display: 'block' }}>
-              <source src="/Rose360.mp4" type="video/mp4" />
-            </video>
-          </div>
+          <BgBottleVideo src="/Rose360.mp4" rotation="-15.71deg" width="53vw" />
         </div>
 
 
