@@ -110,14 +110,14 @@ function WinePageMobile() {
                     <img
                       src="/e575fa80139bf20094d266a0b33893b1a86558e5.png"
                       alt={PRODUCTS[0].name}
-                      style={{ width: '51%', height: 'auto', display: 'block', pointerEvents: 'none', marginBottom: '-3vw' }}
+                      style={{ width: '51%', height: 'auto', display: 'block', pointerEvents: 'none', marginBottom: '-5vw' }}
                     />
                   )}
                   {i === 1 && (
                     <img
                       src="/52a8be1f462205b9d387a775e88e787e3ec36644.png"
                       alt={PRODUCTS[1].name}
-                      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: '40% 50%', transform: 'scale(1.05) translateY(5%)', display: 'block', pointerEvents: 'none' }}
+                      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: '35% 50%', transform: 'scale(1.05) translateY(5%)', display: 'block', pointerEvents: 'none' }}
                     />
                   )}
                   {i === 2 && (
