@@ -198,7 +198,7 @@ function OriginMethodBoxMobile() {
           zIndex: 3,
           left: '11px',
           right: '11px',
-          bottom: '0',
+          bottom: '24px',
           backgroundColor: '#EDFF00',
           paddingTop: '10px',
           paddingBottom: '10px',
