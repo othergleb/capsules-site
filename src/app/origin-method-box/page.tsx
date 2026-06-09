@@ -188,7 +188,7 @@ function OriginMethodBoxMobile() {
           justifyContent: 'center',
           pointerEvents: 'none',
         }}>
-          <div style={{ transform: 'rotate(25deg)', flexShrink: 0 }}>
+          <div style={{ transform: 'rotate(0deg)', flexShrink: 0 }}>
             <img
               src="/WhiteBottomTilted5-1-Topaz-Gigapixel-2x-scale 1.png"
               alt=""
