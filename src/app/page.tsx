@@ -1019,7 +1019,7 @@ function HomeInner() {
           style={{
             position: 'absolute',
             left: '27vw',
-            top: 'calc(50% - 4vw + 50px)',
+            top: 'calc(80% - 4vw + 50px)',
             width: 'clamp(70px, 8vw, 140px)',
             height: 'auto',
             pointerEvents: 'none',
@@ -1037,7 +1037,7 @@ function HomeInner() {
           letterSpacing: '0.42px',
           textTransform: 'uppercase',
           color: '#000',
-          marginTop: 'calc(clamp(1.5rem, 3vw, 48px) + 50px)',
+          marginTop: 'calc(clamp(1.5rem, 3vw, 48px) + 50px + 10dvh)',
           marginBottom: 0,
           whiteSpace: 'nowrap',
           position: 'relative',
