@@ -308,12 +308,8 @@ export default function WinePageClient() {
                     display: 'block',
                     pointerEvents: 'none',
                   }} />
-                ) : i === 1 ? (
-                  <div style={{ position: 'absolute', bottom: 'clamp(12px, 2.03vw, 35px)', left: '50%', transform: 'translateX(-50%)', width: '75vw', pointerEvents: 'none' }}>
-                    <img src={item.img} alt={item.name} style={{ width: '100%', height: 'auto', display: 'block' }} />
-                  </div>
                 ) : (
-                  <img src={item.img} alt={item.name} style={{ width: '61%', height: 'auto', display: 'block', marginBottom: '-5.2svh' }} />
+                  <img src={item.img} alt={item.name} style={{ width: i === 0 ? '61%' : '150%', height: 'auto', display: 'block', flexShrink: 0, marginBottom: i === 0 ? '-5.2svh' : '-1.1svh' }} />
                 )}
               </div>
               <div style={{
