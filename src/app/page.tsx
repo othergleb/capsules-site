@@ -680,41 +680,47 @@ function HomeInner() {
         overflow: 'hidden',
       }}>
 
-        {/* White amphora bottle — right background decoration */}
-        <img
-          src="/WhiteBottomTiltes 1.png"
-          alt=""
-          aria-hidden="true"
-          style={{
-            position: 'absolute',
-            right: 'calc(-2vw + 20px)',
-            bottom: 0,
-            width: '51.1068vw',
-            height: 'auto',
-            pointerEvents: 'none',
-            userSelect: 'none',
-            zIndex: 5,
-          }}
-        />
+        {/* White bottle video — right background decoration */}
+        <div style={{
+          position: 'absolute',
+          left: '49vw',
+          top: 0,
+          width: '78vw',
+          height: '70.7vw',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          pointerEvents: 'none',
+          userSelect: 'none',
+          zIndex: 1,
+        }}>
+          <div style={{ transform: 'rotate(-14.55deg)', flexShrink: 0, width: '66.2vw' }}>
+            <video autoPlay loop muted playsInline style={{ width: '100%', height: 'auto', display: 'block' }}>
+              <source src="/WhiteTitled_v03.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </div>
 
-        {/* Rosé bottle — left background decoration */}
-        <img
-          src="/rose-bottom-tilted-2.png"
-          alt=""
-          aria-hidden="true"
-          className="rose-bottle-deco"
-          style={{
-            position: 'absolute',
-            left: 'calc(-10.6802vw + 25px)',
-            top: 'calc(-1.1802vw - 35px)',
-            width: '62.6603vw',
-            height: '62.6603vw',
-            aspectRatio: '1/1',
-            transform: 'rotate(-8deg)',
-            pointerEvents: 'none',
-            userSelect: 'none',
-          }}
-        />
+        {/* Rosé bottle video — left background decoration */}
+        <div style={{
+          position: 'absolute',
+          left: '-2vw',
+          top: '5.5vw',
+          width: '46.6vw',
+          height: '54.6vw',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          pointerEvents: 'none',
+          userSelect: 'none',
+          zIndex: 1,
+        }}>
+          <div style={{ transform: 'rotate(-15.71deg)', flexShrink: 0, width: '35.3vw' }}>
+            <video autoPlay loop muted playsInline style={{ width: '100%', height: 'auto', display: 'block' }}>
+              <source src="/Rose360.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </div>
 
 
         {/* Centered content wrapper — sits above decorative bottles */}
@@ -745,7 +751,7 @@ function HomeInner() {
           textTransform: 'uppercase',
           maxWidth: '52%',
         }}>
-          Register for access:<br />23 June, 10am
+          Register for exclusive<br />access on 23 June
         </h1>
 
         {/* Form — directly on yellow */}
