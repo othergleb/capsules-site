@@ -172,7 +172,7 @@ function OriginMethodBoxMobile() {
         overflow: 'hidden',
       }}>
         {/* Red OTHER logo — large, bleeds top-left */}
-        <Link href="/" style={{ position: 'absolute', left: '-23.15vw', top: '-60.3vw', width: '144.8vw', height: '144.8vw', zIndex: 1, display: 'block' }}>
+        <Link href="/" style={{ position: 'absolute', left: '-23.15vw', top: '-60.3vw', width: '144.8vw', height: '144.8vw', zIndex: 3, display: 'block' }}>
           <img src="/figma/other-logo-red.png" alt="" style={{ width: '100%', height: '100%' }} />
         </Link>
 
@@ -183,7 +183,7 @@ function OriginMethodBoxMobile() {
           top: 'calc(-41px + 8vw)',
           width: '87vw',
           pointerEvents: 'none',
-          zIndex: 2,
+          zIndex: 1,
         }}>
           <video autoPlay loop muted playsInline preload="auto" style={{ width: '100%', height: 'auto', display: 'block' }}>
             <source src="/WhiteTitled_v02.mp4" type="video/mp4" />
