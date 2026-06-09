@@ -7,11 +7,11 @@ import MobileNav from '@/components/MobileNav'
 import { useIsMobile } from '@/hooks/useIsMobile'
 
 const DETAILS = [
-  ['Producer', 'Domaine de la Zouina'],
   ['Region',   'Hauts Plateaux de Meknes AOC'],
   ['Grape',    'Grenache'],
   ['Vintage',  '2023'],
   ['Terroir',  'Clay sandy soil'],
+  ['Ageing',   'Up to 5 years'],
   ['Format',   '75cl bottle, natural cork'],
 ]
 
