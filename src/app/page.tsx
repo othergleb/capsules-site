@@ -281,7 +281,7 @@ function HomeMobile() {
         alignItems: 'center',
         paddingTop: '41px',
         position: 'relative',
-        minHeight: '1200px',
+        minHeight: '1100px',
         overflow: 'clip',
       }}>
 
