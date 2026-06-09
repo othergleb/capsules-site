@@ -107,11 +107,12 @@ function WinePageMobile() {
                 {/* Arch */}
                 <div style={ARCH}>
                   {i === 0 && (
-                    <img
-                      src="/e575fa80139bf20094d266a0b33893b1a86558e5.png"
-                      alt={PRODUCTS[0].name}
+                    <video
+                      autoPlay loop muted playsInline preload="auto"
                       style={{ width: '51%', height: 'auto', display: 'block', pointerEvents: 'none', marginBottom: '-5vw' }}
-                    />
+                    >
+                      <source src="/WhiteTitled_v02.mp4" type="video/mp4" />
+                    </video>
                   )}
                   {i === 1 && (
                     <img
