@@ -95,7 +95,7 @@ function WinePageMobile() {
         textAlign: 'center',
         margin: '0 0 14px',
       }}>
-        In the box
+        Inside Capsule 01
       </h2>
 
       {/* 2×2 product grid */}
