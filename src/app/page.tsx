@@ -34,7 +34,7 @@ function OtherLogoVideo({ src = OTHER_VIDEO }: { src?: string }) {
   }, [])
 
   return (
-    <Link href="/" style={{ width: 'min(104.1vw, calc(38dvh * 469 / 103))', alignSelf: 'center', flexShrink: 0, display: 'block' }}>
+    <Link href="/" style={{ width: 'min(104.1vw, calc(46dvh * 469 / 103))', alignSelf: 'center', flexShrink: 0, display: 'block' }}>
       {showGif
         ? <img src="/other-logo.gif" alt="OTHER" style={{ width: '100%', display: 'block' }} />
         : <video ref={videoRef} autoPlay loop muted playsInline preload="auto" style={{ width: '100%', display: 'block' }}>
@@ -578,7 +578,7 @@ function HomeInner() {
           gridTemplateColumns: '1fr 1fr',
           gap: '0.09vw',
           padding: '0 1.5%',
-          marginTop: 'clamp(-10px, -1.62vw, -5px)',
+          marginTop: 'clamp(-30px, -5vw, -10px)',
           flex: 1,
           minHeight: 0,
         }}>
