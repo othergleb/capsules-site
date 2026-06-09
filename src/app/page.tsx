@@ -725,7 +725,7 @@ function HomeInner() {
 
 
         {/* Centered content wrapper — sits above decorative bottles */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', position: 'relative', zIndex: 10, top: '10px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', position: 'relative', zIndex: 10, top: '40px' }}>
 
         {/* Section label */}
         <p style={{
