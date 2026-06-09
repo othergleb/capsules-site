@@ -564,7 +564,7 @@ function HomeInner() {
 
         {/* Constrain all content to the logo's visible width */}
         <div style={{
-          width: 'min(100%, calc(38dvh * 469 / 103))',
+          width: 'min(100%, calc(46dvh * 469 / 103))',
           margin: '0 auto',
           position: 'relative',
           flex: 1,
