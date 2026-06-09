@@ -169,31 +169,33 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Registration failed. Please try again.' }, { status: 500 })
   }
 
-  // 4. If referred — bump referrer to tier 1 on their first successful referral
+  // 4. If referred — bump referrer to tier 1 (awaited: important DB write)
   if (referrer) {
     await supabase
       .from('members')
       .update({ companion_id: member.id, tier: 1 })
       .eq('id', referrer.id)
+  }
 
+  // 5. Return immediately — fire Klaviyo calls in the background
+  const klaviyoInBackground = async () => {
+    if (referrer) {
+      try { await klaviyoTrackCompanionAccepted(referrer.email) }
+      catch (err) { console.error('[Klaviyo] companion accepted failed', err) }
+    }
     try {
-      await klaviyoTrackCompanionAccepted(referrer.email)
+      const profileId = await klaviyoCreateProfile(cleanEmail, firstName || undefined, lastName || undefined)
+      if (profileId) {
+        await klaviyoSubscribeToList(profileId)
+        await supabase.from('members').update({ klaviyo_id: profileId }).eq('id', member.id)
+      }
+      await klaviyoTrackRegistration(cleanEmail, member.invite_code)
     } catch (err) {
-      console.error('[Klaviyo] companion accepted event failed', err)
+      console.error('[Klaviyo] registration flow failed', err)
     }
   }
 
-  // 5. Klaviyo: create profile, subscribe, track event
-  try {
-    const profileId = await klaviyoCreateProfile(cleanEmail, firstName || undefined, lastName || undefined)
-    if (profileId) {
-      await klaviyoSubscribeToList(profileId)
-      await supabase.from('members').update({ klaviyo_id: profileId }).eq('id', member.id)
-    }
-    await klaviyoTrackRegistration(cleanEmail, member.invite_code)
-  } catch (err) {
-    console.error('[Klaviyo] error during registration', err)
-  }
+  void klaviyoInBackground()
 
   return NextResponse.json({ success: true, inviteCode: member.invite_code })
 }
