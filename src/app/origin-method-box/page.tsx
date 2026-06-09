@@ -185,11 +185,9 @@ function OriginMethodBoxMobile() {
           pointerEvents: 'none',
           zIndex: 2,
         }}>
-          <img
-            src="/WhiteBottomTilted5-1-Topaz-Gigapixel-2x-scale 1.png"
-            alt=""
-            style={{ width: '100%', height: 'auto', display: 'block' }}
-          />
+          <video autoPlay loop muted playsInline preload="auto" style={{ width: '100%', height: 'auto', display: 'block' }}>
+            <source src="/WhiteTitled_v02.mp4" type="video/mp4" />
+          </video>
         </div>
 
         {/* Wine details table */}
