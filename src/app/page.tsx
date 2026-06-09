@@ -704,8 +704,8 @@ function HomeInner() {
         {/* Rosé bottle video — left background decoration */}
         <div style={{
           position: 'absolute',
-          left: '-2vw',
-          top: '5.5vw',
+          left: '-12.5vw',
+          top: '-35.5vw',
           width: '70vw',
           height: '82vw',
           display: 'flex',
