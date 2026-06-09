@@ -458,7 +458,7 @@ export default function WinePageClient() {
             pointerEvents: 'none',
           }} />
         </div>
-        {sectionHeading('Amphora Aged Gris', 'ORIGIN', 'ORIGIN')}
+        <div style={{ marginTop: 'clamp(-2rem, -2.5svh, -12px)' }}>{sectionHeading('Amphora Aged Gris', 'ORIGIN', 'ORIGIN')}</div>
         <div style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
@@ -515,7 +515,7 @@ export default function WinePageClient() {
             pointerEvents: 'none',
           }} />
         </div>
-        {sectionHeading('Meknes, Morocco', 'method', 'method')}
+        <div style={{ marginTop: 'clamp(-2rem, -2.5svh, -12px)' }}>{sectionHeading('Meknes, Morocco', 'method', 'method')}</div>
         <div style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
