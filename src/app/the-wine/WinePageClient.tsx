@@ -364,10 +364,10 @@ export default function WinePageClient() {
           playsInline
           style={{
             position: 'absolute',
-            top: '-14px',
-            left: '-3px',
-            width: 'calc(100% + 6px)',
-            aspectRatio: '109 / 70',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
             pointerEvents: 'none',
           }}
         />
