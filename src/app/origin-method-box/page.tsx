@@ -181,7 +181,7 @@ function OriginMethodBoxMobile() {
           position: 'absolute',
           left: 'calc(-3.05vw - 90px + 15vw)',
           top: 'calc(-41px + 8vw)',
-          width: '107.6vw',
+          width: '96.8vw',
           pointerEvents: 'none',
           zIndex: 2,
         }}>
