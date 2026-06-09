@@ -704,7 +704,7 @@ function HomeInner() {
         {/* Rosé bottle video — left background decoration */}
         <div style={{
           position: 'absolute',
-          left: '-12.5vw',
+          left: '-17vw',
           top: '-15vw',
           width: '70vw',
           height: '82vw',
@@ -713,7 +713,7 @@ function HomeInner() {
           justifyContent: 'center',
           pointerEvents: 'none',
           userSelect: 'none',
-          zIndex: 1,
+          zIndex: 5,
         }}>
           <div style={{ transform: 'rotate(-15.71deg)', flexShrink: 0, width: '53vw' }}>
             <video autoPlay loop muted playsInline style={{ width: '100%', height: 'auto', display: 'block' }}>
