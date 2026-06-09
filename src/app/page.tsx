@@ -705,7 +705,7 @@ function HomeInner() {
         <div style={{
           position: 'absolute',
           left: '-12.5vw',
-          top: '-35.5vw',
+          top: '-15vw',
           width: '70vw',
           height: '82vw',
           display: 'flex',
