@@ -428,7 +428,7 @@ function HomeMobile() {
         {/* Rose360 — left bottle video */}
         <div style={{
           position: 'absolute',
-          left: '-55vw',
+          left: '-48vw',
           top: '262px',
           width: '116vw',
           height: '230vw',
@@ -438,7 +438,7 @@ function HomeMobile() {
           overflow: 'hidden',
           pointerEvents: 'none',
           userSelect: 'none',
-          zIndex: 2,
+          zIndex: 0,
         }}>
           <BgBottleVideo src="/Rose360.mp4" rotation="15.77deg" width="122vw" />
         </div>
