@@ -166,7 +166,7 @@ function OriginMethodBoxMobile() {
   }
 
   return (
-    <div style={{ backgroundColor: '#FF3C00', paddingBottom: 'calc(41px + env(safe-area-inset-bottom, 0px))', position: 'relative' }}>
+    <div style={{ backgroundColor: '#FF3C00', paddingBottom: 'calc(41px + env(safe-area-inset-bottom, 0px))', position: 'relative', overflowX: 'clip' }}>
 
       {/* Bottle video — outside cream section so overflow:hidden doesn't clip it */}
       <div style={{
