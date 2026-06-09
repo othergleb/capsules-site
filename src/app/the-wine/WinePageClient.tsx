@@ -243,7 +243,7 @@ export default function WinePageClient() {
   if (isMobile) return <WinePageMobile />
 
   return (
-    <div style={{ backgroundColor: 'var(--red)', overflowX: 'hidden' }}>
+    <div style={{ backgroundColor: 'var(--red)', overflowX: 'clip' }}>
       <Nav color="#00006A" />
 
       {/* In the Capsule — 4 arch product columns */}
