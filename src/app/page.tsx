@@ -717,6 +717,9 @@ function HomeInner() {
         />
 
 
+        {/* Centered content wrapper — sits above decorative bottles */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', position: 'relative', zIndex: 10 }}>
+
         {/* Section label */}
         <p style={{
           fontFamily: 'Vulf Sans, sans-serif',
@@ -727,8 +730,6 @@ function HomeInner() {
           textTransform: 'uppercase',
           textAlign: 'center',
           marginBottom: 'clamp(0.25rem, 0.4vw, 7px)',
-          position: 'relative',
-          zIndex: 1,
         }}>Capsule 01</p>
 
         {/* Large heading */}
@@ -743,14 +744,12 @@ function HomeInner() {
           marginBottom: 'clamp(1.5rem, 7vw, 120px)',
           textTransform: 'uppercase',
           maxWidth: '52%',
-          position: 'relative',
-          zIndex: 1,
         }}>
           Register for access:<br />23 June, 10am
         </h1>
 
         {/* Form — directly on yellow */}
-        <div style={{ maxWidth: 'clamp(340px, 36vw, 622px)', width: '100%', position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', minHeight: 'clamp(200px, 24vw, 420px)' }}>
+        <div style={{ maxWidth: 'clamp(340px, 36vw, 622px)', width: '100%', display: 'flex', flexDirection: 'column', minHeight: 'clamp(200px, 24vw, 420px)' }}>
         {dismissed ? (
           <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
             <div style={{ textAlign: 'center', maxWidth: '85%', margin: '0 auto clamp(0.75rem, 1.5vw, 26px)' }}>
@@ -986,6 +985,7 @@ function HomeInner() {
               </div>
         )}
         </div>
+        </div>{/* end centered content wrapper */}
 
         {/* Diamonds — top right (Figma: x=1342, y=1235, frame=1748px, yellow top=1112) */}
         <img
