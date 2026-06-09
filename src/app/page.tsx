@@ -293,7 +293,7 @@ function HomeMobile() {
           width: 'calc(100% - 20px)',
           margin: '12px auto 70px',
         }}>
-          Register for access:<br />23 June, 10am
+          Register for exclusive<br />access on 23 June
         </h1>
 
         {/* Form steps — directly on yellow */}
@@ -407,37 +407,47 @@ function HomeMobile() {
         </div>
 
 
-        {/* Rose bottle — bottom decoration */}
-        <img
-          src="/Rose8 1.png"
-          alt="" aria-hidden="true"
-          style={{
-            position: 'absolute',
-            left: '-5vw',
-            bottom: 0,
-            width: '97vw',
-            height: 'auto',
-            pointerEvents: 'none',
-            userSelect: 'none',
-            zIndex: 1,
-          }}
-        />
+        {/* Rose360 — left bottle video */}
+        <div style={{
+          position: 'absolute',
+          left: '-25vw',
+          top: '499px',
+          width: '87vw',
+          height: '115vw',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          pointerEvents: 'none',
+          userSelect: 'none',
+          zIndex: 1,
+        }}>
+          <div style={{ transform: 'rotate(15.77deg)', flexShrink: 0, width: '61vw' }}>
+            <video autoPlay loop muted playsInline style={{ width: '100%', height: 'auto', display: 'block' }}>
+              <source src="/Rose360.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </div>
 
-        {/* White bottle — bottom decoration, in front */}
-        <img
-          src="/WhiteBottomTilted3-1-Topaz-Gigapixel-2x-scale 1.png"
-          alt="" aria-hidden="true"
-          style={{
-            position: 'absolute',
-            left: '8vw',
-            bottom: 0,
-            width: '88vw',
-            height: 'auto',
-            pointerEvents: 'none',
-            userSelect: 'none',
-            zIndex: 2,
-          }}
-        />
+        {/* WhiteTitled_v03 — right bottle video */}
+        <div style={{
+          position: 'absolute',
+          left: '12vw',
+          top: '627px',
+          width: '109vw',
+          height: '119vw',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          pointerEvents: 'none',
+          userSelect: 'none',
+          zIndex: 2,
+        }}>
+          <div style={{ transform: 'rotate(-10.82deg)', flexShrink: 0, width: '92vw' }}>
+            <video autoPlay loop muted playsInline style={{ width: '100%', height: 'auto', display: 'block' }}>
+              <source src="/WhiteTitled_v03.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </div>
 
         {/* Contact info */}
         <p style={{
