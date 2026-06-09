@@ -99,12 +99,12 @@ const BOX_ITEMS = [
 ]
 
 const WINE_DETAILS = [
-  ['Producer', 'Domaine de la Zouina'],
-  ['Region',   'Meknes, Morocco'],
-  ['Grape',    'Grenache Gris'],
+  ['Region',   'Hauts Plateaux de Meknes AOC'],
+  ['Grape',    'Grenache'],
   ['Vintage',  '2023'],
-  ['Method',   'Amphora aged'],
-  ['Format',   '75cl · natural cork'],
+  ['Terroir',  'Clay sandy soil'],
+  ['Ageing',   'Up to 5 years'],
+  ['Format',   '75cl bottle, natural cork'],
 ]
 
 // ── Mobile page ────────────────────────────────────────────────
@@ -223,30 +223,12 @@ function OriginMethodBoxMobile() {
         </div>
       </section>
 
-      {/* ── ORIGIN ── */}
-      <Strip label="ORIGIN" />
+      {/* ── METHOD ── */}
+      <Strip label="METHOD" />
 
       <section style={{ backgroundColor: '#FF3C00', paddingBottom: '32px', position: 'relative', zIndex: 2 }}>
         <div style={VIDEO_OVAL}>
           <video ref={video1Ref} src="/CapsulesPage_OTHER_VIDEO_04_web.mp4" autoPlay loop muted playsInline
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          <div style={{ position: 'absolute', inset: 0, borderRadius: 'inherit', boxShadow: '15px 4px 15px 0 rgba(0,0,0,0.42) inset', pointerEvents: 'none' }} />
-        </div>
-
-        <h2 style={HEADING}>Meknes, Morocco</h2>
-
-        <div style={{ padding: '0 15px', display: 'flex', flexDirection: 'column', gap: '18px' }}>
-          <p style={BODY}>Nestled at the foot of the Middle Atlas mountains, Meknes is one of the oldest wine-producing regions in the world. The high altitude and dramatic temperature swings between day and night preserve natural acidity, giving the wine a freshness that is rare in this latitude.</p>
-          <p style={BODY}>In 2023, a Berber tribe and a team of French winemakers set out to make something new from something ancient. Grenache Gris — a pale, copper-skinned grape — fermented and aged in clay amphorae, the same vessels used across the Mediterranean for thousands of years.</p>
-        </div>
-      </section>
-
-      {/* ── METHOD ── */}
-      <Strip label="METHOD" />
-
-      <section style={{ backgroundColor: '#FF3C00', paddingBottom: '32px' }}>
-        <div style={VIDEO_OVAL}>
-          <video ref={video2Ref} src="/CapsulesPage_OTHER_VIDEO_05_web.mp4" autoPlay loop muted playsInline
             style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           <div style={{ position: 'absolute', inset: 0, borderRadius: 'inherit', boxShadow: '15px 4px 15px 0 rgba(0,0,0,0.42) inset', pointerEvents: 'none' }} />
         </div>
@@ -256,6 +238,24 @@ function OriginMethodBoxMobile() {
         <div style={{ padding: '0 15px', display: 'flex', flexDirection: 'column', gap: '18px' }}>
           <p style={BODY}>The wine rests in unlined clay vessels — qvevri-style amphorae — buried in the cellar floor. Clay is porous enough to allow a slow micro-oxidation but neutral enough to leave the fruit unmasked.</p>
           <p style={BODY}>The result has a texture and minerality that glass and steel cannot replicate. No fining. No filtration. 480 bottles filled by hand.</p>
+        </div>
+      </section>
+
+      {/* ── ORIGIN ── */}
+      <Strip label="ORIGIN" />
+
+      <section style={{ backgroundColor: '#FF3C00', paddingBottom: '32px' }}>
+        <div style={VIDEO_OVAL}>
+          <video ref={video2Ref} src="/CapsulesPage_OTHER_VIDEO_05_web.mp4" autoPlay loop muted playsInline
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <div style={{ position: 'absolute', inset: 0, borderRadius: 'inherit', boxShadow: '15px 4px 15px 0 rgba(0,0,0,0.42) inset', pointerEvents: 'none' }} />
+        </div>
+
+        <h2 style={HEADING}>Meknes, Morocco</h2>
+
+        <div style={{ padding: '0 15px', display: 'flex', flexDirection: 'column', gap: '18px' }}>
+          <p style={BODY}>Nestled at the foot of the Middle Atlas mountains, Meknes is one of the oldest wine-producing regions in the world. The high altitude and dramatic temperature swings between day and night preserve natural acidity, giving the wine a freshness that is rare in this latitude.</p>
+          <p style={BODY}>In 2023, a Berber tribe and a team of French winemakers set out to make something new from something ancient. Grenache Gris — a pale, copper-skinned grape — fermented and aged in clay amphorae, the same vessels used across the Mediterranean for thousands of years.</p>
         </div>
       </section>
 
