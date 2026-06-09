@@ -1015,26 +1015,6 @@ function HomeInner() {
           }}
         />
 
-        {/* Contact info — in flow, centred below form */}
-        <p style={{
-          textAlign: 'center',
-          fontFamily: 'Vulf Sans, sans-serif',
-          fontWeight: 900,
-          fontSize: 'clamp(9px, 0.8vw, 14px)',
-          letterSpacing: '0.42px',
-          textTransform: 'uppercase',
-          color: '#000',
-          marginTop: 'calc(clamp(1.5rem, 3vw, 48px) + 50px + 10dvh)',
-          marginBottom: 0,
-          whiteSpace: 'nowrap',
-          position: 'relative',
-          zIndex: 10,
-        }}>
-          Contact:{' '}
-          <a href="mailto:info@otherwine.co.uk" style={{ color: 'inherit', textDecoration: 'underline' }}>
-            info@otherwine.co.uk
-          </a>
-        </p>
 
       </section>
 
