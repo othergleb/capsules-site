@@ -355,7 +355,7 @@ export default function WinePageClient() {
         height: '100svh',
         overflow: 'hidden',
       }}>
-        {/* cam 3 — large rotated bottle */}
+        {/* WhiteTitled_v02 — fills cream section, matches Figma node 2186:7 */}
         <video
           src="/WhiteTitled_v02.mp4"
           autoPlay
@@ -364,11 +364,10 @@ export default function WinePageClient() {
           playsInline
           style={{
             position: 'absolute',
-            top: 'calc(50% - 5px)',
-            left: 'calc(50% - 200px)',
-            transform: 'translate(-50%, -50%) rotate(16deg)',
-            width: 'auto',
-            height: '112svh',
+            top: '-14px',
+            left: '-3px',
+            width: 'calc(100% + 6px)',
+            aspectRatio: '109 / 70',
             pointerEvents: 'none',
           }}
         />
