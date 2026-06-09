@@ -467,19 +467,15 @@ export default function WinePageClient() {
           padding: '0 clamp(1.5rem, 4vw, 4rem)',
           marginTop: 'clamp(1rem, 2svh, 36px)',
         }}>
-          {[
-            'Nestled at the foot of the Middle Atlas mountains, Meknes is one of the oldest wine-producing regions in the world. The high altitude and dramatic temperature swings between day and night preserve natural acidity, giving the wine a freshness that is rare in this latitude.',
-            'In 2023, a Berber tribe and a team of French winemakers set out to make something new from something ancient. Grenache Gris — a pale, copper-skinned grape — fermented and aged in clay amphorae, the same vessels used across the Mediterranean for thousands of years.',
-          ].map((t, i) => (
-            <p key={i} style={{
-              fontFamily: 'Vulf Sans, sans-serif',
-              fontWeight: 400,
-              fontSize: 'clamp(12px, 1.33vw, 23px)',
-              color: 'var(--cream)',
-              lineHeight: 1.29,
-              letterSpacing: '0.23px',
-            }}>{t}</p>
-          ))}
+          <p style={{
+            fontFamily: 'Vulf Sans, sans-serif',
+            fontWeight: 400,
+            fontSize: 'clamp(12px, 1.33vw, 23px)',
+            color: 'var(--cream)',
+            lineHeight: 1.29,
+            letterSpacing: '0.23px',
+            gridColumn: '1 / -1',
+          }}>The vines are grown in a clay-sandy soil at 850m altitude. The Grenache grapes are hand-picked in small parcels and when pressed, the skins of the Grenache are left in contact for as little as ten minutes. The juice is aged in amphora (75%) and oak barrels (25%) in the Moroccan cellar for three years. The resultant wine is a product of craft and of patience - a deceptively complex 'almost white' made from red grapes.</p>
         </div>
       </section>
 
