@@ -224,7 +224,7 @@ function OriginMethodBoxMobile() {
       {/* ── ORIGIN ── */}
       <Strip label="ORIGIN" />
 
-      <section style={{ backgroundColor: '#FF3C00', paddingBottom: '32px' }}>
+      <section style={{ backgroundColor: '#FF3C00', paddingBottom: '32px', position: 'relative', zIndex: 2 }}>
         <div style={VIDEO_OVAL}>
           <video ref={video1Ref} src="/CapsulesPage_OTHER_VIDEO_04_web.mp4" autoPlay loop muted playsInline
             style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
