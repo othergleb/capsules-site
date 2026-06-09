@@ -45,6 +45,8 @@ function Strip({ label }: { label: string }) {
       borderTop: '1px solid #EDFF00',
       borderBottom: '1px solid #EDFF00',
       overflow: 'hidden',
+      position: 'relative',
+      zIndex: 2,
     }}>
       <p style={{
         fontFamily: 'Vulf Sans, sans-serif',
