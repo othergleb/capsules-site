@@ -69,7 +69,32 @@
       "Bash(ffmpeg -i /Users/gleb/Documents/CLAUDE/capsules-site/public/Homepage_OTHER_VIDEO_08_v03_1920x1080.mp4 -c:v libx265 -preset fast -crf 28 -tag:v hvc1 -pix_fmt yuv420p10le -c:a aac -b:a 128k -movflags faststart /Users/gleb/Documents/CLAUDE/capsules-site/public/Homepage_OTHER_VIDEO_08_web.mp4 -y)",
       "Bash(ffmpeg -i /Users/gleb/Documents/CLAUDE/capsules-site/public/CapsulesPage_OTHER_VIDEO_04_v03_1920x1080.mp4 -c:v libx265 -preset fast -crf 28 -tag:v hvc1 -pix_fmt yuv420p10le -c:a aac -b:a 128k -movflags faststart /Users/gleb/Documents/CLAUDE/capsules-site/public/CapsulesPage_OTHER_VIDEO_04_web.mp4 -y)",
       "Bash(ffmpeg -i /Users/gleb/Documents/CLAUDE/capsules-site/public/CapsulesPage_OTHER_VIDEO_05_v03_1920x1080.mp4 -c:v libx265 -preset fast -crf 28 -tag:v hvc1 -pix_fmt yuv420p10le -c:a aac -b:a 128k -movflags faststart /Users/gleb/Documents/CLAUDE/capsules-site/public/CapsulesPage_OTHER_VIDEO_05_web.mp4 -y)",
-      "Bash(wait)"
+      "Bash(wait)",
+      "Bash(lsof -i :3000 -sTCP:LISTEN)",
+      "Bash(awk '{print $5, $9}')",
+      "Bash(sips -g all \"/Users/gleb/Documents/CLAUDE/capsules-site/public/b9f0e9393dc291355495125a98e814a8 1.png\")",
+      "Bash(npx next *)",
+      "Bash(xargs -I{} sh -c 'python3 -m json.tool \"{}\" > /dev/null 2>&1 || echo \"BAD: {}\"')",
+      "Bash(xargs kill -9)",
+      "Bash(sips -g pixelWidth -g pixelHeight /Users/gleb/Documents/CLAUDE/capsules-site/public/og-image.png)",
+      "Bash(npm install *)",
+      "Bash(md5 /Users/gleb/Documents/CLAUDE/capsules-site/public/og-image.png)",
+      "Bash(md5)",
+      "Bash(xxd /Users/gleb/Documents/CLAUDE/capsules-site/public/white-bottom-tilted-1.png)",
+      "Bash(sips -g pixelWidth -g pixelHeight /Users/gleb/Documents/CLAUDE/capsules-site/public/__TRACKED_VAR__)",
+      "Bash(sips *)",
+      "Bash(identify \"/Users/gleb/Documents/CLAUDE/capsules-site/public/OilTilted2 1.png\")",
+      "Bash(ffprobe -v quiet -print_format json -show_streams \"/Users/gleb/Documents/CLAUDE/capsules-site/public/Rose360.mp4\")",
+      "Bash(ffmpeg -i \"/Users/gleb/Documents/CLAUDE/capsules-site/public/Rose360.mp4\" -vf \"select=eq\\(n\\\\,12\\)\" -frames:v 1 /tmp/rose_frame.png -y)",
+      "Bash(ffmpeg -i /Users/gleb/Documents/CLAUDE/capsules-site/public/Rose360.mp4 -vf crop=1629:2160:265:0 -c:v libx264 -crf 18 -preset slow -movflags +faststart /Users/gleb/Documents/CLAUDE/capsules-site/public/rose-adjusted.mp4 -y)",
+      "Bash(ffmpeg -i \"/Users/gleb/Documents/CLAUDE/capsules-site/public/rose-adjusted.mp4\" -vf \"select=eq\\(n\\\\,12\\)\" -frames:v 1 /tmp/rose_cropped_frame.png -y)",
+      "Bash(ffmpeg -i \"/Users/gleb/Documents/CLAUDE/capsules-site/public/Rose360.mp4\" -vf \"select=eq\\(n\\\\,12\\),crop=1629:2160:265:0\" -frames:v 1 /tmp/rose_current.png -y)",
+      "Bash(ffmpeg -i /Users/gleb/Documents/CLAUDE/capsules-site/public/Rose360.mp4 -vf crop=1620:2160:0:0 -c:v libx264 -crf 18 -preset slow -movflags +faststart /Users/gleb/Documents/CLAUDE/capsules-site/public/rose-adjusted.mp4 -y)",
+      "Bash(ffmpeg -i /Users/gleb/Documents/CLAUDE/capsules-site/public/Rose360.mp4 -vf crop=1458:2160:0:0 -c:v libx264 -crf 18 -preset slow -movflags +faststart /Users/gleb/Documents/CLAUDE/capsules-site/public/rose-adjusted.mp4 -y)",
+      "Bash(ffmpeg -i /Users/gleb/Documents/CLAUDE/capsules-site/public/Rose360.mp4 -vf crop=1414:2160:0:0 -c:v libx264 -crf 18 -preset slow -movflags +faststart /Users/gleb/Documents/CLAUDE/capsules-site/public/rose-adjusted.mp4 -y)",
+      "Bash(ffmpeg -i /Users/gleb/Documents/CLAUDE/capsules-site/public/Rose360.mp4 -vf crop=1386:2160:0:0 -c:v libx264 -crf 18 -preset slow -movflags +faststart /Users/gleb/Documents/CLAUDE/capsules-site/public/rose-adjusted.mp4 -y)",
+      "Bash(identify -format \"%wx%h\" \"/Users/gleb/Documents/CLAUDE/capsules-site/public/89ecb343c3619cf4f34ebe7de7cc6b6375ff39e7.png\")",
+      "Bash(ffmpeg -i \"/Users/gleb/Documents/CLAUDE/capsules-site/public/89ecb343c3619cf4f34ebe7de7cc6b6375ff39e7.png\" -vf \"scale=400:-1\" /tmp/rose_bottle_preview.png -y)"
     ]
   }
 }
