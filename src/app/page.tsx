@@ -355,7 +355,7 @@ function HomeMobile() {
           <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease', display: 'flex', flexDirection: 'column', flex: 1 }}>
             <div style={{ textAlign: 'center', maxWidth: '85%', margin: '0 auto 24px' }}>
               <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00', textTransform: 'uppercase', marginBottom: '1.75em' }}>
-                CONFIRM EARLY BIRD ACCESS
+                GET ACCESS EARLY
               </p>
               <p style={{ ...FONT, fontWeight: 300, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00' }}>
                 Successfully refer one friend and get access to Capsule 01 early.
@@ -806,7 +806,7 @@ function HomeInner() {
                     marginBottom: '1.75em',
                     textTransform: 'uppercase',
                   }}>
-                    CONFIRM EARLY BIRD ACCESS
+                    GET ACCESS EARLY
                   </p>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
