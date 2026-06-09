@@ -309,7 +309,7 @@ export default function WinePageClient() {
                     pointerEvents: 'none',
                   }} />
                 ) : i === 1 ? (
-                  <div style={{ position: 'absolute', bottom: 'clamp(12px, 2.03vw, 35px)', left: '50%', transform: 'translateX(-50%)', width: '31.5vw', pointerEvents: 'none' }}>
+                  <div style={{ position: 'absolute', bottom: 'clamp(12px, 2.03vw, 35px)', left: '50%', transform: 'translateX(-50%) translateY(15%)', width: '31.5vw', pointerEvents: 'none' }}>
                     <img src={item.img} alt={item.name} style={{ width: '100%', height: 'auto', display: 'block' }} />
                   </div>
                 ) : (
