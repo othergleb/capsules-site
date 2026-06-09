@@ -425,7 +425,7 @@ export default function WinePageClient() {
         </div>
       </section>
 
-      {marqueeStrip('var(--blue)', 'ORIGIN')}
+      {marqueeStrip('var(--blue)', 'METHOD')}
 
       <section style={{
         backgroundColor: 'var(--red)',
@@ -482,7 +482,7 @@ export default function WinePageClient() {
         </div>
       </section>
 
-      {marqueeStrip('var(--blue)', 'METHOD')}
+      {marqueeStrip('var(--blue)', 'ORIGIN')}
 
       <section style={{
         backgroundColor: 'var(--red)',
