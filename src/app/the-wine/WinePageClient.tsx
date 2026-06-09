@@ -16,7 +16,7 @@ const DETAILS = [
 ]
 
 const PRODUCTS = [
-  { img: '/1e4fa9e5cc3210ccbfbb034965ef75addc8a9e02.png', name: 'Amphora Aged Grenache', qty: '1 bottle · 75cl',       desc: 'The finest Grenache grapes from the 2023 harvest, aged for three years in amphora vessels and oak barrels. An exceptional and rare wine.'},
+  { img: '/1e4fa9e5cc3210ccbfbb034965ef75addc8a9e02.png', name: 'Amphora Aged Grenache', qty: '1 bottle · 75cl',       desc: 'The finest grenache grapes from the 2023 harvest, aged for three years in amphora vessels and oak barrels. An exceptional and rare wine.'},
   { img: '/89ecb343c3619cf4f34ebe7de7cc6b6375ff39e7.png', name: 'Estate Rosé',           qty: '2 bottles · 75cl each', desc: 'Made from the same vines, same harvest. A paler, more delicate expression of the same fruit.' },
   { img: '/OilTilted2 1.png', name: 'Estate Olive Oil', qty: '1 vial · 60ml', desc: 'Cold-pressed from olive trees that share the same soil as the vines. A companion to the wine.' },
   { img: '/poster-overlay.svg', name: 'Illustration',         qty: '1 poster · 35 × 20cm', desc: 'A photographic print from the estate by Mehdi Amini.' },
