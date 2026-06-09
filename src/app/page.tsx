@@ -1010,7 +1010,7 @@ function HomeInner() {
           }}
         />
 
-        {/* Diamonds — bottom left (Figma: x=430, y=2036, section bottom=2315) */}
+        {/* Diamonds — bottom left */}
         <img
           src="/Group 47.svg"
           alt=""
@@ -1018,7 +1018,7 @@ function HomeInner() {
           style={{
             position: 'absolute',
             left: '27vw',
-            bottom: 'calc(7.6vw - 50px)',
+            top: '52vw',
             width: 'clamp(70px, 8vw, 140px)',
             height: 'auto',
             pointerEvents: 'none',
@@ -1027,12 +1027,8 @@ function HomeInner() {
           }}
         />
 
-        {/* Contact info (Figma: y=2204, section bottom=2315 → 91px from bottom) */}
+        {/* Contact info — in flow, centred below form */}
         <p style={{
-          position: 'absolute',
-          bottom: '10px',
-          left: 0,
-          right: 0,
           textAlign: 'center',
           fontFamily: 'Vulf Sans, sans-serif',
           fontWeight: 900,
@@ -1040,9 +1036,11 @@ function HomeInner() {
           letterSpacing: '0.42px',
           textTransform: 'uppercase',
           color: '#000',
-          margin: 0,
+          marginTop: 'clamp(1.5rem, 3vw, 48px)',
+          marginBottom: 0,
           whiteSpace: 'nowrap',
-          zIndex: 5,
+          position: 'relative',
+          zIndex: 10,
         }}>
           Contact:{' '}
           <a href="mailto:info@otherwine.co.uk" style={{ color: 'inherit', textDecoration: 'underline' }}>
