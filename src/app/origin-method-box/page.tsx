@@ -173,7 +173,7 @@ function OriginMethodBoxMobile() {
         top: 'calc(-41px + 8vw + 40px)',
         width: '135.7vw',
         pointerEvents: 'none',
-        zIndex: 1,
+        zIndex: 0,
         transform: 'rotate(-17deg)',
       }}>
         <video ref={bottleVideoRef} autoPlay loop muted playsInline preload="auto" style={{ width: '100%', height: 'auto', display: 'block' }}>
@@ -185,6 +185,7 @@ function OriginMethodBoxMobile() {
       <section style={{
         backgroundColor: '#fffff5',
         position: 'relative',
+        zIndex: 1,
         height: 'calc(100svh - 41px - env(safe-area-inset-bottom, 0px))',
         overflow: 'hidden',
       }}>
