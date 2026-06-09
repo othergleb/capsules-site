@@ -437,7 +437,7 @@ function HomeMobile() {
           justifyContent: 'center',
           pointerEvents: 'none',
           userSelect: 'none',
-          zIndex: 1,
+          zIndex: 2,
         }}>
           <BgBottleVideo src="/Rose360.mp4" rotation="15.77deg" width="61vw" />
         </div>
@@ -454,7 +454,7 @@ function HomeMobile() {
           justifyContent: 'center',
           pointerEvents: 'none',
           userSelect: 'none',
-          zIndex: 2,
+          zIndex: 1,
         }}>
           <BgBottleVideo src="/WhiteTitled_v03.mp4" rotation="-10.82deg" width="92vw" />
         </div>
