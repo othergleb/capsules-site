@@ -656,7 +656,7 @@ function HomeInner() {
         <button
           onClick={() => yellowRef.current?.scrollIntoView({ behavior: 'smooth' })}
           className="scroll-arrow"
-          style={{ position: 'absolute', bottom: '63px', left: 0, right: 0, margin: '0 auto', width: 'fit-content', background: 'none', border: 'none', cursor: 'pointer', padding: '8px', display: 'flex' }}
+          style={{ position: 'absolute', bottom: '80px', left: 0, right: 0, margin: '0 auto', width: 'fit-content', background: 'none', border: 'none', cursor: 'pointer', padding: '8px', display: 'flex' }}
           aria-label="Scroll down"
         >
           <svg width="26" height="15" viewBox="0 0 26 15" fill="none"><path d="M1.5 1.5L13 13L24.5 1.5" stroke="#EDFF00" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
