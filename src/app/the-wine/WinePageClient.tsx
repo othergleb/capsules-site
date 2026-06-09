@@ -108,21 +108,21 @@ function WinePageMobile() {
                 <div style={ARCH}>
                   {i === 0 && (
                     <img
-                      src="/WhiteFrontOther2-1 1.png"
+                      src="/white-front-other2.png"
                       alt={PRODUCTS[0].name}
                       style={{ width: '50%', height: 'auto', display: 'block', pointerEvents: 'none' }}
                     />
                   )}
                   {i === 1 && (
                     <img
-                      src="/Rose6 2.png"
+                      src="/rose6.png"
                       alt={PRODUCTS[1].name}
                       style={{ width: '32%', height: 'auto', display: 'block', pointerEvents: 'none', marginBottom: '4vw' }}
                     />
                   )}
                   {i === 2 && (
                     <img
-                      src="/OilFront 1.png"
+                      src="/oil-front.png"
                       alt={PRODUCTS[2].name}
                       style={{ width: '76%', height: 'auto', display: 'block', pointerEvents: 'none', marginBottom: '2vw' }}
                     />
@@ -140,16 +140,16 @@ function WinePageMobile() {
                       <div style={{ position: 'absolute', inset: '1.5%', overflow: 'hidden' }}>
                         <img src="/mobile-illustration-bg.png" alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                         <div style={{ position: 'absolute', top: 0, left: 0, right: '50%', bottom: '50%' }}>
-                          <img src="/mobile-vector-a.png" alt="" style={{ width: '100%', height: '100%', display: 'block' }} />
+                          <img src="/mobile-vector-a.svg" alt="" style={{ width: '100%', height: '100%', display: 'block' }} />
                         </div>
                         <div style={{ position: 'absolute', bottom: 0, left: '50%', right: 0, top: '50%', transform: 'rotate(180deg)' }}>
-                          <img src="/mobile-vector-b.png" alt="" style={{ width: '100%', height: '100%', display: 'block' }} />
+                          <img src="/mobile-vector-b.svg" alt="" style={{ width: '100%', height: '100%', display: 'block' }} />
                         </div>
                         <div style={{ position: 'absolute', top: 0, left: '50%', right: 0, bottom: '50%', transform: 'rotate(180deg)' }}>
-                          <img src="/mobile-vector-c.png" alt="" style={{ width: '100%', height: '100%', display: 'block' }} />
+                          <img src="/mobile-vector-c.svg" alt="" style={{ width: '100%', height: '100%', display: 'block' }} />
                         </div>
                         <div style={{ position: 'absolute', bottom: 0, left: 0, right: '50%', top: '50%' }}>
-                          <img src="/mobile-vector-a.png" alt="" style={{ width: '100%', height: '100%', display: 'block' }} />
+                          <img src="/mobile-vector-a.svg" alt="" style={{ width: '100%', height: '100%', display: 'block' }} />
                         </div>
                       </div>
                     </div>
