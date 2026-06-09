@@ -453,7 +453,7 @@ function HomeMobile() {
           userSelect: 'none',
           zIndex: 0,
         }}>
-          <BgBottleVideo src="/WhiteTitled_v03.mp4" rotation="-10.82deg" width="106vw" />
+          <BgBottleVideo src="/WhiteTitled_v03.mp4" rotation="-10.82deg" width="116.6vw" />
         </div>
 
         {/* Contact info */}
