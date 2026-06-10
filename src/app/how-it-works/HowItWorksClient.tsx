@@ -36,7 +36,7 @@ export default function HowItWorksClient() {
       margin: 0,
     }
     return (
-      <div style={{ backgroundColor: '#fffff5', height: '100svh', paddingBottom: '41px', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ backgroundColor: '#fffff5', minHeight: '100svh', paddingBottom: '41px', position: 'relative', overflow: 'hidden' }}>
 
         {/* Large red logo bleeding from top-left */}
         <Link href="/" style={{ position: 'absolute', left: '-23.15vw', top: '-60.3vw', width: '144.8vw', height: '144.8vw', zIndex: 1, display: 'block' }}>
@@ -51,12 +51,12 @@ export default function HowItWorksClient() {
         </div>
 
         {/* Step cards */}
-        <div style={{ position: 'relative', zIndex: 1, padding: '0 11px clamp(12px, 3vw, 32px)', flex: 1 }}>
+        <div style={{ position: 'relative', zIndex: 1, padding: '0 11px clamp(12px, 3vw, 32px)' }}>
           {STEPS.map((step, i) => (
             <div key={step.num} style={{
               border: '1px solid #ff3c00',
               borderRadius: '50px',
-              padding: '21px 22px',
+              padding: 'clamp(12px, 3.5vw, 21px) 22px',
               textAlign: 'center',
               marginTop: i > 0 ? '-1px' : 0,
               backgroundColor: '#fffff5',
@@ -64,7 +64,7 @@ export default function HowItWorksClient() {
               <p style={{ ...T, fontWeight: 300, color: '#ff3c00', letterSpacing: '-0.54px', textTransform: 'uppercase' }}>
                 Step {step.num}
               </p>
-              <p style={{ ...T, fontWeight: 700, textTransform: 'uppercase', margin: '20px 0' }}>
+              <p style={{ ...T, fontWeight: 700, textTransform: 'uppercase', margin: 'clamp(10px, 2.5vw, 20px) 0' }}>
                 {step.title}
               </p>
               <p style={{ ...T, fontWeight: 400 }}>
