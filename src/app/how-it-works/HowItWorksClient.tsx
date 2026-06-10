@@ -14,7 +14,7 @@ const STEPS = [
   {
     num: '2',
     title: '23 June: Purchase Day',
-    body: "On the 23rd June, we'll email a purchase link to all registered members. Capsule 01 is £89. 480 are available, first come first served.",
+    body: "On the 23rd June, we'll email a purchase link to all registered members. Capsule 01 is £89. First come, first served.",
   },
   {
     num: '3',
@@ -36,7 +36,7 @@ export default function HowItWorksClient() {
       margin: 0,
     }
     return (
-      <div style={{ backgroundColor: '#fffff5', minHeight: '100svh', paddingBottom: '41px', position: 'relative', overflow: 'hidden' }}>
+      <div style={{ backgroundColor: '#fffff5', height: '100svh', paddingBottom: '41px', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
 
         {/* Large red logo bleeding from top-left */}
         <Link href="/" style={{ position: 'absolute', left: '-23.15vw', top: '-60.3vw', width: '144.8vw', height: '144.8vw', zIndex: 1, display: 'block' }}>
@@ -95,7 +95,7 @@ export default function HowItWorksClient() {
   }
 
   return (
-    <div style={{ backgroundColor: 'var(--cream)', color: 'var(--blue)', display: 'flex', flexDirection: 'column', minHeight: '100dvh' }}>
+    <div style={{ backgroundColor: 'var(--cream)', color: 'var(--blue)', display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden' }}>
       <Nav />
 
       <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 'clamp(6rem, 23vw, 24rem)', paddingLeft: 'clamp(2rem, 5vw, 4rem)', paddingRight: 'clamp(2rem, 5vw, 4rem)', paddingBottom: 'clamp(2rem, 5vw, 5rem)' }}>
