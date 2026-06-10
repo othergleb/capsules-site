@@ -51,8 +51,7 @@ export default function HowItWorksClient() {
         {/* Intro */}
         <div style={{ position: 'relative', zIndex: 1, paddingTop: '160px', paddingLeft: '32px', paddingRight: '32px', paddingBottom: '32px', textAlign: 'center' }}>
           <p style={{ ...T, fontWeight: 700, maxWidth: '330px', margin: '0 auto' }}>
-            We allocate by ballot to give everyone an equal shot.{' '}
-            Register once, and if you are drawn on 14 June you will receive a checkout link with 48 hours to complete your purchase.
+            Capsules are about bringing small-batch wine producers to the fore - finding one-off, special wines and making them available. Capsule 01, a package from northern Morocco, features an amphora aged grenache - only 480 of which remain in existence.
           </p>
         </div>
 
@@ -101,9 +100,7 @@ export default function HowItWorksClient() {
 
       <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 'clamp(6rem, 23vw, 24rem)', paddingLeft: 'clamp(2rem, 5vw, 4rem)', paddingRight: 'clamp(2rem, 5vw, 4rem)', paddingBottom: 'clamp(2rem, 5vw, 5rem)' }}>
         <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 700, fontSize: 'clamp(14px, 1.16vw, 20px)', color: 'var(--blue)', textAlign: 'center', lineHeight: 1.29, letterSpacing: '0.2px', maxWidth: '640px' }}>
-          We allocate by ballot to give everyone an equal shot.{' '}
-          <br />
-          Register once, and if you are drawn on 14 June you will receive a checkout link with 48 hours to complete your purchase.
+          Capsules are about bringing small-batch wine producers to the fore - finding one-off, special wines and making them available. Capsule 01, a package from northern Morocco, features an amphora aged grenache - only 480 of which remain in existence.
         </p>
       </div>
 
