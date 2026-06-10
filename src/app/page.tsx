@@ -141,6 +141,12 @@ function HomeMobile() {
     if (fromUrl) { sessionStorage.setItem('ref', fromUrl); return fromUrl }
     return sessionStorage.getItem('ref') ?? undefined
   })()
+  const srcCode = (() => {
+    const fromUrl = searchParams.get('src')
+    if (typeof window === 'undefined') return fromUrl ?? undefined
+    if (fromUrl) { sessionStorage.setItem('src', fromUrl); return fromUrl }
+    return sessionStorage.getItem('src') ?? undefined
+  })()
   const yellowRef    = useRef<HTMLElement>(null)
   const [sectionH, setSectionH] = useState<string>('calc(100svh - 41px - env(safe-area-inset-bottom, 0px))')
 
@@ -189,7 +195,7 @@ function HomeMobile() {
       const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, refCode }),
+        body: JSON.stringify({ email, refCode, srcCode }),
       })
       if (res.ok) {
         const data = await res.json()
@@ -462,6 +468,12 @@ function HomeInner() {
     if (fromUrl) { sessionStorage.setItem('ref', fromUrl); return fromUrl }
     return sessionStorage.getItem('ref') ?? undefined
   })()
+  const srcCode = (() => {
+    const fromUrl = searchParams.get('src')
+    if (typeof window === 'undefined') return fromUrl ?? undefined
+    if (fromUrl) { sessionStorage.setItem('src', fromUrl); return fromUrl }
+    return sessionStorage.getItem('src') ?? undefined
+  })()
   const isMobile                      = useIsMobile()
   const isNarrow                      = useIsMobile(900)
 
@@ -483,7 +495,7 @@ function HomeInner() {
       const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, refCode }),
+        body: JSON.stringify({ email, refCode, srcCode }),
       })
       if (res.ok) {
         const data = await res.json()
