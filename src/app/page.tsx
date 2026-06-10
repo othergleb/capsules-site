@@ -401,12 +401,12 @@ function HomeMobile() {
               <div style={{ borderTop: '0.633px solid #FF3C00' }}>
                 {([
                   ['1 x Bottle',  'Amphora Aged Grenache, 2023'],
-                  ['2 x Bottles', 'Estate Moroccan Rosé'],
+                  ['2 x Bottles', 'Moroccan Syrah Rosé'],
                   ['1 x Vial',    'Award-winning Olive Oil'],
                 ] as [string, string][]).map(([qty, item]) => (
                   <div key={qty} style={{ display: 'grid', gridTemplateColumns: '38% 1fr', alignItems: 'center', padding: '2px 0', borderBottom: '0.633px solid #FF3C00' }}>
-                    <span style={{ ...FONT, fontWeight: 300, fontSize: '14px', lineHeight: '20px', color: '#FF3C00', letterSpacing: '-0.12px', textTransform: 'uppercase', paddingLeft: '14px', whiteSpace: 'nowrap' }}>{qty}</span>
-                    <span style={{ ...FONT, fontWeight: 400, fontSize: '14px', lineHeight: '20px', color: '#FF3C00', letterSpacing: '-0.12px', textTransform: 'uppercase', textAlign: 'left' }}>{item}</span>
+                    <span style={{ ...FONT, fontWeight: 700, fontSize: '14px', lineHeight: '20px', color: '#FF3C00', letterSpacing: '-0.12px', textTransform: 'uppercase', paddingLeft: '14px', whiteSpace: 'nowrap' }}>{qty}</span>
+                    <span style={{ ...FONT, fontWeight: 300, fontSize: '14px', lineHeight: '20px', color: '#FF3C00', letterSpacing: '-0.12px', textTransform: 'uppercase', textAlign: 'left' }}>{item}</span>
                   </div>
                 ))}
               </div>
@@ -910,7 +910,7 @@ function HomeInner() {
                   <div style={{ borderTop: '1px solid #FF3C00', overflow: 'hidden' }}>
                     {([
                       ['1 x Bottle',  'Amphora Aged Grenache, 2023'],
-                      ['2 x Bottles', 'Estate Moroccan Rosé'],
+                      ['2 x Bottles', 'Moroccan Syrah Rosé'],
                       ['1 x Vial',    'Award-winning Olive Oil'],
                     ] as [string, string][]).map(([qty, item]) => (
                       <div key={qty} style={{
@@ -921,8 +921,8 @@ function HomeInner() {
                         padding: '2px 8px',
                         borderBottom: '1px solid #FF3C00',
                       }}>
-                        <span style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(9px, 1.04vw, 18px)', lineHeight: 1.15, color: '#FF3C00', letterSpacing: '-0.18px', textTransform: 'uppercase', paddingLeft: '8px', paddingRight: '16px', whiteSpace: 'nowrap' }}>{qty}</span>
-                        <span style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: 'clamp(9px, 1.04vw, 18px)', lineHeight: 1.15, color: '#FF3C00', letterSpacing: '-0.18px', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>{item}</span>
+                        <span style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 700, fontSize: 'clamp(9px, 1.04vw, 18px)', lineHeight: 1.15, color: '#FF3C00', letterSpacing: '-0.18px', textTransform: 'uppercase', paddingLeft: '8px', paddingRight: '16px', whiteSpace: 'nowrap' }}>{qty}</span>
+                        <span style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(9px, 1.04vw, 18px)', lineHeight: 1.15, color: '#FF3C00', letterSpacing: '-0.18px', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>{item}</span>
                       </div>
                     ))}
                   </div>
