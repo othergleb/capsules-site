@@ -17,11 +17,6 @@ const STEPS = [
     body: "On the 23rd June, we'll email a purchase link to all registered members. Capsule 01 is £89. 480 are available, first come first served.",
   },
   {
-    num: '3',
-    title: '48-Hour Window',
-    body: 'If you are drawn, you receive a personal checkout link by email. You have 48 hours to complete your purchase. After that the allocation moves on.',
-  },
-  {
     num: '4',
     title: 'Your Box Ships',
     body: 'Your Capsule 01 box ships directly to you — one amphora-aged Grenache, two estate rosés, and a vial of cold-pressed olive oil. Delivery included.',
