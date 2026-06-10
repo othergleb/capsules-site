@@ -39,7 +39,7 @@ export default function HowItWorksClient() {
       <div style={{ backgroundColor: '#fffff5', minHeight: '100svh', paddingBottom: '41px', position: 'relative', overflow: 'hidden' }}>
 
         {/* Large red logo bleeding from top-left */}
-        <Link href="/" style={{ position: 'absolute', left: '-23.15vw', top: '-60.3vw', width: '144.8vw', height: '144.8vw', zIndex: 1, display: 'block' }}>
+        <Link href="/" style={{ position: 'absolute', left: '-23.15vw', top: '-60.3vw', width: '144.8vw', height: '144.8vw', zIndex: 10, display: 'block' }}>
           <img src="/figma/other-logo-red.png" alt="" style={{ width: '100%', height: '100%' }} />
         </Link>
 

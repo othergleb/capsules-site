@@ -34,7 +34,7 @@ export default function MobileNav({ bg = '#fffff5' }: { bg?: string }) {
   const safeIdx = idx < 0 ? 0 : idx
   const prevIdx = (safeIdx - 1 + PAGES.length) % PAGES.length
   const nextIdx = (safeIdx + 1) % PAGES.length
-  const centerLabel = isHome ? 'MENU' : (PAGES[safeIdx]?.label ?? 'MENU')
+  const centerLabel = 'MENU'
 
   function go(href: string) {
     setOpen(false)
