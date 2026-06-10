@@ -180,7 +180,8 @@ export default function RegistrationForm({ dark = false, minimal = false }: Regi
         <p className="mt-3 text-sm text-center" style={{ color: 'var(--red)' }}>{errorMsg}</p>
       )}
       <p className="mt-4 text-xs text-center" style={{ color: dark ? 'rgba(248,248,248,0.4)' : 'rgba(0,0,106,0.45)' }}>
-        By registering you agree to receive email updates about Capsule 01. No spam, ever.
+        By registering you agree to receive email updates about Capsule 01.{' '}
+        <a href="/privacy" style={{ textDecoration: 'underline', color: 'inherit' }}>Privacy policy</a>.
       </p>
     </form>
   )
