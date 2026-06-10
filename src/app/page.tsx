@@ -155,25 +155,6 @@ function HomeMobile() {
     return () => window.removeEventListener('resize', compute)
   }, [])
 
-  useEffect(() => {
-    const t = setTimeout(() => {
-      const target = yellowRef.current
-      if (!target) return
-      const start = window.scrollY
-      const end = target.getBoundingClientRect().top + window.scrollY
-      const duration = 1000
-      const startTime = performance.now()
-      function step(now: number) {
-        const p = Math.min((now - startTime) / duration, 1)
-        const ease = 1 - Math.pow(1 - p, 4)
-        window.scrollTo(0, start + (end - start) * ease)
-        if (p < 1) requestAnimationFrame(step)
-      }
-      requestAnimationFrame(step)
-    }, 5000)
-    return () => clearTimeout(t)
-  }, [])
-
   const [email, setEmail]             = useState('')
   const [formStep, setFormStep]       = useState<'email' | 'invite'>('email')
   const [stepIn, setStepIn]           = useState(true)
@@ -492,25 +473,6 @@ function HomeInner() {
   const [dismissed, setDismissed]     = useState(false)
   const [copiedToClipboard, setCopiedToClipboard] = useState(false)
   const yellowRef                     = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const t = setTimeout(() => {
-      const target = yellowRef.current
-      if (!target) return
-      const start = window.scrollY
-      const end = target.getBoundingClientRect().top + window.scrollY
-      const duration = 1000
-      const startTime = performance.now()
-      function step(now: number) {
-        const p = Math.min((now - startTime) / duration, 1)
-        const ease = 1 - Math.pow(1 - p, 4)
-        window.scrollTo(0, start + (end - start) * ease)
-        if (p < 1) requestAnimationFrame(step)
-      }
-      requestAnimationFrame(step)
-    }, 5000)
-    return () => clearTimeout(t)
-  }, [])
 
   async function advanceToInvite(e: React.FormEvent) {
     e.preventDefault()
