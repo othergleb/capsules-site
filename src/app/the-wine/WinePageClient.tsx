@@ -63,7 +63,7 @@ function WinePageMobile() {
     border: '1px solid #00006A',
     marginTop: '-1px',
     padding: '10px 8px 8px',
-    height: '29vw',
+    height: '38vw',
     position: 'relative',
     overflow: 'hidden',
   }
