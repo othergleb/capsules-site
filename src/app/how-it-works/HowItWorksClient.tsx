@@ -13,7 +13,7 @@ const STEPS = [
   },
   {
     num: '2',
-    title: 'The Ballot',
+    title: '23 June: Purchase Day',
     body: 'On 14 June, we run the ballot. Every registered email has an equal chance. There are 480 bottles and one per person. The draw is final.',
   },
   {
