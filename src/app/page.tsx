@@ -188,7 +188,7 @@ function HomeMobile() {
       try {
         await navigator.clipboard.writeText(text)
         setCopiedToClipboard(true)
-        setTimeout(() => setDismissed(true), 2000)
+        setTimeout(() => { setCopiedToClipboard(false); setDismissed(true) }, 2000)
       } catch { /* clipboard unavailable */ }
     }
   }
@@ -535,7 +535,7 @@ function HomeInner() {
       try {
         await navigator.clipboard.writeText(text)
         setCopiedToClipboard(true)
-        setTimeout(() => setDismissed(true), 2000)
+        setTimeout(() => { setCopiedToClipboard(false); setDismissed(true) }, 2000)
       } catch { /* clipboard unavailable */ }
     }
   }
