@@ -154,7 +154,7 @@ function OriginMethodBoxMobile() {
 
   const ROW_STYLE: React.CSSProperties = {
     fontFamily: 'Vulf Sans, sans-serif',
-    fontSize: '16px',
+    fontSize: 'clamp(11px, 3.7vw, 16px)',
     color: '#00006A',
     textTransform: 'uppercase',
     letterSpacing: '-0.16px',
