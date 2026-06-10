@@ -45,7 +45,7 @@ export default function HowItWorksClient() {
 
         {/* Intro */}
         <div style={{ position: 'relative', zIndex: 1, paddingTop: '160px', paddingLeft: '32px', paddingRight: '32px', paddingBottom: '32px', textAlign: 'center' }}>
-          <p style={{ ...T, fontWeight: 400, maxWidth: '330px', margin: '0 auto' }}>
+          <p style={{ ...T, fontWeight: 400, maxWidth: '360px', margin: '0 auto' }}>
             Capsules by OTHER brings small batch wine producers into the limelight - one-off, special wines from under-represented regions available for one day. Capsule 01, a package from northern Morocco, features an amphora aged grenache - only 480 of which remain in existence - alongside two bottles of rosé, and a vial of award winning olive oil from the same estate.
           </p>
         </div>
@@ -99,7 +99,7 @@ export default function HowItWorksClient() {
       <Nav />
 
       <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 'clamp(6rem, 23vw, 24rem)', paddingLeft: 'clamp(2rem, 5vw, 4rem)', paddingRight: 'clamp(2rem, 5vw, 4rem)', paddingBottom: 'clamp(2rem, 5vw, 5rem)' }}>
-        <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: 'clamp(14px, 1.16vw, 20px)', color: 'var(--blue)', textAlign: 'center', lineHeight: 1.29, letterSpacing: '0.2px', maxWidth: '640px' }}>
+        <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: 'clamp(14px, 1.16vw, 20px)', color: 'var(--blue)', textAlign: 'center', lineHeight: 1.29, letterSpacing: '0.2px', maxWidth: '720px' }}>
           Capsules by OTHER brings small batch wine producers into the limelight - one-off, special wines from under-represented regions available for one day. Capsule 01, a package from northern Morocco, features an amphora aged grenache - only 480 of which remain in existence - alongside two bottles of rosé, and a vial of award winning olive oil from the same estate.
         </p>
       </div>
