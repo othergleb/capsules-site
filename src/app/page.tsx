@@ -135,7 +135,12 @@ function StepDots({ step, size = 6, color = '#EDFF00' }: { step: 2 | 3; size?: n
 
 function HomeMobile() {
   const searchParams = useSearchParams()
-  const refCode      = searchParams.get('ref') ?? undefined
+  const refCode = (() => {
+    const fromUrl = searchParams.get('ref')
+    if (typeof window === 'undefined') return fromUrl ?? undefined
+    if (fromUrl) { sessionStorage.setItem('ref', fromUrl); return fromUrl }
+    return sessionStorage.getItem('ref') ?? undefined
+  })()
   const yellowRef    = useRef<HTMLElement>(null)
   const [sectionH, setSectionH] = useState<string>('calc(100svh - 41px - env(safe-area-inset-bottom, 0px))')
 
@@ -197,6 +202,8 @@ function HomeMobile() {
     e.preventDefault()
     if (!email) return
     setStepIn(false)
+    // Transition to share screen immediately — API runs in background
+    setTimeout(() => setFormStep('invite'), 220)
     try {
       const res = await fetch('/api/register', {
         method: 'POST',
@@ -208,7 +215,6 @@ function HomeMobile() {
         setInviteCode(data.inviteCode ?? null)
       }
     } catch { /* non-blocking */ }
-    setTimeout(() => setFormStep('invite'), 220)
   }
 
   useEffect(() => {
@@ -469,7 +475,12 @@ function HomeMobile() {
 
 function HomeInner() {
   const searchParams                  = useSearchParams()
-  const refCode                       = searchParams.get('ref') ?? undefined
+  const refCode = (() => {
+    const fromUrl = searchParams.get('ref')
+    if (typeof window === 'undefined') return fromUrl ?? undefined
+    if (fromUrl) { sessionStorage.setItem('ref', fromUrl); return fromUrl }
+    return sessionStorage.getItem('ref') ?? undefined
+  })()
   const isMobile                      = useIsMobile()
   const isNarrow                      = useIsMobile(900)
 
@@ -505,6 +516,7 @@ function HomeInner() {
     e.preventDefault()
     if (!email) return
     setStepIn(false)
+    setTimeout(() => setFormStep('invite'), 220)
     try {
       const res = await fetch('/api/register', {
         method: 'POST',
@@ -516,7 +528,6 @@ function HomeInner() {
         setInviteCode(data.inviteCode ?? null)
       }
     } catch { /* non-blocking */ }
-    setTimeout(() => setFormStep('invite'), 220)
   }
 
   useEffect(() => {
