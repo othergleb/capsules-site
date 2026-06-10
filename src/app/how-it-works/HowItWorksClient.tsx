@@ -14,7 +14,7 @@ const STEPS = [
   {
     num: '2',
     title: '23 June: Purchase Day',
-    body: "On the 23rd June, we'll email a purchase link to all registered members. Capsule 01 is £89. 480 are available.",
+    body: "On the 23rd June, we'll email a purchase link to all registered members. Capsule 01 is £89. 480 are available, first come first served.",
   },
   {
     num: '3',
