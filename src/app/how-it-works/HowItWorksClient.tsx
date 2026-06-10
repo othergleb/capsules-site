@@ -79,6 +79,11 @@ export default function HowItWorksClient() {
           ))}
         </div>
 
+        {/* Email */}
+        <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '0 32px 40px' }}>
+          <a href="mailto:info@otherwine.co.uk" style={{ ...T, fontWeight: 400, color: '#00006A', textDecoration: 'none' }}>info@otherwine.co.uk</a>
+        </div>
+
         <MobileNav bg="#ff3c00" />
       </div>
     )
@@ -102,6 +107,10 @@ export default function HowItWorksClient() {
         <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 700, fontSize: 'clamp(14px, 1.16vw, 20px)', color: 'var(--blue)', textAlign: 'center', lineHeight: 1.29, letterSpacing: '0.2px', maxWidth: '640px' }}>
           Capsules by OTHER are about bringing small-batch wine producers to the fore - finding one-off, special wines and making them widely available. Capsule 01, a package from northern Morocco, features an amphora aged grenache - only 480 of which remain in existence.
         </p>
+      </div>
+
+      <div style={{ textAlign: 'center', paddingBottom: 'clamp(1rem, 2vw, 32px)' }}>
+        <a href="mailto:info@otherwine.co.uk" style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: 'clamp(14px, 1.16vw, 20px)', color: 'var(--blue)', textDecoration: 'none', letterSpacing: '0.2px' }}>info@otherwine.co.uk</a>
       </div>
 
       <div style={{ marginTop: 'auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, padding: '0 clamp(10px, 1.04vw, 18px) clamp(1.5rem, 2.3vw, 40px)' }}>
