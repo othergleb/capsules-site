@@ -14,7 +14,7 @@ const STEPS = [
   {
     num: '2',
     title: '23 June: Purchase Day',
-    body: 'On 14 June, we run the ballot. Every registered email has an equal chance. There are 480 bottles and one per person. The draw is final.',
+    body: "On the 23rd June, we'll email a purchase link to all registered members. Capsule 01 is £89. 480 are available.",
   },
   {
     num: '3',
