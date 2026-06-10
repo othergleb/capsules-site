@@ -12,12 +12,12 @@ export const metadata: Metadata = {
     description: DESC,
     url: 'https://capsules.otherwine.co.uk',
     type: 'website',
-    images: [{ url: 'https://capsules.otherwine.co.uk/og-image.jpg', width: 1200, height: 630, alt: 'Capsule 01 by OTHER' }],
+    images: [{ url: 'https://capsules.otherwine.co.uk/og-image-v2.jpg', width: 1200, height: 630, alt: 'Capsule 01 by OTHER' }],
   },
   twitter: {
     card: 'summary_large_image',
     description: DESC,
-    images: ['https://capsules.otherwine.co.uk/og-image.jpg'],
+    images: ['https://capsules.otherwine.co.uk/og-image-v2.jpg'],
   },
 }
 
