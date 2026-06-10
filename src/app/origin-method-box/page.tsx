@@ -235,9 +235,8 @@ function OriginMethodBoxMobile() {
 
         <h2 style={HEADING}>Amphora aged</h2>
 
-        <div style={{ padding: '0 15px', display: 'flex', flexDirection: 'column', gap: '18px' }}>
-          <p style={BODY}>The wine rests in unlined clay vessels — qvevri-style amphorae — buried in the cellar floor. Clay is porous enough to allow a slow micro-oxidation but neutral enough to leave the fruit unmasked.</p>
-          <p style={BODY}>The result has a texture and minerality that glass and steel cannot replicate. No fining. No filtration. 480 bottles filled by hand.</p>
+        <div style={{ padding: '0 15px' }}>
+          <p style={BODY}>Grown in clay-sandy soil at 850m altitude, the grenache grapes are hand-picked in small parcels and pressed with as little as ten minutes of skin contact. The juice is then aged in amphora (75%) and oak barrels (25%) - a product of craft and of patience, ready to enjoy right away or age. Crispy, fresh, aromatic, and silky on the palate.</p>
         </div>
       </section>
 
@@ -253,9 +252,8 @@ function OriginMethodBoxMobile() {
 
         <h2 style={HEADING}>Meknes, Morocco</h2>
 
-        <div style={{ padding: '0 15px', display: 'flex', flexDirection: 'column', gap: '18px' }}>
-          <p style={BODY}>Nestled at the foot of the Middle Atlas mountains, Meknes is one of the oldest wine-producing regions in the world. The high altitude and dramatic temperature swings between day and night preserve natural acidity, giving the wine a freshness that is rare in this latitude.</p>
-          <p style={BODY}>In 2023, a Berber tribe and a team of French winemakers set out to make something new from something ancient. Grenache Gris — a pale, copper-skinned grape — fermented and aged in clay amphorae, the same vessels used across the Mediterranean for thousands of years.</p>
+        <div style={{ padding: '0 15px' }}>
+          <p style={BODY}>The estate is in the foothills of the mid-atlas mountains, close to the ancient city of Volubilis, where winemaking techniques in amphora were discovered dating back to 2000 years BCE. It is the birthplace of Moroccan viticultural practices and home to the Hauts Plateaux de Meknes AOC - Morocco's most prestigious wine appellation. The 850m altitude, iron-rich soils, and year-round sunshine produce wines of exceptional tension, freshness and minerality.</p>
         </div>
       </section>
 
