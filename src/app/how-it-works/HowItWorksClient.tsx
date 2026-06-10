@@ -9,7 +9,7 @@ const STEPS = [
   {
     num: '1',
     title: 'Register',
-    body: 'Enter your email address. No payment details, no account. You will receive a confirmation and you'll be on the list.',
+    body: "Enter your email address. No payment details, no account. You will receive a confirmation and you'll be on the list.",
   },
   {
     num: '2',
