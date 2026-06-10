@@ -6,7 +6,7 @@ import { usePathname, useRouter } from 'next/navigation'
 const PAGES = [
   { label: 'CAPSULE 01',            href: '/the-wine'           },
   { label: 'THE WINE',            href: '/origin-method-box'  },
-  { label: 'HOW IT WORKS',        href: '/how-it-works'       },
+  { label: 'ABOUT',               href: '/how-it-works'       },
 ]
 
 const NAV_TEXT: React.CSSProperties = {
