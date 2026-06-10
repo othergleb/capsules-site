@@ -17,7 +17,7 @@ const STEPS = [
     body: "On the 23rd June, we'll email a purchase link to all registered members. Capsule 01 is £89. 480 are available, first come first served.",
   },
   {
-    num: '4',
+    num: '3',
     title: 'Your Box Ships',
     body: 'Your Capsule 01 box ships directly to you — one amphora-aged Grenache, two estate rosés, and a vial of cold-pressed olive oil. Delivery included.',
   },
@@ -108,7 +108,7 @@ export default function HowItWorksClient() {
         <a href="mailto:info@otherwine.co.uk" style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 400, fontSize: 'clamp(14px, 1.16vw, 20px)', color: 'var(--blue)', textDecoration: 'none', letterSpacing: '0.2px' }}>info@otherwine.co.uk</a>
       </div>
 
-      <div style={{ marginTop: 'auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, padding: '0 clamp(10px, 1.04vw, 18px) clamp(1.5rem, 2.3vw, 40px)' }}>
+      <div style={{ marginTop: 'auto', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 0, padding: '0 clamp(10px, 1.04vw, 18px) clamp(1.5rem, 2.3vw, 40px)' }}>
         {STEPS.map((step, i) => (
           <div key={step.num} style={{ border: '2.22px solid var(--red)', borderRadius: 'clamp(40px, 4.63vw, 80px)', padding: 'clamp(28px, 3.15vw, 54px) clamp(12px, 1.74vw, 30px) clamp(24px, 3vw, 52px)', display: 'flex', flexDirection: 'column', textAlign: 'center', marginLeft: i > 0 ? '-2.22px' : 0 }}>
             <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(14px, 1.45vw, 25px)', color: 'var(--red)', letterSpacing: '-0.75px', textTransform: 'uppercase', lineHeight: 2.5, margin: 0 }}>Step {step.num}</p>
