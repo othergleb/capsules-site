@@ -44,14 +44,14 @@ export default function HowItWorksClient() {
         </Link>
 
         {/* Intro */}
-        <div style={{ position: 'relative', zIndex: 1, paddingTop: '160px', paddingLeft: '32px', paddingRight: '32px', paddingBottom: '32px', textAlign: 'center' }}>
+        <div style={{ position: 'relative', zIndex: 1, paddingTop: 'clamp(100px, 38vw, 160px)', paddingLeft: '32px', paddingRight: '32px', paddingBottom: 'clamp(12px, 3vw, 32px)', textAlign: 'center' }}>
           <p style={{ ...T, fontWeight: 400, maxWidth: '360px', margin: '0 auto' }}>
             Capsules by OTHER brings small batch wine producers into the limelight - one-off, special wines from under-represented regions available for one day. Capsule 01, a package from northern Morocco, features an amphora aged grenache - only 480 of which remain in existence - alongside two bottles of rosé, and a vial of award winning olive oil from the same estate.
           </p>
         </div>
 
         {/* Step cards */}
-        <div style={{ position: 'relative', zIndex: 1, padding: '0 11px 32px' }}>
+        <div style={{ position: 'relative', zIndex: 1, padding: '0 11px clamp(12px, 3vw, 32px)', flex: 1 }}>
           {STEPS.map((step, i) => (
             <div key={step.num} style={{
               border: '1px solid #ff3c00',
@@ -75,7 +75,7 @@ export default function HowItWorksClient() {
         </div>
 
         {/* Email */}
-        <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '0 32px 40px' }}>
+        <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '0 32px clamp(16px, 4vw, 40px)' }}>
           <a href="mailto:info@otherwine.co.uk" style={{ ...T, fontWeight: 400, color: '#00006A', textDecoration: 'none' }}>info@otherwine.co.uk</a>
         </div>
 
