@@ -183,7 +183,7 @@ function HomeMobile() {
     const text = `Just registered for Capsule 01 by OTHER - 480 bottles of an amphora rosé grown by Berber farmers in northern Morocco. Available to purchase on 23 June. Here's my referral link: ${url}`
     if (navigator.share && /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) && !/Windows/i.test(navigator.userAgent)) {
       try { await navigator.share({ text }) } catch { /* dismissed */ }
-      setShared(true)
+      setDismissed(true)
     } else {
       try {
         await navigator.clipboard.writeText(text)
