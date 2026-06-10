@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import { useIsMobile } from '@/hooks/useIsMobile'
@@ -418,5 +419,12 @@ function OriginMethodBoxDesktop() {
 // ── Root ───────────────────────────────────────────────────────
 export default function OriginMethodBoxPage() {
   const isMobile = useIsMobile()
-  return isMobile ? <OriginMethodBoxMobile /> : <OriginMethodBoxDesktop />
+  const router = useRouter()
+
+  useEffect(() => {
+    if (isMobile === false) router.replace('/the-wine')
+  }, [isMobile, router])
+
+  if (isMobile === false) return null
+  return <OriginMethodBoxMobile />
 }
