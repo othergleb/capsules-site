@@ -325,6 +325,12 @@ function HomeMobile() {
               </p>
             </div>
             <div style={{ padding: '0 10px', marginTop: 'auto' }}>
+              <button
+                onClick={handleShare}
+                style={{ display: 'block', width: '100%', height: '45px', backgroundColor: '#00006A', color: '#EDFF00', border: 'none', borderRadius: '999px', ...FONT, fontWeight: 300, fontSize: '16px', letterSpacing: '-0.48px', textTransform: 'uppercase', cursor: 'pointer', marginBottom: '12px' }}
+              >
+                {copiedToClipboard ? 'Link copied!' : 'Share your link'}
+              </button>
               <a href="/the-wine" style={{
                 display: 'block',
                 width: '100%',
@@ -758,6 +764,12 @@ function HomeInner() {
               </p>
             </div>
             <div style={{ padding: '0 8.5%', marginTop: 'auto' }}>
+              <button
+                onClick={handleShare}
+                style={{ display: 'block', width: '100%', height: 'clamp(32px, 2.95vw, 51px)', backgroundColor: '#00006A', color: '#EDFF00', border: 'none', borderRadius: '999px', fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(12px, 1.45vw, 25px)', letterSpacing: '-0.75px', textTransform: 'uppercase', cursor: 'pointer', marginBottom: '12px' }}
+              >
+                {copiedToClipboard ? 'Link copied!' : 'Share your link'}
+              </button>
               <a href="/the-wine" style={{
                 display: 'block',
                 width: '100%',
