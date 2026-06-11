@@ -310,20 +310,32 @@ function HomeMobile() {
         <div style={{ width: '100%', position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', height: '330px' }}>
         {dismissed ? (
 
-          /* Screen 3: pre-sale unlock */
-          <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease', display: 'flex', flexDirection: 'column', flex: 1 }}>
+          /* Screen 3: complete */
+          <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
             <div style={{ textAlign: 'center', maxWidth: '85%', margin: '0 auto 24px' }}>
-              <p style={{ ...FONT, fontWeight: 300, fontSize: '16px', lineHeight: 1.35, color: '#FF3C00' }}>
-                A small portion of capsules are available for pre-order, while stocks last — get two friends to register to access the pre-sale.
+              <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00', textTransform: 'uppercase', marginBottom: '1.75em' }}>
+                You&apos;re registered.
               </p>
             </div>
             <div style={{ padding: '0 10px', marginTop: 'auto' }}>
-              <button
-                onClick={handleShare}
-                style={{ display: 'block', width: '100%', height: '45px', backgroundColor: '#00006A', color: '#EDFF00', border: 'none', borderRadius: '999px', ...FONT, fontWeight: 300, fontSize: '16px', letterSpacing: '-0.48px', textTransform: 'uppercase', cursor: 'pointer' }}
-              >
-                {copiedToClipboard ? 'Link copied!' : 'Share again'}
-              </button>
+              <a href="/the-wine" style={{
+                display: 'block',
+                width: '100%',
+                height: '45px',
+                lineHeight: '45px',
+                backgroundColor: 'transparent',
+                border: '1px solid #00006A',
+                borderRadius: '999px',
+                ...FONT,
+                fontWeight: 300,
+                fontSize: '16px',
+                letterSpacing: '-0.48px',
+                textTransform: 'uppercase',
+                color: '#00006A',
+                textDecoration: 'none',
+                textAlign: 'center',
+                boxSizing: 'border-box',
+              }}>What&apos;s in the Capsule</a>
             </div>
           </div>
 
@@ -706,44 +718,41 @@ function HomeInner() {
         <div style={{ maxWidth: 'clamp(340px, 36vw, 622px)', width: '100%', display: 'flex', flexDirection: 'column', minHeight: 'clamp(200px, 24vw, 420px)' }}>
         {dismissed ? (
 
-          /* Screen 3: pre-sale unlock */
-          <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease', display: 'flex', flexDirection: 'column', flex: 1 }}>
+          /* Screen 3: complete */
+          <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
             <div style={{ textAlign: 'center', maxWidth: '85%', margin: '0 auto clamp(0.75rem, 1.5vw, 26px)' }}>
               <p style={{
                 fontFamily: 'Vulf Sans, sans-serif',
-                fontWeight: 300,
-                fontSize: 'clamp(11px, 1.14vw, 20px)',
-                lineHeight: 1.35,
+                fontWeight: 700,
+                fontSize: 'clamp(14px, 1.14vw, 20px)',
+                lineHeight: 1.27,
                 letterSpacing: '0.23px',
                 color: '#FF3C00',
+                textTransform: 'uppercase',
+                marginBottom: '0.75em',
               }}>
-                A small portion of capsules are available for pre-order, while stocks last — get two friends to register to access the pre-sale.
+                You&apos;re registered.
               </p>
             </div>
             <div style={{ padding: '0 8.5%', marginTop: 'auto' }}>
-              <button
-                onClick={handleShare}
-                style={{
-                  display: 'block',
-                  width: '100%',
-                  height: 'clamp(32px, 2.95vw, 51px)',
-                  backgroundColor: '#00006A',
-                  color: '#EDFF00',
-                  border: 'none',
-                  borderRadius: '999px',
-                  fontFamily: 'Vulf Sans, sans-serif',
-                  fontWeight: 300,
-                  fontSize: 'clamp(12px, 1.45vw, 25px)',
-                  letterSpacing: '-0.75px',
-                  textTransform: 'uppercase',
-                  cursor: 'pointer',
-                  transition: 'opacity 0.15s ease',
-                }}
-                onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
-                onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
-              >
-                {copiedToClipboard ? 'Link copied!' : 'Share again'}
-              </button>
+              <a href="/the-wine" style={{
+                display: 'block',
+                width: '100%',
+                height: 'clamp(32px, 2.95vw, 51px)',
+                lineHeight: 'clamp(32px, 2.95vw, 51px)',
+                backgroundColor: 'transparent',
+                border: '1px solid #00006A',
+                borderRadius: '999px',
+                fontFamily: 'Vulf Sans, sans-serif',
+                fontWeight: 300,
+                fontSize: 'clamp(12px, 1.45vw, 25px)',
+                letterSpacing: '-0.75px',
+                textTransform: 'uppercase',
+                color: '#00006A',
+                textDecoration: 'none',
+                textAlign: 'center',
+                boxSizing: 'border-box',
+              }}>What&apos;s in the Capsule</a>
             </div>
           </div>
 
