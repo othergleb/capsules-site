@@ -132,6 +132,27 @@ async function klaviyoTrackCompanionAccepted(referrerEmail: string) {
   })
 }
 
+async function klaviyoTrackPresaleUnlocked(referrerEmail: string) {
+  await fetch('https://a.klaviyo.com/api/events/', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Klaviyo-API-Key ${KLAVIYO_KEY}`,
+      'Content-Type':  'application/json',
+      'revision':      '2024-02-15',
+    },
+    body: JSON.stringify({
+      data: {
+        type: 'event',
+        attributes: {
+          metric: { data: { type: 'metric', attributes: { name: 'Presale Unlocked' } } },
+          profile: { data: { type: 'profile', attributes: { email: referrerEmail } } },
+          properties: {},
+        },
+      },
+    }),
+  })
+}
+
 // ── Route handler ──────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
@@ -166,12 +187,12 @@ export async function POST(req: NextRequest) {
     }, { status: 200 })
   }
 
-  // 2. Look up referrer if refCode provided (no limit on how many referrals a member can make)
-  let referrer: { id: string; email: string } | null = null
+  // 2. Look up referrer if refCode provided
+  let referrer: { id: string; email: string; referral_count: number; presale_unlocked: boolean } | null = null
   if (refCode) {
     const { data } = await supabase
       .from('members')
-      .select('id, email')
+      .select('id, email, referral_count, presale_unlocked')
       .eq('invite_code', refCode)
       .maybeSingle()
     referrer = data ?? null
@@ -196,11 +217,20 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Registration failed. Please try again.' }, { status: 500 })
   }
 
-  // 4. If referred — bump referrer to tier 1 (awaited: important DB write)
+  // 4. If referred — increment referral_count, keep/set tier 1, unlock presale at 2 referrals
+  let presaleJustUnlocked = false
   if (referrer) {
+    const newCount = (referrer.referral_count ?? 0) + 1
+    presaleJustUnlocked = newCount >= 2 && !referrer.presale_unlocked
+
     await supabase
       .from('members')
-      .update({ companion_id: member.id, tier: 1 })
+      .update({
+        companion_id:     member.id,
+        tier:             1,
+        referral_count:   newCount,
+        ...(presaleJustUnlocked ? { presale_unlocked: true } : {}),
+      })
       .eq('id', referrer.id)
   }
 
@@ -209,6 +239,10 @@ export async function POST(req: NextRequest) {
     if (referrer) {
       try { await klaviyoTrackCompanionAccepted(referrer.email) }
       catch (err) { console.error('[Klaviyo] companion accepted failed', err) }
+      if (presaleJustUnlocked) {
+        try { await klaviyoTrackPresaleUnlocked(referrer.email) }
+        catch (err) { console.error('[Klaviyo] presale unlocked failed', err) }
+      }
     }
     try {
       const profileId = await klaviyoCreateProfile(cleanEmail, firstName || undefined, lastName || undefined)
