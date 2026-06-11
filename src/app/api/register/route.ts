@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { waitUntil } from '@vercel/functions'
 import { createClient } from '@/lib/supabase-server'
 
 const KLAVIYO_LIST_ID = process.env.KLAVIYO_LIST_ID!
@@ -23,7 +24,7 @@ async function klaviyoCreateProfile(email: string, firstName?: string, lastName?
         type: 'profile',
         attributes: {
           ...attributes,
-          properties: {},
+          properties: { 'capsule-01': true },
           email_marketing: {
             consent: 'SUBSCRIBED',
             consent_timestamp: new Date().toISOString(),
@@ -205,7 +206,7 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  void klaviyoInBackground()
+  waitUntil(klaviyoInBackground())
 
   return NextResponse.json({ success: true, inviteCode: member.invite_code })
 }
