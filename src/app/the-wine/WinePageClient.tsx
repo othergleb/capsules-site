@@ -62,10 +62,9 @@ function WinePageMobile() {
     backgroundColor: '#EDFF00',
     border: '1px solid #00006A',
     marginTop: '-1px',
-    padding: '10px 8px 8px',
-    height: '38vw',
+    padding: '10px 8px 28px',
     position: 'relative',
-    overflow: 'hidden',
+    flex: 1,
   }
 
   const rows = [[0, 1], [2, 3]] as const
