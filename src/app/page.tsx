@@ -208,6 +208,13 @@ function HomeMobile() {
     return () => clearTimeout(fadeIn)
   }, [formStep])
 
+  // Auto-advance to Screen 3 after 5 seconds on the share screen
+  useEffect(() => {
+    if (formStep !== 'invite') return
+    const timer = setTimeout(() => setDismissed(true), 5000)
+    return () => clearTimeout(timer)
+  }, [formStep])
+
   const FONT: React.CSSProperties = { fontFamily: 'Vulf Sans, sans-serif' }
 
   return (
@@ -318,6 +325,12 @@ function HomeMobile() {
               </p>
             </div>
             <div style={{ padding: '0 10px', marginTop: 'auto' }}>
+              <button
+                onClick={handleShare}
+                style={{ display: 'block', width: '100%', height: '45px', backgroundColor: '#00006A', color: '#EDFF00', border: 'none', borderRadius: '999px', ...FONT, fontWeight: 300, fontSize: '16px', letterSpacing: '-0.48px', textTransform: 'uppercase', cursor: 'pointer', marginBottom: '12px' }}
+              >
+                {copiedToClipboard ? 'Link copied!' : 'Share your link'}
+              </button>
               <a href="/the-wine" style={{
                 display: 'block',
                 width: '100%',
@@ -491,6 +504,13 @@ function HomeInner() {
   useEffect(() => {
     const fadeIn = setTimeout(() => setStepIn(true), 20)
     return () => clearTimeout(fadeIn)
+  }, [formStep])
+
+  // Auto-advance to Screen 3 after 5 seconds on the share screen
+  useEffect(() => {
+    if (formStep !== 'invite') return
+    const timer = setTimeout(() => setDismissed(true), 5000)
+    return () => clearTimeout(timer)
   }, [formStep])
 
   async function handleShare() {
@@ -735,6 +755,30 @@ function HomeInner() {
               </p>
             </div>
             <div style={{ padding: '0 8.5%', marginTop: 'auto' }}>
+              <button
+                onClick={handleShare}
+                style={{
+                  display: 'block',
+                  width: '100%',
+                  height: 'clamp(32px, 2.95vw, 51px)',
+                  backgroundColor: '#00006A',
+                  color: '#EDFF00',
+                  border: 'none',
+                  borderRadius: '999px',
+                  fontFamily: 'Vulf Sans, sans-serif',
+                  fontWeight: 300,
+                  fontSize: 'clamp(12px, 1.45vw, 25px)',
+                  letterSpacing: '-0.75px',
+                  textTransform: 'uppercase',
+                  cursor: 'pointer',
+                  transition: 'opacity 0.15s ease',
+                  marginBottom: '12px',
+                }}
+                onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
+                onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
+              >
+                {copiedToClipboard ? 'Link copied!' : 'Share your link'}
+              </button>
               <a href="/the-wine" style={{
                 display: 'block',
                 width: '100%',
