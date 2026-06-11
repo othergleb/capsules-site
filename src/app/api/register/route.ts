@@ -25,6 +25,10 @@ async function klaviyoCreateProfile(email: string, firstName?: string, lastName?
         attributes: {
           ...attributes,
           properties: { 'capsule-01': true },
+          email_marketing: {
+            consent: 'SUBSCRIBED',
+            consent_timestamp: new Date().toISOString(),
+          },
         },
       },
     }),
@@ -44,44 +48,24 @@ async function klaviyoCreateProfile(email: string, firstName?: string, lastName?
   return body.data?.id as string | undefined
 }
 
-async function klaviyoSubscribeWithConsent(email: string) {
-  const res = await fetch('https://a.klaviyo.com/api/profile-subscription-bulk-create-jobs/', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Klaviyo-API-Key ${KLAVIYO_KEY}`,
-      'Content-Type':  'application/json',
-      'revision':      '2024-02-15',
-    },
-    body: JSON.stringify({
-      data: {
-        type: 'profile-subscription-bulk-create-job',
-        attributes: {
-          profiles: {
-            data: [{
-              type: 'profile',
-              attributes: {
-                email,
-                subscriptions: {
-                  email: {
-                    marketing: {
-                      consent: 'SUBSCRIBED',
-                      consented_at: new Date().toISOString(),
-                    },
-                  },
-                },
-              },
-            }],
-          },
-        },
-        relationships: {
-          list: { data: { type: 'list', id: KLAVIYO_LIST_ID } },
-        },
+async function klaviyoSubscribeToList(profileId: string) {
+  const res = await fetch(
+    `https://a.klaviyo.com/api/lists/${KLAVIYO_LIST_ID}/relationships/profiles/`,
+    {
+      method: 'POST',
+      headers: {
+        'Authorization': `Klaviyo-API-Key ${KLAVIYO_KEY}`,
+        'Content-Type':  'application/json',
+        'revision':      '2024-02-15',
       },
-    }),
-  })
+      body: JSON.stringify({
+        data: [{ type: 'profile', id: profileId }],
+      }),
+    }
+  )
 
-  if (!res.ok) {
-    console.error('[Klaviyo] subscribeWithConsent failed', await res.text())
+  if (!res.ok && res.status !== 204) {
+    console.error('[Klaviyo] subscribeToList failed', await res.text())
   }
 }
 
@@ -213,9 +197,9 @@ export async function POST(req: NextRequest) {
     try {
       const profileId = await klaviyoCreateProfile(cleanEmail, firstName || undefined, lastName || undefined)
       if (profileId) {
+        await klaviyoSubscribeToList(profileId)
         await supabase.from('members').update({ klaviyo_id: profileId }).eq('id', member.id)
       }
-      await klaviyoSubscribeWithConsent(cleanEmail)
       await klaviyoTrackRegistration(cleanEmail, member.invite_code)
     } catch (err) {
       console.error('[Klaviyo] registration flow failed', err)

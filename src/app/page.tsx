@@ -351,10 +351,10 @@ function HomeMobile() {
           <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease', display: 'flex', flexDirection: 'column', flex: 1 }}>
             <div style={{ textAlign: 'center', maxWidth: '85%', margin: '0 auto 24px' }}>
               <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00', textTransform: 'uppercase', marginBottom: '1.75em' }}>
-                One last step
+                GET ACCESS 24 HOURS EARLY
               </p>
               <p style={{ ...FONT, fontWeight: 300, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00' }}>
-                Get 3 friends to sign up and you&apos;ll unlock the ability to buy before 23 June.
+                Refer a friend and you&apos;ll get priority access on 23 June.
               </p>
             </div>
             <div style={{ padding: '0 10px', marginTop: 'auto' }}>
@@ -362,13 +362,13 @@ function HomeMobile() {
                 onClick={shared ? () => setDismissed(true) : handleShare}
                 style={{ display: 'block', width: '100%', height: '45px', backgroundColor: '#00006A', color: '#EDFF00', border: 'none', borderRadius: '999px', ...FONT, fontWeight: 300, fontSize: '16px', letterSpacing: '-0.48px', textTransform: 'uppercase', cursor: 'pointer', marginBottom: '12px' }}
               >
-                {copiedToClipboard ? 'Link copied!' : shared ? 'Done' : 'Share your link'}
+                {copiedToClipboard ? 'Link copied!' : shared ? 'Complete' : 'Share your link'}
               </button>
               <button
                 onClick={() => setDismissed(true)}
-                style={{ display: 'block', width: '100%', background: 'none', border: 'none', ...FONT, fontWeight: 300, fontSize: '11px', letterSpacing: '-0.48px', color: 'rgba(255,60,0,0.3)', textTransform: 'uppercase', cursor: 'pointer' }}
+                style={{ display: 'block', width: '100%', background: 'none', border: 'none', ...FONT, fontWeight: 300, fontSize: '12.8px', letterSpacing: '-0.48px', color: '#FF3C00', textTransform: 'uppercase', cursor: 'pointer' }}
               >
-                I&apos;ll do this later
+                Skip
               </button>
             </div>
           </div>
@@ -790,7 +790,7 @@ function HomeInner() {
                     marginBottom: '1.75em',
                     textTransform: 'uppercase',
                   }}>
-                    One last step
+                    GET ACCESS 24 HOURS EARLY
                   </p>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
@@ -800,7 +800,7 @@ function HomeInner() {
                     letterSpacing: '0.23px',
                     color: '#FF3C00',
                   }}>
-                    Get 3 friends to sign up and you&apos;ll unlock the ability to buy before 23 June.
+                    Refer a friend and you&apos;ll get priority access on 23 June.
                   </p>
                 </div>
                 <div style={{ padding: '0 8.5%', marginTop: 'auto' }}>
@@ -826,7 +826,7 @@ function HomeInner() {
                     onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
                     onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
                   >
-                    {copiedToClipboard ? 'Link copied!' : shared ? 'Done' : 'Share your link'}
+                    {copiedToClipboard ? 'Link copied!' : shared ? 'Complete' : 'Share your link'}
                   </button>
                   <button
                     onClick={() => setDismissed(true)}
@@ -839,12 +839,12 @@ function HomeInner() {
                       fontWeight: 300,
                       fontSize: 'clamp(9.6px, 1.16vw, 20px)',
                       letterSpacing: '-0.75px',
-                      color: 'rgba(255,60,0,0.3)',
+                      color: '#FF3C00',
                       textTransform: 'uppercase',
                       cursor: 'pointer',
                     }}
                   >
-                    I&apos;ll do this later
+                    Skip
                   </button>
                 </div>
               </div>
