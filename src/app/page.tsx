@@ -165,6 +165,7 @@ function HomeMobile() {
   const [formStep, setFormStep]       = useState<'email' | 'invite'>('email')
   const [stepIn, setStepIn]           = useState(true)
   const [inviteCode, setInviteCode]   = useState<string | null>(null)
+  const [shared, setShared]           = useState(false)
   const [dismissed, setDismissed]     = useState(false)
   const [copiedToClipboard, setCopiedToClipboard] = useState(false)
 
@@ -206,13 +207,6 @@ function HomeMobile() {
   useEffect(() => {
     const fadeIn = setTimeout(() => setStepIn(true), 20)
     return () => clearTimeout(fadeIn)
-  }, [formStep])
-
-  // Auto-advance to Screen 3 after 5 seconds on the share screen
-  useEffect(() => {
-    if (formStep !== 'invite') return
-    const timer = setTimeout(() => setDismissed(true), 5000)
-    return () => clearTimeout(timer)
   }, [formStep])
 
   const FONT: React.CSSProperties = { fontFamily: 'Vulf Sans, sans-serif' }
@@ -317,11 +311,10 @@ function HomeMobile() {
         <div style={{ width: '100%', position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', height: '330px' }}>
         {dismissed ? (
 
-          /* Screen 3: complete */
           <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
             <div style={{ textAlign: 'center', maxWidth: '85%', margin: '0 auto 24px' }}>
               <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00', textTransform: 'uppercase', marginBottom: '1.75em' }}>
-                You&apos;re registered.
+                You&apos;ve registered.
               </p>
             </div>
             <div style={{ padding: '0 10px', marginTop: 'auto' }}>
@@ -354,19 +347,28 @@ function HomeMobile() {
 
         ) : formStep === 'invite' ? (
 
-          /* Screen 2: refer one friend */
+          /* Screen 2: share */
           <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease', display: 'flex', flexDirection: 'column', flex: 1 }}>
             <div style={{ textAlign: 'center', maxWidth: '85%', margin: '0 auto 24px' }}>
-              <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00', textTransform: 'uppercase' }}>
-                Refer one friend for priority access
+              <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00', textTransform: 'uppercase', marginBottom: '1.75em' }}>
+                GET ACCESS 24 HOURS EARLY
+              </p>
+              <p style={{ ...FONT, fontWeight: 300, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00' }}>
+                Refer a friend and you&apos;ll get priority access on 23 June.
               </p>
             </div>
             <div style={{ padding: '0 10px', marginTop: 'auto' }}>
               <button
-                onClick={handleShare}
-                style={{ display: 'block', width: '100%', height: '45px', backgroundColor: '#00006A', color: '#EDFF00', border: 'none', borderRadius: '999px', ...FONT, fontWeight: 300, fontSize: '16px', letterSpacing: '-0.48px', textTransform: 'uppercase', cursor: 'pointer' }}
+                onClick={shared ? () => setDismissed(true) : handleShare}
+                style={{ display: 'block', width: '100%', height: '45px', backgroundColor: '#00006A', color: '#EDFF00', border: 'none', borderRadius: '999px', ...FONT, fontWeight: 300, fontSize: '16px', letterSpacing: '-0.48px', textTransform: 'uppercase', cursor: 'pointer', marginBottom: '12px' }}
               >
-                {copiedToClipboard ? 'Link copied!' : 'Share your link'}
+                {copiedToClipboard ? 'Link copied!' : shared ? 'Complete' : 'Share your link'}
+              </button>
+              <button
+                onClick={() => setDismissed(true)}
+                style={{ display: 'block', width: '100%', background: 'none', border: 'none', ...FONT, fontWeight: 300, fontSize: '12.8px', letterSpacing: '-0.48px', color: '#FF3C00', textTransform: 'uppercase', cursor: 'pointer' }}
+              >
+                Skip
               </button>
             </div>
           </div>
@@ -479,6 +481,7 @@ function HomeInner() {
   const [formStep, setFormStep]       = useState<'email' | 'invite'>('email')
   const [stepIn, setStepIn]           = useState(true)
   const [inviteCode, setInviteCode]   = useState<string | null>(null)
+  const [shared, setShared]           = useState(false)
   const [dismissed, setDismissed]     = useState(false)
   const [copiedToClipboard, setCopiedToClipboard] = useState(false)
   const yellowRef                     = useRef<HTMLElement>(null)
@@ -506,20 +509,13 @@ function HomeInner() {
     return () => clearTimeout(fadeIn)
   }, [formStep])
 
-  // Auto-advance to Screen 3 after 5 seconds on the share screen
-  useEffect(() => {
-    if (formStep !== 'invite') return
-    const timer = setTimeout(() => setDismissed(true), 5000)
-    return () => clearTimeout(timer)
-  }, [formStep])
-
   async function handleShare() {
     const siteUrl = window.location.origin
     const url = inviteCode ? `${siteUrl}/?ref=${inviteCode}` : siteUrl
     const text = `Just registered for Capsule 01 by OTHER - 480 bottles of an amphora rosé grown by Berber farmers in northern Morocco. Available to purchase on 23 June. Here's my referral link: ${url}`
     if (navigator.share && /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) && !/Windows/i.test(navigator.userAgent)) {
       try { await navigator.share({ text }) } catch { /* dismissed */ }
-      setDismissed(true)
+      setShared(true)
     } else {
       try {
         await navigator.clipboard.writeText(text)
@@ -737,8 +733,6 @@ function HomeInner() {
         {/* Form — directly on yellow */}
         <div style={{ maxWidth: 'clamp(340px, 36vw, 622px)', width: '100%', display: 'flex', flexDirection: 'column', minHeight: 'clamp(200px, 24vw, 420px)' }}>
         {dismissed ? (
-
-          /* Screen 3: complete */
           <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
             <div style={{ textAlign: 'center', maxWidth: '85%', margin: '0 auto clamp(0.75rem, 1.5vw, 26px)' }}>
               <p style={{
@@ -751,31 +745,13 @@ function HomeInner() {
                 textTransform: 'uppercase',
                 marginBottom: '0.75em',
               }}>
-                You&apos;re registered.
+                You&apos;ve registered.
               </p>
             </div>
             <div style={{ padding: '0 8.5%', marginTop: 'auto' }}>
               <button
                 onClick={handleShare}
-                style={{
-                  display: 'block',
-                  width: '100%',
-                  height: 'clamp(32px, 2.95vw, 51px)',
-                  backgroundColor: '#00006A',
-                  color: '#EDFF00',
-                  border: 'none',
-                  borderRadius: '999px',
-                  fontFamily: 'Vulf Sans, sans-serif',
-                  fontWeight: 300,
-                  fontSize: 'clamp(12px, 1.45vw, 25px)',
-                  letterSpacing: '-0.75px',
-                  textTransform: 'uppercase',
-                  cursor: 'pointer',
-                  transition: 'opacity 0.15s ease',
-                  marginBottom: '12px',
-                }}
-                onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
-                onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
+                style={{ display: 'block', width: '100%', height: 'clamp(32px, 2.95vw, 51px)', backgroundColor: '#00006A', color: '#EDFF00', border: 'none', borderRadius: '999px', fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(12px, 1.45vw, 25px)', letterSpacing: '-0.75px', textTransform: 'uppercase', cursor: 'pointer', marginBottom: '12px' }}
               >
                 {copiedToClipboard ? 'Link copied!' : 'Share your link'}
               </button>
@@ -799,10 +775,9 @@ function HomeInner() {
               }}>What&apos;s in the Capsule</a>
             </div>
           </div>
-
         ) : formStep === 'invite' ? (
 
-              /* Screen 2: refer one friend */
+              /* Screen 2: share */
               <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease', display: 'flex', flexDirection: 'column', flex: 1 }}>
                 <div style={{ textAlign: 'center', maxWidth: '85%', margin: '0 auto clamp(0.75rem, 1.5vw, 26px)' }}>
                   <p style={{
@@ -812,14 +787,25 @@ function HomeInner() {
                     lineHeight: 1.27,
                     letterSpacing: '0.23px',
                     color: '#FF3C00',
+                    marginBottom: '1.75em',
                     textTransform: 'uppercase',
                   }}>
-                    Refer one friend for priority access
+                    GET ACCESS 24 HOURS EARLY
+                  </p>
+                  <p style={{
+                    fontFamily: 'Vulf Sans, sans-serif',
+                    fontWeight: 300,
+                    fontSize: 'clamp(11px, 1.14vw, 20px)',
+                    lineHeight: 1.27,
+                    letterSpacing: '0.23px',
+                    color: '#FF3C00',
+                  }}>
+                    Refer a friend and you&apos;ll get priority access on 23 June.
                   </p>
                 </div>
                 <div style={{ padding: '0 8.5%', marginTop: 'auto' }}>
                   <button
-                    onClick={handleShare}
+                    onClick={shared ? () => setDismissed(true) : handleShare}
                     style={{
                       display: 'block',
                       width: '100%',
@@ -835,11 +821,30 @@ function HomeInner() {
                       textTransform: 'uppercase',
                       cursor: 'pointer',
                       transition: 'opacity 0.15s ease',
+                      marginBottom: 'clamp(0.4rem, 0.6vw, 10px)',
                     }}
                     onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
                     onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
                   >
-                    {copiedToClipboard ? 'Link copied!' : 'Share your link'}
+                    {copiedToClipboard ? 'Link copied!' : shared ? 'Complete' : 'Share your link'}
+                  </button>
+                  <button
+                    onClick={() => setDismissed(true)}
+                    style={{
+                      display: 'block',
+                      width: '100%',
+                      background: 'none',
+                      border: 'none',
+                      fontFamily: 'Vulf Sans, sans-serif',
+                      fontWeight: 300,
+                      fontSize: 'clamp(9.6px, 1.16vw, 20px)',
+                      letterSpacing: '-0.75px',
+                      color: '#FF3C00',
+                      textTransform: 'uppercase',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Skip
                   </button>
                 </div>
               </div>
