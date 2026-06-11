@@ -19,7 +19,17 @@ async function klaviyoCreateProfile(email: string, firstName?: string, lastName?
       'revision':      '2024-02-15',
     },
     body: JSON.stringify({
-      data: { type: 'profile', attributes },
+      data: {
+        type: 'profile',
+        attributes: {
+          ...attributes,
+          properties: {},
+          email_marketing: {
+            consent: 'SUBSCRIBED',
+            consent_timestamp: new Date().toISOString(),
+          },
+        },
+      },
     }),
   })
 
