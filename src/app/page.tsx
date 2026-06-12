@@ -311,7 +311,7 @@ function HomeMobile() {
           width: 'calc(100% - 20px)',
           margin: '12px auto 70px',
         }}>
-          Register for limited<br />sale on 23 June
+          Register for exclusive<br />access on 23 June
         </h1>
 
         {/* Form steps — directly on yellow */}
@@ -391,7 +391,7 @@ function HomeMobile() {
           /* Screen 1: email */
           <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease', display: 'flex', flexDirection: 'column', flex: 1 }}>
             <p style={{ ...FONT, fontWeight: 300, fontSize: '18px', lineHeight: 1.27, letterSpacing: '0.16px', color: '#FF3C00', textAlign: 'center', width: 'calc(100% - 40px)', margin: '-32px auto 48px' }}>
-              A curated parcel of Moroccan wine, on sale exclusively to registered members on 23 June. Only 480 bottles of the centrepiece, an amphora aged grenache ros&eacute;, are left in existence.
+              A curated package from a Berber-farmed vineyard in northern Morocco.<br /><br />At its centre, an amphora aged grenache ros&eacute; — just 480 bottles remain in existence.
             </p>
 
             <div style={{ padding: '0 10px 16px', marginTop: '-16px', marginBottom: '16px', width: '100%', boxSizing: 'border-box' }}>
@@ -748,7 +748,7 @@ function HomeInner() {
           textTransform: 'uppercase',
           maxWidth: '52%',
         }}>
-          Register for limited<br />sale on 23 June
+          Register for exclusive<br />access on 23 June
         </h1>
 
         {/* Form — directly on yellow */}
@@ -899,7 +899,7 @@ function HomeInner() {
                     maxWidth: '83%',
                     margin: '0 auto 0.75em',
                   }}>
-                    A curated parcel of Moroccan wine, on sale exclusively to registered members on 23 June. Only 480 bottles of the centrepiece, an amphora aged grenache ros&eacute;, are left in existence.
+                    A curated package from a Berber-farmed vineyard in northern Morocco.<br /><br />At its centre, an amphora aged grenache ros&eacute; — just 480 bottles remain in existence.
                   </p>
                 </div>
 
