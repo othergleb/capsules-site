@@ -179,7 +179,7 @@ function HomeMobile() {
   async function handleShare() {
     const siteUrl = window.location.origin
     const url = inviteCode ? `${siteUrl}/?ref=${inviteCode}` : siteUrl
-    const text = `Just registered for Capsule 01 by OTHER - 480 bottles of an amphora rosé grown by Berber farmers in northern Morocco. Available to purchase on 23 June. Here's my referral link: ${url}`
+    const text = `Pls sign up to this so that I can get some Moroccan rosé ${url}`
     if (navigator.share && /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) && !/Windows/i.test(navigator.userAgent)) {
       try { await navigator.share({ text }) } catch { /* dismissed */ }
       setDismissed(true)
@@ -534,7 +534,7 @@ function HomeInner() {
   async function handleShare() {
     const siteUrl = window.location.origin
     const url = inviteCode ? `${siteUrl}/?ref=${inviteCode}` : siteUrl
-    const text = `Just registered for Capsule 01 by OTHER - 480 bottles of an amphora rosé grown by Berber farmers in northern Morocco. Available to purchase on 23 June. Here's my referral link: ${url}`
+    const text = `Pls sign up to this so that I can get some Moroccan rosé ${url}`
     if (navigator.share && /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) && !/Windows/i.test(navigator.userAgent)) {
       try { await navigator.share({ text }) } catch { /* dismissed */ }
       setShared(true)
