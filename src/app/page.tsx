@@ -310,6 +310,7 @@ function HomeMobile() {
           textTransform: 'uppercase',
           width: 'calc(100% - 20px)',
           margin: '12px auto 70px',
+          visibility: !dismissed && formStep === 'email' ? 'visible' : 'hidden',
         }}>
           Register for exclusive<br />access on 23 June
         </h1>
@@ -747,6 +748,7 @@ function HomeInner() {
           marginBottom: 'clamp(1.5rem, 7vw, 120px)',
           textTransform: 'uppercase',
           maxWidth: '52%',
+          visibility: !dismissed && formStep === 'email' ? 'visible' : 'hidden',
         }}>
           Register for exclusive<br />access on 23 June
         </h1>
