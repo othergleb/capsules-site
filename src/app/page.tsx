@@ -362,7 +362,7 @@ function HomeMobile() {
           <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease', display: 'flex', flexDirection: 'column', flex: 1 }}>
             <div style={{ textAlign: 'center', maxWidth: '85%', margin: '0 auto 24px' }}>
               <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00', textTransform: 'uppercase', marginBottom: '1.75em' }}>
-                EXCLUSIVE PRE-SALE ACCESS
+                CAN&apos;T WAIT UNTIL THE 23RD?
               </p>
               <p style={{ ...FONT, fontWeight: 300, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00' }}>
                 There&apos;s one more thing — a small number of capsules are available for immediate pre-order. Refer two friends, and once they&apos;ve registered, we&apos;ll send you the link.
@@ -823,7 +823,7 @@ function HomeInner() {
                     marginBottom: '1.75em',
                     textTransform: 'uppercase',
                   }}>
-                    EXCLUSIVE PRE-SALE ACCESS
+                    CAN&apos;T WAIT UNTIL THE 23RD?
                   </p>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
