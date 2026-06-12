@@ -311,7 +311,7 @@ function HomeMobile() {
           width: 'calc(100% - 20px)',
           margin: '12px auto 70px',
         }}>
-          Register for limited<br />edition sale on 23 June
+          Register for limited<br />sale on 23 June
         </h1>
 
         {/* Form steps — directly on yellow */}
@@ -364,11 +364,11 @@ function HomeMobile() {
                 EXCLUSIVE PRE-SALE ACCESS
               </p>
               <p style={{ ...FONT, fontWeight: 300, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00' }}>
-                There&apos;s one more thing — a small number of capsules are available for immediate pre-order. Refer two friends, and once they&apos;ve registered, we&apos;ll send you a link to purchase.
+                There&apos;s one more thing — a small number of capsules are available for immediate pre-order. Refer two friends, and once they&apos;ve registered, we&apos;ll send you the link.
               </p>
             </div>
             <div style={{ padding: '0 10px', marginTop: 'auto' }}>
-              <p style={{ ...FONT, fontWeight: 300, fontSize: '11px', letterSpacing: '0.5px', color: '#FF3C00', textAlign: 'center', textTransform: 'uppercase', margin: '0 0 8px' }}>Pre-Sale: Limited Availability</p>
+              <p style={{ ...FONT, fontWeight: 300, fontSize: '11px', letterSpacing: '0.5px', color: '#00006A', textAlign: 'center', textTransform: 'uppercase', margin: '0 0 8px' }}>Pre-Sale: Limited Availability</p>
               <button
                 onClick={shared ? () => setDismissed(true) : handleShare}
                 style={{ display: 'block', width: '100%', height: '45px', backgroundColor: '#00006A', color: '#EDFF00', border: 'none', borderRadius: '999px', ...FONT, fontWeight: 300, fontSize: '16px', letterSpacing: '-0.48px', textTransform: 'uppercase', cursor: 'pointer', marginBottom: '12px' }}
@@ -412,7 +412,7 @@ function HomeMobile() {
               </div>
             </div>
 
-            <p style={{ ...FONT, fontWeight: 300, fontSize: '11px', letterSpacing: '0.5px', color: '#FF3C00', textAlign: 'center', textTransform: 'uppercase', margin: '0 0 8px' }}>Registration Status: Open</p>
+            <p style={{ ...FONT, fontWeight: 300, fontSize: '11px', letterSpacing: '0.5px', color: '#00006A', textAlign: 'center', textTransform: 'uppercase', margin: '0 0 8px' }}>Registration Status: Open</p>
             <form onSubmit={advanceToInvite} style={{ padding: '0 10px', marginTop: 'auto' }}>
               <div style={{ border: '0.633px solid #00006A', height: '32px', display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
                 <input
@@ -748,7 +748,7 @@ function HomeInner() {
           textTransform: 'uppercase',
           maxWidth: '52%',
         }}>
-          Register for limited<br />edition sale on 23 June
+          Register for limited<br />sale on 23 June
         </h1>
 
         {/* Form — directly on yellow */}
@@ -831,11 +831,11 @@ function HomeInner() {
                     letterSpacing: '0.23px',
                     color: '#FF3C00',
                   }}>
-                    There&apos;s one more thing — a small number of capsules are available for immediate pre-order. Refer two friends, and once they&apos;ve registered, we&apos;ll send you a link to purchase.
+                    There&apos;s one more thing — a small number of capsules are available for immediate pre-order. Refer two friends, and once they&apos;ve registered, we&apos;ll send you the link.
                   </p>
                 </div>
                 <div style={{ padding: '0 8.5%', marginTop: 'auto' }}>
-                  <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(9px, 0.9vw, 14px)', letterSpacing: '0.5px', color: '#FF3C00', textAlign: 'center', textTransform: 'uppercase', margin: '0 0 8px' }}>Pre-Sale: Limited Availability</p>
+                  <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(9px, 0.9vw, 14px)', letterSpacing: '0.5px', color: '#00006A', textAlign: 'center', textTransform: 'uppercase', margin: '0 0 8px' }}>Pre-Sale: Limited Availability</p>
                   <button
                     onClick={shared ? () => setDismissed(true) : handleShare}
                     style={{
@@ -937,7 +937,7 @@ function HomeInner() {
                 </div>
 
                 <div style={{ flex: 1 }} />
-                <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(9px, 0.9vw, 14px)', letterSpacing: '0.5px', color: '#FF3C00', textAlign: 'center', textTransform: 'uppercase', margin: '0 0 8px' }}>Registration Status: Open</p>
+                <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(9px, 0.9vw, 14px)', letterSpacing: '0.5px', color: '#00006A', textAlign: 'center', textTransform: 'uppercase', margin: '0 0 8px' }}>Registration Status: Open</p>
                 <form onSubmit={advanceToInvite} style={{ padding: '0 8.5%' }}>
                   <div style={{
                     border: '1px solid #00006A',
