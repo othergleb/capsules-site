@@ -390,7 +390,7 @@ function HomeMobile() {
 
           /* Screen 1: email */
           <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease', display: 'flex', flexDirection: 'column', flex: 1 }}>
-            <p style={{ ...FONT, fontWeight: 300, fontSize: '18px', lineHeight: 1.27, letterSpacing: '0.16px', color: '#00006A', textAlign: 'center', width: 'calc(100% - 72px)', margin: '-32px auto 48px' }}>
+            <p style={{ ...FONT, fontWeight: 300, fontSize: '18px', lineHeight: 1.27, letterSpacing: '0.16px', color: '#FF3C00', textAlign: 'center', width: 'calc(100% - 40px)', margin: '-32px auto 48px' }}>
               A curated parcel of Moroccan wine, on sale exclusively to registered members on 23 June. Only 480 bottles of the centrepiece, an amphora aged grenache ros&eacute;, are left in existence.
             </p>
 
@@ -894,7 +894,7 @@ function HomeInner() {
                     fontSize: 'clamp(11px, 1.14vw, 20px)',
                     lineHeight: 1.27,
                     letterSpacing: '0.23px',
-                    color: '#00006A',
+                    color: '#FF3C00',
                     marginBottom: '0.75em',
                     maxWidth: '83%',
                     margin: '0 auto 0.75em',
