@@ -168,6 +168,13 @@ function HomeMobile() {
   const [shared, setShared]           = useState(false)
   const [dismissed, setDismissed]     = useState(false)
   const [copiedToClipboard, setCopiedToClipboard] = useState(false)
+  const [showSkip, setShowSkip]               = useState(false)
+
+  useEffect(() => {
+    if (formStep !== 'invite') return
+    const t = setTimeout(() => setShowSkip(true), 3000)
+    return () => clearTimeout(t)
+  }, [formStep])
 
   async function handleShare() {
     const siteUrl = window.location.origin
@@ -316,6 +323,9 @@ function HomeMobile() {
               <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00', textTransform: 'uppercase', marginBottom: '1.75em' }}>
                 You&apos;ve registered.
               </p>
+              <p style={{ ...FONT, fontWeight: 300, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00' }}>
+                On sale 23 June at 10AM — maximum one parcel per person.
+              </p>
             </div>
             <div style={{ padding: '0 10px', marginTop: 'auto' }}>
               <button
@@ -351,25 +361,28 @@ function HomeMobile() {
           <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.4s ease', display: 'flex', flexDirection: 'column', flex: 1 }}>
             <div style={{ textAlign: 'center', maxWidth: '85%', margin: '0 auto 24px' }}>
               <p style={{ ...FONT, fontWeight: 700, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00', textTransform: 'uppercase', marginBottom: '1.75em' }}>
-                GET ACCESS 24 HOURS EARLY
+                EXCLUSIVE PRE-SALE ACCESS
               </p>
               <p style={{ ...FONT, fontWeight: 300, fontSize: '16px', lineHeight: 1.27, color: '#FF3C00' }}>
-                Refer a friend and you&apos;ll get priority access on 23 June.
+                There&apos;s one more thing — a small number of capsules are available for immediate pre-order. Refer two friends, and once they&apos;ve registered, we&apos;ll send you a link to purchase.
               </p>
             </div>
             <div style={{ padding: '0 10px', marginTop: 'auto' }}>
+              <p style={{ ...FONT, fontWeight: 300, fontSize: '11px', letterSpacing: '0.5px', color: '#FF3C00', textAlign: 'center', textTransform: 'uppercase', margin: '0 0 8px' }}>Pre-Sale: Limited Availability</p>
               <button
                 onClick={shared ? () => setDismissed(true) : handleShare}
                 style={{ display: 'block', width: '100%', height: '45px', backgroundColor: '#00006A', color: '#EDFF00', border: 'none', borderRadius: '999px', ...FONT, fontWeight: 300, fontSize: '16px', letterSpacing: '-0.48px', textTransform: 'uppercase', cursor: 'pointer', marginBottom: '12px' }}
               >
                 {copiedToClipboard ? 'Link copied!' : shared ? 'Complete' : 'Share your link'}
               </button>
-              <button
-                onClick={() => setDismissed(true)}
-                style={{ display: 'block', width: '100%', background: 'none', border: 'none', ...FONT, fontWeight: 300, fontSize: '12.8px', letterSpacing: '-0.48px', color: '#FF3C00', textTransform: 'uppercase', cursor: 'pointer' }}
-              >
-                Skip
-              </button>
+              {showSkip && (
+                <button
+                  onClick={() => setDismissed(true)}
+                  style={{ display: 'block', width: '100%', background: 'none', border: 'none', ...FONT, fontWeight: 300, fontSize: '12.8px', letterSpacing: '-0.48px', color: '#FF3C00', textTransform: 'uppercase', cursor: 'pointer' }}
+                >
+                  Skip
+                </button>
+              )}
             </div>
           </div>
 
@@ -377,7 +390,7 @@ function HomeMobile() {
 
           /* Screen 1: email */
           <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease', display: 'flex', flexDirection: 'column', flex: 1 }}>
-            <p style={{ ...FONT, fontWeight: 400, fontSize: '18px', lineHeight: 1.27, letterSpacing: '0.16px', color: '#FF3C00', textAlign: 'center', width: 'calc(100% - 24px)', margin: '-32px auto 48px' }}>
+            <p style={{ ...FONT, fontWeight: 700, fontSize: '18px', lineHeight: 1.27, letterSpacing: '0.16px', color: '#FF3C00', textAlign: 'center', width: 'calc(100% - 72px)', margin: '-32px auto 48px' }}>
               A curated parcel of Moroccan wine, on sale exclusively to registered members on 23 June. Only 480 bottles of the centrepiece, an amphora aged grenache ros&eacute;, are left in existence.
             </p>
 
@@ -485,7 +498,14 @@ function HomeInner() {
   const [shared, setShared]           = useState(false)
   const [dismissed, setDismissed]     = useState(false)
   const [copiedToClipboard, setCopiedToClipboard] = useState(false)
+  const [showSkip, setShowSkip]               = useState(false)
   const yellowRef                     = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    if (formStep !== 'invite') return
+    const t = setTimeout(() => setShowSkip(true), 3000)
+    return () => clearTimeout(t)
+  }, [formStep])
 
   async function advanceToInvite(e: React.FormEvent) {
     e.preventDefault()
@@ -748,6 +768,16 @@ function HomeInner() {
               }}>
                 You&apos;ve registered.
               </p>
+              <p style={{
+                fontFamily: 'Vulf Sans, sans-serif',
+                fontWeight: 300,
+                fontSize: 'clamp(11px, 1.14vw, 20px)',
+                lineHeight: 1.27,
+                letterSpacing: '0.23px',
+                color: '#FF3C00',
+              }}>
+                On sale 23 June at 10AM — maximum one parcel per person.
+              </p>
             </div>
             <div style={{ padding: '0 8.5%', marginTop: 'auto' }}>
               <button
@@ -791,7 +821,7 @@ function HomeInner() {
                     marginBottom: '1.75em',
                     textTransform: 'uppercase',
                   }}>
-                    GET ACCESS 24 HOURS EARLY
+                    EXCLUSIVE PRE-SALE ACCESS
                   </p>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
@@ -801,10 +831,11 @@ function HomeInner() {
                     letterSpacing: '0.23px',
                     color: '#FF3C00',
                   }}>
-                    Refer a friend and you&apos;ll get priority access on 23 June.
+                    There&apos;s one more thing — a small number of capsules are available for immediate pre-order. Refer two friends, and once they&apos;ve registered, we&apos;ll send you a link to purchase.
                   </p>
                 </div>
                 <div style={{ padding: '0 8.5%', marginTop: 'auto' }}>
+                  <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(9px, 0.9vw, 14px)', letterSpacing: '0.5px', color: '#FF3C00', textAlign: 'center', textTransform: 'uppercase', margin: '0 0 8px' }}>Pre-Sale: Limited Availability</p>
                   <button
                     onClick={shared ? () => setDismissed(true) : handleShare}
                     style={{
@@ -829,24 +860,26 @@ function HomeInner() {
                   >
                     {copiedToClipboard ? 'Link copied!' : shared ? 'Complete' : 'Share your link'}
                   </button>
-                  <button
-                    onClick={() => setDismissed(true)}
-                    style={{
-                      display: 'block',
-                      width: '100%',
-                      background: 'none',
-                      border: 'none',
-                      fontFamily: 'Vulf Sans, sans-serif',
-                      fontWeight: 300,
-                      fontSize: 'clamp(9.6px, 1.16vw, 20px)',
-                      letterSpacing: '-0.75px',
-                      color: '#FF3C00',
-                      textTransform: 'uppercase',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    Skip
-                  </button>
+                  {showSkip && (
+                    <button
+                      onClick={() => setDismissed(true)}
+                      style={{
+                        display: 'block',
+                        width: '100%',
+                        background: 'none',
+                        border: 'none',
+                        fontFamily: 'Vulf Sans, sans-serif',
+                        fontWeight: 300,
+                        fontSize: 'clamp(9.6px, 1.16vw, 20px)',
+                        letterSpacing: '-0.75px',
+                        color: '#FF3C00',
+                        textTransform: 'uppercase',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      Skip
+                    </button>
+                  )}
                 </div>
               </div>
 
@@ -857,13 +890,13 @@ function HomeInner() {
                 <div style={{ textAlign: 'center', marginBottom: 'clamp(0.75rem, 1.5vw, 26px)' }}>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
-                    fontWeight: 400,
+                    fontWeight: 700,
                     fontSize: 'clamp(11px, 1.14vw, 20px)',
                     lineHeight: 1.27,
                     letterSpacing: '0.23px',
                     color: '#FF3C00',
                     marginBottom: '0.75em',
-                    maxWidth: '95%',
+                    maxWidth: '83%',
                     margin: '0 auto 0.75em',
                   }}>
                     A curated parcel of Moroccan wine, on sale exclusively to registered members on 23 June. Only 480 bottles of the centrepiece, an amphora aged grenache ros&eacute;, are left in existence.
