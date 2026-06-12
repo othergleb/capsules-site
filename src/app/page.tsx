@@ -304,7 +304,7 @@ function HomeMobile() {
           width: 'calc(100% - 20px)',
           margin: '12px auto 70px',
         }}>
-          Register for exclusive<br />access on 23 June
+          Register for limited<br />edition sale on 23 June
         </h1>
 
         {/* Form steps — directly on yellow */}
@@ -377,8 +377,8 @@ function HomeMobile() {
 
           /* Screen 1: email */
           <div style={{ opacity: stepIn ? 1 : 0, transition: 'opacity 0.22s ease', display: 'flex', flexDirection: 'column', flex: 1 }}>
-            <p style={{ ...FONT, fontWeight: 700, fontSize: '18px', lineHeight: 1.27, letterSpacing: '0.16px', color: '#FF3C00', textAlign: 'center', width: 'calc(100% - 72px)', margin: '-32px auto 48px' }}>
-              A capsule from a Berber farmed vineyard in northern Morocco, including an amphora aged grenache ros&eacute;, of which only 480 remain in existence.
+            <p style={{ ...FONT, fontWeight: 400, fontSize: '18px', lineHeight: 1.27, letterSpacing: '0.16px', color: '#FF3C00', textAlign: 'center', width: 'calc(100% - 24px)', margin: '-32px auto 48px' }}>
+              A curated parcel of Moroccan wine, on sale exclusively to registered members on 23 June. Only 480 bottles of the centrepiece, an amphora aged grenache ros&eacute;, are left in existence.
             </p>
 
             <div style={{ padding: '0 10px 16px', marginTop: '-16px', marginBottom: '16px', width: '100%', boxSizing: 'border-box' }}>
@@ -399,6 +399,7 @@ function HomeMobile() {
               </div>
             </div>
 
+            <p style={{ ...FONT, fontWeight: 300, fontSize: '11px', letterSpacing: '0.5px', color: '#FF3C00', textAlign: 'center', textTransform: 'uppercase', margin: '0 0 8px' }}>Registration Status: Open</p>
             <form onSubmit={advanceToInvite} style={{ padding: '0 10px', marginTop: 'auto' }}>
               <div style={{ border: '0.633px solid #00006A', height: '32px', display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
                 <input
@@ -412,7 +413,7 @@ function HomeMobile() {
                 />
               </div>
               <button type="submit" style={{ display: 'block', width: '100%', height: '45px', backgroundColor: '#00006A', color: '#EDFF00', border: 'none', borderRadius: '63.35px', ...FONT, fontWeight: 300, fontSize: '16px', letterSpacing: '-0.48px', textTransform: 'uppercase', cursor: 'pointer' }}>
-                Claim your place
+                Register Now
               </button>
             </form>
           </div>
@@ -727,7 +728,7 @@ function HomeInner() {
           textTransform: 'uppercase',
           maxWidth: '52%',
         }}>
-          Register for exclusive<br />access on 23 June
+          Register for limited<br />edition sale on 23 June
         </h1>
 
         {/* Form — directly on yellow */}
@@ -856,16 +857,16 @@ function HomeInner() {
                 <div style={{ textAlign: 'center', marginBottom: 'clamp(0.75rem, 1.5vw, 26px)' }}>
                   <p style={{
                     fontFamily: 'Vulf Sans, sans-serif',
-                    fontWeight: 700,
+                    fontWeight: 400,
                     fontSize: 'clamp(11px, 1.14vw, 20px)',
                     lineHeight: 1.27,
                     letterSpacing: '0.23px',
                     color: '#FF3C00',
                     marginBottom: '0.75em',
-                    maxWidth: '83%',
+                    maxWidth: '95%',
                     margin: '0 auto 0.75em',
                   }}>
-                    A capsule from a Berber farmed vineyard in northern Morocco, including an amphora aged grenache ros&eacute;, of which only 480 remain in existence.
+                    A curated parcel of Moroccan wine, on sale exclusively to registered members on 23 June. Only 480 bottles of the centrepiece, an amphora aged grenache ros&eacute;, are left in existence.
                   </p>
                 </div>
 
@@ -903,6 +904,7 @@ function HomeInner() {
                 </div>
 
                 <div style={{ flex: 1 }} />
+                <p style={{ fontFamily: 'Vulf Sans, sans-serif', fontWeight: 300, fontSize: 'clamp(9px, 0.9vw, 14px)', letterSpacing: '0.5px', color: '#FF3C00', textAlign: 'center', textTransform: 'uppercase', margin: '0 0 8px' }}>Registration Status: Open</p>
                 <form onSubmit={advanceToInvite} style={{ padding: '0 8.5%' }}>
                   <div style={{
                     border: '1px solid #00006A',
@@ -956,7 +958,7 @@ function HomeInner() {
                     onMouseOver={e => { e.currentTarget.style.opacity = '0.8' }}
                     onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
                   >
-                    Claim your place
+                    Register Now
                   </button>
                 </form>
                 <div style={{ flex: 3 }} />
